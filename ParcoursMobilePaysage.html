@@ -4,10 +4,109 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Greencut">
 <meta name="theme-color" content="#0b0618"><link rel="manifest" href="manifest.webmanifest">
-<title>Parcours d'apprentissage GREENCUT – mobile horizontal</title>
-<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="bundle.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,700;0,900;1,700;1,900&amp;display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&amp;display=swap">
-<style>body{margin:0}*{box-sizing:border-box}
+<title>Parcours d'apprentissage GREENCUT – mobile vertical</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="bundle.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,700;0,900;1,700;1,900&amp;display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&amp;display=swap">
+<style media="(orientation: portrait)" data-o="v">body{margin:0}*{box-sizing:border-box}
+.pg{font-family:'Titillium Web',sans-serif;color:#f3eefc;background:#0b0618;position:relative;overflow:hidden;width:100vw;height:100dvh;display:flex;flex-direction:column}
+.t{padding-right:.14em;font-weight:900;font-style:italic;text-transform:uppercase;background:linear-gradient(90deg,#ffd166,#ff4fa3,#9b5de5);-webkit-background-clip:text;background-clip:text;color:transparent;margin:0}
+.pn{background:#140a2e;border:1px solid #ff4fa366;border-radius:14px;box-shadow:0 0 18px #9b5de544}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1.5px solid #ff9ad0;border-radius:999px;padding:3px 12px;font-size:13px;font-weight:700;color:#f3eefc;background:transparent;font-family:inherit;cursor:pointer;text-decoration:none}
+.chip.on{background:#ff4fa3;color:#0e0626;border-color:#ff4fa3;box-shadow:0 0 10px #ff4fa3}
+.chip.lk{opacity:.4;cursor:not-allowed}
+.gd{color:#ffd166}.mu{color:#b9acd6}.up{text-transform:uppercase;letter-spacing:.08em}
+.fl::before{content:"";display:inline-block;border-left:13px solid #ca1d05;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-right:7px;filter:drop-shadow(0 0 4px #fff)}
+.mc{position:relative;overflow:hidden;width:7em;height:9.8em;border-radius:.9em;border:2px solid #fff;box-shadow:0 0 .9em #ff4fa3aa;background:linear-gradient(180deg,#1b0b4a 0%,#6a2bb8 30%,#e0359a 58%,#ff7a3d 82%,#ffb347 100%);font-family:'Titillium Web',sans-serif;color:#fff;flex:none}
+.mc::after{content:"";position:absolute;left:0;right:0;bottom:2.6em;height:1.4em;background:#003216;border-radius:50% 50% 0 0/100% 100% 0 0}
+.mc b{position:absolute;left:.35em;top:-.02em;font-size:2.8em;font-weight:900;font-style:italic;line-height:1;padding:.12em .22em .12em .15em;background:linear-gradient(#ffd166,#ff4fa3);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff)}
+.mc i{position:absolute;left:.6em;top:3.7em;font-style:normal;font-size:1.15em;font-weight:900;text-shadow:0 0 6px #ff4fa3;white-space:nowrap}
+.mc u{position:absolute;z-index:1;left:.5em;right:.5em;bottom:.5em;text-decoration:none;text-align:center;border-radius:99px;background:var(--z);color:var(--t);font-size:.95em;font-weight:900;padding:.2em 0;letter-spacing:.03em}
+.mc.in{box-shadow:0 0 0 3px #0b0618,0 0 0 5px #ffd166,0 0 16px #ffd166}
+.fw{--z:#2f7d46;--t:#fff}.gr{--z:#8fcf7a;--t:#0b2a14}.wa{--z:#1f5f94;--t:#fff}.ho{--z:#ca1d05;--t:#fff}.pu{--z:#b1b2b3;--t:#111}.jk{--z:#fff;--t:#1b0b4a}.bu{--z:#e6d3a0;--t:#2a2000}button{font-family:inherit;cursor:pointer}
+.mp{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:10px 12px;border-radius:12px;border:1.5px solid transparent;background:transparent;color:#f3eefc}
+.mp.sel{background:#ff4fa322;border-color:#ff4fa3}
+.mp.lk{opacity:.45;cursor:not-allowed}
+.dot{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:13px;border:2px solid #ff9ad0;background:#140a2e;color:#fff}
+.dot.ok{background:#5eead4;border-color:#5eead4;color:#0e0626}
+.dot.cur{border-color:#ffd166;color:#ffd166;box-shadow:0 0 10px #ffd16688}
+.opt{display:block;width:100%;text-align:left;padding:11px 14px;border-radius:10px;border:1.5px solid #ff9ad099;background:#0e0626;color:#f3eefc;font-size:15px;font-weight:700;margin-top:8px}
+.opt.good{border-color:#5eead4;background:#5eead422}
+.opt.bad{border-color:#ff6b6b;background:#ff6b6b22}
+.opt.dim{opacity:.5;cursor:default}
+.cta{height:50px;padding:0 26px;border-radius:12px;border:2px solid #fff;font-weight:900;letter-spacing:.04em;font-size:16px;background:#ff4fa3;color:#0e0626;box-shadow:0 0 18px #ff4fa3}
+.cta.off{background:#2a1f4a;border-color:#6d6290;color:#b9acd6;box-shadow:none;cursor:not-allowed}
+.trow{display:flex;gap:2px;font-size:14px}.trow>div{flex:1;padding:6px 10px;background:#0e0626;border-radius:4px}.trow.h>div{background:#ff4fa333;font-weight:900;color:#ffd166;text-transform:uppercase;font-size:12px;letter-spacing:.06em}
+.ck{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;border-radius:10px;border:1.5px solid #ff9ad099;background:#0e0626;color:#f3eefc;font-size:16px;font-weight:700;margin-top:8px}
+.ck.on{border-color:#5eead4;background:#5eead422}
+.bx{flex:none;width:24px;height:24px;border-radius:6px;border:2px solid #ff9ad0;display:grid;place-items:center;font-weight:900;color:#0e0626}
+.ck.on .bx{background:#5eead4;border-color:#5eead4}
+/* typo 2b Sport minuscules */
+.bt{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;text-transform:none!important;letter-spacing:.03em!important}
+.cta{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;text-transform:none!important;letter-spacing:.03em!important}
+.act{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;text-transform:none!important;letter-spacing:.03em!important}
+.cta,.act,.bt{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:.28em;white-space:nowrap!important;text-align:center}
+.cta,.act{font-size:22px!important}
+.act[style*="height:44px"]{font-size:16px!important;padding:0 4px!important;min-width:0!important;letter-spacing:.01em!important}
+.bt[style*="font-size:12px"]{font-size:15px!important}
+.bt[style*="font-size:13px"]{font-size:16px!important}
+.bt[style*="font-size:14px"]{font-size:18px!important}
+.bt[style*="font-size:15px"]{font-size:19px!important}
+.bt[style*="font-size:16px"]{font-size:20px!important}
+.bt[style*="font-size:17px"]{font-size:21px!important}
+.bt[style*="font-size:18px"]{font-size:22px!important}
+.bt[style*="font-size:19px"]{font-size:24px!important}
+.bt[style*="font-size:20px"]{font-size:25px!important}
+.bt[style*="font-size:21px"]{font-size:26px!important}
+.bt[style*="font-size:22px"]{font-size:28px!important}
+.bt:not([style*="font-size"]){font-size:23px!important}
+.t[style*="font-size:14px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:18px!important}
+.t[style*="font-size:15px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:19px!important}
+.t[style*="font-size:16px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:20px!important}
+.t[style*="font-size:17px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:21px!important}
+.t[style*="font-size:18px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:22px!important}
+.t[style*="font-size:19px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:24px!important}
+.t[style*="font-size:20px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:25px!important}
+.t[style*="font-size:21px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:26px!important}
+.t[style*="font-size:22px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:28px!important}
+.t[style*="font-size:23px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:29px!important}
+.t[style*="font-size:24px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:30px!important}
+.t[style*="font-size:25px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:31px!important}
+.t[style*="font-size:26px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:32px!important}
+.t[style*="font-size:27px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:34px!important}
+[style*="font-weight:900"][style*="font-size:10px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:11px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:12px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:13px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:14px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:15px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:16px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:17px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:18px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:19px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:20px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:21px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:22px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:23px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:24px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:25px"]{font-weight:700!important}
+.mc i{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;font-size:1.35em!important;letter-spacing:.02em!important;line-height:1.1!important;top:2.4em!important}
+.mc i.lg{font-size:1.15em!important;top:3.1em!important}
+.mc u{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;font-size:1.02em!important;letter-spacing:.02em!important;bottom:.25em!important;white-space:nowrap}
+.dot{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important}
+.pg *{-webkit-tap-highlight-color:transparent}
+.pg .chip{min-height:36px}
+.pg .opt,.pg .ck{min-height:48px}
+.pg .cta{width:100%;font-size:20px!important}
+.pg .mp{min-height:52px}
+.dr{position:absolute;inset:0;z-index:20;background:#0b0618ee;display:flex;flex-direction:column}
+.sc{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.gc-chip.on{background:var(--pink);color:var(--ink-dark);border-color:var(--pink);box-shadow:0 0 10px var(--pink)}
+.gc-btn.off{opacity:.45;cursor:not-allowed;box-shadow:none}
+.gc-btn{font-size:20px;line-height:1.1;white-space:normal!important;text-align:center;height:auto;min-height:var(--tap);padding:8px 16px}
+.gc-chip{white-space:normal;line-height:1.15}
+.tbs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.tbs .gc-chip{justify-content:center;padding:4px 4px;font-size:14px;text-align:center}
+</style>
+<style media="(orientation: landscape)" data-o="h">body{margin:0}*{box-sizing:border-box}
 .pg{font-family:'Titillium Web',sans-serif;color:#f3eefc;background:#0b0618;position:relative;overflow:hidden;width:100vw;height:100dvh;display:flex;flex-direction:column}
 .t{padding-right:.14em;font-weight:900;font-style:italic;text-transform:uppercase;background:linear-gradient(90deg,#ffd166,#ff4fa3,#9b5de5);-webkit-background-clip:text;background-clip:text;color:transparent;margin:0}
 .pn{background:#140a2e;border:1px solid #ff4fa366;border-radius:14px;box-shadow:0 0 18px #9b5de544}
@@ -108,12 +207,42 @@
 .tbs .gc-chip{justify-content:center;padding:4px 4px;font-size:14px;text-align:center}
 header .gc-chip{min-height:38px!important}
 </style>
-<style>html,body{margin:0;height:100%;background:#0b0618;overflow:hidden}#app{height:100%;display:flex;justify-content:center}#app>.gc{width:100vw!important;max-width:960px!important;height:100dvh!important;max-height:100dvh!important}</style>
+<style>html,body{margin:0;height:100%;background:#0b0618;overflow:hidden}#app{height:100%;display:flex;justify-content:center}#app>.gc{width:100vw!important;height:100dvh!important;max-height:100dvh!important;max-width:480px!important}html[data-o=h] #app>.gc{max-width:960px!important}</style>
 <script src="./support.js"></script><script src="./engine.js"></script>
 </head><body><div id="app"></div>
-<script id="tpl" type="text/plain">
+<script id="tv" type="text/plain">
 
-<div class="pg"><header style="flex:none;height:48px;display:flex;align-items:center;gap:6px;padding:0 10px 0 14px;overflow:hidden;background:var(--nav);border-bottom:2px solid var(--pink);box-shadow:0 6px 24px #ff4fa344"><div class="gc-logo" style="font-size:20px;flex:1;min-width:0">Greencut</div><button class="gc-chip gc-chip--on gc-chip--tap" onClick="{{openDr}}" style="cursor:pointer;padding:0 12px;font-size:13px">☰ Marches {{doneCount}}/{{total}}</button><a class="gc-chip gc-chip--on gc-chip--tap" href="TableMobilePaysage.html" style="cursor:pointer;padding:0 12px;text-decoration:none">Jouer ▶</a></header><div style="flex:1;min-height:0;display:flex"><div class="sc" style="flex:none;width:260px;padding:10px 14px;border-right:1px solid #ff4fa355"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="gc-chip gc-chip--on" style="min-height:0">{{cur.palier}}</span><span class="mu" style="font-size:13px;font-weight:700">{{cur.palierName}}</span></div><h1 class="t" style="font-size:22px;margin-top:6px;line-height:1.05">{{cur.title}}</h1><p style="font-size:14px;line-height:1.45;color:#e6dff5;margin:6px 0 12px">{{cur.goal}}</p></div><div class="sc" style="padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))"><div class="tbs" style="margin-bottom:12px"><button class="gc-chip gc-chip--tap {{s0}}" onClick="{{go0}}">1 · Apprendre</button><button class="gc-chip gc-chip--tap {{s1}}" onClick="{{go1}}">2 · À vous de jouer</button><button class="gc-chip gc-chip--tap {{s2}}" onClick="{{go2}}">3 · Je valide</button></div>
+<div class="pg"><header style="flex:none;height:52px;display:flex;align-items:center;gap:6px;padding:0 10px 0 14px;overflow:hidden;background:var(--nav);border-bottom:2px solid var(--pink);box-shadow:0 6px 24px #ff4fa344"><div class="gc-logo" style="font-size:20px;flex:1;min-width:0">Greencut</div><button class="gc-chip gc-chip--on gc-chip--tap" onClick="{{openDr}}" style="cursor:pointer;padding:0 12px;font-size:13px">☰ Marches {{doneCount}}/{{total}}</button><a class="gc-chip gc-chip--on gc-chip--tap" href="TableMobile.html" style="cursor:pointer;padding:0 12px;text-decoration:none">Jouer ▶</a></header><div class="sc" style="padding:12px 16px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="gc-chip gc-chip--on" style="min-height:0">{{cur.palier}}</span><span class="mu" style="font-size:13px;font-weight:700">{{cur.palierName}}</span></div><h1 class="t" style="font-size:26px;margin-top:6px;line-height:1.05">{{cur.title}}</h1><p style="font-size:15px;line-height:1.45;color:#e6dff5;margin:6px 0 12px">{{cur.goal}}</p><div class="tbs" style="margin-bottom:12px"><button class="gc-chip gc-chip--tap {{s0}}" onClick="{{go0}}">1 · Apprendre</button><button class="gc-chip gc-chip--tap {{s1}}" onClick="{{go1}}">2 · À vous de jouer</button><button class="gc-chip gc-chip--tap {{s2}}" onClick="{{go2}}">3 · Je valide</button></div>
+<sc-if value="{{isLocked}}" hint-placeholder-val="{{ false }}"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px"><div class="t" style="font-size:22px">Marche verrouillée</div><p style="font-size:15px;line-height:1.5;color:#e6dff5">Validez d'abord la marche précédente : <b class="gd">{{prevTitle}}</b>. Chaque marche s'appuie sur la précédente, c'est ce qui permet d'apprendre sans effort.</p></div></sc-if>
+<sc-if value="{{showLesson}}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{hasTips}}" hint-placeholder-val="{{ false }}"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px"><div class="mu up" style="font-size:11px;font-weight:700">Je viens plutôt…</div><div style="display:flex;gap:6px;margin:8px 0;flex-wrap:wrap"><sc-for list="{{tips}}" as="tp" hint-placeholder-count="2"><button class="gc-chip gc-chip--tap {{tp.cls}}" onClick="{{tp.pick}}" style="font-size:13px">{{tp.label}}</button></sc-for></div><div style="font-size:15px;line-height:1.5;color:#f3eefc">{{tipText}}</div></div></sc-if>
+<sc-for list="{{blocks}}" as="bl" hint-placeholder-count="3"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px"><div class="gd" style="font-size:17px;font-weight:900">{{bl.h}}</div><div style="font-size:15px;line-height:1.5;color:#f3eefc;margin-top:6px;white-space:pre-line">{{bl.t}}</div>
+<sc-if value="{{bl.hasTable}}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;overflow-x:auto"><div style="min-width:300px"><div class="trow h" style="font-size:12px"><sc-for list="{{bl.head}}" as="hc" hint-placeholder-count="3"><div>{{hc.v}}</div></sc-for></div><sc-for list="{{bl.rows}}" as="rw" hint-placeholder-count="4"><div class="trow" style="margin-top:2px;font-size:13px"><sc-for list="{{rw.cells}}" as="cl" hint-placeholder-count="3"><div>{{cl.v}}</div></sc-for></div></sc-for></div></div></sc-if></div></sc-for>
+<sc-for list="{{examples}}" as="ex" hint-placeholder-count="1"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px;border-color:#ffd16699"><div style="display:flex;align-items:center;gap:8px"><span class="gc-chip gc-chip--on" style="background:#ffd166;border-color:#ffd166;min-height:0">Exemple commenté</span><span class="gc-chip" style="min-height:0">{{ex.parLabel}}</span></div>
+<div style="display:flex;gap:14px;margin-top:12px;flex-wrap:wrap"><div><div class="mu up" style="font-size:11px;font-weight:700;margin-bottom:5px">Votre main</div><div style="display:flex;gap:6px;flex-wrap:nowrap"><sc-for list="{{ex.hand}}" as="c" hint-placeholder-count="5"><div class="mc {{c.cls}} {{c.mark}}" style="font-size:8px"><b>{{c.rank}}</b><i>{{c.name}}</i><u>{{c.zone}}</u></div></sc-for></div></div><div><div class="mu up" style="font-size:11px;font-weight:700;margin-bottom:5px">Cartes communes</div><div style="display:flex;gap:5px;flex-wrap:nowrap"><sc-for list="{{ex.comm}}" as="c" hint-placeholder-count="5"><div class="mc {{c.cls}} {{c.mark}}" style="font-size:8px"><b>{{c.rank}}</b><i>{{c.name}}</i><u>{{c.zone}}</u></div></sc-for></div></div></div>
+<div style="font-size:15px;line-height:1.5;margin-top:12px;white-space:pre-line">{{ex.text}}</div><div style="margin-top:6px;font-size:12px" class="mu">Cadre doré : les cartes qui comptent dans la combinaison.</div></div></sc-for>
+<sc-if value="{{hasMistakes}}" hint-placeholder-val="{{ false }}"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px;border-color:#ff6b6b88"><div style="font-size:17px;font-weight:900;color:#ff9a9a">Les erreurs fréquentes</div><div style="font-size:15px;line-height:1.55;margin-top:6px;white-space:pre-line">{{mistakes}}</div></div></sc-if>
+<button class="gc-btn gc-btn--primary gc-btn--block" onClick="{{go1}}">J'ai compris, place aux exercices →</button></sc-if>
+<sc-if value="{{showExos}}" hint-placeholder-val="{{ false }}">
+<sc-for list="{{exos}}" as="xo" hint-placeholder-count="2"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span class="gc-chip gc-chip--on" style="min-height:0">Exercice {{xo.n}}</span><span class="gc-chip" style="min-height:0">{{xo.parLabel}}</span><sc-if value="{{xo.solved}}" hint-placeholder-val="{{ false }}"><span class="gc-chip" style="border-color:#5eead4;color:#5eead4;min-height:0">Réussi ✓</span></sc-if></div>
+<sc-if value="{{xo.hasCards}}" hint-placeholder-val="{{ true }}"><div style="display:flex;gap:14px;margin-top:12px;flex-wrap:wrap"><div><div class="mu up" style="font-size:11px;font-weight:700;margin-bottom:5px">Votre main</div><div style="display:flex;gap:6px"><sc-for list="{{xo.hand}}" as="c" hint-placeholder-count="5"><div class="mc {{c.cls}}" style="font-size:8px"><b>{{c.rank}}</b><i>{{c.name}}</i><u>{{c.zone}}</u></div></sc-for></div></div><div><div class="mu up" style="font-size:11px;font-weight:700;margin-bottom:5px">Cartes communes</div><div style="display:flex;gap:5px"><sc-for list="{{xo.comm}}" as="c" hint-placeholder-count="5"><div class="mc {{c.cls}}" style="font-size:8px"><b>{{c.rank}}</b><i>{{c.name}}</i><u>{{c.zone}}</u></div></sc-for></div></div></div></sc-if>
+<div style="font-size:16px;font-weight:700;line-height:1.45;margin-top:12px;white-space:pre-line">{{xo.q}}</div>
+<sc-for list="{{xo.opts}}" as="op" hint-placeholder-count="4"><button class="opt {{op.cls}}" onClick="{{op.pick}}">{{op.label}}</button></sc-for>
+<sc-if value="{{xo.answered}}" hint-placeholder-val="{{ false }}"><div style="margin-top:12px;padding:12px 14px;border-radius:10px;background:#0e0626;border:1.5px solid {{xo.fbColor}}"><div style="font-size:16px;font-weight:900;color:{{xo.fbColor}}">{{xo.fbTitle}}</div><div style="font-size:14px;line-height:1.5;margin-top:4px;white-space:pre-line">{{xo.expl}}</div></div></sc-if></div></sc-for>
+<div style="margin:4px 0 12px;font-size:15px;font-weight:700;color:#ffd166;line-height:1.4">{{exoLine}}</div><button class="gc-btn gc-btn--primary gc-btn--block {{toCheckCls}}" onClick="{{go2}}">Passer à la validation →</button></sc-if>
+<sc-if value="{{showCheck}}" hint-placeholder-val="{{ false }}">
+<div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px"><div class="gd" style="font-size:17px;font-weight:900">Vous avez compris cette marche quand…</div><div class="mu" style="font-size:13px;margin-top:2px">Cochez honnêtement : si un point vous paraît flou, retournez voir la leçon.</div><sc-for list="{{checks}}" as="ck" hint-placeholder-count="3"><button class="ck {{ck.cls}}" onClick="{{ck.pick}}" style="font-size:15px"><span class="bx">{{ck.mark}}</span><span>{{ck.label}}</span></button></sc-for></div>
+<div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap"><span class="gc-chip {{exoCls}}">Exercices : {{exoDone}} / {{exoTotal}}</span><span class="gc-chip {{chkCls}}">Points cochés : {{chkDone}} / {{chkTotal}}</span></div>
+<button class="gc-btn gc-btn--primary gc-btn--block {{valCls}}" onClick="{{validate}}" style="font-size:17px">{{valLabel}}</button>
+<sc-if value="{{justDone}}" hint-placeholder-val="{{ false }}"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px;margin-top:12px;border-color:#5eead4"><div class="t" style="font-size:22px">Bravo, marche validée !</div><div style="font-size:15px;line-height:1.5;margin-top:4px">{{doneMsg}}</div><div class="mu" style="font-size:13px;margin-top:8px">{{aideNote}}</div><button class="gc-btn gc-btn--primary gc-btn--block" onClick="{{nextM}}" style="margin-top:12px">{{nextLabel}}</button></div></sc-if></sc-if>
+</div><sc-if value="{{drawer}}" hint-placeholder-val="{{ false }}"><div class="dr"><div style="flex:none;padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:2px solid #ff4fa3"><div style="flex:1"><div class="mu up" style="font-size:11px;font-weight:700">Parcours d'apprentissage</div><div class="t" style="font-size:18px">Votre carte du parcours</div></div><button class="gc-chip gc-chip--tap" onClick="{{closeDr}}" style="font-size:14px">Fermer ✕</button></div>
+<div class="sc" style="padding:12px 16px"><div style="height:8px;border-radius:99px;background:#2a1f4a;margin-bottom:10px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,#ffd166,#ff4fa3);width:{{progressPct}}%"></div></div>
+<span class="gc-chip gc-chip--on" style="font-size:13px;margin-bottom:10px">{{doneCount}} / {{total}} marches validées</span> <button class="gc-chip gc-chip--tap {{allCls}}" onClick="{{toggleAll}}" style="margin-bottom:10px;font-size:13px">{{allLabel}}</button>
+<sc-for list="{{marches}}" as="mp" hint-placeholder-count="9"><button class="mp {{mp.cls}}" onClick="{{mp.pick}}"><span class="dot {{mp.dotCls}}">{{mp.dot}}</span><span style="flex:1"><span class="mu up" style="display:block;font-size:11px;font-weight:700">{{mp.palier}}</span><span style="display:block;font-size:16px;font-weight:900;line-height:1.15">{{mp.title}}</span></span></button></sc-for></div></div></sc-if></div>
+</script>
+<script id="th" type="text/plain">
+
+<div class="pg"><header style="flex:none;height:48px;display:flex;align-items:center;gap:6px;padding:0 10px 0 14px;overflow:hidden;background:var(--nav);border-bottom:2px solid var(--pink);box-shadow:0 6px 24px #ff4fa344"><div class="gc-logo" style="font-size:20px;flex:1;min-width:0">Greencut</div><button class="gc-chip gc-chip--on gc-chip--tap" onClick="{{openDr}}" style="cursor:pointer;padding:0 12px;font-size:13px">☰ Marches {{doneCount}}/{{total}}</button><a class="gc-chip gc-chip--on gc-chip--tap" href="TableMobile.html?o=h" style="cursor:pointer;padding:0 12px;text-decoration:none">Jouer ▶</a></header><div style="flex:1;min-height:0;display:flex"><div class="sc" style="flex:none;width:260px;padding:10px 14px;border-right:1px solid #ff4fa355"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="gc-chip gc-chip--on" style="min-height:0">{{cur.palier}}</span><span class="mu" style="font-size:13px;font-weight:700">{{cur.palierName}}</span></div><h1 class="t" style="font-size:22px;margin-top:6px;line-height:1.05">{{cur.title}}</h1><p style="font-size:14px;line-height:1.45;color:#e6dff5;margin:6px 0 12px">{{cur.goal}}</p></div><div class="sc" style="padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))"><div class="tbs" style="margin-bottom:12px"><button class="gc-chip gc-chip--tap {{s0}}" onClick="{{go0}}">1 · Apprendre</button><button class="gc-chip gc-chip--tap {{s1}}" onClick="{{go1}}">2 · À vous de jouer</button><button class="gc-chip gc-chip--tap {{s2}}" onClick="{{go2}}">3 · Je valide</button></div>
 <sc-if value="{{isLocked}}" hint-placeholder-val="{{ false }}"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px"><div class="t" style="font-size:22px">Marche verrouillée</div><p style="font-size:15px;line-height:1.5;color:#e6dff5">Validez d'abord la marche précédente : <b class="gd">{{prevTitle}}</b>. Chaque marche s'appuie sur la précédente, c'est ce qui permet d'apprendre sans effort.</p></div></sc-if>
 <sc-if value="{{showLesson}}" hint-placeholder-val="{{ true }}">
 <sc-if value="{{hasTips}}" hint-placeholder-val="{{ false }}"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px"><div class="mu up" style="font-size:11px;font-weight:700">Je viens plutôt…</div><div style="display:flex;gap:6px;margin:8px 0;flex-wrap:wrap"><sc-for list="{{tips}}" as="tp" hint-placeholder-count="2"><button class="gc-chip gc-chip--tap {{tp.cls}}" onClick="{{tp.pick}}" style="font-size:13px">{{tp.label}}</button></sc-for></div><div style="font-size:15px;line-height:1.5;color:#f3eefc">{{tipText}}</div></div></sc-if>
@@ -359,10 +488,10 @@ valCls: canVal || s.done[M.id] || exoMiss > 0 ? '' : 'off', valLabel: s.done[M.i
 validate: () => { if (!canVal && exoMiss > 0) { this.setState({ step: 1 }); } else if (canVal && !s.done[M.id]) { const d = Object.assign({}, s.done); d[M.id] = true; this.save(d, s.all); this.setState({ done: d, just: true }); this.chime('ok'); } },
 justDone: !!(s.just && s.done[M.id]), doneMsg: next ? 'Vous pouvez passer à : ' + next.palier + ' · ' + next.title + '.' : 'Vous avez terminé tout le parcours : vous êtes prêt pour la partie complète !',
 aideNote: s.done['3a'] ? 'L’aide à la mise du prototype se coupe désormais seule (niveau expert, réactivable à la main).' : 'Tant que la marche 3a n’est pas validée, l’aide à la mise reste allumée dans le prototype.',
-nextLabel: next ? 'Marche suivante →' : 'Jouer au prototype', nextM: () => { if (next) { this.setState({ m: s.m + 1, step: 0, just: false }); } else { try { location.href = 'TableMobilePaysage.html'; } catch (x) { return; } } }
+nextLabel: next ? 'Marche suivante →' : 'Jouer au prototype', nextM: () => { if (next) { this.setState({ m: s.m + 1, step: 0, just: false }); } else { try { location.href = 'TableMobile.html'; } catch (x) { return; } } }
 };
 }
 }
 
-GCMount(document.getElementById('tpl').textContent, Component, document.getElementById('app'));
+GCMount({v:document.getElementById('tv').textContent,h:document.getElementById('th').textContent}, Component, document.getElementById('app'));
 </script></body></html>

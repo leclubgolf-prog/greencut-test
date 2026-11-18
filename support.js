@@ -52,11 +52,17 @@
     }
     for (let i = A.length - 1; i >= B.length; i--) pa.removeChild(A[i]);
   }
-  window.GCMount = function (templateStr, Component, root) {
+  window.GCMount = function (tpls, Component, root) {
     const inst = new Component({});
+    const q = (location.search.match(/[?&]o=(v|h)/) || [])[1];
+    const mq = window.matchMedia('(orientation: landscape)');
+    const land = () => q ? q === 'h' : mq.matches;
+    let last = null;
     const draw = () => {
       handlers = [];
-      const html = render(templateStr, inst.renderVals());
+      const k = land() ? 'h' : 'v';
+      if (k !== last) { last = k; document.documentElement.setAttribute('data-o', k); }
+      const html = render(tpls[k], inst.renderVals());
       const t = document.createElement('div'); t.innerHTML = html; patch(root, t);
     };
     inst.__r = draw;
@@ -64,6 +70,10 @@
       const el = e.target.closest && e.target.closest('[data-dc-' + ev + ']'); if (!el) return;
       const f = handlers[+el.getAttribute('data-dc-' + ev)]; if (f) f(e);
     }));
+    const redraw = () => draw();
+    if (mq.addEventListener) mq.addEventListener('change', redraw); else if (mq.addListener) mq.addListener(redraw);
+    window.addEventListener('orientationchange', () => setTimeout(redraw, 150));
+    window.addEventListener('resize', redraw);
     draw(); return inst;
   };
 })();
