@@ -1,0 +1,50 @@
+/* GREENCUT – composants CSS (desktop + mobile). Classes préfixées gc-. Lire tokens.css pour les variables (--bg, --pink, etc.). */
+.gc{font-family:var(--font-sans);color:var(--ink);background:var(--bg)}
+.gc *{box-sizing:border-box}
+/* Titres : Sport minuscules sous 28 px, Titillium 900 majuscules seulement pour le logo */
+.gc-title{font-family:var(--font-sport);font-weight:700;font-style:italic;letter-spacing:.02em;font-size:26px;line-height:1.15;margin:0;padding-right:.14em;background:linear-gradient(90deg,var(--gold),var(--pink),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.gc-title--xl{font-size:32px}
+.gc-logo{font-family:var(--font-sans);font-weight:900;font-style:italic;text-transform:uppercase;font-size:28px;margin:0;padding-right:.14em;background:linear-gradient(90deg,var(--gold),var(--pink),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.gc-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+/* Bouton : une seule ligne, 44 px minimum de haut (zone tactile) */
+.gc-btn{display:inline-flex;align-items:center;justify-content:center;gap:.28em;white-space:nowrap;min-width:0;min-height:var(--tap);padding:0 22px;border-radius:var(--radius-md);border:2px solid #fff;background:var(--panel);color:#fff;font-family:var(--font-sport);font-weight:800;font-style:italic;letter-spacing:.03em;font-size:22px;line-height:1;cursor:pointer}
+.gc-btn--primary{background:var(--pink);color:var(--ink-dark);box-shadow:var(--glow-pink)}
+.gc-btn--gold{border-color:var(--gold);color:var(--gold);box-shadow:var(--glow-gold)}
+.gc-btn--muted{border-color:var(--muted);color:var(--muted)}
+.gc-btn--success{border-color:var(--mint);color:var(--mint)}
+.gc-btn--sm{font-size:16px;padding:0 4px;letter-spacing:.01em}
+.gc-btn--block{display:flex;width:100%}
+.gc-btn[disabled],.gc-btn.is-off{opacity:.45;cursor:not-allowed;box-shadow:none}
+/* Puce */
+.gc-chip{display:inline-flex;align-items:center;gap:6px;min-height:32px;border:1.5px solid var(--pink-soft);border-radius:var(--radius-pill);padding:3px 12px;font-size:13px;font-weight:700;color:var(--ink);background:transparent;white-space:nowrap}
+.gc-chip--on{background:var(--pink);color:var(--ink-dark);border-color:var(--pink);box-shadow:0 0 10px var(--pink)}
+.gc-chip--gold{border-color:var(--gold);color:var(--gold)}
+.gc-chip--mint{border-color:var(--mint);color:var(--mint)}
+.gc-chip--tap{min-height:var(--tap);padding:0 16px;font-size:14px}
+/* Panneau */
+.gc-panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--glow-violet);padding:var(--space-5)}
+.gc-panel--compact{padding:var(--space-4)}
+.gc-panel--lesson{background:var(--plum);border-color:#ffd16699}
+/* Plaque joueur */
+.gc-plate{display:flex;align-items:center;gap:var(--space-3);background:var(--panel);border:1.5px solid var(--line);border-radius:var(--radius-lg);padding:8px 12px;min-width:0}
+.gc-plate--me{border-color:var(--gold);box-shadow:0 0 14px #ffd16666}
+.gc-plate--out{opacity:.45}
+.gc-plate__avatar{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid var(--pink-soft);background:var(--nav)}
+.gc-plate__name{font-weight:700;font-size:15px;line-height:1.1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gc-plate__stack{font-weight:700;font-size:14px;color:var(--gold)}
+.gc-plate__status{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mint)}
+/* Carte de jeu : tout est en em, la taille se règle par font-size du conteneur */
+.gc-card{position:relative;overflow:hidden;flex:none;width:7em;height:9.8em;border-radius:.9em;border:2px solid #fff;box-shadow:0 0 .9em #ff4fa3aa;background:linear-gradient(180deg,#1b0b4a 0%,#6a2bb8 30%,#e0359a 58%,#ff7a3d 82%,#ffb347 100%);font-family:var(--font-sans);color:#fff}
+.gc-card::after{content:"";position:absolute;left:0;right:0;bottom:2.6em;height:1.4em;background:var(--hill);border-radius:50% 50% 0 0/100% 100% 0 0}
+.gc-card__rank{position:absolute;left:.35em;top:-.02em;font-size:2.8em;font-weight:900;font-style:italic;line-height:1;padding:.12em .22em .12em .15em;background:linear-gradient(var(--gold),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff)}
+.gc-card__club{position:absolute;z-index:2;left:.55em;top:2.4em;font-family:var(--font-sport);font-style:italic;font-weight:800;font-size:1.35em;letter-spacing:.02em;line-height:1.1;white-space:nowrap;text-shadow:0 0 6px var(--pink)}
+.gc-card__zone{position:absolute;z-index:3;left:.5em;right:.5em;bottom:.25em;text-align:center;border-radius:99px;background:var(--z);color:var(--t);font-family:var(--font-sport);font-weight:700;font-size:1.02em;letter-spacing:.02em;padding:.2em 0;white-space:nowrap}
+.gc-card--back{background:var(--nav) repeating-linear-gradient(45deg,#ffffff0f 0 6px,transparent 6px 12px)}
+.gc-card--back::after,.gc-card--back .gc-card__rank,.gc-card--back .gc-card__club,.gc-card--back .gc-card__zone{display:none}
+.gc-z-fairway{--z:var(--zone-fairway);--t:#fff}.gc-z-green{--z:var(--zone-green);--t:#0b2a14}.gc-z-water{--z:var(--zone-water);--t:#fff}
+.gc-z-hole{--z:var(--zone-hole);--t:#fff}.gc-z-putt{--z:var(--zone-putt);--t:#111}.gc-z-joker{--z:var(--zone-joker);--t:#1b0b4a}.gc-z-bunker{--z:var(--zone-bunker);--t:#2a2000}
+/* Volet glissant (mobile) : monte depuis le bas, poignée de 44 px */
+.gc-sheet{position:relative;background:var(--panel);border:1px solid var(--line);border-bottom:0;border-radius:var(--radius-lg) var(--radius-lg) 0 0;box-shadow:0 -8px 24px #9b5de544;padding:0 var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom,0px))}
+.gc-sheet__handle{display:flex;justify-content:center;align-items:center;min-height:var(--tap)}
+.gc-sheet__handle::before{content:"";width:44px;height:5px;border-radius:99px;background:var(--muted)}
+.gc-sheet__title{margin:0 0 var(--space-2)}
