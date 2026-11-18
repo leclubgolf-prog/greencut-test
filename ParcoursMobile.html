@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Greencut">
+<meta name="theme-color" content="#0b0618"><link rel="manifest" href="manifest.webmanifest">
+<title>Parcours d'apprentissage GREENCUT – mobile vertical</title>
+<link rel="stylesheet" href="ds/greencut/tokens.css"><link rel="stylesheet" href="ds/greencut/components/bundle.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,700;0,900;1,700;1,900&amp;display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&amp;display=swap">
+<style>body{margin:0}*{box-sizing:border-box}
+.pg{font-family:'Titillium Web',sans-serif;color:#f3eefc;background:#0b0618;position:relative;overflow:hidden;width:100vw;height:100dvh;display:flex;flex-direction:column}
+.t{padding-right:.14em;font-weight:900;font-style:italic;text-transform:uppercase;background:linear-gradient(90deg,#ffd166,#ff4fa3,#9b5de5);-webkit-background-clip:text;background-clip:text;color:transparent;margin:0}
+.pn{background:#140a2e;border:1px solid #ff4fa366;border-radius:14px;box-shadow:0 0 18px #9b5de544}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1.5px solid #ff9ad0;border-radius:999px;padding:3px 12px;font-size:13px;font-weight:700;color:#f3eefc;background:transparent;font-family:inherit;cursor:pointer;text-decoration:none}
+.chip.on{background:#ff4fa3;color:#0e0626;border-color:#ff4fa3;box-shadow:0 0 10px #ff4fa3}
+.chip.lk{opacity:.4;cursor:not-allowed}
+.gd{color:#ffd166}.mu{color:#b9acd6}.up{text-transform:uppercase;letter-spacing:.08em}
+.fl::before{content:"";display:inline-block;border-left:13px solid #ca1d05;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-right:7px;filter:drop-shadow(0 0 4px #fff)}
+.mc{position:relative;overflow:hidden;width:7em;height:9.8em;border-radius:.9em;border:2px solid #fff;box-shadow:0 0 .9em #ff4fa3aa;background:linear-gradient(180deg,#1b0b4a 0%,#6a2bb8 30%,#e0359a 58%,#ff7a3d 82%,#ffb347 100%);font-family:'Titillium Web',sans-serif;color:#fff;flex:none}
+.mc::after{content:"";position:absolute;left:0;right:0;bottom:2.6em;height:1.4em;background:#003216;border-radius:50% 50% 0 0/100% 100% 0 0}
+.mc b{position:absolute;left:.35em;top:-.02em;font-size:2.8em;font-weight:900;font-style:italic;line-height:1;padding:.12em .22em .12em .15em;background:linear-gradient(#ffd166,#ff4fa3);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff)}
+.mc i{position:absolute;left:.6em;top:3.7em;font-style:normal;font-size:1.15em;font-weight:900;text-shadow:0 0 6px #ff4fa3;white-space:nowrap}
+.mc u{position:absolute;z-index:1;left:.5em;right:.5em;bottom:.5em;text-decoration:none;text-align:center;border-radius:99px;background:var(--z);color:var(--t);font-size:.95em;font-weight:900;padding:.2em 0;letter-spacing:.03em}
+.mc.in{box-shadow:0 0 0 3px #0b0618,0 0 0 5px #ffd166,0 0 16px #ffd166}
+.fw{--z:#2f7d46;--t:#fff}.gr{--z:#8fcf7a;--t:#0b2a14}.wa{--z:#1f5f94;--t:#fff}.ho{--z:#ca1d05;--t:#fff}.pu{--z:#b1b2b3;--t:#111}.jk{--z:#fff;--t:#1b0b4a}.bu{--z:#e6d3a0;--t:#2a2000}button{font-family:inherit;cursor:pointer}
+.mp{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:10px 12px;border-radius:12px;border:1.5px solid transparent;background:transparent;color:#f3eefc}
+.mp.sel{background:#ff4fa322;border-color:#ff4fa3}
+.mp.lk{opacity:.45;cursor:not-allowed}
+.dot{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:13px;border:2px solid #ff9ad0;background:#140a2e;color:#fff}
+.dot.ok{background:#5eead4;border-color:#5eead4;color:#0e0626}
+.dot.cur{border-color:#ffd166;color:#ffd166;box-shadow:0 0 10px #ffd16688}
+.opt{display:block;width:100%;text-align:left;padding:11px 14px;border-radius:10px;border:1.5px solid #ff9ad099;background:#0e0626;color:#f3eefc;font-size:15px;font-weight:700;margin-top:8px}
+.opt.good{border-color:#5eead4;background:#5eead422}
+.opt.bad{border-color:#ff6b6b;background:#ff6b6b22}
+.opt.dim{opacity:.5;cursor:default}
+.cta{height:50px;padding:0 26px;border-radius:12px;border:2px solid #fff;font-weight:900;letter-spacing:.04em;font-size:16px;background:#ff4fa3;color:#0e0626;box-shadow:0 0 18px #ff4fa3}
+.cta.off{background:#2a1f4a;border-color:#6d6290;color:#b9acd6;box-shadow:none;cursor:not-allowed}
+.trow{display:flex;gap:2px;font-size:14px}.trow>div{flex:1;padding:6px 10px;background:#0e0626;border-radius:4px}.trow.h>div{background:#ff4fa333;font-weight:900;color:#ffd166;text-transform:uppercase;font-size:12px;letter-spacing:.06em}
+.ck{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;border-radius:10px;border:1.5px solid #ff9ad099;background:#0e0626;color:#f3eefc;font-size:16px;font-weight:700;margin-top:8px}
+.ck.on{border-color:#5eead4;background:#5eead422}
+.bx{flex:none;width:24px;height:24px;border-radius:6px;border:2px solid #ff9ad0;display:grid;place-items:center;font-weight:900;color:#0e0626}
+.ck.on .bx{background:#5eead4;border-color:#5eead4}
+/* typo 2b Sport minuscules */
+.bt{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;text-transform:none!important;letter-spacing:.03em!important}
+.cta{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;text-transform:none!important;letter-spacing:.03em!important}
+.act{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;text-transform:none!important;letter-spacing:.03em!important}
+.cta,.act,.bt{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:.28em;white-space:nowrap!important;text-align:center}
+.cta,.act{font-size:22px!important}
+.act[style*="height:44px"]{font-size:16px!important;padding:0 4px!important;min-width:0!important;letter-spacing:.01em!important}
+.bt[style*="font-size:12px"]{font-size:15px!important}
+.bt[style*="font-size:13px"]{font-size:16px!important}
+.bt[style*="font-size:14px"]{font-size:18px!important}
+.bt[style*="font-size:15px"]{font-size:19px!important}
+.bt[style*="font-size:16px"]{font-size:20px!important}
+.bt[style*="font-size:17px"]{font-size:21px!important}
+.bt[style*="font-size:18px"]{font-size:22px!important}
+.bt[style*="font-size:19px"]{font-size:24px!important}
+.bt[style*="font-size:20px"]{font-size:25px!important}
+.bt[style*="font-size:21px"]{font-size:26px!important}
+.bt[style*="font-size:22px"]{font-size:28px!important}
+.bt:not([style*="font-size"]){font-size:23px!important}
+.t[style*="font-size:14px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:18px!important}
+.t[style*="font-size:15px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:19px!important}
+.t[style*="font-size:16px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:20px!important}
+.t[style*="font-size:17px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:21px!important}
+.t[style*="font-size:18px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:22px!important}
+.t[style*="font-size:19px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:24px!important}
+.t[style*="font-size:20px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:25px!important}
+.t[style*="font-size:21px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:26px!important}
+.t[style*="font-size:22px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:28px!important}
+.t[style*="font-size:23px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:29px!important}
+.t[style*="font-size:24px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:30px!important}
+.t[style*="font-size:25px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:31px!important}
+.t[style*="font-size:26px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:32px!important}
+.t[style*="font-size:27px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:34px!important}
+[style*="font-weight:900"][style*="font-size:10px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:11px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:12px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:13px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:14px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:15px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:16px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:17px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:18px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:19px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:20px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:21px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:22px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:23px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:24px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:25px"]{font-weight:700!important}
+.mc i{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;font-size:1.35em!important;letter-spacing:.02em!important;line-height:1.1!important;top:2.4em!important}
+.mc i.lg{font-size:1.15em!important;top:3.1em!important}
+.mc u{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;font-size:1.02em!important;letter-spacing:.02em!important;bottom:.25em!important;white-space:nowrap}
+.dot{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important}
+.pg *{-webkit-tap-highlight-color:transparent}
+.pg .chip{min-height:36px}
+.pg .opt,.pg .ck{min-height:48px}
+.pg .cta{width:100%;font-size:20px!important}
+.pg .mp{min-height:52px}
+.dr{position:absolute;inset:0;z-index:20;background:#0b0618ee;display:flex;flex-direction:column}
+.sc{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.gc-chip.on{background:var(--pink);color:var(--ink-dark);border-color:var(--pink);box-shadow:0 0 10px var(--pink)}
+.gc-btn.off{opacity:.45;cursor:not-allowed;box-shadow:none}
+.gc-btn{font-size:20px;line-height:1.1;white-space:normal!important;text-align:center;height:auto;min-height:var(--tap);padding:8px 16px}
+.gc-chip{white-space:normal;line-height:1.15}
+.tbs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.tbs .gc-chip{justify-content:center;padding:4px 4px;font-size:14px;text-align:center}
+</style>
+<style>html,body{margin:0;height:100%;background:#0b0618;overflow:hidden}#app{height:100%;display:flex;justify-content:center}#app>.gc{width:100vw!important;max-width:480px!important;height:100dvh!important;max-height:100dvh!important}</style>
+<script src="./support.js"></script><script src="./shared/engine.js"></script>
+</head><body><div id="app"></div>
+<script id="tpl" type="text/plain">
+
+<div class="pg"><header style="flex:none;height:52px;display:flex;align-items:center;gap:6px;padding:0 10px 0 14px;overflow:hidden;background:var(--nav);border-bottom:2px solid var(--pink);box-shadow:0 6px 24px #ff4fa344"><div class="gc-logo" style="font-size:20px;flex:1;min-width:0">Greencut</div><button class="gc-chip gc-chip--on gc-chip--tap" onClick="{{openDr}}" style="cursor:pointer;padding:0 12px;font-size:13px">☰ Marches {{doneCount}}/{{total}}</button><a class="gc-chip gc-chip--on gc-chip--tap" href="TableMobile.html" style="cursor:pointer;padding:0 12px;text-decoration:none">Jouer ▶</a></header><div class="sc" style="padding:12px 16px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="gc-chip gc-chip--on" style="min-height:0">{{cur.palier}}</span><span class="mu" style="font-size:13px;font-weight:700">{{cur.palierName}}</span></div><h1 class="t" style="font-size:26px;margin-top:6px;line-height:1.05">{{cur.title}}</h1><p style="font-size:15px;line-height:1.45;color:#e6dff5;margin:6px 0 12px">{{cur.goal}}</p><div class="tbs" style="margin-bottom:12px"><button class="gc-chip gc-chip--tap {{s0}}" onClick="{{go0}}">1 · Apprendre</button><button class="gc-chip gc-chip--tap {{s1}}" onClick="{{go1}}">2 · À vous de jouer</button><button class="gc-chip gc-chip--tap {{s2}}" onClick="{{go2}}">3 · Je valide</button></div>
+<sc-if value="{{isLocked}}" hint-placeholder-val="{{ false }}"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px"><div class="t" style="font-size:22px">Marche verrouillée</div><p style="font-size:15px;line-height:1.5;color:#e6dff5">Validez d'abord la marche précédente : <b class="gd">{{prevTitle}}</b>. Chaque marche s'appuie sur la précédente, c'est ce qui permet d'apprendre sans effort.</p></div></sc-if>
+<sc-if value="{{showLesson}}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{hasTips}}" hint-placeholder-val="{{ false }}"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px"><div class="mu up" style="font-size:11px;font-weight:700">Je viens plutôt…</div><div style="display:flex;gap:6px;margin:8px 0;flex-wrap:wrap"><sc-for list="{{tips}}" as="tp" hint-placeholder-count="2"><button class="gc-chip gc-chip--tap {{tp.cls}}" onClick="{{tp.pick}}" style="font-size:13px">{{tp.label}}</button></sc-for></div><div style="font-size:15px;line-height:1.5;color:#f3eefc">{{tipText}}</div></div></sc-if>
+<sc-for list="{{blocks}}" as="bl" hint-placeholder-count="3"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px"><div class="gd" style="font-size:17px;font-weight:900">{{bl.h}}</div><div style="font-size:15px;line-height:1.5;color:#f3eefc;margin-top:6px;white-space:pre-line">{{bl.t}}</div>
+<sc-if value="{{bl.hasTable}}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;overflow-x:auto"><div style="min-width:300px"><div class="trow h" style="font-size:12px"><sc-for list="{{bl.head}}" as="hc" hint-placeholder-count="3"><div>{{hc.v}}</div></sc-for></div><sc-for list="{{bl.rows}}" as="rw" hint-placeholder-count="4"><div class="trow" style="margin-top:2px;font-size:13px"><sc-for list="{{rw.cells}}" as="cl" hint-placeholder-count="3"><div>{{cl.v}}</div></sc-for></div></sc-for></div></div></sc-if></div></sc-for>
+<sc-for list="{{examples}}" as="ex" hint-placeholder-count="1"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px;border-color:#ffd16699"><div style="display:flex;align-items:center;gap:8px"><span class="gc-chip gc-chip--on" style="background:#ffd166;border-color:#ffd166;min-height:0">Exemple commenté</span><span class="gc-chip" style="min-height:0">{{ex.parLabel}}</span></div>
+<div style="display:flex;gap:14px;margin-top:12px;flex-wrap:wrap"><div><div class="mu up" style="font-size:11px;font-weight:700;margin-bottom:5px">Votre main</div><div style="display:flex;gap:6px;flex-wrap:nowrap"><sc-for list="{{ex.hand}}" as="c" hint-placeholder-count="5"><div class="mc {{c.cls}} {{c.mark}}" style="font-size:8px"><b>{{c.rank}}</b><i>{{c.name}}</i><u>{{c.zone}}</u></div></sc-for></div></div><div><div class="mu up" style="font-size:11px;font-weight:700;margin-bottom:5px">Cartes communes</div><div style="display:flex;gap:5px;flex-wrap:nowrap"><sc-for list="{{ex.comm}}" as="c" hint-placeholder-count="5"><div class="mc {{c.cls}} {{c.mark}}" style="font-size:8px"><b>{{c.rank}}</b><i>{{c.name}}</i><u>{{c.zone}}</u></div></sc-for></div></div></div>
+<div style="font-size:15px;line-height:1.5;margin-top:12px;white-space:pre-line">{{ex.text}}</div><div style="margin-top:6px;font-size:12px" class="mu">Cadre doré : les cartes qui comptent dans la combinaison.</div></div></sc-for>
+<sc-if value="{{hasMistakes}}" hint-placeholder-val="{{ false }}"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px;border-color:#ff6b6b88"><div style="font-size:17px;font-weight:900;color:#ff9a9a">Les erreurs fréquentes</div><div style="font-size:15px;line-height:1.55;margin-top:6px;white-space:pre-line">{{mistakes}}</div></div></sc-if>
+<button class="gc-btn gc-btn--primary gc-btn--block" onClick="{{go1}}">J'ai compris, place aux exercices →</button></sc-if>
+<sc-if value="{{showExos}}" hint-placeholder-val="{{ false }}">
+<sc-for list="{{exos}}" as="xo" hint-placeholder-count="2"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span class="gc-chip gc-chip--on" style="min-height:0">Exercice {{xo.n}}</span><span class="gc-chip" style="min-height:0">{{xo.parLabel}}</span><sc-if value="{{xo.solved}}" hint-placeholder-val="{{ false }}"><span class="gc-chip" style="border-color:#5eead4;color:#5eead4;min-height:0">Réussi ✓</span></sc-if></div>
+<sc-if value="{{xo.hasCards}}" hint-placeholder-val="{{ true }}"><div style="display:flex;gap:14px;margin-top:12px;flex-wrap:wrap"><div><div class="mu up" style="font-size:11px;font-weight:700;margin-bottom:5px">Votre main</div><div style="display:flex;gap:6px"><sc-for list="{{xo.hand}}" as="c" hint-placeholder-count="5"><div class="mc {{c.cls}}" style="font-size:8px"><b>{{c.rank}}</b><i>{{c.name}}</i><u>{{c.zone}}</u></div></sc-for></div></div><div><div class="mu up" style="font-size:11px;font-weight:700;margin-bottom:5px">Cartes communes</div><div style="display:flex;gap:5px"><sc-for list="{{xo.comm}}" as="c" hint-placeholder-count="5"><div class="mc {{c.cls}}" style="font-size:8px"><b>{{c.rank}}</b><i>{{c.name}}</i><u>{{c.zone}}</u></div></sc-for></div></div></div></sc-if>
+<div style="font-size:16px;font-weight:700;line-height:1.45;margin-top:12px;white-space:pre-line">{{xo.q}}</div>
+<sc-for list="{{xo.opts}}" as="op" hint-placeholder-count="4"><button class="opt {{op.cls}}" onClick="{{op.pick}}">{{op.label}}</button></sc-for>
+<sc-if value="{{xo.answered}}" hint-placeholder-val="{{ false }}"><div style="margin-top:12px;padding:12px 14px;border-radius:10px;background:#0e0626;border:1.5px solid {{xo.fbColor}}"><div style="font-size:16px;font-weight:900;color:{{xo.fbColor}}">{{xo.fbTitle}}</div><div style="font-size:14px;line-height:1.5;margin-top:4px;white-space:pre-line">{{xo.expl}}</div></div></sc-if></div></sc-for>
+<div style="margin:4px 0 12px;font-size:15px;font-weight:700;color:#ffd166;line-height:1.4">{{exoLine}}</div><button class="gc-btn gc-btn--primary gc-btn--block {{toCheckCls}}" onClick="{{go2}}">Passer à la validation →</button></sc-if>
+<sc-if value="{{showCheck}}" hint-placeholder-val="{{ false }}">
+<div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px"><div class="gd" style="font-size:17px;font-weight:900">Vous avez compris cette marche quand…</div><div class="mu" style="font-size:13px;margin-top:2px">Cochez honnêtement : si un point vous paraît flou, retournez voir la leçon.</div><sc-for list="{{checks}}" as="ck" hint-placeholder-count="3"><button class="ck {{ck.cls}}" onClick="{{ck.pick}}" style="font-size:15px"><span class="bx">{{ck.mark}}</span><span>{{ck.label}}</span></button></sc-for></div>
+<div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap"><span class="gc-chip {{exoCls}}">Exercices : {{exoDone}} / {{exoTotal}}</span><span class="gc-chip {{chkCls}}">Points cochés : {{chkDone}} / {{chkTotal}}</span></div>
+<button class="gc-btn gc-btn--primary gc-btn--block {{valCls}}" onClick="{{validate}}" style="font-size:17px">{{valLabel}}</button>
+<sc-if value="{{justDone}}" hint-placeholder-val="{{ false }}"><div class="gc-panel gc-panel--compact" style="padding:14px;margin-bottom:12px;margin-top:12px;border-color:#5eead4"><div class="t" style="font-size:22px">Bravo, marche validée !</div><div style="font-size:15px;line-height:1.5;margin-top:4px">{{doneMsg}}</div><div class="mu" style="font-size:13px;margin-top:8px">{{aideNote}}</div><button class="gc-btn gc-btn--primary gc-btn--block" onClick="{{nextM}}" style="margin-top:12px">{{nextLabel}}</button></div></sc-if></sc-if>
+</div><sc-if value="{{drawer}}" hint-placeholder-val="{{ false }}"><div class="dr"><div style="flex:none;padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:2px solid #ff4fa3"><div style="flex:1"><div class="mu up" style="font-size:11px;font-weight:700">Parcours d'apprentissage</div><div class="t" style="font-size:18px">Votre carte du parcours</div></div><button class="gc-chip gc-chip--tap" onClick="{{closeDr}}" style="font-size:14px">Fermer ✕</button></div>
+<div class="sc" style="padding:12px 16px"><div style="height:8px;border-radius:99px;background:#2a1f4a;margin-bottom:10px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,#ffd166,#ff4fa3);width:{{progressPct}}%"></div></div>
+<span class="gc-chip gc-chip--on" style="font-size:13px;margin-bottom:10px">{{doneCount}} / {{total}} marches validées</span> <button class="gc-chip gc-chip--tap {{allCls}}" onClick="{{toggleAll}}" style="margin-bottom:10px;font-size:13px">{{allLabel}}</button>
+<sc-for list="{{marches}}" as="mp" hint-placeholder-count="9"><button class="mp {{mp.cls}}" onClick="{{mp.pick}}"><span class="dot {{mp.dotCls}}">{{mp.dot}}</span><span style="flex:1"><span class="mu up" style="display:block;font-size:11px;font-weight:700">{{mp.palier}}</span><span style="display:block;font-size:16px;font-weight:900;line-height:1.15">{{mp.title}}</span></span></button></sc-for></div></div></sc-if></div>
+</script>
+<script>
+
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+let done = {}; let all = false; try { const d = JSON.parse(localStorage.getItem('greencut.parcours') || '{}'); done = d.done || {}; all = !!d.expert; } catch (x) { done = {}; }
+this.state = { m: 0, step: 0, ans: {}, checks: {}, done, tip: 'golf', all, just: false, drawer: false };
+}
+cardList() { return GreencutEngine.cards(); }
+cv(names, marks) {
+const L = this.cardList();
+return names.map((n, i) => { let k = 1; for (; k < L.length; k++) { if (L[k][0] === n) { break; } } const c = L[k]; return { rank: k, name: c[1], zone: c[2], cls: c[3], mark: marks && marks[i] ? 'in' : '' }; });
+}
+data() {
+const T = (head, rows) => ({ head, rows });
+return [
+{ id: '1a', palier: 'Palier 1 · Marche 1a', palierName: 'Poker golf', title: 'Les combinaisons classiques',
+goal: 'Apprendre à lire vos 7 cartes (2 en main + 5 communes) et à les transformer en score de golf. Pas de mises, pas de jetons : seulement les combinaisons.',
+tips: [ { k: 'golf', label: 'du golf', text: 'Votre main = vos 2 cartes cachées. Les cartes communes = les 5 cartes au centre. Le Caddy Master distribue, comme le dealer au poker. Dans ce palier, vous n’avez rien à miser.' },
+{ k: 'poker', label: 'du poker', text: 'Le par est le nombre de coups de référence d’un trou (3, 4 ou 5). Bogey = par + 1, birdie = par − 1, eagle = par − 2, albatross = par − 3. Moins vous avez de coups, mieux c’est.' } ],
+blocks: [
+{ h: '1. Un trou, étape par étape', t: 'Le Caddy Master donne 2 cartes cachées à chaque joueur : c’est votre main.\nIl pose 5 cartes visibles au centre : les cartes communes, les mêmes pour tous.\nChacun cherche sa meilleure combinaison avec ses 2 cartes et les 5 cartes communes, l’annonce et note son score.' },
+{ h: '2. La règle d’or', t: 'Une combinaison compte uniquement si elle utilise au moins une de vos 2 cartes en main. Les cartes communes seules ne valent rien. Vous ne retenez que votre meilleure combinaison.' },
+{ h: '3. Combinaisons et scores', t: 'Du plus faible au plus fort : Paire < Double paire < Brelan < Full < Carré. (Les séries s’intercalent à la marche 1b.)',
+table: T(['Combinaison', 'Score golf', 'Par 3', 'Par 4', 'Par 5'], [['Paire', 'Bogey', '4', '5', '6'], ['Double paire', 'Par', '3', '4', '5'], ['Brelan', 'Birdie', '2', '3', '4'], ['Full', 'Eagle', '1', '2', '3'], ['Carré', 'Albatross', '1', '1', '2'], ['Carré de Hole in one', 'Trou en 1', '1', '1', '1']]) },
+{ h: '4. Et si je n’ai rien ?', t: 'Aucune combinaison : vous marquez le par + 4 (quadruple bogey). Plus tard, le bluff permettra d’éviter ce +4.' } ],
+examples: [
+{ par: 4, hand: ['Wood water', 'One putt'], comm: ['Wood water', 'Iron bunker', 'Drive fairway', 'Two putt', 'Approach in hole'], hm: [1, 0], cm: [1, 0, 0, 0, 0], text: 'Wood water est dans votre main et dans les cartes communes : une paire, qui utilise une carte de votre main.\nPaire = Bogey = 5 coups.' },
+{ par: 4, hand: ['Hole in one', 'Iron water'], comm: ['One putt', 'One putt', 'Drive fairway', 'Approach green', 'Wood water'], hm: [0, 0], cm: [0, 0, 0, 0, 0], text: 'La paire de One putt est uniquement dans les cartes communes : elle ne compte pas.\nAucune combinaison avec vos cartes : par + 4 = 8 coups.' } ],
+mistakes: '• Utiliser une combinaison faite uniquement avec les cartes communes.\n• Confondre « eagle » et « 2 coups » : eagle = 2 coups de moins que le par (1 coup sur par 3, 2 coups sur par 4).\n• Mal former un full : 3 cartes identiques + 2 autres cartes identiques entre elles.',
+exos: [
+{ par: 4, hand: ['Big drive', 'One putt'], comm: ['Big drive', 'Big drive', 'Drive water', 'Wood fairway', 'Iron bunker'], q: 'Quelle est votre meilleure combinaison et votre score ?', opts: ['Brelan de Big drive : Birdie, 3 coups', 'Paire de Big drive : Bogey, 5 coups', 'Brelan de Big drive : Birdie, 2 coups', 'Aucune combinaison : 8 coups'], ok: 0, expl: 'Une Big drive dans votre main + deux dans les cartes communes = brelan. Birdie = par − 1 = 3 coups sur un par 4.' },
+{ par: 3, hand: ['Two putt', 'Iron water'], comm: ['Two putt', 'Two putt', 'Iron water', 'Drive fairway', 'Approach in hole'], q: 'Quelle est votre meilleure combinaison et votre score ?', opts: ['Brelan de Two putt : Birdie, 2 coups', 'Full (3 × Two putt + 2 × Iron water) : 1 coup', 'Double paire : Par, 3 coups', 'Carré de Two putt : 1 coup'], ok: 1, expl: 'Full = Eagle. Sur un par 3, on ne peut pas descendre sous 1 coup : 1 coup.' } ],
+checks: ['je repère paire, double paire, brelan, full et carré dans mes 7 cartes ;', 'je sais qu’une paire des cartes communes seules ne compte pas ;', 'j’annonce mon score en coups en moins de 30 secondes.' ] },
+
+{ id: '1b', palier: 'Palier 1 · Marche 1b', palierName: 'Poker golf', title: 'Les séries',
+goal: 'Découvrir les familles de cartes : une série réunit toutes les cartes d’une même famille. Ce n’est pas une quinte : pas de cartes qui se suivent, pas de couleur.',
+blocks: [
+{ h: '1. Chaque carte a deux sens', t: 'Une carte GREENCUT représente un club (le coup que vous jouez) et une zone (l’endroit où la balle arrive). Exemple : Wood fairway = un coup de bois qui arrive sur le fairway.' },
+{ h: '2. Les familles', t: 'Une famille regroupe les cartes qui partagent un même mot. Une carte peut appartenir à deux familles (son club et sa zone).',
+table: T(['Famille', 'Cartes', 'Nb'], [['Drive', 'Big drive, Drive fairway, Drive water', '3'], ['Wood', 'Wood green, Wood fairway, Wood water', '3'], ['Putt', 'One putt, Two putt, Three putt', '3'], ['Fairway', 'Drive, Wood, Iron fairway', '3'], ['Water', 'Drive, Wood, Iron water', '3'], ['Hole', 'Hole in one, Approach in hole, Bunker in hole', '3'], ['Bunker', 'Iron bunker, Bunker in hole, Bunker green', '3'], ['Iron', 'Iron green, fairway, bunker, water', '4'], ['Green', 'Wood green, Iron green, Approach green, Bunker green', '4'], ['Approach', 'Approach in hole, Approach green', '2 · pas de série']]) },
+{ h: '3. La série', t: 'Une série = toutes les cartes d’une famille, différentes entre elles. Elle utilise au moins une carte de votre main. Une même carte peut servir dans deux séries.\nHiérarchie complète : Paire < Double paire < Série de 3 < Brelan < Série de 4 < Full < Carré.',
+table: T(['Combinaison', 'Score golf', 'Par 3', 'Par 4', 'Par 5'], [['Série de 3', 'Par', '3', '4', '5'], ['Série de 4', 'Eagle', '1', '2', '3']]) } ],
+examples: [
+{ par: 4, hand: ['Wood fairway', 'Iron fairway'], comm: ['Drive fairway', 'Wood water', 'Approach green', 'Iron bunker', 'One putt'], hm: [1, 1], cm: [1, 0, 0, 0, 0], text: 'Vous avez les 3 cartes de la famille Fairway (Drive, Wood, Iron), et vos deux cartes en main y participent.\nSérie de 3 = Par = 4 coups.' },
+{ par: 5, hand: ['Wood green', 'Two putt'], comm: ['Wood green', 'Iron green', 'Approach green', 'Two putt', 'Drive water'], hm: [1, 1], cm: [1, 0, 0, 1, 0], text: 'Double paire (Wood green et Two putt) = Par = 5 coups.\nIl ne manque que Bunker green pour une série de 4 Green : presque !' } ],
+mistakes: '• Chercher une série Approach : cette famille n’a que 2 cartes, elle n’a pas de série.\n• Confondre série et brelan : une série = des cartes différentes d’une même famille.\n• Compter deux fois la même carte : deux Wood fairway ne font pas deux cartes de la famille Wood.\n• Oublier qu’une carte compte dans deux familles (Wood fairway : Wood et Fairway).',
+exos: [
+{ par: 3, hand: ['Iron water', 'Drive water'], comm: ['Wood water', 'Two putt', 'Iron fairway', 'Hole in one', 'Wood green'], q: 'Quelle est votre meilleure combinaison et votre score ?', opts: ['Série de 3 Water : Par, 3 coups', 'Série de 4 : Eagle, 1 coup', 'Paire : Bogey, 4 coups', 'Aucune combinaison : 7 coups'], ok: 0, expl: 'Drive water + Wood water + Iron water = les 3 cartes de la famille Water. Série de 3 = Par = 3 coups sur un par 3.' },
+{ par: 5, hand: ['Approach green', 'Bunker green'], comm: ['Wood green', 'Iron green', 'Three putt', 'Approach green', 'Drive fairway'], q: 'Quelle est votre meilleure combinaison et votre score ?', opts: ['Série de 4 Green : Eagle, 3 coups', 'Paire d’Approach green : Bogey, 6 coups', 'Série de 3 Green : Par, 5 coups', 'Série Approach : Par, 5 coups'], ok: 0, expl: 'Wood green, Iron green, Approach green et Bunker green = les 4 cartes de la famille Green. Eagle = 3 coups sur un par 5. La paire d’Approach est moins forte : on ne retient que la meilleure combinaison.' } ],
+checks: ['je repère une série sans chercher dans la liste ;', 'je sais qu’une carte peut compter dans deux familles ;', 'je ne cherche plus de série Approach.'] },
+
+{ id: '2a', palier: 'Palier 2 · Marche 2a', palierName: 'Combinaisons golf', title: 'Le par 3',
+goal: 'Jouer un vrai trou avec vos cartes : enchaîner DÉPART → coups INTERMÉDIAIRES → coup FINAL. On commence par le par 3, le plus simple : un seul coup pour atteindre le green.',
+blocks: [
+{ h: 'Le principe : une chaîne de cartes', t: 'Une combinaison golf est une chaîne qui raconte votre trou : DÉPART → INTERMÉDIAIRE → FINAL.\nLe rôle de chaque carte est inscrit sur la carte : le bandeau DÉPART / INTERMÉD. / FINAL s’allume selon le par.' },
+{ h: 'Compter ses coups', t: '• Chaque carte = 1 coup.\n• Une carte water = 2 coups (le coup + la pénalité).\n• One putt = 1, Two putt = 2, Three putt = 3 : vous utilisez le putt que vous avez.\n• Hole in one = 1 coup.\nVotre score = le total des coups de la chaîne. Moins il y en a, mieux c’est.' },
+{ h: 'Les règles du palier', t: '• Au moins une carte de votre main dans la chaîne.\n• Une carte ne sert qu’une fois (deux cartes identiques peuvent servir deux fois).\n• Golf ou poker ? Gardez le plus petit nombre de coups. À égalité, le golf passe avant le poker.' },
+{ h: 'Les 5 recettes du par 3', t: 'Départ possible : Wood ou Iron (Big drive, Drive, Approach, Bunker et Putt ne servent pas de départ sur un par 3).',
+table: T(['Recette', 'Chaîne', 'Coups'], [['A. Direct au green', 'Wood green ou Iron green → putt', '2 · 3 · 4'], ['B. Par le fairway', 'Wood/Iron fairway → Approach in hole', '2'], ['', 'Wood/Iron fairway → Approach green → putt', '3 · 4 · 5'], ['C. Par le bunker', 'Iron bunker → Bunker in hole', '2'], ['', 'Iron bunker → Bunker green → putt', '3 · 4 · 5'], ['D. Par l’eau (+1)', 'Wood/Iron water → Approach in hole', '3'], ['E. Le grand coup', 'Hole in one seule, dans votre main', '1']]) } ],
+examples: [
+{ par: 3, hand: ['Iron fairway', 'Approach green'], comm: ['Two putt', 'Wood water', 'Drive fairway', 'Iron water', 'Three putt'], hm: [1, 1], cm: [1, 0, 0, 0, 0], text: 'Iron fairway → Approach green → Two putt = 1 + 1 + 2 = 4 coups = Bogey.\n(Le Three putt ferait 5 : on prend le meilleur putt.)' },
+{ par: 3, hand: ['Wood green', 'One putt'], comm: ['Iron bunker', 'Hole in one', 'Two putt', 'Drive water', 'Approach in hole'], hm: [1, 1], cm: [0, 0, 0, 0, 0], text: 'Wood green → One putt = 2 coups = Birdie.\nLe Hole in one est dans les cartes communes : il ne compte pas, car il n’est pas dans votre main.' } ],
+mistakes: '',
+exos: [
+{ par: 3, hand: ['Iron bunker', 'Bunker green'], comm: ['One putt', 'Two putt', 'Wood water', 'Drive fairway', 'Iron fairway'], q: 'Quelle est votre meilleure chaîne et votre score ?', opts: ['Iron bunker → Bunker green → One putt : 3 coups, Par', 'Iron bunker → Bunker green → Two putt : 4 coups, Bogey', 'Iron bunker → Bunker in hole : 2 coups, Birdie', 'Aucune chaîne : 7 coups'], ok: 0, expl: 'Départ Iron bunker (1) → Bunker green (1) → putt. Le One putt (1) donne 3 coups = Par ; le Two putt ferait 4.' },
+{ par: 3, hand: ['Wood green', 'Three putt'], comm: ['Two putt', 'Iron green', 'Hole in one', 'Approach in hole', 'Wood fairway'], q: 'Quelle est votre meilleure chaîne et votre score ?', opts: ['Wood green → Two putt : 3 coups, Par', 'Hole in one seule : 1 coup, Eagle', 'Wood fairway → Approach in hole : 2 coups, Birdie', 'Wood green → Three putt : 4 coups, Bogey'], ok: 0, expl: 'Hole in one et Wood fairway + Approach in hole sont entièrement dans les cartes communes : elles ne comptent pas. Reste Wood green (votre main) + Two putt = 3 coups = Par.' } ],
+checks: ['j’enchaîne spontanément départ → arrivée → putt ;', 'je compte une carte water pour 2 coups ;', 'je sais que Hole in one doit être dans ma main.'] },
+
+{ id: '2b', palier: 'Palier 2 · Marche 2b', palierName: 'Combinaisons golf', title: 'Le par 4',
+goal: 'Un par 4 demande deux coups pour atteindre le green. Les fers sont trop courts pour partir : on part avec un Drive, un Big drive ou un Wood. Et vous découvrez la carte joker.',
+blocks: [
+{ h: 'Les départs d’un par 4', t: 'Big drive, Drive fairway, Drive water, Wood fairway, Wood water. Les cartes Iron et Hole in one ne partent pas sur un par 4.' },
+{ h: 'Big drive : la carte joker', t: 'Big drive est un coup de départ surpuissant. Vous choisissez sa zone selon les cartes qui suivent.',
+table: T(['Zone choisie', 'Carte qui suit', 'Coups'], [['Green', 'Putt (One / Two / Three)', '2 · 3 · 4'], ['Fairway', 'Approach in hole', '2'], ['Fairway', 'Approach green → putt', '3 · 4 · 5'], ['Bunker', 'Bunker in hole', '2'], ['Bunker', 'Bunker green → putt', '3 · 4 · 5']]) },
+{ h: 'Les recettes (coups avec un départ fairway)', t: 'Chaque carte water à la place d’une carte fairway ajoute 1 coup. Ce tableau est une aide de lecture : inutile de l’apprendre par cœur.',
+table: T(['Recette', 'Chaîne', 'Coups'], [['Drive + approche', 'Drive fairway → Approach in hole', '2'], ['', 'Drive fairway → Approach green / Iron green / Wood green → putt', '3 · 4 · 5'], ['Drive + bunker', 'Drive fairway → Iron bunker → Bunker in hole', '3'], ['Drive + fer', 'Drive fairway → Iron fairway → Approach in hole', '3'], ['Wood + green', 'Wood fairway → Wood green / Iron green → putt', '3 · 4 · 5']]) } ],
+examples: [
+{ par: 4, hand: ['Big drive', 'Wood fairway'], comm: ['Two putt', 'Three putt', 'Approach in hole', 'Iron green', 'Drive water'], hm: [1, 0], cm: [0, 0, 1, 0, 0], text: 'Big drive en zone fairway → Approach in hole = 2 coups = Eagle.\nEn zone green, Big drive + Two putt ferait 3 : le choix de la zone fait la différence.' },
+{ par: 4, hand: ['Wood water', 'Iron green'], comm: ['One putt', 'Two putt', 'Approach green', 'Iron fairway', 'Hole in one'], hm: [1, 1], cm: [1, 0, 0, 0, 0], text: 'Wood water → Iron green → One putt = 2 + 1 + 1 = 4 coups = Par.\nRallonger avec Iron fairway ferait 5.' } ],
+mistakes: '',
+exos: [
+{ par: 4, hand: ['Drive water', 'Iron bunker'], comm: ['Bunker in hole', 'Two putt', 'Wood green', 'One putt', 'Approach green'], q: 'Quel est le meilleur score possible avec ces cartes ?', opts: ['4 coups : Par', '3 coups : Birdie', '5 coups : Bogey', 'Aucune chaîne : 8 coups'], ok: 0, expl: 'Drive water compte 2 coups. Exemples à 4 coups : Drive water → Iron bunker → Bunker in hole ; Drive water → Wood green → One putt ; Drive water → Approach green → One putt. Aucun chemin ne fait 3.' },
+{ par: 4, hand: ['Wood fairway', 'Wood water'], comm: ['Approach in hole', 'Two putt', 'Iron water', 'Iron green', 'One putt'], q: 'Quel est le meilleur score possible avec ces cartes ?', opts: ['3 coups : Birdie (Wood fairway → Iron green → One putt)', '4 coups : Par (Wood water → Approach in hole)', '2 coups : Eagle', '5 coups : Bogey'], ok: 0, expl: 'Wood fairway → Iron green → One putt = 1 + 1 + 1 = 3 coups = Birdie. Le chemin par Wood water et Approach in hole ferait 4.' } ],
+checks: ['je sais choisir la zone de Big drive ;', 'je distingue les départs d’un par 4 (pas de Iron) de ceux d’un par 3 ;', 'je compare deux chaînes et garde la plus courte.'] },
+
+{ id: '2c', palier: 'Palier 2 · Marche 2c', palierName: 'Combinaisons golf', title: 'Le par 5',
+goal: 'Le trou le plus long : trois coups avant le green. Big drive est la seule carte qui raccourcit le chemin.',
+blocks: [
+{ h: 'Les départs d’un par 5', t: 'Big drive, Drive fairway, Drive water, Wood fairway, Wood water.' },
+{ h: 'Big drive sur par 5', t: 'Sur un par 5, Big drive atterrit sur le fairway ou dans un bunker, jamais sur le green. Un seul coup suffit ensuite.',
+table: T(['Carte qui suit Big drive', 'Coups', 'Score'], [['Approach in hole ou Bunker in hole', '2', 'Albatross'], ['Approach / Bunker green, Iron green ou Wood green → putt', '3 · 4 · 5', 'Eagle · Birdie · Par']]) },
+{ h: 'Les recettes', t: 'Même principe : +1 coup par carte water. La table complète des 355 chaînes sert de référence en cas de doute.',
+table: T(['Recette', 'Chaîne', 'Coups'], [['Drive + Wood', 'Drive fairway → Wood fairway → Approach in hole', '3'], ['', 'Drive fairway → Wood fairway → Approach green / Iron green / Wood green → putt', '4 · 5 · 6'], ['Wood + Wood', 'Wood fairway → Wood fairway → Approach in hole', '3'], ['Chemin des fers', 'Drive fairway → Iron fairway → Iron fairway → Approach in hole', '4']]) } ],
+examples: [
+{ par: 5, hand: ['Big drive', 'Wood green'], comm: ['One putt', 'Two putt', 'Approach in hole', 'Drive water', 'Iron bunker'], hm: [1, 0], cm: [0, 0, 1, 0, 0], text: 'Big drive (zone fairway) → Approach in hole = 2 coups = Albatross.\nBig drive → Wood green → One putt ne ferait que 3 coups.' },
+{ par: 5, hand: ['Wood water', 'Iron fairway'], comm: ['Wood green', 'One putt', 'Two putt', 'Drive water', 'Iron bunker'], hm: [1, 1], cm: [1, 1, 0, 0, 0], text: 'Wood water → Iron fairway → Wood green → One putt = 2 + 1 + 1 + 1 = 5 coups = Par.' } ],
+mistakes: '',
+exos: [
+{ par: 5, hand: ['Drive fairway', 'Iron bunker'], comm: ['Wood fairway', 'Bunker in hole', 'Two putt', 'Three putt', 'Iron green'], q: 'Quel est le meilleur score possible avec ces cartes ?', opts: ['4 coups : Birdie (Drive fairway → Wood fairway → Iron bunker → Bunker in hole)', '5 coups : Par (par Iron green et Two putt)', '3 coups : Eagle', '6 coups : Bogey'], ok: 0, expl: 'Trois coups avant le green : Drive fairway → Wood fairway → Iron bunker → Bunker in hole = 4 coups = Birdie. Passer par Iron green et Two putt ferait 5.' },
+{ par: 5, hand: ['Wood fairway', 'Wood fairway'], comm: ['Approach in hole', 'One putt', 'Drive water', 'Wood water', 'Two putt'], q: 'Quel est le meilleur score possible avec ces cartes ?', opts: ['3 coups : Eagle (Wood fairway → Wood fairway → Approach in hole)', '2 coups : Albatross', '4 coups : Birdie', '5 coups : Par'], ok: 0, expl: 'Deux cartes identiques servent pour deux coups : Wood fairway → Wood fairway → Approach in hole = 3 coups = Eagle.' } ],
+checks: ['j’enchaîne trois coups avant l’arrivée sur un par 5 ;', 'j’utilise Big drive pour raccourcir le trou ;', 'je trouve seul la chaîne la plus courte sur n’importe quel par.'] },
+
+{ id: '3a', palier: 'Palier 3 · Marche 3a', palierName: 'Mises et bluff', title: 'Les mises',
+goal: 'Les scores ne changent pas : vous ajoutez des décisions. Miser, suivre, se coucher. Les mises suivent les règles du Texas Hold’em no limit. Pour apprendre : 10 jetons identiques, blinds 1 et 2.',
+blocks: [
+{ h: 'Un trou avec mises : 4 tours d’enchères', t: '1. Le Caddy Master distribue 2 cartes. Les blinds (1 et 2 jetons) sont posées.\n2. Tour 1 avant le flop : suivre, relancer ou se coucher.\n3. Flop (3 cartes communes) → tour 2.\n4. Turn (4e carte) → tour 3.\n5. River (5e carte) → dernier tour.\n6. Showdown : le meilleur score gagne le pot.' },
+{ h: 'Vos choix à chaque tour', t: 'La mise minimale est la grosse blind. Une relance doit être au moins égale à la dernière mise ou relance du tour. Pas de maximum : tapis possible. Vous ne pouvez pas checker face à une mise.',
+table: T(['Action', 'Ce que vous faites'], [['Checker', 'Passer sans miser, quand personne n’a misé'], ['Miser', 'Mettre des jetons au pot (au moins la grosse blind)'], ['Suivre', 'Égaler la mise en cours'], ['Relancer', 'Mettre plus : les autres suivent, relancent ou se couchent'], ['Se coucher', 'Abandonner le trou'], ['Tapis', 'Miser tous ses jetons']]) },
+{ h: 'Votre score à la fin du trou', t: 'Se coucher n’est jamais pire que d’aller au bout sans combinaison. Votre score n’est jamais supérieur à par + 4.',
+table: T(['Votre situation', 'Score noté'], [['Au bout, avec une combinaison', 'Le score de la combinaison'], ['Couché, avec une combinaison', 'Score de la combinaison + 1 (max par + 4)'], ['Au bout, sans combinaison', 'Par + 4'], ['Couché, sans combinaison', 'Par + 4']]) },
+{ h: 'Qui gagne le pot ?', t: 'Le joueur au plus petit score. À égalité : la combinaison golf passe avant la combinaison poker. Toutes les mains sont vérifiées en fin de trou, même celles des joueurs couchés (le jeu le fait automatiquement en ligne).' } ],
+examples: [], mistakes: '',
+exos: [
+{ par: 4, hand: [], comm: [], q: 'Vous vous couchez sur un par 4 avec une double paire. Quel score notez-vous ?', opts: ['4 coups', '5 coups', '8 coups', '3 coups'], ok: 1, expl: 'Double paire = Par = 4 coups, + 1 de pénalité = 5 coups.' },
+{ par: 3, hand: [], comm: [], q: 'Vous vous couchez sur un par 3 sans aucune combinaison. Quel score notez-vous ?', opts: ['8 coups', '7 coups', '4 coups', '3 coups'], ok: 1, expl: 'Sans combinaison, c’est par + 4 = 7. La pénalité de 1 coup ne peut pas dépasser le plafond : 7 coups.' } ],
+checks: ['je sais dans quel ordre se jouent les 4 tours d’enchères ;', 'je calcule mon score quand je me couche ;', 'je sais à qui revient le pot et pourquoi.'] },
+
+{ id: '3b', palier: 'Palier 3 · Marche 3b', palierName: 'Mises et bluff', title: 'Le bluff et le tapis',
+goal: 'Bluffer, c’est miser avec une main faible pour faire croire à une main forte. Dans GREENCUT, on parle de bluff quand vous n’avez aucune combinaison (ni golf, ni poker).',
+blocks: [
+{ h: 'Le bluff gagnant', t: 'Si vous gagnez le trou parce que tous les autres se sont couchés, vous marquez le par au lieu de par + 4.' },
+{ h: 'Le tapis', t: 'Faire tapis, c’est miser tous ses jetons. Si vous gagnez avec un bluff en ayant fait tapis, vous marquez 1 coup (trou en 1), quel que soit le par. Ce bonus ne dépend pas du montant du tapis.' },
+{ h: 'Départager deux bluffs : le rang des cartes', t: '1 Hole in one · 2 Big drive · 3 Drive fairway · 4 Drive water · 5 Wood green · 6 Wood fairway · 7 Wood water · 8 Iron green · 9 Iron fairway · 10 Iron bunker · 11 Iron water · 12 Approach in hole · 13 Approach green · 14 Bunker in hole · 15 Bunker green · 16 One putt · 17 Two putt · 18 Three putt.\nLe rang 1 est le plus fort : on compare la meilleure carte de la main, puis la 2e.' },
+{ h: 'Les cas particuliers',
+table: T(['Situation', 'Résultat'], [['Un bluff, les autres se couchent', 'Le bluffeur gagne : par'], ['Deux bluffs face à face', 'Meilleure carte en main gagne : par · l’autre : par + 4'], ['Tapis bluffé gagnant', 'Le bluffeur marque 1 coup'], ['Deux tapis bluffés', 'Meilleure carte : 1 coup · l’autre : par + 4'], ['Tapis bluffé contre combinaison golf à quadruple bogey', 'Le golf gagne (il passe avant) : par + 4 pour les deux']]) } ],
+examples: [
+{ par: 5, hand: ['Three putt', 'Bunker in hole'], comm: ['Wood water', 'Drive fairway', 'Iron water', 'Two putt', 'Wood fairway'], hm: [0, 0], cm: [0, 0, 0, 0, 0], text: 'B n’a aucune combinaison : pas de chaîne golf, pas de combinaison poker. Il relance après le flop et les trois autres se couchent.\nB gagne le pot et marque Par = 5 coups au lieu de 9.' } ],
+mistakes: '',
+exos: [
+{ par: 3, hand: ['Hole in one', 'Two putt'], comm: ['Wood water', 'Drive fairway', 'Iron bunker', 'Approach green', 'Three putt'], q: 'Si tous les autres se couchent, est-ce un bluff ?', opts: ['Oui : je marque le par', 'Non : Hole in one en main est une combinaison golf, 1 coup (Eagle)', 'Oui : je marque 1 coup', 'Non : je marque par + 4'], ok: 1, expl: 'Hole in one est dans votre main, sur un par 3 : c’est une combinaison golf. Vous avez donc une combinaison : pas de bluff.' },
+{ par: 4, hand: ['Drive water', 'Iron water'], comm: ['Wood water', 'One putt', 'Two putt', 'Three putt', 'Iron fairway'], q: 'Si tous les autres se couchent, est-ce un bluff ?', opts: ['Oui : je marque le par', 'Oui : je marque 1 coup', 'Non : série de 3 Water, Par = 4 coups', 'Non : Brelan, Birdie'], ok: 2, expl: 'Drive water + Iron water + Wood water (cartes communes) forment une série de 3 Water. Vous avez une combinaison : Par = 4 coups. Ce n’est pas un bluff.' } ],
+checks: ['je sais reconnaître une main sans aucune combinaison ;', 'je connais le score d’un bluff gagnant et d’un tapis bluffé ;', 'je sais départager deux bluffs avec le rang des cartes.'] },
+
+{ id: 'av', palier: 'Palier 3 · Règles avancées', palierName: 'Mises et bluff', title: 'Tapis court et départage',
+goal: 'À lire après vos premières parties : elles reprennent le Texas Hold’em et complètent le départage.',
+blocks: [
+{ h: 'Tapis court et pots annexes', t: 'Vous pouvez faire tapis avec ce qu’il vous reste, même si c’est moins que la mise à suivre. Les jetons sont répartis en deux pots : le pot principal (auquel vous avez contribué, vous pouvez le gagner) et le pot annexe (formé par les jetons misés en plus par les autres : vous ne pouvez pas le gagner).\nExemple : A tapis avec 4 jetons ; B et C suivent avec 10. Pot principal : 4 + 4 + 4 = 12 (A, B, C). Pot annexe : 6 + 6 = 12 (B et C seulement).' },
+{ h: 'Le départage complet', t: 'Le pot revient au plus petit score. En cas d’égalité, dans l’ordre :\n1. Golf bat poker.\n2. Deux combinaisons golf : la plus forte combinaison poker du joueur, sinon la carte de sa main de rang le plus fort, puis la 2e.\n3. Deux combinaisons poker : la plus haute de la hiérarchie ; si identique, la carte de rang le plus fort.\n4. Encore égalité : pot partagé (jeton impair au premier joueur à gauche du Caddy Master).' } ],
+examples: [], mistakes: '',
+exos: [
+{ par: 3, hand: ['Wood green', 'Three putt'], comm: ['One putt', 'Approach green', 'Wood fairway', 'Iron water', 'Drive water'], q: 'Deux joueurs vont au bout sur un par 3. P a Wood green + Three putt ; Q a Iron green + Two putt. Qui gagne le pot ?', opts: ['P', 'Q', 'Pot partagé', 'Personne'], ok: 0, expl: 'P et Q font tous deux Birdie (2 coups) avec One putt des cartes communes. Égalité golf contre golf, sans combinaison poker : la carte de la main de rang le plus fort départage. Wood green (rang 5) bat Iron green (rang 8) : P gagne.' } ],
+checks: ['je sais qu’un tapis court crée un pot principal et un pot annexe ;', 'je connais l’ordre du départage : golf avant poker, puis rang des cartes ;', 'je sais quand le pot est partagé.'] },
+
+{ id: '4', palier: 'Palier 4', palierName: 'Jetons, classement et score final', title: 'La partie complète',
+goal: 'Les vraies valeurs des jetons, le classement en jetons et le score net. Aucune règle de golf ni de poker ne change.',
+blocks: [
+{ h: 'Le capital de départ', t: '30 jetons = 10 000 points : c’est la mise de départ. Votre toute première partie est offerte : 10 000 pts de bienvenue à la première connexion, sans débit de fees. Ensuite, la mise est prélevée sur votre solde de points du jeu. Blinds du jeu complet : 100 / 200.',
+table: T(['Jetons', 'Valeur', 'Total'], [['10', '100', '1 000'], ['10', '200', '2 000'], ['6', '500', '3 000'], ['4', '1 000', '4 000'], ['30', '', '10 000']]) },
+{ h: 'Plus de jetons', t: 'Si vous n’avez plus de jetons, vous ne jouez plus les mises et vous notez par + 4 sur chaque trou restant : c’est ce qui rend les tapis et les bluffs risqués. À la fin des 18 trous, vos jetons sont rendus à votre solde de points du jeu. Pour rejouer, une nouvelle partie demande une nouvelle mise de départ de 10 000 pts (100 fees). Ce prélèvement n’a lieu qu’avec votre accord : le jeu vous l’annonce et attend que vous confirmiez. Si votre solde est inférieur à 10 000 pts, le jeu vous propose de convertir 100 fees en 10 000 pts, avec votre confirmation. Sans 100 fees ni 10 000 pts, vous ne pouvez pas jouer : gagnez des fees avec votre carte LeClub Golf et revenez.' },
+{ h: 'Bonus et malus', t: 'Votre rang en jetons à la fin de la partie vous donne un bonus ou un malus à ajouter à votre score brut.',
+table: T(['Rang en jetons', 'Bonus / malus'], [['1er', '−4'], ['2e', '−2'], ['3e', '−1'], ['4e et suivants', '+2']]) },
+{ h: 'Score brut et score net', t: 'Score brut = total des coups sur 18 trous. Score net = brut + bonus ou malus. Le plus petit gagne : il y a deux vainqueurs, le vainqueur brut (le meilleur joueur de golf-cartes) et le vainqueur net (celui qui combine le mieux cartes et mises). En cas d\u2019égalité au net : on départage au score brut, puis au meilleur score sur les 9 derniers trous ; au-delà, égalité parfaite.' } ],
+examples: [], mistakes: '',
+exos: [
+{ par: 4, hand: [], comm: [], q: 'Fin de partie à 4 joueurs. A : 16 000 points de jetons. B : 14 000. C : 6 000. D : 24 000. Quel est le classement et le bonus ou malus de chacun ?', opts: ['D 1er (−4), A 2e (−2), B 3e (−1), C 4e (+2)', 'A 1er (−4), D 2e (−2), B 3e (−1), C 4e (+2)', 'D 1er (−4), A 2e (−2), C 3e (−1), B 4e (+2)', 'D 1er (+2), A 2e (−1), B 3e (−2), C 4e (−4)'], ok: 0, expl: 'On classe du plus de jetons au moins : D 24 000 (1er, −4), A 16 000 (2e, −2), B 14 000 (3e, −1), C 6 000 (4e, +2).' },
+{ par: 4, hand: [], comm: [], q: '5 joueurs. Bruts : P1 74, P2 78, P3 81, P4 75, P5 79. Rang en jetons : P2 1er, P3 2e, P5 3e, P4 4e, P1 5e. Qui gagne au brut, et qui gagne au net ?', opts: ['Brut : P1 · Net : P2', 'Brut : P1 · Net : P1', 'Brut : P2 · Net : P2', 'Brut : P4 · Net : P2'], ok: 0, expl: 'Nets : P1 74 + 2 = 76 ; P2 78 − 4 = 74 ; P3 81 − 2 = 79 ; P4 75 + 2 = 77 ; P5 79 − 1 = 78. P1 gagne au brut (74), P2 gagne au net (74).' } ],
+checks: ['je classe les joueurs d’après leurs jetons finaux ;', 'je retrouve mon bonus ou malus dans le tableau ;', 'je sais dire qui gagne au brut et qui gagne au net.'] }
+];
+}
+save(done, all) { try { const o = Object.assign({}, done, { done, expert: all }); localStorage.setItem('greencut.parcours', JSON.stringify(o)); } catch (x) { return; } }
+chime(kind) {
+try {
+let on = true; let vol = 60; try { const q = JSON.parse(localStorage.getItem('greencut.sound') || 'null'); if (q) { on = q.on !== false; vol = typeof q.vol === 'number' ? q.vol : 60; } } catch (x) { on = true; }
+if (!on) { return; }
+const AC = typeof window !== 'undefined' ? (window.AudioContext || window.webkitAudioContext) : null; if (!AC) { return; }
+if (!this._ac) { this._ac = new AC(); this._mg = this._ac.createGain(); this._mg.connect(this._ac.destination); }
+const ac = this._ac; if (ac.state === 'suspended') { ac.resume(); }
+this._mg.gain.value = (vol / 100) * 0.5; const t0 = ac.currentTime + 0.02;
+const tone = (f, st, d, type, g) => { const o = ac.createOscillator(); const gg = ac.createGain(); o.type = type; o.frequency.setValueAtTime(f, t0 + st); gg.gain.setValueAtTime(0.0001, t0 + st); gg.gain.exponentialRampToValueAtTime(g, t0 + st + 0.01); gg.gain.exponentialRampToValueAtTime(0.0001, t0 + st + d); o.connect(gg); gg.connect(this._mg); o.start(t0 + st); o.stop(t0 + st + d + 0.05); };
+if (kind === 'enter') { [262, 330, 392].forEach((f) => { tone(f, 0, 0.7, 'sawtooth', 0.05); }); tone(1047, 0.05, 0.4, 'triangle', 0.14); tone(1319, 0.14, 0.45, 'triangle', 0.12); }
+else { [523, 659, 784, 1047].forEach((f, i) => { tone(f, i * 0.11, 0.4, 'triangle', 0.26); }); }
+} catch (x) { /* son facultatif */ }
+}
+renderVals() {
+const s = this.state; const D = this.data(); const M = D[s.m]; const set = (o) => () => this.setState(o);
+const unlocked = (i) => s.all || i === 0 || !!s.done[D[i - 1].id];
+const doneCount = D.filter((d) => s.done[d.id]).length;
+const lockedNow = !unlocked(s.m);
+const solved = (id, j) => s.ans[id + ':' + j] === M.exos[j].ok;
+const exoDone = M.exos.filter((x, j) => s.ans[M.id + ':' + j] === x.ok).length;
+const chkDone = M.checks.filter((c, j) => s.checks[M.id + ':' + j]).length;
+const canVal = exoDone === M.exos.length && chkDone === M.checks.length;
+const exoMiss = M.exos.length - exoDone; const chkMiss = M.checks.length - chkDone;
+const todoN = M.exos.map((x, j) => (s.ans[M.id + ':' + j] === x.ok ? 0 : j + 1)).filter((n) => n > 0);
+const exoLine = exoMiss === 0 ? 'Tous les exercices sont réussis ✓' : 'Exercices réussis : ' + exoDone + ' / ' + M.exos.length + ' · à réussir : n° ' + todoN.join(', ');
+const needTxt = [exoMiss > 0 ? (exoMiss === 1 ? '1 exercice à réussir' : exoMiss + ' exercices à réussir') : '', chkMiss > 0 ? (chkMiss === 1 ? '1 point à cocher' : chkMiss + ' points à cocher') : ''].filter(Boolean).join(' · ');
+const marches = D.map((d, i) => {
+const ok = !!s.done[d.id]; const lk = !unlocked(i);
+return { palier: d.palier, title: d.title, dot: ok ? '✓' : (lk ? '–' : d.id.toUpperCase().replace('AV', '+')), dotCls: ok ? 'ok' : (i === s.m ? 'cur' : ''), cls: (i === s.m ? 'sel ' : '') + (lk ? 'lk' : ''), pick: () => { if (unlocked(i)) { this.setState({ m: i, step: 0, just: false, drawer: false }); } } };
+});
+const tips = (M.tips || []).map((t) => ({ label: t.label === 'du golf' ? 'du golf (pas du poker)' : 'du poker (pas du golf)', cls: s.tip === t.k ? 'on' : '', pick: set({ tip: t.k }) }));
+const tipObj = (M.tips || []).find((t) => t.k === s.tip);
+const blocks = M.blocks.map((b) => ({ h: b.h || '', t: b.t || '', hasTable: !!b.table, head: b.table ? b.table.head.map((v) => ({ v })) : [], rows: b.table ? b.table.rows.map((r) => ({ cells: r.map((v) => ({ v })) })) : [] }));
+const examples = M.examples.map((e) => ({ parLabel: 'Par ' + e.par, hand: this.cv(e.hand, e.hm), comm: this.cv(e.comm, e.cm), text: e.text }));
+const exos = M.exos.map((x, j) => {
+const key = M.id + ':' + j; const a = s.ans[key]; const answered = a !== undefined; const good = a === x.ok;
+return { n: j + 1, parLabel: x.hand.length ? 'Par ' + x.par : '', hasCards: x.hand.length > 0, hand: this.cv(x.hand), comm: this.cv(x.comm), q: x.q, solved: s.ans[key] === x.ok,
+opts: x.opts.map((label, k) => ({ label, cls: good ? (k === x.ok ? 'good' : 'dim') : (answered && k === a ? 'bad' : ''), pick: () => { if (!good) { const ans = Object.assign({}, s.ans); ans[key] = k; this.setState({ ans }); } } })),
+answered, fbColor: good ? '#5eead4' : '#ff6b6b', fbTitle: good ? 'Bonne réponse !' : 'Pas tout à fait : choisissez une autre réponse', expl: x.expl, canRetry: false,
+retry: () => { const ans = Object.assign({}, s.ans); delete ans[key]; this.setState({ ans }); } };
+});
+const checks = M.checks.map((label, j) => { const key = M.id + ':' + j; const on = !!s.checks[key]; return { label, cls: on ? 'on' : '', mark: on ? '✓' : '', pick: () => { const c = Object.assign({}, s.checks); c[key] = !on; this.setState({ checks: c }); } }; });
+const next = D[s.m + 1];
+return {
+drawer: !!s.drawer, openDr: () => this.setState({ drawer: true }), closeDr: () => this.setState({ drawer: false }),
+doneCount, total: D.length, progressPct: Math.round(doneCount / D.length * 100), allCls: s.all ? 'on' : '', allLabel: s.all ? 'Tout déverrouillé' : 'Je connais déjà : tout déverrouiller', toggleAll: () => { this.save(s.done, !s.all); this.setState({ all: !s.all }); },
+marches, cur: M, isLocked: lockedNow, prevTitle: s.m > 0 ? D[s.m - 1].palier + ' · ' + D[s.m - 1].title : '',
+s0: s.step === 0 ? 'on' : '', s1: s.step === 1 ? 'on' : '', s2: s.step === 2 ? 'on' : '',
+go0: () => { if (!lockedNow) { this.setState({ step: 0 }); } }, go1: () => { if (!lockedNow) { this.setState({ step: 1 }); } }, go2: () => { if (!lockedNow) { this.setState({ step: 2 }); } },
+showLesson: !lockedNow && s.step === 0, showExos: !lockedNow && s.step === 1, showCheck: !lockedNow && s.step === 2,
+hasTips: tips.length > 0, tips, tipText: tipObj ? tipObj.text : '', blocks, examples, hasMistakes: !!M.mistakes, mistakes: M.mistakes,
+exos, exoLine, exoAllOk: exoMiss === 0, toCheckCls: '', checks,
+exoCls: exoDone === M.exos.length ? 'on' : '', chkCls: chkDone === M.checks.length ? 'on' : '', exoDone, exoTotal: M.exos.length, chkDone, chkTotal: M.checks.length,
+valCls: canVal || s.done[M.id] || exoMiss > 0 ? '' : 'off', valLabel: s.done[M.id] ? 'Marche validée ✓' : (canVal ? 'Valider cette marche' : (exoMiss > 0 ? 'Retour aux exercices (' + needTxt + ')' : 'Cochez les points ci-dessus (' + needTxt + ')')),
+validate: () => { if (!canVal && exoMiss > 0) { this.setState({ step: 1 }); } else if (canVal && !s.done[M.id]) { const d = Object.assign({}, s.done); d[M.id] = true; this.save(d, s.all); this.setState({ done: d, just: true }); this.chime('ok'); } },
+justDone: !!(s.just && s.done[M.id]), doneMsg: next ? 'Vous pouvez passer à : ' + next.palier + ' · ' + next.title + '.' : 'Vous avez terminé tout le parcours : vous êtes prêt pour la partie complète !',
+aideNote: s.done['3a'] ? 'L’aide à la mise du prototype se coupe désormais seule (niveau expert, réactivable à la main).' : 'Tant que la marche 3a n’est pas validée, l’aide à la mise reste allumée dans le prototype.',
+nextLabel: next ? 'Marche suivante →' : 'Jouer au prototype', nextM: () => { if (next) { this.setState({ m: s.m + 1, step: 0, just: false }); } else { try { location.href = 'TableMobile.html'; } catch (x) { return; } } }
+};
+}
+}
+
+GCMount(document.getElementById('tpl').textContent, Component, document.getElementById('app'));
+</script></body></html>
