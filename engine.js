@@ -347,23 +347,26 @@ else { level = 'MOYENNE'; eq = 0.4; sLabel = this.term(ev.rel, par) + ' possible
 eq = Math.min(0.85, eq + o.p * 0.5);
 const pct = level === 'FORTE' ? 88 : level === 'MOYENNE' ? 55 : 22;
 const odds = toCall > 0 ? toCall / (h.pot + toCall) : 0;
-const minTo = h.cur === 0 ? 200 : h.cur + h.minRaise; const maxTo = h.rb[0] + stack;
+const minTo = h.cur === 0 ? 200 : h.cur + h.minRaise; let maxTo = h.rb[0] + stack;
+let oppCap = 0; for (let j = 1; j < st.length; j++) { if (!h.folded[j] && !h.allin[j] && !(h.out && h.out[j])) { oppCap = Math.max(oppCap, h.rb[j] + st[j]); } }
+const canRaise = oppCap > h.cur; if (canRaise) { maxTo = Math.min(maxTo, oppCap); }
 const size = Math.max(Math.min(minTo, maxTo), Math.min(maxTo, h.cur + Math.max(h.minRaise, this.round50(h.pot * 0.6))));
 let title; let why; let apply = false;
 if (toCall <= 0) {
-if (eq >= 0.55 && maxTo > h.cur) { title = 'Miser ' + this.fmt(size); apply = true; why = 'Votre main est forte : misez pour faire payer les autres et grossir le pot.'; }
+if (eq >= 0.55 && maxTo > h.cur && canRaise) { title = 'Miser ' + this.fmt(size); apply = true; why = 'Votre main est forte : misez pour faire payer les autres et grossir le pot.'; }
 else { title = 'Checker'; why = o.outs > 0 ? 'Rien à payer : checkez et voyez la carte suivante, il vous manque une carte utile.' : 'Rien à payer : checkez et voyez la suite gratuitement.'; }
-} else if (eq >= 0.6 && stack > toCall) { title = 'Relancer à ' + this.fmt(size); apply = true; why = 'Main forte face à cette mise : relancez pour grossir le pot.'; }
+} else if (eq >= 0.6 && stack > toCall && canRaise) { title = 'Relancer à ' + this.fmt(size); apply = true; why = 'Main forte face à cette mise : relancez pour grossir le pot.'; }
 else if (eq >= odds + 0.08) { title = 'Suivre ' + this.fmt(Math.min(toCall, stack)); why = 'La cote du pot est bonne : vous payez ' + this.fmt(toCall) + ' pour tenter de gagner ' + this.fmt(h.pot) + '.'; }
 else if (eq >= odds - 0.04) { title = 'Suivre (limite)'; why = 'Décision serrée : le prix est juste à la hauteur de vos chances. Gardez un œil sur votre pile.'; }
 else { title = 'Se coucher'; why = 'La mise est trop chère pour vos chances (' + Math.round(odds * 100) + ' % requis, environ ' + Math.round(eq * 100) + ' % estimés). Se coucher coûte + 1 coup au golf, mais vous gardez vos jetons.'; }
 if (title === 'Se coucher' && ev.rel !== null && ev.rel <= -2) { title = 'Suivre (limite)'; why = 'Vous avez une combinaison très forte (' + this.term(ev.rel, par) + ') : même face à une grosse mise, elle gagne très souvent. Surveillez seulement votre pile.'; }
+let alt = null; if (apply && stack > size - h.rb[0]) { alt = { title: 'Tapis ' + this.fmt(stack), size: h.rb[0] + stack }; why += ' Vous pouvez aussi faire tapis (' + this.fmt(stack) + ') : c’est à vous de décider.'; }
 const tips = ['Au pré-flop, vous ne voyez que vos 2 cartes : jouez prudemment tant que le flop n’est pas posé.', 'Une combinaison doit utiliser au moins une carte de votre main : le flop seul ne vaut rien.', 'À score égal, la combinaison golf bat la combinaison poker.', 'Dernier tour de mises : les cartes ne changeront plus. Si tout le monde se couche, un bluff gagnant vaut le par.'];
 let outsTxt = 'Pas de combinaison à compléter pour l’instant.';
 if (shown >= 5) { outsTxt = 'Toutes les cartes sont posées : plus de carte à venir.'; }
 else if (shown >= 3 && o.outs > 0) { outsTxt = 'Il vous manque une carte : ' + o.outs + ' cartes utiles sur ' + (72 - 2 - shown) + ' restantes (environ ' + Math.round(o.p * 100) + ' %)' + (o.best ? ' · objectif : ' + o.best.chain + ' (' + this.term(o.best.coups - par, par) + ')' : '') + '.'; }
 else if (shown === 0) { outsTxt = 'Les cartes utiles se compteront dès le flop.'; }
-return { level, pct, sLabel, sDetail, eq: Math.round(eq * 100) + ' %', odds: toCall > 0 ? Math.round(odds * 100) + ' %' : '–', title, why, apply, size, tip: tips[h.round], outsTxt };
+return { level, pct, sLabel, sDetail, eq: Math.round(eq * 100) + ' %', odds: toCall > 0 ? Math.round(odds * 100) + ' %' : '–', title, why, apply, size, alt, tip: tips[h.round], outsTxt };
 }
 net(s) { return s.stacks.map((v, i) => v - 10000 - 10000 * (s.h && s.h.rec ? s.h.rec[i] : 0)); }
 advance(reloadHero) {
