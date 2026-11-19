@@ -284,7 +284,7 @@ h.status[i] = this.term(rel[i], par).toUpperCase() + (how[i] === 'golf' ? '' : '
 log.push({ a: this.nm(i) + ' : ' + this.term(rel[i], par) + ' (' + how[i] + ')', b: this.signed(rel[i]) });
 }
 potLog.forEach((l) => { log.push(l); });
-const msg = h.noBet ? (h.out && h.out[0] ? 'Vous n’avez plus de jetons : par + 4 sur ce trou (' + (par + 4) + ' coups).' : 'Plus aucun adversaire n’a de jetons : trou joué sans mise. Votre score : ' + this.term(rel[0], par) + ' (' + (par + rel[0]) + ' coups).') : ((gains[0] > 0 ? 'Vous remportez ' + this.fmt(gains[0]) + ' jetons. ' : 'Vous ne remportez pas de pot. ') + 'Votre score sur le trou : ' + this.term(rel[0], par) + ' (' + (par + rel[0]) + ' coups).');
+const msg = h.noBet ? (h.out && h.out[0] ? 'Vous n’avez plus de jetons : par + 4 sur ce trou (' + (par + 4) + ' coups).' : 'Plus aucun adversaire n’a de jetons : trou joué sans mise. Votre score : ' + this.term(rel[0], par) + ' (' + (par + rel[0]) + ' coups).') : ((gains[0] > 0 ? 'Vous remportez ' + this.fmt(gains[0]) + ' jetons. ' : 'Vous ne remportez pas de pot. ') + 'Votre score sur le trou : ' + this.term(rel[0], par) + ' (' + (par + rel[0]) + ' coups).') + (h.folded[0] && !(h.out && h.out[0]) && ev[0].rel !== null && !h.noBet ? ' Vous vous êtes couché : ' + this.term(ev[0].rel, par) + ' + 1 point de pénalité.' : '');
 const rl = (i) => (ev[i].rel === null ? 'aucune combinaison' : ev[i].label) + ' = ' + this.term(rel[i], par) + ' (' + (par + rel[i]) + ' coups)';
 const who = (i) => (i === 0 ? 'Vous' : this.nm(i));
 const w0 = mainWinners[0]; const wl = [];
