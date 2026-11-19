@@ -210,7 +210,7 @@ deal(stacks, hole, strokes, recIn) {
 const rc = (recIn || Z(0)).slice(); const st = stacks.slice(); const par = this.pars()[hole - 1]; const dealer = (hole - 1) % NP;
 const log = [ { a: 'Trou ' + hole + ' · par ' + par, b: this.yards()[hole - 1] + ' yds' } ];
 const outP = st.map((v) => v <= 0);
-if (outP.filter((x) => !x).length < 2) { for (let i = 0; i < NP; i++) { if (outP[i]) { st[i] = 10000; outP[i] = false; } } }
+const noBet = outP.filter((x) => !x).length < 2;
 const deck = [];
 for (let r = 1; r <= 18; r++) { for (let k = 0; k < 4; k++) { deck.push(r); } }
 for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = deck[i]; deck[i] = deck[j]; deck[j] = t; }
@@ -219,8 +219,9 @@ const comm = [deck.pop(), deck.pop(), deck.pop(), deck.pop(), deck.pop()];
 const z = () => Z(0); const f = () => Z(false);
 const h = { rec: rc, out: outP, hole, par, hands, comm, dealer, rb: z(), tot: z(), folded: f(), allin: f(), acted: f(), pot: 0, cur: 0, minRaise: 200, raises: 0, round: 0, status: ['', '', '', '', '', ''], tag: ['', '', '', '', '', ''], phase: 'bet', turn: 0 };
 const nextA = (from) => { let k = from; for (let n = 0; n < NP; n++) { k = (k + 1) % NP; if (!outP[k]) { return k; } } return from; };
-const sb = nextA(dealer); const bb = nextA(sb);
 for (let i = 0; i < NP; i++) { if (outP[i]) { h.folded[i] = true; h.status[i] = 'ÉLIMINÉ'; } }
+if (noBet) { h.noBet = true; h.round = 3; log.push({ a: 'Plus d’adversaire avec des jetons : trou joué sans mise', b: '' }); return this.showdown(h, st, log, strokes); }
+const sb = nextA(dealer); const bb = nextA(sb);
 h.tag[dealer] = 'D'; h.tag[sb] = h.tag[sb] ? 'D · SB' : 'SB'; h.tag[bb] = 'BB';
 this.put(h, st, sb, 100); this.put(h, st, bb, 200); h.cur = 200;
 h.status[sb] = 'SB 100'; h.status[bb] = 'BB 200';
@@ -264,8 +265,9 @@ w.forEach((x, k) => { const g = share + (k === 0 ? p.amt - share * w.length : 0)
 if (n === 0) { mainWinners = w; }
 potLog.push({ a: (n === 0 ? 'Pot principal' : 'Pot annexe ' + n) + ' : ' + w.map((x) => this.nm(x)).join(' / '), b: '+' + this.fmt(p.amt) });
 });
+if (!mainWinners) { mainWinners = []; }
 h.reveal = Z(null); if (alive.length > 1) { alive.forEach((i) => { if (i !== 0) { h.reveal[i] = h.hands[i].slice().sort((a, b) => a - b); } }); }
-h.boom = !!(h.allin[0] && gains[0] > 0); h.loser = !!(!h.folded[0] && !(h.out && h.out[0]) && ev[0].rel === null && !(gains[0] > 0)); h.gains = gains.slice();
+h.boom = !!(h.allin[0] && gains[0] > 0); h.loser = !!(!h.noBet && !h.folded[0] && !(h.out && h.out[0]) && ev[0].rel === null && !(gains[0] > 0)); h.gains = gains.slice();
 const rel = []; const how = [];
 for (let i = 0; i < NP; i++) {
 const base = ev[i].rel === null ? 4 : ev[i].rel;
@@ -282,11 +284,13 @@ h.status[i] = this.term(rel[i], par).toUpperCase() + (how[i] === 'golf' ? '' : '
 log.push({ a: this.nm(i) + ' : ' + this.term(rel[i], par) + ' (' + how[i] + ')', b: this.signed(rel[i]) });
 }
 potLog.forEach((l) => { log.push(l); });
-const msg = (gains[0] > 0 ? 'Vous remportez ' + this.fmt(gains[0]) + ' jetons. ' : 'Vous ne remportez pas de pot. ') + 'Votre score sur le trou : ' + this.term(rel[0], par) + ' (' + (par + rel[0]) + ' coups).';
+const msg = h.noBet ? (h.out && h.out[0] ? 'Vous n’avez plus de jetons : par + 4 sur ce trou (' + (par + 4) + ' coups).' : 'Plus aucun adversaire n’a de jetons : trou joué sans mise. Votre score : ' + this.term(rel[0], par) + ' (' + (par + rel[0]) + ' coups).') : ((gains[0] > 0 ? 'Vous remportez ' + this.fmt(gains[0]) + ' jetons. ' : 'Vous ne remportez pas de pot. ') + 'Votre score sur le trou : ' + this.term(rel[0], par) + ' (' + (par + rel[0]) + ' coups).');
 const rl = (i) => (ev[i].rel === null ? 'aucune combinaison' : ev[i].label) + ' = ' + this.term(rel[i], par) + ' (' + (par + rel[i]) + ' coups)';
 const who = (i) => (i === 0 ? 'Vous' : this.nm(i));
 const w0 = mainWinners[0]; const wl = [];
-if (alive.length === 1) {
+if (h.noBet) {
+alive.forEach((i) => { wl.push({ n: who(i), role: 'SEUL AVEC DES JETONS', cls: 'w', res: rl(i), hand: '', why: 'Plus aucun adversaire n’a de jetons : le trou se joue sans mise, sans bluff possible (sans combinaison : par + 4).' }); });
+} else if (alive.length === 1) {
 wl.push({ n: who(w0), role: 'Gagne le pot', cls: 'w', res: ev[w0].rel === null ? 'bluff gagnant' : rl(w0), hand: '', why: ev[w0].rel === null ? 'Tous les autres se sont couchés. Sans combinaison, un bluff gagnant vaut ' + (h.allin[w0] ? '1 coup (tapis)' : 'le par (' + par + ' coups)') + ' au lieu de par + 4.' : 'Tous les autres se sont couchés : le pot est gagné sans montrer les cartes.' });
 } else {
 const CDn = this.cards(); const hand = (i) => { const hs = h.hands[i].slice().sort((x, y) => x - y); return hs.map((r) => CDn[r][0] + ' (rang ' + r + ')').join(' + '); };
