@@ -2,6 +2,44 @@
 (function () {
 let NP = 6;
 const Z = (v) => Array.from({ length: NP }, () => v);
+const COURSE_DATA = {
+augusta: { id: 'augusta', name: 'Augusta National Golf Club', short: 'Augusta National', place: 'Augusta, Géorgie', country: 'États-Unis', tee: 'tees Masters, 2026', plays: 1284, status: 'ok',
+  pars: [4, 5, 4, 3, 4, 3, 4, 5, 4, 4, 4, 3, 5, 4, 5, 3, 4, 4], yards: [445, 585, 350, 240, 495, 180, 450, 570, 460, 495, 520, 155, 545, 440, 550, 170, 450, 465],
+  names: ['Tea Olive', 'Pink Dogwood', 'Flowering Peach', 'Flowering Crab Apple', 'Magnolia', 'Juniper', 'Pampas', 'Yellow Jasmine', 'Carolina Cherry', 'Camellia', 'White Dogwood', 'Golden Bell', 'Azalea', 'Chinese Fir', 'Firethorn', 'Redbud', 'Nandina', 'Holly'],
+  idx: [9, 1, 13, 15, 5, 17, 11, 3, 7, 6, 8, 16, 4, 12, 2, 18, 14, 10], tip: 'Parcours des Masters : 4 Par 3, 10 Par 4 et 4 Par 5, avec de l’eau (Amen Corner) et des greens rapides.' },
+standrews: { id: 'standrews', name: 'Old Course – St Andrews Links', short: 'Old Course', place: 'St Andrews, Écosse', country: 'Royaume-Uni', tee: 'tees Championship (M)', plays: 962, status: 'ok', source: 'golfcore.org',
+  pars: [4, 4, 4, 4, 5, 4, 4, 3, 4, 4, 3, 4, 4, 5, 4, 4, 4, 4], yards: [367, 400, 397, 480, 568, 431, 371, 188, 352, 386, 173, 348, 430, 618, 455, 423, 449, 354],
+  names: ['Burn', 'Dyke', 'Cartgate Out', 'Ginger Beer', 'Hole o’Cross', 'Heathery Out', 'High Out', 'Short', 'End', 'Bobby Jones', 'High In', 'Heathery In', 'Hole o’Cross', 'Long', 'Cartgate In', 'Corner of the Dyke', 'Road', 'Tom Morris'],
+  idx: [11, 3, 7, 1, 13, 9, 5, 15, 17, 18, 6, 14, 2, 12, 8, 10, 4, 16], tip: 'Links écossais : seulement 2 Par 3 et 2 Par 5 sur 18 trous. Les 14 Par 4 donnent un jeu où les cartes du Par 4 comptent presque tout le temps.',
+  D: [
+[0, [], ['fl'], 'front', 'Trou d’ouverture : très large fairway partagé avec le 18, le Swilcan Burn passe devant le green.'],
+[0.2, [[0.55, -1]], ['fr', 'l'], '', 'Fairway large avec des bunkers dans la ligne de jeu ; green partagé avec le 16.'],
+[-0.3, [[0.6, 1]], ['fl', 'r'], '', 'Fairway bordé de bunkers de poche (pot bunkers) ; green partagé avec le 15.'],
+[0, [[0.5, -1]], ['fr', 'l'], '', 'Le plus difficile du parcours (index 1) : long, exposé au vent ; green partagé avec le 14.'],
+[0.2, [[0.4, 1]], ['fl'], '', 'Par 5 : green gigantesque partagé avec le 13 ; deux coups suffisent rarement.'],
+[-0.3, [[0.5, -1]], ['l', 'r'], '', 'Fairway étroit entre les bruyères, bunkers de poche ; green partagé avec le 12.'],
+[0.3, [], ['fr', 'b'], '', 'Green en hauteur, partagé avec le 11 : approche à placer avec soin.'],
+[0, [], ['fl', 'fr', 'b'], '', 'Par 3 court (188 yds) : green gardé par des bunkers, le vent décide ; green partagé avec le 10.'],
+[0, [], ['fl'], '', 'Par 4 court (352 yds) : green abordable, bunkers de poche à surveiller.'],
+[0.1, [], ['fl', 'fr'], '', 'Par 4 : bunkers de poche qui gardent le green.'],
+[0, [], ['fl', 'fr', 'b'], '', 'Par 3 : le Strath bunker garde le green, partagé avec le 7.'],
+[0.2, [[0.5, 1]], ['l'], '', 'Fairway étroit, bruyères et bunkers de poche ; green partagé avec le 6.'],
+[-0.2, [[0.6, -1]], ['r', 'b'], '', 'Trou long (index 2) : bunkers dans la ligne de jeu, green gigantesque partagé avec le 5.'],
+[0.7, [[0.4, -1], [0.55, -1]], ['fl', 'b'], '', 'Par 5 de 618 yds : le Hell bunker coupe le chemin du second coup.'],
+[0, [[0.6, 1]], ['fr'], '', 'Par 4 : bunkers devant le green, partagé avec le 3.'],
+[-0.4, [[0.5, 1]], ['l', 'fr'], '', 'Il faut contourner les bunkers du coin de départ ; green partagé avec le 2.'],
+[0.8, [], ['fl', 'b', 'fr'], '', 'Le Road Hole : bunker de la Road Hole devant le green, la route juste derrière. Le trou le plus redouté.'],
+[0, [], ['fl'], 'front', 'Dernier trou : fairway partagé avec le 1, Swilcan Burn à franchir, Valley of Sin devant le green.']
+] }
+};
+const COURSE_SOON = [
+  { id: 'pebble', name: 'Pebble Beach Golf Links', short: 'Pebble Beach', place: 'Californie', country: 'États-Unis', par: 72 },
+  { id: 'rcd', name: 'Royal County Down', short: 'Royal County Down', place: 'Newcastle, Irlande du Nord', country: 'Royaume-Uni', par: 71 },
+  { id: 'pinehurst', name: 'Pinehurst No. 2', short: 'Pinehurst No. 2', place: 'Caroline du Nord', country: 'États-Unis', par: 70 },
+  { id: 'valderrama', name: 'Real Club Valderrama', short: 'Valderrama', place: 'Sotogrande, Andalousie', country: 'Espagne', par: 71 },
+  { id: 'albatros', name: 'Le Golf National – Albatros', short: 'Golf National', place: 'Guyancourt, Île-de-France', country: 'France', par: 72 },
+  { id: 'rmelb', name: 'Royal Melbourne – West', short: 'Royal Melbourne', place: 'Victoria', country: 'Australie', par: 72 }
+];
 class GreencutEngineBase {
 sfxCheck(p, n) {
 if (!p || !n || !p.h || !n.h) { return; }
@@ -64,9 +102,36 @@ return [null,
 ['Approach green', 'Approach', 'Green', 'gr'], ['Bunker in hole', 'Bunker', 'In hole', 'ho'], ['Bunker green', 'Bunker', 'Green', 'gr'],
 ['One putt', 'Putt', 'One putt', 'pu'], ['Two putt', 'Putt', 'Two putt', 'pu'], ['Three putt', 'Putt', 'Three putt', 'pu']];
 }
-pars() { return [4, 5, 4, 3, 4, 3, 4, 5, 4, 4, 4, 3, 5, 4, 5, 3, 4, 4]; }
-yards() { return [445, 585, 350, 240, 495, 180, 450, 570, 460, 495, 520, 155, 545, 440, 550, 170, 450, 465]; }
-hnames() { return ['Tea Olive', 'Pink Dogwood', 'Flowering Peach', 'Flowering Crab Apple', 'Magnolia', 'Juniper', 'Pampas', 'Yellow Jasmine', 'Carolina Cherry', 'Camellia', 'White Dogwood', 'Golden Bell', 'Azalea', 'Chinese Fir', 'Firethorn', 'Redbud', 'Nandina', 'Holly']; }
+crs() { const id = this._crs || (this.state && this.state.course); return COURSE_DATA[id] || COURSE_DATA.augusta; }
+pars() { return this.crs().pars; }
+yards() { return this.crs().yards; }
+hnames() { return this.crs().names; }
+indexes() { return this.crs().idx; }
+courseCatalog() {
+const sum = (a) => a.reduce((x, y) => x + y, 0);
+const ok = Object.keys(COURSE_DATA).map((k) => { const c = COURSE_DATA[k]; const n3 = c.pars.filter((p) => p === 3).length; const n5 = c.pars.filter((p) => p === 5).length; return { id: c.id, name: c.name, short: c.short, place: c.place, country: c.country, par: sum(c.pars), yds: sum(c.yards), tee: c.tee, plays: c.plays, status: 'ok', n3, n4: 18 - n3 - n5, n5, tip: c.tip, source: c.source || '' }; });
+ok.sort((a, b) => b.plays - a.plays);
+const soon = COURSE_SOON.map((c) => Object.assign({ yds: 0, tee: '', plays: 0, status: 'soon', n3: 0, n4: 0, n5: 0, tip: '', source: '' }, c));
+return ok.concat(soon);
+}
+courseSearch(q) {
+const norm = (t) => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+const n = norm(q).trim(); const all = this.courseCatalog();
+if (!n) { return all; }
+return all.filter((c) => (norm(c.name) + ' ' + norm(c.place) + ' ' + norm(c.country) + ' ' + norm(c.short)).indexOf(n) >= 0);
+}
+scVals() {
+const P = this.pars(), Y = this.yards(), I = this.indexes(), N = this.hnames(); const o = {}; const sum = (a, f, t) => a.slice(f, t).reduce((x, y) => x + y, 0);
+for (let k = 1; k <= 18; k++) { o['hn' + k] = N[k - 1]; }
+const put = (pre, arr, fmt, tot) => { let n = 0; for (let k = 1; k <= 21; k++) { let v = ''; if (k <= 9) { v = fmt(arr[k - 1]); } else if (k === 10) { v = tot ? fmt(sum(arr, 0, 9)) : ''; } else if (k <= 19) { v = fmt(arr[k - 2]); } else if (k === 20) { v = tot ? fmt(sum(arr, 9, 18)) : ''; } else { v = tot ? fmt(sum(arr, 0, 18)) : ''; } o[pre + k] = v; n++; } };
+put('sp', P, (x) => String(x), true); put('sy', Y, (x) => this.fmt(x), true); put('si', I, (x) => String(x), false);
+return o;
+}
+courseVals() {
+const c = this.crs(); const tp = this.pars().reduce((a, b) => a + b, 0); const ty = this.yards().reduce((a, b) => a + b, 0);
+return { courseName: c.name, courseShort: c.short, courseId: c.id, courseSub: c.place + ' · Par ' + tp + ' · ' + this.fmt(ty) + ' yds (' + c.tee + ')', courseNameLbl: c.id === 'augusta' ? 'Fleur' : 'Nom du trou' };
+}
+chooseCourse(id) { if (!COURSE_DATA[id]) { return false; } try { localStorage.setItem('greencut.course', id); } catch (x) { } this.setState({ course: id }); return true; }
 combos() { return {"3": [[1, 1], [2, 6, 12], [3, 6, 13, 16], [4, 6, 13, 17], [5, 6, 13, 18], [3, 7, 12], [4, 7, 13, 16], [5, 7, 13, 17], [6, 7, 13, 18], [2, 5, 16], [3, 5, 17], [4, 5, 18], [2, 9, 12], [3, 9, 13, 16], [4, 9, 13, 17], [5, 9, 13, 18], [2, 10, 14], [3, 10, 15, 16], [4, 10, 15, 17], [5, 10, 15, 18], [2, 8, 16], [3, 8, 17], [4, 8, 18], [3, 11, 12], [4, 11, 13, 16], [5, 11, 13, 17], [6, 11, 13, 18]], "4": [[2, 2, 16], [3, 2, 17], [4, 2, 18], [2, 2, 12], [3, 2, 13, 16], [4, 2, 13, 17], [5, 2, 13, 18], [2, 2, 14], [3, 2, 15, 16], [4, 2, 15, 17], [5, 2, 15, 18], [3, 2, 8, 16], [4, 2, 8, 17], [5, 2, 8, 18], [3, 2, 5, 16], [4, 2, 5, 17], [5, 2, 5, 18], [2, 3, 12], [3, 3, 13, 16], [4, 3, 13, 17], [5, 3, 13, 18], [3, 3, 8, 16], [4, 3, 8, 17], [5, 3, 8, 18], [3, 3, 10, 14], [4, 3, 10, 15, 16], [5, 3, 10, 15, 17], [6, 3, 10, 15, 18], [5, 3, 11, 13, 16], [6, 3, 11, 13, 17], [7, 3, 11, 13, 18], [4, 3, 9, 13, 16], [5, 3, 9, 13, 17], [6, 3, 9, 13, 18], [3, 3, 9, 12], [4, 3, 11, 12], [3, 3, 5, 16], [4, 3, 5, 17], [5, 3, 5, 18], [3, 4, 12], [4, 4, 13, 16], [5, 4, 13, 17], [6, 4, 13, 18], [4, 4, 8, 16], [5, 4, 8, 17], [6, 4, 8, 18], [4, 4, 10, 14], [5, 4, 10, 15, 16], [6, 4, 10, 15, 17], [7, 4, 10, 15, 18], [6, 4, 11, 13, 16], [7, 4, 11, 13, 17], [8, 4, 11, 13, 18], [5, 4, 9, 13, 16], [6, 4, 9, 13, 17], [7, 4, 9, 13, 18], [4, 4, 9, 12], [5, 4, 11, 12], [3, 3, 6, 12], [4, 3, 6, 13, 16], [5, 3, 6, 13, 17], [6, 3, 6, 13, 18], [4, 3, 7, 12], [5, 3, 7, 13, 16], [6, 3, 7, 13, 17], [7, 3, 7, 13, 18], [4, 4, 6, 12], [5, 4, 6, 13, 16], [6, 4, 6, 13, 17], [7, 4, 6, 13, 18], [5, 4, 7, 12], [6, 4, 7, 13, 16], [7, 4, 7, 13, 17], [8, 4, 7, 13, 18], [4, 4, 5, 16], [5, 4, 5, 17], [6, 4, 5, 18], [3, 6, 5, 16], [4, 6, 5, 17], [5, 6, 5, 18], [3, 6, 6, 12], [4, 6, 6, 13, 16], [5, 6, 6, 13, 17], [6, 6, 6, 13, 18], [4, 6, 7, 12], [5, 6, 7, 13, 16], [6, 6, 7, 13, 17], [7, 6, 7, 13, 18], [3, 6, 8, 16], [4, 6, 8, 17], [5, 6, 8, 18], [3, 6, 9, 12], [4, 6, 9, 13, 16], [5, 6, 9, 13, 17], [6, 6, 9, 13, 18], [3, 6, 10, 14], [4, 6, 10, 15, 16], [5, 6, 10, 15, 17], [6, 6, 10, 15, 18], [4, 6, 11, 12], [5, 6, 11, 13, 16], [6, 6, 11, 13, 17], [7, 6, 11, 13, 18], [4, 7, 5, 16], [5, 7, 5, 17], [6, 7, 5, 18], [4, 7, 6, 12], [5, 7, 13, 16], [6, 7, 6, 13, 17], [7, 7, 6, 13, 18], [5, 7, 7, 12], [6, 7, 7, 13, 16], [7, 7, 7, 13, 17], [8, 7, 7, 13, 18], [4, 7, 8, 16], [5, 7, 8, 17], [6, 7, 8, 18], [4, 7, 9, 12], [5, 7, 9, 13, 16], [6, 7, 9, 13, 17], [7, 7, 9, 13, 18], [4, 7, 10, 14], [5, 7, 10, 15, 16], [6, 7, 15, 17], [7, 7, 10, 15, 18], [5, 7, 11, 12], [6, 7, 11, 13, 16], [7, 7, 11, 13, 17], [8, 7, 11, 13, 18]], "5": [[2, 2, 12], [3, 2, 13, 16], [4, 2, 13, 17], [5, 2, 13, 18], [2, 2, 14], [3, 2, 15, 16], [4, 2, 15, 17], [5, 2, 15, 18], [3, 2, 8, 16], [4, 2, 8, 17], [5, 2, 8, 18], [3, 2, 5, 16], [4, 2, 5, 17], [5, 2, 5, 18], [3, 3, 6, 12], [4, 3, 6, 13, 16], [5, 3, 6, 13, 17], [6, 3, 6, 13, 18], [4, 3, 6, 10, 14], [5, 3, 6, 10, 15, 16], [6, 3, 6, 10, 15, 17], [7, 3, 6, 10, 15, 18], [4, 3, 6, 8, 16], [5, 3, 6, 8, 17], [6, 3, 6, 8, 18], [4, 3, 6, 5, 16], [5, 3, 6, 5, 17], [6, 3, 6, 5, 18], [4, 3, 7, 12], [5, 3, 7, 13, 16], [6, 3, 7, 13, 17], [7, 3, 7, 13, 18], [5, 3, 7, 10, 14], [6, 3, 7, 10, 15, 16], [7, 3, 7, 10, 15, 17], [8, 3, 7, 10, 15, 18], [5, 3, 7, 8, 16], [6, 3, 7, 8, 17], [7, 3, 7, 8, 18], [5, 3, 7, 5, 16], [6, 3, 7, 5, 17], [7, 3, 7, 5, 18], [4, 3, 9, 8, 16], [5, 3, 9, 8, 17], [6, 3, 9, 8, 18], [4, 3, 9, 5, 16], [5, 3, 9, 5, 17], [6, 3, 9, 5, 18], [4, 3, 9, 9, 12], [5, 3, 9, 9, 13, 16], [6, 3, 9, 9, 13, 17], [7, 3, 9, 9, 13, 18], [5, 3, 9, 11, 12], [6, 3, 11, 11, 12], [6, 3, 9, 11, 13, 16], [7, 3, 9, 11, 13, 17], [8, 3, 9, 11, 13, 18], [7, 3, 11, 11, 13, 16], [8, 3, 11, 11, 13, 17], [9, 3, 11, 11, 13, 18], [4, 3, 9, 10, 14], [5, 3, 11, 10, 14], [5, 3, 9, 10, 15, 16], [6, 3, 9, 10, 15, 17], [7, 3, 9, 10, 15, 18], [6, 3, 11, 10, 15, 16], [7, 3, 11, 10, 15, 17], [8, 3, 11, 10, 15, 18], [5, 3, 11, 8, 16], [6, 3, 11, 8, 17], [7, 3, 11, 8, 18], [5, 3, 11, 5, 16], [6, 3, 11, 5, 17], [7, 3, 11, 5, 18], [5, 3, 11, 9, 12], [6, 3, 11, 9, 13, 16], [7, 3, 11, 9, 13, 17], [8, 3, 11, 9, 13, 18], [4, 4, 6, 12], [5, 4, 6, 13, 16], [6, 4, 6, 13, 17], [7, 4, 6, 13, 18], [5, 4, 6, 10, 14], [6, 4, 6, 10, 15, 16], [7, 4, 6, 10, 15, 17], [8, 4, 6, 10, 15, 18], [5, 4, 6, 8, 16], [6, 4, 6, 8, 17], [7, 4, 6, 8, 18], [5, 4, 6, 5, 16], [6, 4, 6, 5, 17], [7, 4, 6, 5, 18], [5, 4, 7, 12], [6, 4, 7, 13, 16], [7, 4, 7, 13, 17], [8, 4, 7, 13, 18], [6, 4, 7, 10, 14], [7, 4, 7, 10, 15, 16], [8, 4, 7, 10, 15, 17], [9, 4, 7, 10, 15, 18], [6, 4, 7, 8, 16], [7, 4, 7, 8, 17], [8, 4, 7, 8, 18], [6, 4, 7, 5, 16], [7, 4, 7, 5, 17], [8, 4, 7, 5, 18], [5, 4, 9, 8, 16], [6, 4, 9, 8, 17], [7, 4, 9, 8, 18], [5, 4, 9, 5, 16], [6, 4, 9, 5, 17], [7, 4, 9, 5, 18], [5, 4, 9, 9, 12], [6, 4, 9, 9, 13, 16], [7, 4, 9, 9, 13, 17], [8, 4, 9, 9, 13, 18], [6, 4, 9, 11, 12], [7, 4, 11, 11, 12], [7, 4, 9, 11, 13, 16], [8, 4, 9, 11, 13, 17], [9, 4, 9, 11, 13, 18], [8, 4, 11, 11, 13, 16], [9, 4, 11, 11, 13, 17], [5, 4, 9, 10, 14], [6, 4, 11, 10, 14], [6, 4, 9, 10, 15, 16], [7, 4, 9, 10, 15, 17], [8, 4, 9, 10, 15, 18], [7, 4, 11, 10, 15, 16], [8, 4, 11, 10, 15, 17], [9, 4, 11, 10, 15, 18], [6, 4, 11, 8, 16], [7, 4, 11, 8, 17], [8, 4, 11, 8, 18], [6, 4, 11, 5, 16], [7, 4, 11, 5, 17], [8, 4, 11, 5, 18], [6, 4, 11, 9, 12], [7, 4, 11, 9, 13, 16], [8, 4, 11, 9, 13, 17], [9, 4, 11, 9, 13, 18], [3, 6, 6, 12], [4, 6, 6, 13, 16], [5, 6, 6, 13, 17], [6, 6, 6, 13, 18], [4, 6, 6, 10, 14], [5, 6, 6, 10, 15, 16], [6, 6, 6, 10, 15, 17], [7, 6, 6, 10, 15, 18], [4, 6, 6, 8, 16], [5, 6, 6, 8, 17], [6, 6, 6, 8, 18], [4, 6, 6, 5, 16], [5, 6, 6, 5, 17], [6, 6, 6, 5, 18], [4, 6, 7, 12], [5, 6, 7, 13, 16], [6, 6, 7, 13, 17], [7, 6, 7, 13, 18], [5, 6, 7, 10, 14], [6, 6, 7, 10, 15, 16], [7, 6, 7, 10, 15, 17], [8, 6, 7, 10, 15, 18], [5, 6, 7, 8, 16], [6, 6, 7, 8, 17], [7, 6, 7, 8, 18], [5, 6, 7, 5, 16], [6, 6, 7, 5, 17], [7, 6, 7, 5, 18], [4, 6, 9, 5, 16], [5, 6, 9, 5, 17], [6, 6, 9, 5, 18], [4, 6, 9, 8, 16], [5, 6, 9, 8, 17], [6, 6, 9, 8, 18], [5, 6, 11, 5, 16], [6, 6, 11, 5, 17], [7, 6, 11, 5, 18], [5, 6, 11, 8, 16], [6, 6, 11, 8, 17], [7, 6, 11, 8, 18], [4, 7, 6, 12], [5, 7, 6, 13, 16], [6, 7, 6, 13, 17], [7, 7, 6, 13, 18], [5, 7, 6, 10, 14], [6, 7, 6, 10, 15, 16], [7, 7, 6, 10, 15, 17], [8, 7, 6, 10, 15, 18], [5, 7, 6, 8, 16], [6, 7, 6, 8, 17], [7, 7, 6, 8, 18], [5, 7, 6, 5, 16], [6, 7, 6, 5, 17], [7, 7, 6, 5, 18], [5, 7, 7, 12], [6, 7, 7, 13, 16], [7, 7, 7, 13, 17], [8, 7, 7, 13, 18], [6, 7, 7, 10, 14], [7, 7, 7, 10, 15, 16], [8, 7, 7, 10, 15, 17], [9, 7, 7, 10, 15, 18], [6, 7, 7, 8, 16], [7, 7, 7, 8, 17], [8, 7, 7, 8, 18], [6, 7, 7, 5, 16], [7, 7, 7, 5, 17], [8, 7, 7, 5, 18], [5, 7, 9, 5, 16], [6, 7, 9, 5, 17], [7, 7, 9, 5, 18], [5, 7, 9, 8, 16], [6, 7, 9, 8, 17], [7, 7, 9, 8, 18], [6, 7, 11, 5, 16], [7, 7, 11, 5, 17], [8, 7, 11, 5, 18], [6, 7, 11, 8, 16], [7, 7, 11, 8, 17], [8, 7, 11, 8, 18]]}; }
 families() { return [[2, 3, 4], [3, 6, 9], [16, 17, 18], [5, 6, 7], [1, 12, 14], [10, 14, 15], [4, 7, 11], [5, 8, 13, 15], [8, 9, 10, 11]]; }
 oppNames() { return ['Fairway_Fox', 'BirdieBandit', 'Dune_Queen', 'Sunset_Sam', 'Caddy_Kid', 'Links_Lou', 'Mulligan_Max']; }
@@ -84,14 +149,15 @@ if (keep && keep.nP) { NP = keep.nP; }
 let ps = 'MaxFairway'; try { const q = localStorage.getItem('greencut.pseudo'); if (q) { ps = q; } } catch (x) { ps = 'MaxFairway'; }
 let snd = { on: true, vol: 60 }; try { const q = JSON.parse(localStorage.getItem('greencut.sound') || 'null'); if (q) { snd = { on: q.on !== false, vol: typeof q.vol === 'number' ? q.vol : 60 }; } } catch (x) { snd = { on: true, vol: 60 }; }
 let lvl = 'deb'; try { const d = JSON.parse(localStorage.getItem('greencut.parcours') || '{}'); if (d.expert || d['3a']) { lvl = 'exp'; } } catch (x) { lvl = 'deb'; }
+let crsId = (keep && keep.course) || 'augusta'; if (!(keep && keep.course)) { try { const q = localStorage.getItem('greencut.course'); if (q && COURSE_DATA[q]) { crsId = q; } } catch (x) { crsId = 'augusta'; } }
 const s = {
-screen: 'table', nP: NP, sortBy: 'net', soundOn: snd.on, sndVol: snd.vol, av: 0, pseudo: ps, pseudoDraft: ps, pseudoMsg: '', why: '', club: 'Titleist', ball: 'Pro V1', golf: 0, league: 0,
+course: crsId, screen: 'table', nP: NP, sortBy: 'net', soundOn: snd.on, sndVol: snd.vol, av: 0, pseudo: ps, pseudoDraft: ps, pseudoMsg: '', why: '', club: 'Titleist', ball: 'Pro V1', golf: 0, league: 0,
 games: 1, gate: false, reload: false, fees: 1250, pts: 8400, dir: 'f2p', amt: 300, expired: false, feesMsg: '',
 hist: [ { a: 'Partie 1 : mise de départ', t: 'À l’instant', d: '−10 000 pts', e: '', cls: 'hf' }, { a: 'Points du jeu → fees', t: 'Aujourd’hui · 19:12', d: '−12 000 pts', e: '+120 fees', cls: 'hp' }, { a: 'Fees → points du jeu', t: '12 nov. · 21:40', d: '−200 fees', e: '+20 000 pts', cls: 'hf' } ],
 quit: false, askQuit: false, tuto: false, moreOpt: false, aidDetail: false, stacks: Z(10000), strokes: Array.from({ length: NP }, () => []), hole: 1, prevPos: null, trend: {}, help: lvl === 'deb', level: lvl
 };
 if (keep) { Object.assign(s, keep); }
-Object.assign(s, this.deal(s.stacks, 1, s.strokes, Z(0)), { raiseTo: 200 });
+this._crs = s.course; try { Object.assign(s, this.deal(s.stacks, 1, s.strokes, Z(0)), { raiseTo: 200 }); } finally { this._crs = null; }
 return s;
 }
 parHint(hand, par) {
@@ -107,12 +173,17 @@ evalPlayer(hand, comm, par) {
 const all = hand.concat(comm); const cnt = {};
 all.forEach((r) => { cnt[r] = (cnt[r] || 0) + 1; });
 const CB = this.combos()[par]; const CD = this.cards();
-let golf = null; let chain = null;
+let golf = null; let chain = null; let altChain = null; let hiH = -1;
 for (let n = 0; n < CB.length; n++) {
 const c = CB[n]; const need = {}; let ok = true; let inHand = false;
 for (let k = 1; k < c.length; k++) { need[c[k]] = (need[c[k]] || 0) + 1; }
-for (const r in need) { if ((cnt[r] || 0) < need[r]) { ok = false; break; } if (hand.indexOf(Number(r)) >= 0) { inHand = true; } }
-if (ok && inHand && (golf === null || c[0] < golf)) { golf = c[0]; chain = c.slice(1); }
+let hh = -1;
+for (const r in need) { if ((cnt[r] || 0) < need[r]) { ok = false; break; } if (hand.indexOf(Number(r)) >= 0) { inHand = true; hh = Math.max(hh, Number(r)); } }
+if (ok && inHand) {
+if (golf === null || c[0] < golf) { golf = c[0]; chain = c.slice(1); altChain = null; hiH = hh; }
+else if (c[0] === golf && chain.join() !== c.slice(1).join()) { /* REG-01 : même score, on garde la combinaison qui utilise la carte la plus haute de la main ; même carte : « ou aussi » */
+if (hh > hiH) { chain = c.slice(1); altChain = null; hiH = hh; } else if (hh === hiH && altChain === null) { altChain = c.slice(1); } }
+}
 }
 let pk = null; let pn = '';
 const HI = { 'Paire': 1, 'Double paire': 2, 'Série de 3': 3, 'Brelan': 4, 'Série de 4': 5, 'Full': 6, 'Carré': 7 }; let pkH = 0; let pkName = ''; let pkSet = {};
@@ -131,7 +202,7 @@ if (golfRel !== null && (pk === null || golfRel <= pk)) { type = 'golf'; rel = g
 else if (pk !== null) { type = 'poker'; rel = pk; label = pn + ' (poker)'; }
 const PR = { 'Paire': 1, 'Double paire': 0, 'Série de 3': 0, 'Brelan': -1, 'Série de 4': -2, 'Full': -2 }; const pkRel = pkName === 'Carré' ? pk : (pkName ? PR[pkName] : null);
 const pkTxt = pkName ? pkName + ' = ' + this.term(pkRel, par) + ' (' + (par + pkRel) + ' coups)' : '';
-return { rel, type, label, pkH, pkName, pkTxt, chain: type === 'golf' ? chain : null, pkSet };
+return { rel, type, label, pkH, pkName, pkTxt, chain: type === 'golf' ? chain : null, altLabel: type === 'golf' && altChain ? altChain.map((r) => CD[r][0]).join(' → ') : '', pkSet };
 }
 badges(hand, vis, ev) {
 const g = { hand: [0, 0], comm: [0, 0, 0, 0, 0] }; const p = { hand: [false, false], comm: [false, false, false, false, false] };
@@ -275,7 +346,7 @@ potLog.push({ a: (n === 0 ? 'Pot principal' : 'Pot annexe ' + n) + ' : ' + w.map
 });
 if (!mainWinners) { mainWinners = []; }
 h.reveal = Z(null); if (alive.length > 1) { alive.forEach((i) => { if (i !== 0) { h.reveal[i] = h.hands[i].slice().sort((a, b) => a - b); } }); }
-h.boom = !!(h.allin[0] && gains[0] > 0); h.loser = !!(!h.noBet && !h.folded[0] && !(h.out && h.out[0]) && ev[0].rel === null && !(gains[0] > 0)); h.gains = gains.slice();
+h.boom = !!(h.allin[0] && gains[0] > 0); h.loser = !!(!h.noBet && !h.folded[0] && !(h.out && h.out[0]) && ev[0].rel === null && !(gains[0] > 0)); h.gains = gains.slice(); h.doneAt = Date.now();
 const rel = []; const how = [];
 for (let i = 0; i < NP; i++) {
 const base = ev[i].rel === null ? 4 : ev[i].rel;
@@ -293,7 +364,7 @@ log.push({ a: this.nm(i) + ' : ' + this.term(rel[i], par) + ' (' + how[i] + ')',
 }
 potLog.forEach((l) => { log.push(l); });
 const msg = h.noBet ? (h.out && h.out[0] ? 'Vous n’avez plus de jetons : par + 4 sur ce trou (' + (par + 4) + ' coups).' : 'Plus aucun adversaire n’a de jetons : trou joué sans mise. Votre score : ' + this.term(rel[0], par) + ' (' + (par + rel[0]) + ' coups).') : ((gains[0] > 0 ? 'Vous remportez ' + this.fmt(gains[0]) + ' jetons. ' : 'Vous ne remportez pas de pot. ') + 'Votre score sur le trou : ' + this.term(rel[0], par) + ' (' + (par + rel[0]) + ' coups).') + (h.folded[0] && !(h.out && h.out[0]) && ev[0].rel !== null && !h.noBet ? ' Vous vous êtes couché : ' + this.term(ev[0].rel, par) + ' + 1 point de pénalité.' : '');
-const rl = (i) => (ev[i].rel === null ? 'aucune combinaison' : ev[i].label) + ' = ' + this.term(rel[i], par) + ' (' + (par + rel[i]) + ' coups)';
+const rl = (i) => (ev[i].rel === null ? 'aucune combinaison' : ev[i].label + (ev[i].altLabel ? ' (ou aussi ' + ev[i].altLabel + ')' : '')) + ' = ' + this.term(rel[i], par) + ' (' + (par + rel[i]) + ' coups)';
 const who = (i) => (i === 0 ? 'Vous' : this.nm(i));
 const w0 = mainWinners[0]; const wl = [];
 if (h.noBet) {
@@ -386,6 +457,14 @@ const mkPos = (md) => { const m = {}; this.board(md).rows.forEach((r, n) => { m[
 const d = this.deal(st, h.hole + 1, s.strokes, rec);
 this.setState(Object.assign({}, d, { hole: h.hole + 1, reload: false, fees, hist, prevPos: curPos, trend }));
 }
+finishNow() {
+const s = this.state; const h = s.h; if (!h || s.stacks[0] > 0) { return false; }
+let st = s.stacks.slice(); let strokes = s.strokes; let hole = h.hole; let d = null;
+while (hole < 18) { d = this.deal(st, hole + 1, strokes, h.rec); hole += 1; st = d.stacks; strokes = d.strokes; }
+if (!d) { return false; }
+this.setState(Object.assign({}, d, { hole, reload: false, prevPos: null, trend: { net: {}, brut: {} }, finishedEarly: true }));
+return true;
+}
 settle() {
 const s = this.state; const fin = s.stacks[0]; const pts = s.pts + fin;
 const hist = [ { a: 'Partie ' + s.games + ' : retour des jetons', t: 'À l’instant', d: '+' + this.fmt(fin) + ' pts', e: '', cls: 'hp' } ].concat(s.hist);
@@ -393,7 +472,7 @@ this.setState({ gate: true, pts, hist });
 }
 newGame(pts, hist) {
 const s = this.state; const g = (s.games || 1) + 1;
-const keep = { nP: s.nP, soundOn: s.soundOn, sndVol: s.sndVol, av: s.av, pseudo: s.pseudo, pseudoDraft: s.pseudoDraft, club: s.club, ball: s.ball, golf: s.golf, league: s.league, level: s.level, help: s.help, expired: s.expired, fees: s.fees, dir: s.dir, amt: s.amt, games: g, gate: false, reload: false, screen: 'table', pts: pts - 10000, hist: [ { a: 'Partie ' + g + ' : mise de départ', t: 'À l’instant', d: '−10 000 pts', e: '', cls: 'hf' } ].concat(hist) };
+const keep = { course: s.course, nP: s.nP, soundOn: s.soundOn, sndVol: s.sndVol, av: s.av, pseudo: s.pseudo, pseudoDraft: s.pseudoDraft, club: s.club, ball: s.ball, golf: s.golf, league: s.league, level: s.level, help: s.help, expired: s.expired, fees: s.fees, dir: s.dir, amt: s.amt, games: g, gate: false, reload: false, screen: 'table', pts: pts - 10000, hist: [ { a: 'Partie ' + g + ' : mise de départ', t: 'À l’instant', d: '−10 000 pts', e: '', cls: 'hf' } ].concat(hist) };
 this.setState(this.initial(keep));
 }
 bonus(stacks) {
@@ -425,7 +504,7 @@ cellCls(rel) { return rel <= -2 ? 'e' : rel === -1 ? 'b' : rel === 1 ? 'g' : rel
 maxAmt() { const s = this.state; return s.dir === 'f2p' ? Math.floor(s.fees / 100) * 100 : Math.floor(s.pts / 10000) * 100; }
 holeMap(hole) {
 const par = this.pars()[hole - 1];
-const D = [
+const DA = [
 [0.5, [[0.6, 1]], ['fl', 'r'], '', 'Léger dogleg à droite, fairway en montée, bunker à droite du fairway.'],
 [-0.8, [[0.5, 1]], ['r', 'l'], '', 'Dogleg à gauche, trou très descendant : le plus long du parcours.'],
 [0, [[0.6, -1], [0.6, 1], [0.45, 1]], ['fr', 'l', 'r'], '', 'Par 4 très court : green étroit, bunkers nombreux autour du fairway et du green.'],
@@ -444,7 +523,8 @@ const D = [
 [0, [], ['r', 'b'], 'left', 'Par 3 au-dessus d’un étang côté gauche ; green à deux niveaux.'],
 [0.1, [], ['fl', 'fr'], '', 'Bunkers devant le green, qui a une forme de soucoupe.'],
 [0.6, [[0.5, -1]], ['fl', 'fr'], '', 'Dogleg à droite, fairway qui monte vers le green ; bunker de fairway à gauche.']
-][hole - 1];
+];
+const D = (this.crs().D || DA)[hole - 1];
 const d = D[0]; const sh = [];
 const P0 = [150 - d * 20, 272]; const P1 = [150 - d * 30, 118]; const P2 = [150 + d * 70, 52];
 const at = (t) => [(1 - t) * (1 - t) * P0[0] + 2 * t * (1 - t) * P1[0] + t * t * P2[0], (1 - t) * (1 - t) * P0[1] + 2 * t * (1 - t) * P1[1] + t * t * P2[1]];
@@ -469,6 +549,12 @@ return { shapes: sh, note: D[4], tip: 'Par ' + par + ' : ' + need + ' pour attei
 window.GreencutEngine = {
   version: '1.0.0',
   cards() { return GreencutEngineBase.prototype.cards.call({}); },
+  courseCatalog() { return GreencutEngineBase.prototype.courseCatalog.call({}); },
+  courseSearch(q) { return GreencutEngineBase.prototype.courseSearch.call({ courseCatalog: GreencutEngineBase.prototype.courseCatalog }, q); },
+  courseInfo(id) { const c = COURSE_DATA[id]; if (!c) { return null; } return { id: c.id, name: c.name, place: c.place, country: c.country, tee: c.tee, source: c.source || '', tip: c.tip, holes: c.pars.map((p, i) => ({ n: i + 1, par: p, yds: c.yards[i], name: c.names[i], idx: c.idx[i] })) }; },
+  fmt(n) { return GreencutEngineBase.prototype.fmt.call({}, n); },
+  courseSaved() { try { const q = localStorage.getItem('greencut.course'); if (q && COURSE_DATA[q]) { return q; } } catch (x) { } return 'augusta'; },
+  courseSave(id) { if (!COURSE_DATA[id]) { return false; } try { localStorage.setItem('greencut.course', id); } catch (x) { } return true; },
   install(C) { Object.getOwnPropertyNames(GreencutEngineBase.prototype).forEach((n) => { if (n !== 'constructor') { C.prototype[n] = GreencutEngineBase.prototype[n]; } }); return C; }
 };
 })();
