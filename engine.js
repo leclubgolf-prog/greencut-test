@@ -134,7 +134,8 @@ return { courseName: c.name, courseShort: c.short, courseId: c.id, courseSub: c.
 chooseCourse(id) { if (!COURSE_DATA[id]) { return false; } try { localStorage.setItem('greencut.course', id); } catch (x) { } this.setState({ course: id }); return true; }
 combos() { return {"3": [[1, 1], [2, 6, 12], [3, 6, 13, 16], [4, 6, 13, 17], [5, 6, 13, 18], [3, 7, 12], [4, 7, 13, 16], [5, 7, 13, 17], [6, 7, 13, 18], [2, 5, 16], [3, 5, 17], [4, 5, 18], [2, 9, 12], [3, 9, 13, 16], [4, 9, 13, 17], [5, 9, 13, 18], [2, 10, 14], [3, 10, 15, 16], [4, 10, 15, 17], [5, 10, 15, 18], [2, 8, 16], [3, 8, 17], [4, 8, 18], [3, 11, 12], [4, 11, 13, 16], [5, 11, 13, 17], [6, 11, 13, 18]], "4": [[2, 2, 16], [3, 2, 17], [4, 2, 18], [2, 2, 12], [3, 2, 13, 16], [4, 2, 13, 17], [5, 2, 13, 18], [2, 2, 14], [3, 2, 15, 16], [4, 2, 15, 17], [5, 2, 15, 18], [3, 2, 8, 16], [4, 2, 8, 17], [5, 2, 8, 18], [3, 2, 5, 16], [4, 2, 5, 17], [5, 2, 5, 18], [2, 3, 12], [3, 3, 13, 16], [4, 3, 13, 17], [5, 3, 13, 18], [3, 3, 8, 16], [4, 3, 8, 17], [5, 3, 8, 18], [3, 3, 10, 14], [4, 3, 10, 15, 16], [5, 3, 10, 15, 17], [6, 3, 10, 15, 18], [5, 3, 11, 13, 16], [6, 3, 11, 13, 17], [7, 3, 11, 13, 18], [4, 3, 9, 13, 16], [5, 3, 9, 13, 17], [6, 3, 9, 13, 18], [3, 3, 9, 12], [4, 3, 11, 12], [3, 3, 5, 16], [4, 3, 5, 17], [5, 3, 5, 18], [3, 4, 12], [4, 4, 13, 16], [5, 4, 13, 17], [6, 4, 13, 18], [4, 4, 8, 16], [5, 4, 8, 17], [6, 4, 8, 18], [4, 4, 10, 14], [5, 4, 10, 15, 16], [6, 4, 10, 15, 17], [7, 4, 10, 15, 18], [6, 4, 11, 13, 16], [7, 4, 11, 13, 17], [8, 4, 11, 13, 18], [5, 4, 9, 13, 16], [6, 4, 9, 13, 17], [7, 4, 9, 13, 18], [4, 4, 9, 12], [5, 4, 11, 12], [3, 3, 6, 12], [4, 3, 6, 13, 16], [5, 3, 6, 13, 17], [6, 3, 6, 13, 18], [4, 3, 7, 12], [5, 3, 7, 13, 16], [6, 3, 7, 13, 17], [7, 3, 7, 13, 18], [4, 4, 6, 12], [5, 4, 6, 13, 16], [6, 4, 6, 13, 17], [7, 4, 6, 13, 18], [5, 4, 7, 12], [6, 4, 7, 13, 16], [7, 4, 7, 13, 17], [8, 4, 7, 13, 18], [4, 4, 5, 16], [5, 4, 5, 17], [6, 4, 5, 18], [3, 6, 5, 16], [4, 6, 5, 17], [5, 6, 5, 18], [3, 6, 6, 12], [4, 6, 6, 13, 16], [5, 6, 6, 13, 17], [6, 6, 6, 13, 18], [4, 6, 7, 12], [5, 6, 7, 13, 16], [6, 6, 7, 13, 17], [7, 6, 7, 13, 18], [3, 6, 8, 16], [4, 6, 8, 17], [5, 6, 8, 18], [3, 6, 9, 12], [4, 6, 9, 13, 16], [5, 6, 9, 13, 17], [6, 6, 9, 13, 18], [3, 6, 10, 14], [4, 6, 10, 15, 16], [5, 6, 10, 15, 17], [6, 6, 10, 15, 18], [4, 6, 11, 12], [5, 6, 11, 13, 16], [6, 6, 11, 13, 17], [7, 6, 11, 13, 18], [4, 7, 5, 16], [5, 7, 5, 17], [6, 7, 5, 18], [4, 7, 6, 12], [5, 7, 13, 16], [6, 7, 6, 13, 17], [7, 7, 6, 13, 18], [5, 7, 7, 12], [6, 7, 7, 13, 16], [7, 7, 7, 13, 17], [8, 7, 7, 13, 18], [4, 7, 8, 16], [5, 7, 8, 17], [6, 7, 8, 18], [4, 7, 9, 12], [5, 7, 9, 13, 16], [6, 7, 9, 13, 17], [7, 7, 9, 13, 18], [4, 7, 10, 14], [5, 7, 10, 15, 16], [6, 7, 15, 17], [7, 7, 10, 15, 18], [5, 7, 11, 12], [6, 7, 11, 13, 16], [7, 7, 11, 13, 17], [8, 7, 11, 13, 18]], "5": [[2, 2, 12], [3, 2, 13, 16], [4, 2, 13, 17], [5, 2, 13, 18], [2, 2, 14], [3, 2, 15, 16], [4, 2, 15, 17], [5, 2, 15, 18], [3, 2, 8, 16], [4, 2, 8, 17], [5, 2, 8, 18], [3, 2, 5, 16], [4, 2, 5, 17], [5, 2, 5, 18], [3, 3, 6, 12], [4, 3, 6, 13, 16], [5, 3, 6, 13, 17], [6, 3, 6, 13, 18], [4, 3, 6, 10, 14], [5, 3, 6, 10, 15, 16], [6, 3, 6, 10, 15, 17], [7, 3, 6, 10, 15, 18], [4, 3, 6, 8, 16], [5, 3, 6, 8, 17], [6, 3, 6, 8, 18], [4, 3, 6, 5, 16], [5, 3, 6, 5, 17], [6, 3, 6, 5, 18], [4, 3, 7, 12], [5, 3, 7, 13, 16], [6, 3, 7, 13, 17], [7, 3, 7, 13, 18], [5, 3, 7, 10, 14], [6, 3, 7, 10, 15, 16], [7, 3, 7, 10, 15, 17], [8, 3, 7, 10, 15, 18], [5, 3, 7, 8, 16], [6, 3, 7, 8, 17], [7, 3, 7, 8, 18], [5, 3, 7, 5, 16], [6, 3, 7, 5, 17], [7, 3, 7, 5, 18], [4, 3, 9, 8, 16], [5, 3, 9, 8, 17], [6, 3, 9, 8, 18], [4, 3, 9, 5, 16], [5, 3, 9, 5, 17], [6, 3, 9, 5, 18], [4, 3, 9, 9, 12], [5, 3, 9, 9, 13, 16], [6, 3, 9, 9, 13, 17], [7, 3, 9, 9, 13, 18], [5, 3, 9, 11, 12], [6, 3, 11, 11, 12], [6, 3, 9, 11, 13, 16], [7, 3, 9, 11, 13, 17], [8, 3, 9, 11, 13, 18], [7, 3, 11, 11, 13, 16], [8, 3, 11, 11, 13, 17], [9, 3, 11, 11, 13, 18], [4, 3, 9, 10, 14], [5, 3, 11, 10, 14], [5, 3, 9, 10, 15, 16], [6, 3, 9, 10, 15, 17], [7, 3, 9, 10, 15, 18], [6, 3, 11, 10, 15, 16], [7, 3, 11, 10, 15, 17], [8, 3, 11, 10, 15, 18], [5, 3, 11, 8, 16], [6, 3, 11, 8, 17], [7, 3, 11, 8, 18], [5, 3, 11, 5, 16], [6, 3, 11, 5, 17], [7, 3, 11, 5, 18], [5, 3, 11, 9, 12], [6, 3, 11, 9, 13, 16], [7, 3, 11, 9, 13, 17], [8, 3, 11, 9, 13, 18], [4, 4, 6, 12], [5, 4, 6, 13, 16], [6, 4, 6, 13, 17], [7, 4, 6, 13, 18], [5, 4, 6, 10, 14], [6, 4, 6, 10, 15, 16], [7, 4, 6, 10, 15, 17], [8, 4, 6, 10, 15, 18], [5, 4, 6, 8, 16], [6, 4, 6, 8, 17], [7, 4, 6, 8, 18], [5, 4, 6, 5, 16], [6, 4, 6, 5, 17], [7, 4, 6, 5, 18], [5, 4, 7, 12], [6, 4, 7, 13, 16], [7, 4, 7, 13, 17], [8, 4, 7, 13, 18], [6, 4, 7, 10, 14], [7, 4, 7, 10, 15, 16], [8, 4, 7, 10, 15, 17], [9, 4, 7, 10, 15, 18], [6, 4, 7, 8, 16], [7, 4, 7, 8, 17], [8, 4, 7, 8, 18], [6, 4, 7, 5, 16], [7, 4, 7, 5, 17], [8, 4, 7, 5, 18], [5, 4, 9, 8, 16], [6, 4, 9, 8, 17], [7, 4, 9, 8, 18], [5, 4, 9, 5, 16], [6, 4, 9, 5, 17], [7, 4, 9, 5, 18], [5, 4, 9, 9, 12], [6, 4, 9, 9, 13, 16], [7, 4, 9, 9, 13, 17], [8, 4, 9, 9, 13, 18], [6, 4, 9, 11, 12], [7, 4, 11, 11, 12], [7, 4, 9, 11, 13, 16], [8, 4, 9, 11, 13, 17], [9, 4, 9, 11, 13, 18], [8, 4, 11, 11, 13, 16], [9, 4, 11, 11, 13, 17], [5, 4, 9, 10, 14], [6, 4, 11, 10, 14], [6, 4, 9, 10, 15, 16], [7, 4, 9, 10, 15, 17], [8, 4, 9, 10, 15, 18], [7, 4, 11, 10, 15, 16], [8, 4, 11, 10, 15, 17], [9, 4, 11, 10, 15, 18], [6, 4, 11, 8, 16], [7, 4, 11, 8, 17], [8, 4, 11, 8, 18], [6, 4, 11, 5, 16], [7, 4, 11, 5, 17], [8, 4, 11, 5, 18], [6, 4, 11, 9, 12], [7, 4, 11, 9, 13, 16], [8, 4, 11, 9, 13, 17], [9, 4, 11, 9, 13, 18], [3, 6, 6, 12], [4, 6, 6, 13, 16], [5, 6, 6, 13, 17], [6, 6, 6, 13, 18], [4, 6, 6, 10, 14], [5, 6, 6, 10, 15, 16], [6, 6, 6, 10, 15, 17], [7, 6, 6, 10, 15, 18], [4, 6, 6, 8, 16], [5, 6, 6, 8, 17], [6, 6, 6, 8, 18], [4, 6, 6, 5, 16], [5, 6, 6, 5, 17], [6, 6, 6, 5, 18], [4, 6, 7, 12], [5, 6, 7, 13, 16], [6, 6, 7, 13, 17], [7, 6, 7, 13, 18], [5, 6, 7, 10, 14], [6, 6, 7, 10, 15, 16], [7, 6, 7, 10, 15, 17], [8, 6, 7, 10, 15, 18], [5, 6, 7, 8, 16], [6, 6, 7, 8, 17], [7, 6, 7, 8, 18], [5, 6, 7, 5, 16], [6, 6, 7, 5, 17], [7, 6, 7, 5, 18], [4, 6, 9, 5, 16], [5, 6, 9, 5, 17], [6, 6, 9, 5, 18], [4, 6, 9, 8, 16], [5, 6, 9, 8, 17], [6, 6, 9, 8, 18], [5, 6, 11, 5, 16], [6, 6, 11, 5, 17], [7, 6, 11, 5, 18], [5, 6, 11, 8, 16], [6, 6, 11, 8, 17], [7, 6, 11, 8, 18], [4, 7, 6, 12], [5, 7, 6, 13, 16], [6, 7, 6, 13, 17], [7, 7, 6, 13, 18], [5, 7, 6, 10, 14], [6, 7, 6, 10, 15, 16], [7, 7, 6, 10, 15, 17], [8, 7, 6, 10, 15, 18], [5, 7, 6, 8, 16], [6, 7, 6, 8, 17], [7, 7, 6, 8, 18], [5, 7, 6, 5, 16], [6, 7, 6, 5, 17], [7, 7, 6, 5, 18], [5, 7, 7, 12], [6, 7, 7, 13, 16], [7, 7, 7, 13, 17], [8, 7, 7, 13, 18], [6, 7, 7, 10, 14], [7, 7, 7, 10, 15, 16], [8, 7, 7, 10, 15, 17], [9, 7, 7, 10, 15, 18], [6, 7, 7, 8, 16], [7, 7, 7, 8, 17], [8, 7, 7, 8, 18], [6, 7, 7, 5, 16], [7, 7, 7, 5, 17], [8, 7, 7, 5, 18], [5, 7, 9, 5, 16], [6, 7, 9, 5, 17], [7, 7, 9, 5, 18], [5, 7, 9, 8, 16], [6, 7, 9, 8, 17], [7, 7, 9, 8, 18], [6, 7, 11, 5, 16], [7, 7, 11, 5, 17], [8, 7, 11, 5, 18], [6, 7, 11, 8, 16], [7, 7, 11, 8, 17], [8, 7, 11, 8, 18]]}; }
 families() { return [[2, 3, 4], [3, 6, 9], [16, 17, 18], [5, 6, 7], [1, 12, 14], [10, 14, 15], [4, 7, 11], [5, 8, 13, 15], [8, 9, 10, 11]]; }
-oppNames() { return ['Fairway_Fox', 'BirdieBandit', 'Dune_Queen', 'Sunset_Sam', 'Caddy_Kid', 'Links_Lou', 'Mulligan_Max']; }
+oppNames() { return this._opp || ['Fairway_Fox', 'BirdieBandit', 'Dune_Queen', 'Sunset_Sam', 'Caddy_Kid', 'Links_Lou', 'Mulligan_Max']; }
+isHuman(i) { return i === 0 || !!(this._humans && this._humans[i]); }
 nP() { return NP; }
 oppBrands() { return ['CALLAWAY', 'TAYLORMADE', 'PING', 'TITLEIST', 'CALLAWAY', 'MIZUNO', 'COBRA']; }
 fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
@@ -158,6 +159,7 @@ quit: false, askQuit: false, tuto: false, moreOpt: false, aidDetail: false, stac
 };
 if (keep) { Object.assign(s, keep); }
 this._crs = s.course; try { Object.assign(s, this.deal(s.stacks, 1, s.strokes, Z(0)), { raiseTo: 200 }); } finally { this._crs = null; }
+if (typeof window !== 'undefined' && window.GreencutMP && window.location && /[?&]mp=/.test(window.location.search || '') && !this._mpTried) { this._mpTried = true; setTimeout(() => { window.GreencutMP.autoAttach(this); }, 0); }
 return s;
 }
 parHint(hand, par) {
@@ -203,6 +205,35 @@ else if (pk !== null) { type = 'poker'; rel = pk; label = pn + ' (poker)'; }
 const PR = { 'Paire': 1, 'Double paire': 0, 'Série de 3': 0, 'Brelan': -1, 'Série de 4': -2, 'Full': -2 }; const pkRel = pkName === 'Carré' ? pk : (pkName ? PR[pkName] : null);
 const pkTxt = pkName ? pkName + ' = ' + this.term(pkRel, par) + ' (' + (par + pkRel) + ' coups)' : '';
 return { rel, type, label, pkH, pkName, pkTxt, chain: type === 'golf' ? chain : null, altLabel: type === 'golf' && altChain ? altChain.map((r) => CD[r][0]).join(' → ') : '', pkSet };
+}
+// ---------- multijoueur (test) : vues par joueur ----------
+mpRot(arr, k) { return arr.map((x, i) => arr[(i + k) % arr.length]); }
+mpViewFor(k, worldNames) {
+const s = this.state; const n = NP; const ri = (x) => (x - k + n) % n; const R = (a) => this.mpRot(a, k);
+const names = []; for (let i = 1; i < n; i++) { names.push(worldNames[(i + k) % n]); }
+const keep = this._opp; const keepOn = this._mpOn; this._opp = names; this._mpOn = false;
+try {
+const mk = (h) => { const g = JSON.parse(JSON.stringify(h)); ['out', 'hands', 'rb', 'tot', 'folded', 'allin', 'acted', 'status', 'tag', 'rec', 'reveal', 'gains'].forEach((f) => { if (Array.isArray(g[f])) { g[f] = R(g[f]); } }); g.dealer = ri(g.dealer); g.turn = ri(g.turn); return g; };
+if (s.h.phase === 'done' && s.pre) {
+const p = s.pre; const out = this.showdown(mk(p.h), R(p.st), [], R(p.strokes));
+return { h: out.h, stacks: out.stacks, strokes: out.strokes, tableMsg: out.tableMsg, why: out.why, log: [], hole: s.hole, nP: n, names, turnSeat: -1 };
+}
+const h2 = mk(s.h); const mine = s.turnSeat === k; const st2 = R(s.stacks);
+if (mine) { h2.status[0] = 'À VOUS'; } else if (h2.status[0] === 'À JOUER') { h2.status[0] = 'EN JEU'; }
+const minTo = h2.cur === 0 ? 200 : h2.cur + h2.minRaise;
+return { h: h2, stacks: st2, strokes: R(s.strokes), tableMsg: mine ? this.startMsg(h2) : (s.turnSeat >= 0 ? 'En attente de ' + (s.turnSeat === 0 ? worldNames[0] : worldNames[s.turnSeat]) + '…' : ''), raiseTo: Math.min(minTo, h2.rb[0] + st2[0]), why: s.why || '', log: [], hole: s.hole, nP: n, names, turnSeat: mine ? 0 : (s.turnSeat >= 0 ? ri(s.turnSeat) : -1) };
+} finally { this._opp = keep; this._mpOn = keepOn; }
+}
+mpApplyView(v) {
+const s = this.state; const upd = { h: v.h, stacks: v.stacks, strokes: v.strokes, tableMsg: v.tableMsg, why: v.why || '', log: v.log || [], hole: v.hole, turnSeat: v.turnSeat };
+if (typeof v.raiseTo === 'number') { upd.raiseTo = v.raiseTo; }
+this._opp = v.names;
+if (s.h && v.hole !== s.hole && s.h.phase === 'done') {
+const mkPos = (md) => { const m = {}; this.board(md).rows.forEach((r, k) => { m[r.i] = k + 1; }); return m; }; const cur = { net: mkPos('net'), brut: mkPos('brut') }; const trend = { net: {}, brut: {} };
+if (s.prevPos) { ['net', 'brut'].forEach((md) => { Object.keys(cur[md]).forEach((kk) => { trend[md][kk] = s.prevPos[md][kk] - cur[md][kk]; }); }); }
+upd.prevPos = cur; upd.trend = trend;
+}
+this.setState(upd);
 }
 badges(hand, vis, ev) {
 const g = { hand: [0, 0], comm: [0, 0, 0, 0, 0] }; const p = { hand: [false, false], comm: [false, false, false, false, false] };
@@ -281,7 +312,7 @@ log.push({ a: this.roundName(h.round) + ' : ' + h.comm.slice(from, to).map((r) =
 for (let i = 0; i < NP; i++) { if (!h.folded[i] && !h.allin[i]) { h.status[i] = i === 0 ? 'À VOUS' : 'EN JEU'; } }
 continue;
 }
-if (who === 0) { h.status[0] = 'À VOUS'; const toCall = h.cur - h.rb[0]; const minTo = h.cur === 0 ? 200 : h.cur + h.minRaise; return { h, stacks: st, log, strokes, tableMsg: this.startMsg(h), raiseTo: Math.min(minTo, h.rb[0] + st[0]) }; }
+if (this.isHuman(who)) { const minTo = h.cur === 0 ? 200 : h.cur + h.minRaise; if (who === 0) { h.status[0] = 'À VOUS'; } else { h.status[who] = 'À JOUER'; } return { h, stacks: st, log, strokes, tableMsg: who === 0 ? this.startMsg(h) : 'En attente de ' + this.nm(who) + '…', raiseTo: Math.min(minTo, h.rb[who] + st[who]), turnSeat: who }; }
 this.aiAct(h, st, log, who);
 }
 }
@@ -308,18 +339,20 @@ log.push({ a: 'Blinds : ' + this.nm(sb) + ' 100 · ' + this.nm(bb) + ' 200', b: 
 h.turn = nextA(bb);
 return this.run(h, st, log, strokes);
 }
-heroAct(kind, toArg) {
+heroAct(kind, toArg, seat) {
 const s = this.state; if (s.h.phase !== 'bet') { return; }
+if (this._mpSend && seat === undefined) { this._mpSend({ kind, to: toArg || s.raiseTo || 0 }); return; }
+const i = seat || 0; if (seat !== undefined && s.turnSeat !== seat) { return; }
 const st = s.stacks.slice(); const h = JSON.parse(JSON.stringify(s.h)); const log = s.log.concat([]);
-const toCall = h.cur - h.rb[0]; const minTo = h.cur === 0 ? 200 : h.cur + h.minRaise; const maxTo = h.rb[0] + st[0];
-if (kind === 'fold') { this.apply(h, st, log, 0, 'fold'); }
-else if (kind === 'call') { this.apply(h, st, log, 0, toCall > 0 ? 'call' : 'check'); }
-else if (kind === 'allin') { this.apply(h, st, log, 0, 'raise', maxTo); }
-else { if (maxTo <= h.cur) { return; } const to = Math.max(Math.min(toArg || s.raiseTo || minTo, maxTo), Math.min(minTo, maxTo)); this.apply(h, st, log, 0, 'raise', to); }
-if (!h.folded[0]) { h.status[0] = h.status[0]; }
+const toCall = h.cur - h.rb[i]; const minTo = h.cur === 0 ? 200 : h.cur + h.minRaise; const maxTo = h.rb[i] + st[i];
+if (kind === 'fold') { this.apply(h, st, log, i, 'fold'); }
+else if (kind === 'call') { this.apply(h, st, log, i, toCall > 0 ? 'call' : 'check'); }
+else if (kind === 'allin') { this.apply(h, st, log, i, 'raise', maxTo); }
+else { if (maxTo <= h.cur) { return; } const to = Math.max(Math.min(toArg || s.raiseTo || minTo, maxTo), Math.min(minTo, maxTo)); this.apply(h, st, log, i, 'raise', to); }
 this.setState(this.run(h, st, log, s.strokes));
 }
 showdown(h, st, log, strokesIn) {
+const pre = this._mpOn ? { h: JSON.parse(JSON.stringify(h)), st: st.slice(), log: log.slice(), strokes: strokesIn.map((a) => a.slice()) } : null;
 const par = h.par;
 h.phase = 'done'; h.round = 3;
 const ev = h.hands.map((hand) => this.evalPlayer(hand, h.comm, par));
@@ -389,7 +422,7 @@ const fl = []; const el = []; for (let i = 0; i < NP; i++) { if (h.out && h.out[
 if (el.length) { wl.push({ n: el.join(', '), role: 'ÉLIMINÉS', cls: 'f', res: 'plus de jetons : par + 4', hand: '', why: '' }); }
 if (fl.length) { wl.push({ n: fl.join(', '), role: 'COUCHÉS', cls: 'f', res: '+ 1 coup', hand: '', why: '' }); }
 const whyTxt = wl;
-return { h, stacks: st, strokes, log, tableMsg: msg, why: whyTxt };
+return pre ? { h, stacks: st, strokes, log, tableMsg: msg, why: whyTxt, pre } : { h, stacks: st, strokes, log, tableMsg: msg, why: whyTxt };
 }
 outs(hand, vis, par, cur) {
 const cnt = {}; hand.concat(vis).forEach((r) => { cnt[r] = (cnt[r] || 0) + 1; });
@@ -459,6 +492,7 @@ this.setState(Object.assign({}, d, { hole: h.hole + 1, reload: false, fees, hist
 }
 finishNow() {
 const s = this.state; const h = s.h; if (!h || s.stacks[0] > 0) { return false; }
+if (this._mpOn || this._mpSend) { this.setState({ watch: true }); return false; }
 let st = s.stacks.slice(); let strokes = s.strokes; let hole = h.hole; let d = null;
 while (hole < 18) { d = this.deal(st, hole + 1, strokes, h.rec); hole += 1; st = d.stacks; strokes = d.strokes; }
 if (!d) { return false; }
