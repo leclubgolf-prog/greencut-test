@@ -94,6 +94,14 @@ if (keep) { Object.assign(s, keep); }
 Object.assign(s, this.deal(s.stacks, 1, s.strokes, Z(0)), { raiseTo: 200 });
 return s;
 }
+parHint(hand, par) {
+const CB = this.combos()[par]; const CD = this.cards();
+const useful = (r) => CB.some((c) => c.slice(1).indexOf(r) >= 0);
+const uniq = hand.filter((r, i) => hand.indexOf(r) === i); const n = hand.filter(useful).length;
+const short = n === 2 ? '✓ 2 cartes utiles' : (n === 1 ? '✓ 1 carte utile' : '✗ aucune carte utile au golf');
+const long = 'Sur ce Par ' + par + ' : ' + uniq.map((r) => CD[r][0] + (useful(r) ? ' sert' : ' ne sert à aucune combinaison golf')).join(', ') + '.';
+return { n, short, long };
+}
 // ---------- moteur de jeu ----------
 evalPlayer(hand, comm, par) {
 const all = hand.concat(comm); const cnt = {};
@@ -341,6 +349,8 @@ if (hand[0] === hand[1]) { level = 'FORTE'; eq = 0.6; sLabel = 'Paire en main'; 
 else if (avg <= 7) { level = 'MOYENNE'; eq = 0.35; sLabel = 'Cartes hautes'; sDetail = 'Des cartes de départ ou de green fortes : elles débloquent de bonnes combinaisons.'; }
 else if (avg <= 11) { level = 'MOYENNE'; eq = 0.2; sLabel = 'Cartes moyennes'; sDetail = 'Rien d’exceptionnel : attendez de voir le flop avant de miser gros.'; }
 else { level = 'FAIBLE'; eq = 0.12; sLabel = 'Cartes basses'; sDetail = 'Des putts surtout : il faudra du flop pour construire un trou.'; }
+const ph = this.parHint(hand, par); sDetail += ' ' + ph.long;
+if (ph.n === 0 && hand[0] !== hand[1]) { level = 'FAIBLE'; eq = Math.min(eq, 0.12); sLabel = 'Cartes peu utiles sur ce Par'; sDetail += ' Elles restent jouables en poker (paire, série…) avec les cartes du flop.'; }
 } else if (ev.rel === null) { level = 'FAIBLE'; eq = 0.12; sLabel = 'Aucune combinaison'; sDetail = 'Sans combinaison, le trou vaut par + 4. Il reste ' + (5 - shown) + ' carte(s) commune(s) à poser.'; }
 else if (ev.rel <= -1) { level = 'FORTE'; eq = ev.rel <= -3 ? 0.92 : (ev.rel === -2 ? 0.84 : 0.7); sLabel = this.term(ev.rel, par) + ' en vue'; sDetail = ev.label; }
 else { level = 'MOYENNE'; eq = 0.4; sLabel = this.term(ev.rel, par) + ' possible'; sDetail = ev.label; }
