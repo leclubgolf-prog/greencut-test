@@ -146,6 +146,7 @@ if (c <= 1) return 'Trou en 1';
 return ['Albatross', 'Eagle', 'Birdie', 'Par', 'Bogey', 'Double bogey', 'Triple bogey', 'Quadruple bogey'][rel + 3] || 'Quadruple bogey';
 }
 initial(keep) {
+if (this._pace === undefined) { this._pace = typeof document !== 'undefined' && !(typeof window !== 'undefined' && (window.GREENCUT_NOPACE || (window.location && /[?&]nopace/.test(window.location.search || '')))); }
 if (keep && keep.nP) { NP = keep.nP; }
 let ps = 'MaxFairway'; try { const q = localStorage.getItem('greencut.pseudo'); if (q) { ps = q; } } catch (x) { ps = 'MaxFairway'; }
 let snd = { on: true, vol: 60 }; try { const q = JSON.parse(localStorage.getItem('greencut.sound') || 'null'); if (q) { snd = { on: q.on !== false, vol: typeof q.vol === 'number' ? q.vol : 60 }; } } catch (x) { snd = { on: true, vol: 60 }; }
@@ -221,7 +222,7 @@ return { h: out.h, stacks: out.stacks, strokes: out.strokes, tableMsg: out.table
 const h2 = mk(s.h); const mine = s.turnSeat === k; const st2 = R(s.stacks);
 if (mine) { h2.status[0] = 'À VOUS'; } else if (h2.status[0] === 'À JOUER') { h2.status[0] = 'EN JEU'; }
 const minTo = h2.cur === 0 ? 200 : h2.cur + h2.minRaise;
-return { h: h2, stacks: st2, strokes: R(s.strokes), tableMsg: mine ? this.startMsg(h2) : (s.turnSeat >= 0 ? 'En attente de ' + (s.turnSeat === 0 ? worldNames[0] : worldNames[s.turnSeat]) + '…' : ''), raiseTo: Math.min(minTo, h2.rb[0] + st2[0]), why: s.why || '', log: [], hole: s.hole, nP: n, names, turnSeat: mine ? 0 : (s.turnSeat >= 0 ? ri(s.turnSeat) : -1) };
+return { h: h2, stacks: st2, strokes: R(s.strokes), tableMsg: mine ? this.startMsg(h2) : (s.turnSeat >= 0 ? 'Tour de ' + worldNames[s.turnSeat] + '…' : ''), raiseTo: Math.min(minTo, h2.rb[0] + st2[0]), why: s.why || '', log: [], hole: s.hole, nP: n, names, turnSeat: mine ? 0 : (s.turnSeat >= 0 ? ri(s.turnSeat) : -1) };
 } finally { this._opp = keep; this._mpOn = keepOn; }
 }
 mpApplyView(v) {
@@ -312,7 +313,8 @@ log.push({ a: this.roundName(h.round) + ' : ' + h.comm.slice(from, to).map((r) =
 for (let i = 0; i < NP; i++) { if (!h.folded[i] && !h.allin[i]) { h.status[i] = i === 0 ? 'À VOUS' : 'EN JEU'; } }
 continue;
 }
-if (this.isHuman(who)) { const minTo = h.cur === 0 ? 200 : h.cur + h.minRaise; if (who === 0) { h.status[0] = 'À VOUS'; } else { h.status[who] = 'À JOUER'; } return { h, stacks: st, log, strokes, tableMsg: who === 0 ? this.startMsg(h) : 'En attente de ' + this.nm(who) + '…', raiseTo: Math.min(minTo, h.rb[who] + st[who]), turnSeat: who }; }
+if (this.isHuman(who)) { const minTo = h.cur === 0 ? 200 : h.cur + h.minRaise; if (who === 0) { h.status[0] = 'À VOUS'; } else { h.status[who] = 'À JOUER'; } return { h, stacks: st, log, strokes, tableMsg: who === 0 ? this.startMsg(h) : 'Tour de ' + this.nm(who) + '…', raiseTo: Math.min(minTo, h.rb[who] + st[who]), turnSeat: who, aiPending: false }; }
+if (this._pace) { const tok = (this._tok = (this._tok || 0) + 1); h.tok = tok; setTimeout(() => { this.aiStep(tok); }, this._paceMs || 750); return { h, stacks: st, log, strokes, tableMsg: 'Tour de ' + this.nm(who) + '…', turnSeat: who, aiPending: true }; }
 this.aiAct(h, st, log, who);
 }
 }
@@ -339,8 +341,18 @@ log.push({ a: 'Blinds : ' + this.nm(sb) + ' 100 · ' + this.nm(bb) + ' 200', b: 
 h.turn = nextA(bb);
 return this.run(h, st, log, strokes);
 }
+aiStep(tok) {
+const s = this.state; if (!s || !s.aiPending || !s.h || s.h.tok !== tok || s.h.phase !== 'bet') { return; }
+const h = JSON.parse(JSON.stringify(s.h)); const st = s.stacks.slice(); const log = s.log.concat([]); const who = this.nextActor(h);
+if (who < 0 || this.isHuman(who)) { this.setState(this.run(h, st, log, s.strokes)); return; }
+this.aiAct(h, st, log, who); this.setState(this.run(h, st, log, s.strokes));
+}
+turnInfo() {
+const s = this.state; const h = s.h; if (!h || h.phase !== 'bet') { return { seat: -1 }; }
+const seat = s.turnSeat !== undefined ? s.turnSeat : (h.status[0] === 'À VOUS' ? 0 : -1); return { seat, mine: seat === 0, name: seat === 0 ? 'Vous' : (seat > 0 ? this.nm(seat) : '') };
+}
 heroAct(kind, toArg, seat) {
-const s = this.state; if (s.h.phase !== 'bet') { return; }
+const s = this.state; if (s.h.phase !== 'bet' || s.aiPending) { return; }
 if (this._mpSend && seat === undefined) { this._mpSend({ kind, to: toArg || s.raiseTo || 0 }); return; }
 const i = seat || 0; if (seat !== undefined && s.turnSeat !== seat) { return; }
 const st = s.stacks.slice(); const h = JSON.parse(JSON.stringify(s.h)); const log = s.log.concat([]);
@@ -422,7 +434,7 @@ const fl = []; const el = []; for (let i = 0; i < NP; i++) { if (h.out && h.out[
 if (el.length) { wl.push({ n: el.join(', '), role: 'ÉLIMINÉS', cls: 'f', res: 'plus de jetons : par + 4', hand: '', why: '' }); }
 if (fl.length) { wl.push({ n: fl.join(', '), role: 'COUCHÉS', cls: 'f', res: '+ 1 coup', hand: '', why: '' }); }
 const whyTxt = wl;
-return pre ? { h, stacks: st, strokes, log, tableMsg: msg, why: whyTxt, pre } : { h, stacks: st, strokes, log, tableMsg: msg, why: whyTxt };
+return pre ? { h, stacks: st, strokes, log, tableMsg: msg, why: whyTxt, aiPending: false, pre } : { h, stacks: st, strokes, log, tableMsg: msg, why: whyTxt, aiPending: false };
 }
 outs(hand, vis, par, cur) {
 const cnt = {}; hand.concat(vis).forEach((r) => { cnt[r] = (cnt[r] || 0) + 1; });
