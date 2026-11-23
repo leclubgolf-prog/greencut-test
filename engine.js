@@ -102,6 +102,29 @@ return [null,
 ['Approach green', 'Approach', 'Green', 'gr'], ['Bunker in hole', 'Bunker', 'In hole', 'ho'], ['Bunker green', 'Bunker', 'Green', 'gr'],
 ['One putt', 'Putt', 'One putt', 'pu'], ['Two putt', 'Putt', 'Two putt', 'pu'], ['Three putt', 'Putt', 'Three putt', 'pu']];
 }
+cardHelp(r) {
+const H = {
+1: ['Trou en 1', 'Par 3 uniquement', 'Balle dans le trou'],
+2: ['Départ surpuissant', 'Par 4 et 5', 'Green, fairway ou bunker'],
+3: ['Coup de départ', 'Par 4 et 5', 'Sur le fairway'],
+4: ['Départ dans l’eau', 'Par 4 et 5', 'Pénalité : +1 coup'],
+5: ['Départ par 3', 'Intermédiaire par 4 et 5', 'Green : il faut un Putt'],
+6: ['Départ ou intermédiaire', 'Par 3, 4 et 5', 'Sur le fairway'],
+7: ['Départ ou intermédiaire', 'Par 3, 4 et 5', 'Dans l’eau : +1 coup'],
+8: ['Départ par 3', 'Intermédiaire par 4 et 5', 'Green : il faut un Putt'],
+9: ['Départ par 3', 'Intermédiaire par 4 et 5', 'Sur le fairway'],
+10: ['Départ par 3', 'Intermédiaire par 4 et 5', 'Bunker de green'],
+11: ['Départ par 3', 'Intermédiaire par 4 et 5', 'Dans l’eau : +1 coup'],
+12: ['Coup d’approche', 'Par 3, 4 et 5', 'Dans le trou'],
+13: ['Coup d’approche', 'Par 3, 4 et 5', 'Green : il faut un Putt'],
+14: ['Sortie de bunker', 'Par 3, 4 et 5', 'Dans le trou'],
+15: ['Sortie de bunker', 'Par 3, 4 et 5', 'Green : il faut un Putt'],
+16: ['Coup final', 'Par 3, 4 et 5', '1 coup pour rentrer'],
+17: ['Coup final', 'Par 3, 4 et 5', '2 coups pour rentrer'],
+18: ['Coup final', 'Par 3, 4 et 5', '3 coups pour rentrer']
+};
+const x = H[r] || ['', '', '']; return { a: x[0], b: x[1], c: x[2] };
+}
 crs() { const id = this._crs || (this.state && this.state.course); return COURSE_DATA[id] || COURSE_DATA.augusta; }
 pars() { return this.crs().pars; }
 yards() { return this.crs().yards; }
