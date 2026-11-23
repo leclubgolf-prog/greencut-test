@@ -150,6 +150,11 @@ const put = (pre, arr, fmt, tot) => { let n = 0; for (let k = 1; k <= 21; k++) {
 put('sp', P, (x) => String(x), true); put('sy', Y, (x) => this.fmt(x), true); put('si', I, (x) => String(x), false);
 return o;
 }
+scPartVals() {
+const s = this.state; const played = s.strokes && s.strokes[0] ? s.strokes[0].length : 0; const part = s.scPart || (played > 9 ? 'in' : 'out');
+const set = (k) => () => this.setState({ scPart: k });
+return { scTblCls: 'sc-' + part, scOutCls: part === 'out' ? 'gc-chip--on' : '', scInCls: part === 'in' ? 'gc-chip--on' : '', scTotCls: part === 'tot' ? 'gc-chip--on' : '', scOutTap: set('out'), scInTap: set('in'), scTotTap: set('tot') };
+}
 courseVals() {
 const c = this.crs(); const tp = this.pars().reduce((a, b) => a + b, 0); const ty = this.yards().reduce((a, b) => a + b, 0);
 return { courseName: c.name, courseShort: c.short, courseId: c.id, courseSub: c.place + ' · Par ' + tp + ' · ' + this.fmt(ty) + ' yds (' + c.tee + ')', courseNameLbl: c.id === 'augusta' ? 'Fleur' : 'Nom du trou' };
@@ -529,8 +534,16 @@ finishNow() {
 const s = this.state; const h = s.h; if (!h || s.stacks[0] > 0) { return false; }
 if (this._mpOn || this._mpSend) { this.setState({ watch: true }); return false; }
 let st = s.stacks.slice(); let strokes = s.strokes; let hole = h.hole; let d = null;
+let cur = null;
+if (h.phase !== 'done') {
+const pace = this._pace; this._pace = false;
+try { const hh = JSON.parse(JSON.stringify(h)); let out = this.run(hh, st.slice(), [], strokes.map((a) => a.slice())); if (!out.h || out.h.phase !== 'done') { const h3 = JSON.parse(JSON.stringify(h)); h3.round = 3; out = this.showdown(h3, st.slice(), [], strokes.map((a) => a.slice())); } cur = out; } finally { this._pace = pace; }
+if (cur.stacks[0] > 0) { this.setState(cur); return false; }
+st = cur.stacks.slice(); strokes = cur.strokes;
+}
+for (let i = 0; i < NP; i++) { for (let k = 0; k < hole; k++) { if (typeof strokes[i][k] !== 'number' || isNaN(strokes[i][k])) { strokes[i][k] = this.pars()[k] + 4; } } }
 while (hole < 18) { d = this.deal(st, hole + 1, strokes, h.rec); hole += 1; st = d.stacks; strokes = d.strokes; }
-if (!d) { return false; }
+if (!d) { if (cur) { this.setState(Object.assign({}, cur, { reload: false, finishedEarly: true })); return true; } return false; }
 this.setState(Object.assign({}, d, { hole, reload: false, prevPos: null, trend: { net: {}, brut: {} }, finishedEarly: true }));
 return true;
 }
