@@ -226,7 +226,7 @@ return { h: h2, stacks: st2, strokes: R(s.strokes), tableMsg: mine ? this.startM
 } finally { this._opp = keep; this._mpOn = keepOn; }
 }
 mpApplyView(v) {
-const s = this.state; const upd = { h: v.h, stacks: v.stacks, strokes: v.strokes, tableMsg: v.tableMsg, why: v.why || '', log: v.log || [], hole: v.hole, turnSeat: v.turnSeat };
+const s = this.state; const upd = { aiPending: false, h: v.h, stacks: v.stacks, strokes: v.strokes, tableMsg: v.tableMsg, why: v.why || '', log: v.log || [], hole: v.hole, turnSeat: v.turnSeat };
 if (typeof v.raiseTo === 'number') { upd.raiseTo = v.raiseTo; }
 this._opp = v.names;
 if (s.h && v.hole !== s.hole && s.h.phase === 'done') {
