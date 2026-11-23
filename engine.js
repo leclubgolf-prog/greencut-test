@@ -618,6 +618,7 @@ return { shapes: sh, note: D[4], tip: 'Par ' + par + ' : ' + need + ' pour attei
 window.GreencutEngine = {
   version: '1.0.0',
   cards() { return GreencutEngineBase.prototype.cards.call({}); },
+  cardHelp(r) { return GreencutEngineBase.prototype.cardHelp.call({}, r); },
   courseCatalog() { return GreencutEngineBase.prototype.courseCatalog.call({}); },
   courseSearch(q) { return GreencutEngineBase.prototype.courseSearch.call({ courseCatalog: GreencutEngineBase.prototype.courseCatalog }, q); },
   courseInfo(id) { const c = COURSE_DATA[id]; if (!c) { return null; } return { id: c.id, name: c.name, place: c.place, country: c.country, tee: c.tee, source: c.source || '', tip: c.tip, holes: c.pars.map((p, i) => ({ n: i + 1, par: p, yds: c.yards[i], name: c.names[i], idx: c.idx[i] })) }; },
