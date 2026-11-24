@@ -31,6 +31,30 @@ standrews: { id: 'standrews', name: 'Old Course – St Andrews Links', short: 'O
 [-0.4, [[0.5, 1]], ['l', 'fr'], '', 'Il faut contourner les bunkers du coin de départ ; green partagé avec le 2.'],
 [0.8, [], ['fl', 'b', 'fr'], '', 'Le Road Hole : bunker de la Road Hole devant le green, la route juste derrière. Le trou le plus redouté.'],
 [0, [], ['fl'], 'front', 'Dernier trou : fairway partagé avec le 1, Swilcan Burn à franchir, Valley of Sin devant le green.']
+] },
+majlis: { id: 'majlis', name: 'Emirates Golf Club – Majlis Course', short: 'Majlis', place: 'Dubaï', country: 'Émirats arabes unis', tee: 'tees Championship', plays: 0, status: 'ok', source: 'golfpass', tourOnly: true,
+  pars: [4, 4, 5, 3, 4, 4, 3, 4, 4, 5, 3, 4, 5, 4, 3, 4, 4, 5], yards: [469, 351, 601, 180, 451, 485, 186, 459, 488, 549, 169, 476, 550, 434, 190, 446, 359, 564],
+  names: ['Majlis 1', 'Majlis 2', 'Majlis 3', 'Majlis 4', 'Majlis 5', 'Majlis 6', 'Majlis 7', 'Majlis 8', 'Majlis 9', 'Majlis 10', 'Majlis 11', 'Majlis 12', 'Majlis 13', 'Majlis 14', 'Majlis 15', 'Majlis 16', 'Majlis 17', 'Majlis 18'],
+  idx: [9, 13, 15, 11, 3, 7, 17, 1, 5, 10, 16, 2, 12, 4, 14, 8, 18, 6], tip: 'Parcours du tournoi Greencut Emirates Golf Club : Par 72 (aller 35, retour 37), 4 Par 3 et 4 Par 5, dans le désert de Dubaï. Tracés simplifiés.',
+  D: [
+[0.2, [[0.6, 1]], ['fl', 'r'], '', 'Par 4 d’ouverture de 469 yds : départ exigeant, désert de part et d’autre du fairway.'],
+[-0.3, [], ['fr', 'l'], '', 'Par 4 court (351 yds) : un trou où viser le birdie, green gardé par des bunkers.'],
+[0.4, [[0.45, -1], [0.6, 1]], ['fl', 'b'], '', 'Par 5 de 601 yds, le plus long du parcours : trois coups pour atteindre le green.'],
+[0, [], ['fl', 'fr'], '', 'Premier Par 3 (180 yds) : green entouré de bunkers.'],
+[-0.5, [[0.55, -1]], ['r', 'fl'], '', 'Par 4 de 451 yds (index 3) : un des trous les plus difficiles de l’aller.'],
+[0.3, [[0.6, 1]], ['fl', 'l'], '', 'Par 4 long (485 yds) : le second coup demande un fer long.'],
+[0, [], ['fl', 'fr', 'b'], '', 'Par 3 de 186 yds (index 17) : le trou le plus abordable de l’aller.'],
+[-0.6, [[0.5, 1]], ['fr', 'l'], '', 'Par 4 de 459 yds, index 1 : le trou le plus difficile du parcours.'],
+[0.2, [], ['fl', 'fr'], 'frontpond', 'Par 4 de 488 yds qui ramène au club-house : approche à placer avec soin.'],
+[0.5, [[0.5, -1]], ['fr', 'b'], '', 'Par 5 de 549 yds qui ouvre le retour : deux longs coups puis une approche.'],
+[0, [], ['fl', 'r'], '', 'Par 3 court (169 yds) : green étroit, bunkers sur les côtés.'],
+[-0.4, [[0.6, -1]], ['r', 'fl'], '', 'Par 4 de 476 yds, index 2 : long et exigeant.'],
+[0.3, [[0.45, 1]], ['fl', 'fr'], '', 'Par 5 de 550 yds : le green peut s’attaquer en deux après un très bon départ.'],
+[-0.2, [[0.55, 1]], ['fl', 'l'], '', 'Par 4 de 434 yds (index 4) : fairway bordé de désert.'],
+[0, [], ['fl', 'fr', 'b'], '', 'Dernier Par 3 (190 yds) : green gardé par des bunkers.'],
+[0.4, [[0.5, -1]], ['fr', 'b'], '', 'Par 4 de 446 yds : approche vers un green surélevé.'],
+[-0.3, [], ['fl', 'r'], '', 'Par 4 court (359 yds, index 18) : le trou le plus facile du parcours.'],
+[0.6, [[0.5, 1]], ['b', 'r'], 'front', 'Par 5 final de 564 yds : de l’eau garde le green, attaquer en deux est risqué.']
 ] }
 };
 const COURSE_SOON = [
@@ -43,6 +67,7 @@ const COURSE_SOON = [
 ];
 class GreencutEngineBase {
 sfxCheck(p, n) {
+try { this.tourHook(p, n); } catch (x) { /* tournoi facultatif */ }
 if (!p || !n || !p.h || !n.h) { return; }
 if (n.h.hole !== p.h.hole) { this.sfx('deal'); return; }
 if (p.h.phase !== 'done' && n.h.phase === 'done') {
@@ -133,7 +158,7 @@ hnames() { return this.crs().names; }
 indexes() { return this.crs().idx; }
 courseCatalog() {
 const sum = (a) => a.reduce((x, y) => x + y, 0);
-const ok = Object.keys(COURSE_DATA).map((k) => { const c = COURSE_DATA[k]; const n3 = c.pars.filter((p) => p === 3).length; const n5 = c.pars.filter((p) => p === 5).length; return { id: c.id, name: c.name, short: c.short, place: c.place, country: c.country, par: sum(c.pars), yds: sum(c.yards), tee: c.tee, plays: c.plays, status: 'ok', n3, n4: 18 - n3 - n5, n5, tip: c.tip, source: c.source || '' }; });
+const ok = Object.keys(COURSE_DATA).filter((k) => !COURSE_DATA[k].tourOnly).map((k) => { const c = COURSE_DATA[k]; const n3 = c.pars.filter((p) => p === 3).length; const n5 = c.pars.filter((p) => p === 5).length; return { id: c.id, name: c.name, short: c.short, place: c.place, country: c.country, par: sum(c.pars), yds: sum(c.yards), tee: c.tee, plays: c.plays, status: 'ok', n3, n4: 18 - n3 - n5, n5, tip: c.tip, source: c.source || '' }; });
 ok.sort((a, b) => b.plays - a.plays);
 const soon = COURSE_SOON.map((c) => Object.assign({ yds: 0, tee: '', plays: 0, status: 'soon', n3: 0, n4: 0, n5: 0, tip: '', source: '' }, c));
 return ok.concat(soon);
@@ -189,6 +214,8 @@ games: 1, gate: false, reload: false, fees: 1250, pts: 8400, dir: 'f2p', amt: 30
 hist: [ { a: 'Partie 1 : mise de départ', t: 'À l’instant', d: '−10 000 pts', e: '', cls: 'hf' }, { a: 'Points du jeu → fees', t: 'Aujourd’hui · 19:12', d: '−12 000 pts', e: '+120 fees', cls: 'hp' }, { a: 'Fees → points du jeu', t: '12 nov. · 21:40', d: '−200 fees', e: '+20 000 pts', cls: 'hf' } ],
 quit: false, askQuit: false, tuto: false, moreOpt: false, aidDetail: false, stacks: Z(10000), strokes: Array.from({ length: NP }, () => []), hole: 1, prevPos: null, trend: {}, help: lvl === 'deb', level: lvl
 };
+s.tour = false; s.tourDone = false; s.fresh = false;
+if (!keep && typeof document !== 'undefined') { const tk = this.tourStart(); if (tk) { Object.assign(s, tk); } else if (WALLET.saved()) { const w = WALLET.get(); Object.assign(s, { pts: w.pts, fees: w.fees, gate: true, fresh: true, hist: [] }); } }
 if (keep) { Object.assign(s, keep); }
 this._crs = s.course; try { Object.assign(s, this.deal(s.stacks, 1, s.strokes, Z(0)), { raiseTo: 200 }); } finally { this._crs = null; }
 if (typeof window !== 'undefined' && window.GreencutMP && window.location && /[?&]mp=/.test(window.location.search || '') && !this._mpTried) { this._mpTried = true; setTimeout(() => { window.GreencutMP.autoAttach(this); }, 0); }
@@ -553,6 +580,47 @@ if (!d) { if (cur) { this.setState(Object.assign({}, cur, { reload: false, finis
 this.setState(Object.assign({}, d, { hole, reload: false, prevPos: null, trend: { net: {}, brut: {} }, finishedEarly: true }));
 return true;
 }
+// ---------- Mode tournoi à la table (Greencut Tour, version solo de test) ----------
+tourStart() {
+let on = false; try { on = /[?&]tour=1/.test(window.location.search || '') || localStorage.getItem('greencut.tourgo') === '1'; localStorage.removeItem('greencut.tourgo'); } catch (x) { on = false; }
+if (!on) { return null; }
+if (!WALLET.saved()) { WALLET.set(WALLET.get()); }
+const w = WALLET.get(); return { tour: true, course: TOUR_CFG.course, pts: w.pts, fees: w.fees, gate: true, fresh: true, hist: [] };
+}
+tourLink(kind) {
+const href = (typeof window !== 'undefined' && window.location && window.location.href) || ''; const dc = /\.dc\.html/.test(href);
+if (kind === 'game') { return dc ? (/Tour\.dc|Prototype/.test(href) ? 'Prototype.dc.html' : (/Paysage/.test(href) ? 'TableMobilePaysage.dc.html' : 'TableMobile.dc.html')) : 'TableMobile.html'; }
+return dc ? (/Prototype/.test(href) ? 'GreencutTour.dc.html' : (/Paysage/.test(href) ? 'GreencutTourMobilePaysage.dc.html' : 'GreencutTourMobile.dc.html')) : 'GreencutTourMobile.html';
+}
+tourHook(p, n) {
+if (!n) { return; }
+if (typeof document !== 'undefined' && (n.tour || WALLET.saved()) && p && (n.pts !== p.pts || n.fees !== p.fees) && typeof n.pts === 'number') { WALLET.set({ pts: n.pts, fees: n.fees }); }
+if (!n.tour || n.tourDone || !n.h || n.h.hole < 18 || n.h.phase !== 'done' || !n.strokes || !n.strokes[0] || n.strokes[0].length < 18) { return; }
+const key = (n.games || 1) + ':' + (n.tourAt || 0); if (this._tourKey === key) { return; } this._tourKey = key;
+const T = TOUR.load(); const bn = this.bonus(this.net(n))[0];
+const c = TOUR.depositCard(T, { strokes: n.strokes[0], bonus: bn, nP: n.nP, chips: n.stacks[0] });
+const best = TOUR.bestCard(T, T.phase);
+const card = c ? { round: c.r, net: c.net, brut: c.brut, bonus: c.bonus, kept: best === c || (best && best.net === c.net && best.dep === c.dep), best: best ? best.net : null, at: TOUR.hhmm(c.dep) } : null;
+this.setState({ tourDone: true, tourCard: card });
+}
+tourPatch(v) {
+const s = this.state; if (!s || (!s.tour && !s.fresh)) { if (v) { v.tourOn = false; v.tourHref = this.tourLink('tour'); v.tourBackLbl = 'Greencut Tour'; } return v; }
+const U = TOUR; const T = U.load(); const cp = U.canPlay(T); const f = (n) => this.fmt(n);
+v.tourHref = this.tourLink('tour'); v.tourOn = !!s.tour; v.tourBackLbl = '← Retour au Greencut Tour'; v.tourGateLbl = '← Greencut Tour';
+if (!s.tour) { if (s.fresh && v.gateTitle !== undefined && !s.quit) { v.gateTitle = 'Nouvelle partie'; v.gateIntro = 'Mise de départ : 10 000 pts, prise sur votre solde avec votre accord ; vos jetons restants reviennent sur votre solde à la fin.'; } return v; }
+const c = s.tourCard; const st = s.pts >= 10000 ? 'Je confirme : 10 000 pts' : 'Convertir 100 fees et jouer';
+if (s.gate) {
+  if (!cp.ok) { v.gateTitle = 'Carte de tournoi impossible'; v.gateIntro = cp.why; v.gateTxt = ''; v.startCls = 'off'; v.startGame = () => {}; v.startLabel = 'Tour fermé'; }
+  else if (s.tourDone && c) { v.gateTitle = 'Carte déposée au tournoi'; v.gateIntro = 'Tour ' + c.round + ' · net ' + U.signed(c.net) + ' (brut ' + U.signed(c.brut) + ', bonus de jetons ' + U.signed(c.bonus) + '), déposée à ' + c.at + '. ' + (c.kept ? 'C’est votre carte retenue du jour.' : 'Votre meilleure carte du jour reste à ' + U.signed(c.best) + '.') + ' Vos jetons ont été rendus à votre solde. Vous pouvez rejouer une carte (nouvelle mise de 10 000 pts) ou revenir au Greencut Tour.'; v.startLabel = st; }
+  else if (s.quit) { v.gateTitle = 'Carte abandonnée'; v.gateIntro = 'Vous avez quitté la table : cette carte ne compte pas et sa mise de 10 000 pts est perdue. Vous pouvez rejouer une carte tant que le tour est ouvert.'; v.startLabel = st; }
+  else { v.gateTitle = 'Carte de tournoi · tour ' + T.phase; v.gateIntro = TOUR_CFG.name + ' · parcours Majlis, Par 72 · ' + TOUR_CFG.days[T.phase - 1] + '. Votre solde : ' + f(s.pts) + ' pts. Seule votre meilleure carte du jour (au net) compte.'; v.startLabel = st; }
+  if (cp.ok && typeof v.startGame === 'function') { const go = v.startGame; v.startGame = () => { const k = this.state; const can = k.pts >= 10000 || (!k.expired && k.fees >= 100); const n = k.nP; go(); if (can) { const T2 = TOUR.load(); TOUR.dropCard(T2); TOUR.startCard(T2, n); } }; }
+}
+if (v.finalTxt !== undefined && s.tourDone && c) { v.finalTxt = (v.finalTxt ? v.finalTxt + ' ' : '') + 'Carte déposée au tournoi : net ' + U.signed(c.net) + (c.kept ? ' (retenue).' : ' (votre meilleure du jour reste ' + U.signed(c.best) + ').'); }
+if (Array.isArray(v.nOpts)) { v.nOpts = v.nOpts.map((o) => Object.assign({}, o, { pick: () => { if (!this.state.gate) { return; } const k = this.state; this.setState(this.initial({ nP: Number(o.n), tour: true, course: TOUR_CFG.course, gate: true, fresh: true, pts: k.pts, fees: k.fees, hist: k.hist, soundOn: k.soundOn, sndVol: k.sndVol, av: k.av, pseudo: k.pseudo, pseudoDraft: k.pseudoDraft, club: k.club, ball: k.ball, level: k.level, help: k.help, tourDone: k.tourDone, tourCard: k.tourCard, sheet: '' })); } })); }
+v.tourChip = 'GREENCUT TOUR · TOUR ' + Math.min(T.phase, 4); v.tourRound = String(Math.min(T.phase, 4));
+return v;
+}
 settle() {
 const s = this.state; const fin = s.stacks[0]; const pts = s.pts + fin;
 const hist = [ { a: 'Partie ' + s.games + ' : retour des jetons', t: 'À l’instant', d: '+' + this.fmt(fin) + ' pts', e: '', cls: 'hp' } ].concat(s.hist);
@@ -560,7 +628,7 @@ this.setState({ gate: true, pts, hist });
 }
 newGame(pts, hist) {
 const s = this.state; const g = (s.games || 1) + 1;
-const keep = { course: s.course, nP: s.nP, soundOn: s.soundOn, sndVol: s.sndVol, av: s.av, pseudo: s.pseudo, pseudoDraft: s.pseudoDraft, club: s.club, ball: s.ball, golf: s.golf, league: s.league, level: s.level, help: s.help, expired: s.expired, fees: s.fees, dir: s.dir, amt: s.amt, games: g, gate: false, reload: false, screen: 'table', pts: pts - 10000, hist: [ { a: 'Partie ' + g + ' : mise de départ', t: 'À l’instant', d: '−10 000 pts', e: '', cls: 'hf' } ].concat(hist) };
+const keep = { tour: !!s.tour, tourAt: s.tour ? Date.now() : 0, course: s.course, nP: s.nP, soundOn: s.soundOn, sndVol: s.sndVol, av: s.av, pseudo: s.pseudo, pseudoDraft: s.pseudoDraft, club: s.club, ball: s.ball, golf: s.golf, league: s.league, level: s.level, help: s.help, expired: s.expired, fees: s.fees, dir: s.dir, amt: s.amt, games: g, gate: false, reload: false, screen: 'table', pts: pts - 10000, hist: [ { a: 'Partie ' + g + ' : mise de départ', t: 'À l’instant', d: '−10 000 pts', e: '', cls: 'hf' } ].concat(hist) };
 this.setState(this.initial(keep));
 }
 bonus(stacks) {
@@ -634,8 +702,187 @@ const need = par === 3 ? '1 coup' : (par === 4 ? '2 coups' : '3 coups');
 return { shapes: sh, note: D[4], tip: 'Par ' + par + ' : ' + need + ' pour atteindre le green, puis le putt.' };
 }
 }
+/* ---------- GREENCUT TOUR : mode Tournoi (version solo de test, données locales) ----------
+   Règles : claude/tournoi_greencut_tour.md (plan de test validé le 24/11/2026). Tout reste sur l'appareil (points de démonstration). */
+const TOUR_CFG = {
+  id: 'emirates-2027', name: 'Greencut Emirates Golf Club', course: 'majlis', place: 'Dubaï · parcours Majlis', par: 72,
+  partner: 'Callaway', partnerUrl: 'https://eu.callawaygolf.com/', dates: '21–24 janvier 2027',
+  days: ['Jeudi 21 janvier', 'Vendredi 22 janvier', 'Samedi 23 janvier', 'Dimanche 24 janvier'], dayShort: ['Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+  stake: 10000, purse: 2000000, cut: 50, base: 10000, field: 311, seed: 20270121, finale: false,
+  lots: [[1, 1, 'Driver + fitting complet + sac Tour'], [2, 2, 'Série de fers avec fitting'], [3, 3, 'Putter Odyssey'], [4, 10, '3 douzaines de balles Chrome Tour + casquette'], [11, 50, '1 douzaine de balles Chrome Tour']]
+};
+const TOUR_Q = [-15, -3, 0, 2, 4, 5, 7, 8, 9, 10, 12, 13, 14, 16, 18, 20, 23, 31, 46, 57, 69]; // brut / par sur 2 000 cartes simulées par le moteur (V37)
+const TOUR_KEY = 'greencut.tour', WALLET_KEY = 'greencut.wallet';
+const tourRng = (seed) => { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; };
+const tourStore = {
+  get(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (x) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (x) { /* stockage indisponible */ } },
+  del(k) { try { localStorage.removeItem(k); } catch (x) { /* stockage indisponible */ } }
+};
+const WALLET = {
+  get() { const w = tourStore.get(WALLET_KEY); return w && typeof w.pts === 'number' && typeof w.fees === 'number' ? { pts: w.pts, fees: w.fees } : { pts: 8400, fees: 1250 }; },
+  set(w) { tourStore.set(WALLET_KEY, { pts: Math.max(0, Math.round(w.pts)), fees: Math.max(0, Math.round(w.fees)) }); },
+  saved() { return !!tourStore.get(WALLET_KEY); }
+};
+const TOUR = {
+  cfg: TOUR_CFG,
+  signed(n) { return n === 0 ? 'E' : (n > 0 ? '+' + n : '−' + Math.abs(n)); },
+  fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); },
+  hhmm(m) { const t = Math.floor(m); return String(Math.floor(t / 60) % 24).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0'); },
+  // Barème : N places, M pts de base chacune, reste B = X − N × M partagé en 1/r ; arrondi à 100 pts vers le bas ; reliquat au 1er
+  payoutTable(X, N, M) {
+    N = N || 50; M = M === undefined ? 10000 : M; const B = X - N * M; let S = 0; for (let r = 1; r <= N; r++) { S += 1 / r; }
+    const p = []; for (let r = 1; r <= N; r++) { p.push(M + Math.floor(B * (1 / r) / S / 100) * 100); }
+    p[0] += X - p.reduce((a, b) => a + b, 0); return p;
+  },
+  // groups : liste ordonnée de groupes d'ex aequo (tableaux d'identifiants) ; le 1er groupe est toujours seul (victoire départagée)
+  distribute(groups, X, N) {
+    N = N || 50; const tab = this.payoutTable(X, N); const pay = {}; let place = 0; let extra = 0; const ties = [];
+    groups.forEach((g) => {
+      if (place >= N) { g.forEach((id) => { pay[id] = 0; }); place += g.length; return; }
+      const slots = tab.slice(place, Math.min(N, place + g.length)); const sum = slots.reduce((a, b) => a + b, 0);
+      const share = Math.floor(sum / g.length / 100) * 100; extra += sum - share * g.length;
+      if (g.length > 1) { ties.push({ place: place + 1, n: g.length, share }); }
+      g.forEach((id) => { pay[id] = share; }); // ex aequo à cheval sur la 50e place : ils se partagent les montants des places 50 et moins
+      place += g.length;
+    });
+    const first = groups.length ? groups[0][0] : null; if (first !== null && extra) { pay[first] += extra; }
+    const paid = Object.keys(pay).reduce((a, k) => a + pay[k], 0);
+    return { pay, paid, unpaid: X - paid, table: tab, ties };
+  },
+  lotFor(pos) { const l = TOUR_CFG.lots.find((x) => pos >= x[0] && pos <= x[1]); return l ? l[2] : ''; },
+  // Champ simulé : 311 joueurs fictifs, graine fixe, scores nets plausibles (bonus −4 / −2 / −1 / +2 selon la table)
+  field(seed) {
+    const rnd = tourRng(seed || TOUR_CFG.seed); const A = ['Fairway', 'Birdie', 'Bogey', 'Eagle', 'Links', 'Wedge', 'Putt', 'Chip', 'Draw', 'Fade', 'Bunker', 'Albatros', 'Green', 'Flop', 'Caddie', 'Divot', 'Slice', 'Ace', 'Par', 'Iron'];
+    const B = ['_fox', 'Queen', 'Max', 'Lady', 'Pro', 'Boss', 'Kid', '_jo', 'man', 'Flyer', '_pp', '42', '_77', 'Sam', 'Lou'];
+    const G = ['Golf des Pins', 'Golf du Château', 'Golf des Étangs', 'Golf des Dunes', 'Golf du Lac', 'Golf de la Vallée', 'Golf du Domaine', 'Golf de la Forêt'];
+    const q = (u) => { const x = u * 20; const i = Math.min(19, Math.floor(x)); return TOUR_Q[i] + (TOUR_Q[i + 1] - TOUR_Q[i]) * (x - i); };
+    const seen = {}; const out = [];
+    for (let n = 0; n < TOUR_CFG.field; n++) {
+      let nm = ''; for (let t = 0; t < 20 && (!nm || seen[nm]); t++) { nm = A[Math.floor(rnd() * A.length)] + B[Math.floor(rnd() * B.length)] + (t > 2 || rnd() < 0.35 ? '_' + (10 + Math.floor(rnd() * 90)) : ''); }
+      seen[nm] = 1; const skill = (rnd() + rnd() + rnd() - 1.5) * 4; const golf = G[Math.floor(rnd() * G.length)];
+      let abd = 0; [0.015, 0.02, 0.008, 0.008].forEach((p, r) => { if (!abd && rnd() < p) { abd = r + 1; } });
+      const rounds = [];
+      for (let r = 0; r < 4; r++) {
+        const u0 = rnd(); const k = u0 < 0.45 ? 1 : (u0 < 0.75 ? 2 : (u0 < 0.9 ? 3 : 4)); let best = null;
+        for (let c = 0; c < k; c++) {
+          const u = rnd(); const brut = Math.max(-18, Math.round(q(u) + skill)); const nP = 4 + Math.floor(rnd() * 3);
+          const pos = Math.floor(Math.max(0, Math.min(0.999, u + (rnd() - 0.5) * 0.5)) * nP); const bonus = [-4, -2, -1, 2, 2, 2][pos];
+          const card = { net: brut + bonus, brut, bonus, b9: Math.max(27, 37 + Math.round(brut * 0.5 + (rnd() - 0.5) * 4)), dep: 420 + rnd() * 990 + n / 1000 };
+          if (!best || card.net < best.net) { best = card; }
+        }
+        rounds.push(abd && r + 1 >= abd ? null : best);
+      }
+      out.push({ id: 'f' + n, name: nm, golf, abd, rounds });
+    }
+    return out;
+  },
+  heroName() { try { return localStorage.getItem('greencut.pseudo') || 'MaxFairway'; } catch (x) { return 'MaxFairway'; } },
+  create(o) { o = o || {}; return { v: 1, id: TOUR_CFG.id, phase: 1, seed: o.seed || TOUR_CFG.seed, hero: { name: o.name || this.heroName(), golf: o.golf || 'Mon golf', cards: { 1: [], 2: [], 3: [], 4: [] }, abd: 0 }, cut: null, results: null, log: [] }; },
+  load() { const T = tourStore.get(TOUR_KEY); if (T && T.v === 1 && T.id === TOUR_CFG.id) { T.hero.name = this.heroName(); return T; } return this.create(); },
+  save(T) { tourStore.set(TOUR_KEY, T); return T; },
+  reset() { tourStore.del(TOUR_KEY); return this.save(this.create()); },
+  _field: null, _seed: 0,
+  fieldOf(T) { if (!this._field || this._seed !== T.seed) { this._field = this.field(T.seed); this._seed = T.seed; } return this._field; },
+  // carte retenue du jour = meilleure carte au net ; à net égal, la première déposée
+  bestCard(T, r) { const cs = (T.hero.cards[r] || []).filter((c) => c.done); let b = null; cs.forEach((c) => { if (!b || c.net < b.net) { b = c; } }); return b; },
+  heroRounds(T) { const out = []; for (let r = 1; r <= 4; r++) { out.push(T.hero.abd && r >= T.hero.abd ? null : this.bestCard(T, r)); } return out; },
+  players(T) { return [{ id: 'me', name: T.hero.name, golf: T.hero.golf, me: true, abd: T.hero.abd, rounds: this.heroRounds(T) }].concat(this.fieldOf(T)); },
+  sumR(p, a, b, f) { let s = 0; for (let r = a; r <= b; r++) { s += p.rounds[r - 1][f]; } return s; },
+  playedAll(p, n) { for (let r = 1; r <= n; r++) { if (!p.rounds[r - 1]) { return false; } } return true; },
+  // clé de départage après n tours : net cumulé, brut cumulé, net du dernier tour, 9 derniers trous du dernier tour, heure de dépôt (la plus tôt)
+  key(p, n) { const L = p.rounds[n - 1]; return [this.sumR(p, 1, n, 'net'), this.sumR(p, 1, n, 'brut'), L.net, L.b9, L.dep]; },
+  cmp(a, b) { for (let k = 0; k < a.length; k++) { if (a[k] !== b[k]) { return a[k] - b[k]; } } return 0; },
+  order(list, n) { return list.slice().sort((x, y) => this.cmp(this.key(x, n), this.key(y, n)) || (x.id < y.id ? -1 : 1)); },
+  computeCut(T) {
+    const el = this.players(T).filter((p) => this.playedAll(p, 2)); const ord = this.order(el, 2); const q = ord.slice(0, TOUR_CFG.finale ? ord.length : TOUR_CFG.cut);
+    const last = q[q.length - 1]; const next = ord[q.length];
+    return { ids: q.map((p) => p.id), n: q.length, eligible: ord.length, line: last ? this.sumR(last, 1, 2, 'net') : null, nextLine: next ? this.sumR(next, 1, 2, 'net') : null, tieBroken: !!(last && next && this.sumR(last, 1, 2, 'net') === this.sumR(next, 1, 2, 'net')) };
+  },
+  qualified(T, id) { return !T.cut || T.cut.ids.indexOf(id) >= 0; },
+  finalGroups(T) {
+    const fin = this.players(T).filter((p) => this.qualified(T, p.id) && this.playedAll(p, 4)); const ord = this.order(fin, 4); const groups = [];
+    ord.forEach((p, i) => { const t = this.sumR(p, 1, 4, 'net'); const g = groups[groups.length - 1]; if (i > 1 && g && g.t === t) { g.ids.push(p.id); } else { groups.push({ t, ids: [p.id] }); } });
+    return { ord, groups };
+  },
+  computeResults(T) {
+    const { ord, groups } = this.finalGroups(T); const d = this.distribute(groups.map((g) => g.ids), TOUR_CFG.purse); const pos = {}; let k = 1;
+    groups.forEach((g) => { g.ids.forEach((id) => { pos[id] = { pos: k, tie: g.ids.length > 1 }; }); k += g.ids.length; });
+    const me = pos.me ? pos.me.pos : 0;
+    return { finishers: ord.length, paidCount: Object.keys(d.pay).filter((x) => d.pay[x] > 0).length, paid: d.paid, unpaid: d.unpaid, winner: ord[0] ? ord[0].name : '', heroPos: me, heroTie: pos.me ? pos.me.tie : false, heroPay: d.pay.me || 0, heroLot: me ? this.lotFor(me) : '', pay: d.pay, pos };
+  },
+  canPlay(T) {
+    const p = T.phase; if (p > 4) { return { ok: false, why: 'Le tournoi est terminé : résultats publiés.' }; }
+    if (T.hero.abd) { return { ok: false, why: 'Abandon (ABD) au tour ' + T.hero.abd + ' : vous ne pouvez plus jouer les tours suivants.' }; }
+    if (p >= 3 && !this.qualified(T, 'me')) { return { ok: false, why: 'Vous n’avez pas passé le cut : le tournoi s’arrête pour vous après le tour 2.' }; }
+    return { ok: true, why: '', round: p };
+  },
+  // Début d'une carte : la mise de 10 000 pts est engagée (prise sur le solde, accord du joueur demandé par la table)
+  startCard(T, nP) { const c = this.canPlay(T); if (!c.ok) { return null; } const card = { r: T.phase, n: (T.hero.cards[T.phase] || []).length + 1, nP: Math.max(4, Math.min(6, nP || 6)), started: Date.now(), done: false }; T.hero.cards[T.phase].push(card); this.save(T); return card; },
+  // Dépôt de la carte terminée : 18 trous, bonus de jetons de la table, heure de dépôt (minutes depuis minuit)
+  depositCard(T, o) {
+    const r = T.phase; const cs = T.hero.cards[r] || []; let card = cs.filter((c) => !c.done).pop(); if (!card) { const c = this.canPlay(T); if (!c.ok) { return null; } card = { r, n: cs.length + 1, nP: o.nP || 6 }; cs.push(card); T.hero.cards[r] = cs; }
+    const st = o.strokes.slice(0, 18); const P = COURSE_DATA[TOUR_CFG.course].pars; const sum = st.reduce((a, b) => a + b, 0);
+    const now = new Date(); const dep = typeof o.dep === 'number' ? o.dep : now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
+    Object.assign(card, { done: true, strokes: st, brut: sum - 72, bonus: o.bonus, net: sum - 72 + o.bonus, b9: st.slice(9).reduce((a, b) => a + b, 0), out: st.slice(0, 9).reduce((a, b) => a + b, 0), dep, chips: o.chips || 0, nP: card.nP || o.nP || 6, pars: P });
+    const best = this.bestCard(T, r); card.kept = best === card; this.save(T); return card;
+  },
+  // Carte commencée puis abandonnée (« Quitter la table ») : elle ne compte pas ; la mise est perdue comme en partie normale
+  dropCard(T) { const cs = T.hero.cards[T.phase] || []; T.hero.cards[T.phase] = cs.filter((c) => c.done); this.save(T); return T; },
+  // Horloge de test : jeudi → vendredi → (cut publié) samedi → dimanche → résultats
+  advance(T) {
+    const p = T.phase; const msg = []; if (p > 4) { return { T, msg: ['Le tournoi est terminé. Utilisez « Recommencer le tournoi ».'], credit: 0 }; }
+    T.hero.cards[p] = (T.hero.cards[p] || []).filter((c) => c.done);
+    const inPlay = !T.hero.abd && (p <= 2 || this.qualified(T, 'me'));
+    if (inPlay && !this.bestCard(T, p)) { T.hero.abd = p; msg.push('Aucune carte déposée au tour ' + p + ' : abandon (ABD). Mise de départ non engagée, vous ne pouvez plus jouer les tours suivants.'); }
+    let credit = 0;
+    if (p === 2) { T.cut = this.computeCut(T); const me = this.qualified(T, 'me') && !T.hero.abd; msg.push('Cut publié : ' + T.cut.n + ' qualifiés à ' + this.signed(T.cut.line) + (T.cut.tieBroken ? ' (égalité sur la ligne départagée)' : '') + '.' + (T.hero.abd ? '' : (me ? ' Vous êtes qualifié(e) pour le week-end !' : ' Vous n’avez pas passé le cut.'))); }
+    if (p === 4) {
+      const R = this.computeResults(T); T.results = { heroPos: R.heroPos, heroTie: R.heroTie, heroPay: R.heroPay, heroLot: R.heroLot, paid: R.paid, unpaid: R.unpaid, paidCount: R.paidCount, finishers: R.finishers, winner: R.winner, credited: false };
+      if (R.heroPay > 0) { const w = WALLET.get(); w.pts += R.heroPay; WALLET.set(w); credit = R.heroPay; T.results.credited = true; msg.push('Résultats : vous terminez ' + (R.heroTie ? 'T' : '') + R.heroPos + (R.heroPos === 1 ? 'er' : 'e') + '. ' + this.fmt(R.heroPay) + ' pts crédités sur votre solde.'); }
+      else { msg.push('Résultats publiés : vainqueur ' + R.winner + '.' + (R.heroPos ? ' Vous terminez ' + R.heroPos + 'e.' : '')); }
+    }
+    T.phase = p + 1; if (!msg.length) { msg.push(TOUR_CFG.days[T.phase - 1] + ' : tour ' + T.phase + ' ouvert.'); } T.log = (T.log || []).concat(msg); this.save(T);
+    return { T, msg, credit };
+  },
+  phaseLabel(T) { const p = T.phase; if (p > 4) { return 'Résultats · lundi 25 janvier'; } return TOUR_CFG.days[p - 1] + ' · tour ' + p + (p === 3 ? ' (cut publié)' : ''); },
+  nextLabel(T) { return ['', 'Passer au vendredi (tour 2)', 'Publier le cut et passer au samedi', 'Passer au dimanche (tour 4)', 'Clore le tournoi et publier les résultats', ''][T.phase] || ''; },
+  // Classement : vue d'un tour (1 à 4), net (officiel) ou brut ; joueurs en abandon en bas, sous la ligne « Abandons »
+  standings(T, o) {
+    o = o || {}; const P = Math.min(T.phase, 4); const view = Math.max(1, Math.min(o.round || P, P)); const mode = o.mode === 'brut' ? 'brut' : 'net'; const closed = T.phase > view;
+    const all = this.players(T); const isAbd = (p) => !!p.abd && p.abd <= view && p.abd < T.phase && (p.abd <= 2 || this.qualified(T, p.id));
+    const cutOn = !!T.cut && view >= 3; const rows = []; const tot = (p, n, f) => { let s = 0; let k = 0; for (let r = 1; r <= n; r++) { if (p.rounds[r - 1]) { s += p.rounds[r - 1][f]; k++; } } return { s, k }; };
+    const sortKey = (p, n) => { const a = tot(p, n, mode); const b = tot(p, n, mode === 'net' ? 'brut' : 'net'); const L = p.rounds[Math.min(n, a.k) - 1] || { net: 0, b9: 99, dep: 9999 }; return [a.s, b.s, L[mode] || 0, L.b9, L.dep]; };
+    const rank = (list, n) => list.slice().sort((x, y) => this.cmp(sortKey(x, n), sortKey(y, n)) || (x.id < y.id ? -1 : 1));
+    const prevPos = {}; if (view >= 2) { rank(all.filter((p) => !(p.abd && p.abd <= view - 1) && this.playedAll(p, view - 1) && (!(T.cut && view - 1 >= 3) || this.qualified(T, p.id))), view - 1).forEach((p, i) => { prevPos[p.id] = i + 1; }); }
+    const live = all.filter((p) => !isAbd(p)); const inQ = cutOn ? live.filter((p) => this.qualified(T, p.id)) : live; const outQ = cutOn ? live.filter((p) => !this.qualified(T, p.id)) : [];
+    const mk = (p, pos, tie, sect) => {
+      const cells = []; for (let r = 1; r <= 4; r++) { const x = p.rounds[r - 1]; let t = ''; if (r > view) { t = ''; } else if (sect === 'cut' && r >= 3) { t = 'CUT'; } else if (p.abd && r >= p.abd && p.abd < T.phase) { t = 'ABD'; } else if (x) { t = this.signed(x[mode]); } else { t = r === T.phase ? '—' : ''; } cells.push(t); }
+      const n = sect === 'cut' ? Math.min(view, 2) : view; const t = tot(p, n, mode); const mv = prevPos[p.id] && pos ? prevPos[p.id] - pos : 0;
+      return { id: p.id, me: !!p.me, name: p.name, golf: p.golf, pos: pos ? (tie ? 'T' : '') + pos : '', cells, tot: t.k ? this.signed(t.s) : '—', thru: t.k, move: mv > 0 ? '▲' + mv : (mv < 0 ? '▼' + (-mv) : ''), moveCls: mv > 0 ? 'up' : (mv < 0 ? 'dn' : ''), sect, toPlay: !p.rounds[view - 1] && view === T.phase && sect !== 'abd' };
+    };
+    const place = (list, n, sect, start) => {
+      const none = list.filter((p) => tot(p, n, mode).k === 0); const ord = rank(list.filter((p) => tot(p, n, mode).k > 0), n); const out = []; ord.forEach((p) => { const t = tot(p, n, mode).s; const g = out[out.length - 1]; if (g && g.t === t) { g.ps.push(p); } else { out.push({ t, ps: [p] }); } });
+      let k = (start || 0) + 1; const fin = !!(T.results && view === 4 && sect === 'in');
+      out.forEach((g, gi) => {
+        if (fin && gi === 0 && g.ps.length > 1) { rows.push(mk(g.ps[0], 1, false, sect)); const rest = g.ps.slice(1); rest.forEach((p) => { rows.push(mk(p, 2, rest.length > 1, sect)); }); }
+        else { g.ps.forEach((p) => { rows.push(mk(p, k, g.ps.length > 1, sect)); }); }
+        k += g.ps.length;
+      });
+      none.forEach((p) => { rows.push(mk(p, 0, false, sect)); });
+    };
+    place(inQ, view, 'in'); const nIn = rows.length; place(outQ, 2, 'cut', nIn);
+    all.filter(isAbd).forEach((p) => { rows.push(mk(p, 0, false, 'abd')); });
+    const meIdx = rows.findIndex((r) => r.me);
+    return { rows, view, mode, closed, cutOn, nIn, cutLine: T.cut ? this.signed(T.cut.line) : '', cutN: T.cut ? T.cut.n : 0, nAbd: rows.filter((r) => r.sect === 'abd').length, nCut: rows.filter((r) => r.sect === 'cut').length, meIdx, me: rows[meIdx] || null, total: all.length };
+  },
+  // Projection du cut pendant les tours 1 et 2 : 50e place provisoire
+  cutProjection(T) { if (T.cut || T.phase > 2) { return null; } const n = T.phase; const el = this.players(T).filter((p) => !(p.abd && p.abd <= n) && this.playedAll(p, n)); const ord = this.order(el, n); const p = ord[Math.min(ord.length, TOUR_CFG.cut) - 1]; return p ? this.signed(this.sumR(p, 1, n, 'net')) : ''; }
+};
 window.GreencutEngine = {
-  version: '1.0.0',
+  version: '1.1.0',
+  tour: TOUR,
+  wallet: WALLET,
   cards() { return GreencutEngineBase.prototype.cards.call({}); },
   cardHelp(r) { return GreencutEngineBase.prototype.cardHelp.call({}, r); },
   courseCatalog() { return GreencutEngineBase.prototype.courseCatalog.call({}); },

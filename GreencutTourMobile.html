@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Greencut">
+<meta name="theme-color" content="#0b0618"><link rel="manifest" href="manifest.webmanifest">
+<title>Greencut Tour – mobile vertical</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="bundle.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,700;0,900;1,700;1,900&amp;display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&amp;display=swap">
+<style media="(orientation: portrait)" data-o="v">body{margin:0;background:#0b0618}
+.gt{font-family:"Titillium Web",system-ui,sans-serif;color:#f3eefc;background:#0b0618;font-size:15px;line-height:22px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.gt *{box-sizing:border-box}
+.gt button{font-family:inherit}
+.gt a{color:#ffd166}
+.sport{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:700;letter-spacing:.02em}
+.lbl{font-size:12px;line-height:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9acd6;font-style:normal}
+.muted{color:#b9acd6}.gold{color:#ffd166}.orange{color:#ff7a3d}.hi{color:#f3eefc}.b{font-weight:700}.sm-t{font-size:13px;line-height:18px}
+.hdr{flex:none;display:flex;align-items:center;gap:16px;padding:10px 24px;background:#06150d;border-bottom:1px solid #ffd16655}
+.logo{display:flex;align-items:baseline;gap:8px;font-style:italic;font-weight:900;font-size:26px;letter-spacing:.02em;color:#f3eefc;background:none;border:0;cursor:pointer;padding:0;white-space:nowrap}
+.logo .t{color:#06150d;background:#ffd166;padding:0 8px;border-radius:6px;font-size:18px}
+.nav{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+.nav button{color:#f3eefc;background:none;border:0;font-weight:600;font-size:15px;padding:8px 14px;border-radius:999px;min-height:44px;cursor:pointer}
+.nav button:hover{background:#ffffff14}.nav button.on{background:#ffd166;color:#0e0626}
+.back{color:#b9acd6!important;text-decoration:none;font-weight:600;font-size:14px;border:1px solid #b9acd655;border-radius:999px;padding:8px 14px;min-height:44px;display:inline-flex;align-items:center;white-space:nowrap}
+.me{display:flex;align-items:center;gap:10px;min-width:0}
+.av{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:#140a2e}
+.mename{font-weight:700;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mesub{font-size:13px;line-height:16px;white-space:nowrap}
+.partner{flex:none;display:flex;align-items:center;gap:16px;padding:8px 24px;background:#000;border-bottom:1px solid #ffffff2a;color:#fff}
+.plbl{color:#cfcfcf}.ptxt{font-weight:600}.pdate{color:#cfcfcf;font-size:14px}
+.pmark{text-decoration:none;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:1px dashed #ffffffaa;border-radius:6px;padding:3px 14px;min-height:44px}
+.pmark b{font-weight:700;font-size:18px;letter-spacing:.3em;color:#fff;line-height:24px}
+.pmark i{font-style:normal;font-size:10px;letter-spacing:.04em;color:#cfcfcf;line-height:12px}
+.pmark.dark{background:#000}.pmark.mini{min-height:32px;padding:2px 8px}.pmark.mini b{font-size:13px;letter-spacing:.2em}
+.gt-main{flex:1;min-height:0;display:flex;flex-direction:column;gap:20px;padding:20px 24px 28px}
+.panel{background:#0c1f14;border:1px solid #ffd16640;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel2{background:#140a2e;border:1px solid #ff4fa366;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel.blk{background:#000;border-color:#ffffff40}
+.hero{background:#06150d}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.row-w{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:12px;font-family:"Barlow Condensed","Titillium Web",sans-serif!important;font-style:italic;font-weight:800;font-size:21px;letter-spacing:.03em;text-decoration:none;border:0;cursor:pointer;white-space:nowrap}
+.btn.sm{min-height:44px;font-size:17px;padding:0 14px}
+.btn-p{background:#ff4fa3;color:#0e0626!important;box-shadow:0 0 18px #ff4fa3}
+.btn-s{background:transparent;color:#f3eefc;border:1px solid #ff9ad0}
+.btn-g{background:#ffd166;color:#0e0626}
+.btn-clk{background:#5eead4;color:#06150d}
+.lnk{background:none;border:0;color:#ffd166;font-weight:700;font-size:14px;cursor:pointer;padding:8px 0;min-height:44px;text-align:left}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:2px 12px;font-size:13px;font-weight:700;line-height:20px;white-space:nowrap}
+.c-live{background:#5eead422;color:#5eead4;border:1px solid #5eead4}.c-open{background:#ffd16622;color:#ffd166;border:1px solid #ffd166}
+.c-soon{background:#ffffff10;color:#b9acd6;border:1px solid #b9acd666}.c-done{background:#ffffff10;color:#f3eefc;border:1px solid #f3eefc66}
+.h1{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:52px;line-height:1;margin:0}
+.h2{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:700;font-size:30px;line-height:1.1;margin:0}
+.h3{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:700;font-size:22px;line-height:1.15;margin:0 0 4px}
+.p{margin:0}.lead{margin:0}
+.clock{border:2px dashed #5eead4;border-radius:14px;padding:12px 16px;background:#5eead40d;display:flex;flex-direction:column;gap:8px}
+.clk-h{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.clk-tag{font-size:11px;font-weight:900;letter-spacing:.12em;color:#06150d;background:#5eead4;border-radius:6px;padding:1px 8px}
+.clk-day{font-weight:700;color:#5eead4}.clk-p{margin:0;font-size:13px;line-height:18px;color:#b9acd6}
+.clk-b{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.clk-n{font-size:13px}.clk-q{font-weight:700}
+.clk-msg{border-left:3px solid #ffd166;padding:4px 10px;font-size:14px;line-height:20px;color:#ffd166}
+.days{display:flex;gap:10px;align-items:stretch}
+.day{flex:1;min-width:0;border-radius:12px;padding:12px 14px;background:#ffffff08;border:1px solid #ffffff22}.day.on{border-color:#5eead4;box-shadow:0 0 14px #5eead433}
+.dr{font-size:24px;line-height:28px}.drow{display:flex;justify-content:space-between;gap:6px;align-items:center;flex-wrap:wrap;margin-top:4px}.dm{margin-top:4px;min-height:18px}
+.cutm{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 2px}.cutm .sport{font-size:20px}
+.sit{display:flex;gap:16px;align-items:center}.big{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:56px;line-height:1}.tot{font-size:30px;line-height:32px}
+.big2{font-size:44px;line-height:48px}
+.res{border:1px solid #ffd166;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;background:#ffd16610}
+.bhead{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.tab{min-height:44px;padding:0 14px;border-radius:999px;font-weight:700;cursor:pointer;font-size:14px;background:transparent;color:#f3eefc;border:1px solid #ffd16688}
+.tab.on{background:#ffd166;color:#0e0626;border-color:#ffd166}.sep{width:8px}
+.tbl-w{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#b9acd6;text-align:left;padding:6px 8px;border-bottom:1px solid #ffd16655;font-weight:700;white-space:nowrap}
+td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.ctr{text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
+.step{display:flex;gap:12px;align-items:flex-start}
+.badge{flex:none;width:34px;height:34px;border-radius:50%;background:#ffd166;color:#0e0626;display:flex;align-items:center;justify-content:center;font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:19px}
+.lots{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;color:#fff}.lots b{display:inline-block;min-width:96px;color:#ffd166}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:20px}.pay tr.odd td{background:#ffffff05}
+.evs{display:flex;flex-direction:column;gap:8px}
+.ev{display:flex;gap:14px;align-items:center;border-radius:12px;padding:10px 14px;background:#0c1f14;border:1px solid #ffd16633}.ev.live{background:#06150d;border-color:#5eead4}.ev.major{border-color:#ffd166}
+.evd{flex:none;width:92px}.evn{font-size:22px;line-height:26px}.evm{flex:1;min-width:0}.evr{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:4px;text-align:right}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.card{text-align:left;color:#f3eefc;background:#140a2e;border:1px solid #ff4fa366;border-radius:12px;padding:12px;cursor:pointer;display:flex;flex-direction:column;gap:6px}
+.card.kept{border-color:#ffd166;box-shadow:0 0 14px #ffd16633}.ctag{align-self:flex-start;border:1px solid #b9acd666;color:#b9acd6}.card.kept .ctag{border-color:#ffd166;color:#ffd166}
+.cg{display:flex;gap:16px}.cg span,.sctot span{display:flex;flex-direction:column;font-size:20px;font-weight:700}
+.sctot{display:flex;gap:24px;flex-wrap:wrap}
+.sv{display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;font-weight:700}
+.sv.eagle{border-radius:50%;border:3px double #ffd166}.sv.birdie{border-radius:50%;border:2px solid #5eead4}.sv.bogey{border:2px solid #ff9ad0}.sv.dbl{border:3px double #ff7a3d}
+.tabbar{display:none}
+.lb{display:flex;flex-direction:column;font-variant-numeric:tabular-nums}
+.lbr{display:grid;grid-template-columns:52px 44px minmax(0,1fr) 56px 56px 56px 56px 84px;align-items:center;gap:0 6px;padding:5px 8px;border-bottom:1px solid #ffffff12}
+.lbh{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#b9acd6;font-weight:700;border-bottom:1px solid #ffd16655}
+.c-pos,.c-r{text-align:center;white-space:nowrap}.c-tot{text-align:right;white-space:nowrap}.c-mv{font-size:12px;font-weight:700;white-space:nowrap}.c-mv.up{color:#5eead4}.c-mv.dn{color:#ff7a3d}
+.c-nm{display:flex;flex-direction:column;min-width:0}.c-nm .pn{font-weight:700;line-height:18px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.c-nm .pg{font-size:12px;line-height:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lbr .cc{display:none}
+.lbr.me{background:#ffd16626;border-radius:8px}.lbr.me .pn{color:#ffd166}.lbr.out{color:#b9acd6}
+.lbcut{color:#ff7a3d;font-weight:700;border-top:2px dashed #ff7a3d;border-bottom:2px dashed #ff7a3d;text-align:center;font-size:13px;padding:4px}
+.lbabd{color:#b9acd6;font-weight:700;border-top:2px solid #b9acd666;text-align:center;font-size:13px;padding:4px;background:#ffffff08}
+.lbgap{color:#b9acd6;text-align:center;line-height:14px}
+.scg{display:grid;grid-template-columns:64px repeat(9,minmax(0,1fr)) 64px;border:1px solid #ffffff1f;border-radius:10px;overflow:hidden}
+.scc{text-align:center;padding:5px 2px;border-bottom:1px solid #ffffff12;font-variant-numeric:tabular-nums;display:flex;align-items:center;justify-content:center;min-width:0}
+.scc.h{font-size:12px;font-weight:700;color:#b9acd6;background:#ffffff08}.scc.l{justify-content:flex-start;padding-left:8px;color:#b9acd6}.scc.s{font-size:12px}
+.gt{width:390px;max-width:100vw;height:844px;max-height:100dvh;font-size:14px;line-height:20px}
+.hdr{gap:8px;padding:8px 10px;flex-wrap:nowrap}.nav{display:none}.logo{font-size:19px;flex:1;min-width:0}.logo .t{font-size:13px;padding:0 5px}
+.back{padding:6px 10px;font-size:13px}.me .mew{display:none}.av{width:36px;height:36px;font-size:12px}
+.partner{gap:8px;padding:6px 10px;flex-wrap:nowrap}.plbl,.pdate{display:none}.ptxt{font-size:12px;line-height:15px}.pmark{min-height:40px;padding:2px 8px}.pmark b{font-size:14px;letter-spacing:.2em}.pmark i{font-size:9px}
+.gt-main{overflow-y:auto;padding:12px 12px 16px;gap:12px}
+.panel,.panel2{padding:14px;gap:10px}.grid2{grid-template-columns:1fr;gap:12px}
+.h1{font-size:34px}.h2{font-size:24px}.h3{font-size:19px}.big{font-size:44px}.big2{font-size:34px;line-height:38px}
+.days{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cutm{display:none}.day{padding:8px 10px}.dr{font-size:20px;line-height:24px}
+.btn{font-size:19px;padding:0 14px}
+.clock{padding:10px 12px}.clk-p{font-size:12px;line-height:16px}
+.pay{grid-template-columns:1fr;gap:0}
+.ev{flex-wrap:wrap;gap:8px}.evd{width:auto}.evr{flex-direction:row;flex-wrap:wrap;align-items:center;width:100%;justify-content:flex-start}
+.cards{grid-template-columns:1fr}
+.sv{width:24px;height:24px}
+.tabbar{flex:none;display:grid;grid-template-columns:repeat(4,1fr);background:#06150d;border-top:1px solid #ffd16655;padding:4px 4px calc(4px + env(safe-area-inset-bottom,0px))}
+.tabbar button{min-height:48px;background:none;border:0;color:#f3eefc;font-weight:700;font-size:13px;border-radius:10px;cursor:pointer}.tabbar button.on{background:#ffd166;color:#0e0626}
+.lbr{grid-template-columns:38px 30px minmax(0,1fr) 40px 58px;padding:5px 4px;gap:0 4px}.lbr .rc{display:none}.lbr .cc{display:block}
+.scg{grid-template-columns:44px repeat(9,minmax(0,1fr)) 40px}.scc{padding:4px 0;font-size:12px}.scc.l{padding-left:4px}.scc.s{font-size:10px}
+.clk-p{display:none}.clock{gap:6px}.clock .btn{font-size:17px;min-height:44px;padding:0 12px}.clk-b{gap:4px 12px}.clk-n{width:100%;order:3}.clk-h{gap:6px}.clk-day{font-size:14px}
+.pmark i{display:none}.pmark{min-height:36px}
+.tab{min-height:40px;padding:0 11px;font-size:13px}.sep{width:2px}
+.lbh{font-size:11px;letter-spacing:0}
+.hero .pmark i{display:none}
+.logo{min-height:44px;align-items:center}
+@media (max-width:350px){.logo{font-size:16px;gap:5px}.logo .t{font-size:11px}.back{padding:6px 8px;font-size:12px}.hdr{gap:6px}}
+</style>
+<style media="(orientation: landscape)" data-o="h">body{margin:0;background:#0b0618}
+.gt{font-family:"Titillium Web",system-ui,sans-serif;color:#f3eefc;background:#0b0618;font-size:15px;line-height:22px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.gt *{box-sizing:border-box}
+.gt button{font-family:inherit}
+.gt a{color:#ffd166}
+.sport{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:700;letter-spacing:.02em}
+.lbl{font-size:12px;line-height:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9acd6;font-style:normal}
+.muted{color:#b9acd6}.gold{color:#ffd166}.orange{color:#ff7a3d}.hi{color:#f3eefc}.b{font-weight:700}.sm-t{font-size:13px;line-height:18px}
+.hdr{flex:none;display:flex;align-items:center;gap:16px;padding:10px 24px;background:#06150d;border-bottom:1px solid #ffd16655}
+.logo{display:flex;align-items:baseline;gap:8px;font-style:italic;font-weight:900;font-size:26px;letter-spacing:.02em;color:#f3eefc;background:none;border:0;cursor:pointer;padding:0;white-space:nowrap}
+.logo .t{color:#06150d;background:#ffd166;padding:0 8px;border-radius:6px;font-size:18px}
+.nav{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+.nav button{color:#f3eefc;background:none;border:0;font-weight:600;font-size:15px;padding:8px 14px;border-radius:999px;min-height:44px;cursor:pointer}
+.nav button:hover{background:#ffffff14}.nav button.on{background:#ffd166;color:#0e0626}
+.back{color:#b9acd6!important;text-decoration:none;font-weight:600;font-size:14px;border:1px solid #b9acd655;border-radius:999px;padding:8px 14px;min-height:44px;display:inline-flex;align-items:center;white-space:nowrap}
+.me{display:flex;align-items:center;gap:10px;min-width:0}
+.av{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:#140a2e}
+.mename{font-weight:700;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mesub{font-size:13px;line-height:16px;white-space:nowrap}
+.partner{flex:none;display:flex;align-items:center;gap:16px;padding:8px 24px;background:#000;border-bottom:1px solid #ffffff2a;color:#fff}
+.plbl{color:#cfcfcf}.ptxt{font-weight:600}.pdate{color:#cfcfcf;font-size:14px}
+.pmark{text-decoration:none;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:1px dashed #ffffffaa;border-radius:6px;padding:3px 14px;min-height:44px}
+.pmark b{font-weight:700;font-size:18px;letter-spacing:.3em;color:#fff;line-height:24px}
+.pmark i{font-style:normal;font-size:10px;letter-spacing:.04em;color:#cfcfcf;line-height:12px}
+.pmark.dark{background:#000}.pmark.mini{min-height:32px;padding:2px 8px}.pmark.mini b{font-size:13px;letter-spacing:.2em}
+.gt-main{flex:1;min-height:0;display:flex;flex-direction:column;gap:20px;padding:20px 24px 28px}
+.panel{background:#0c1f14;border:1px solid #ffd16640;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel2{background:#140a2e;border:1px solid #ff4fa366;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel.blk{background:#000;border-color:#ffffff40}
+.hero{background:#06150d}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.row-w{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:12px;font-family:"Barlow Condensed","Titillium Web",sans-serif!important;font-style:italic;font-weight:800;font-size:21px;letter-spacing:.03em;text-decoration:none;border:0;cursor:pointer;white-space:nowrap}
+.btn.sm{min-height:44px;font-size:17px;padding:0 14px}
+.btn-p{background:#ff4fa3;color:#0e0626!important;box-shadow:0 0 18px #ff4fa3}
+.btn-s{background:transparent;color:#f3eefc;border:1px solid #ff9ad0}
+.btn-g{background:#ffd166;color:#0e0626}
+.btn-clk{background:#5eead4;color:#06150d}
+.lnk{background:none;border:0;color:#ffd166;font-weight:700;font-size:14px;cursor:pointer;padding:8px 0;min-height:44px;text-align:left}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:2px 12px;font-size:13px;font-weight:700;line-height:20px;white-space:nowrap}
+.c-live{background:#5eead422;color:#5eead4;border:1px solid #5eead4}.c-open{background:#ffd16622;color:#ffd166;border:1px solid #ffd166}
+.c-soon{background:#ffffff10;color:#b9acd6;border:1px solid #b9acd666}.c-done{background:#ffffff10;color:#f3eefc;border:1px solid #f3eefc66}
+.h1{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:52px;line-height:1;margin:0}
+.h2{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:700;font-size:30px;line-height:1.1;margin:0}
+.h3{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:700;font-size:22px;line-height:1.15;margin:0 0 4px}
+.p{margin:0}.lead{margin:0}
+.clock{border:2px dashed #5eead4;border-radius:14px;padding:12px 16px;background:#5eead40d;display:flex;flex-direction:column;gap:8px}
+.clk-h{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.clk-tag{font-size:11px;font-weight:900;letter-spacing:.12em;color:#06150d;background:#5eead4;border-radius:6px;padding:1px 8px}
+.clk-day{font-weight:700;color:#5eead4}.clk-p{margin:0;font-size:13px;line-height:18px;color:#b9acd6}
+.clk-b{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.clk-n{font-size:13px}.clk-q{font-weight:700}
+.clk-msg{border-left:3px solid #ffd166;padding:4px 10px;font-size:14px;line-height:20px;color:#ffd166}
+.days{display:flex;gap:10px;align-items:stretch}
+.day{flex:1;min-width:0;border-radius:12px;padding:12px 14px;background:#ffffff08;border:1px solid #ffffff22}.day.on{border-color:#5eead4;box-shadow:0 0 14px #5eead433}
+.dr{font-size:24px;line-height:28px}.drow{display:flex;justify-content:space-between;gap:6px;align-items:center;flex-wrap:wrap;margin-top:4px}.dm{margin-top:4px;min-height:18px}
+.cutm{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 2px}.cutm .sport{font-size:20px}
+.sit{display:flex;gap:16px;align-items:center}.big{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:56px;line-height:1}.tot{font-size:30px;line-height:32px}
+.big2{font-size:44px;line-height:48px}
+.res{border:1px solid #ffd166;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;background:#ffd16610}
+.bhead{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.tab{min-height:44px;padding:0 14px;border-radius:999px;font-weight:700;cursor:pointer;font-size:14px;background:transparent;color:#f3eefc;border:1px solid #ffd16688}
+.tab.on{background:#ffd166;color:#0e0626;border-color:#ffd166}.sep{width:8px}
+.tbl-w{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#b9acd6;text-align:left;padding:6px 8px;border-bottom:1px solid #ffd16655;font-weight:700;white-space:nowrap}
+td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.ctr{text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
+.step{display:flex;gap:12px;align-items:flex-start}
+.badge{flex:none;width:34px;height:34px;border-radius:50%;background:#ffd166;color:#0e0626;display:flex;align-items:center;justify-content:center;font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:19px}
+.lots{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;color:#fff}.lots b{display:inline-block;min-width:96px;color:#ffd166}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:20px}.pay tr.odd td{background:#ffffff05}
+.evs{display:flex;flex-direction:column;gap:8px}
+.ev{display:flex;gap:14px;align-items:center;border-radius:12px;padding:10px 14px;background:#0c1f14;border:1px solid #ffd16633}.ev.live{background:#06150d;border-color:#5eead4}.ev.major{border-color:#ffd166}
+.evd{flex:none;width:92px}.evn{font-size:22px;line-height:26px}.evm{flex:1;min-width:0}.evr{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:4px;text-align:right}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.card{text-align:left;color:#f3eefc;background:#140a2e;border:1px solid #ff4fa366;border-radius:12px;padding:12px;cursor:pointer;display:flex;flex-direction:column;gap:6px}
+.card.kept{border-color:#ffd166;box-shadow:0 0 14px #ffd16633}.ctag{align-self:flex-start;border:1px solid #b9acd666;color:#b9acd6}.card.kept .ctag{border-color:#ffd166;color:#ffd166}
+.cg{display:flex;gap:16px}.cg span,.sctot span{display:flex;flex-direction:column;font-size:20px;font-weight:700}
+.sctot{display:flex;gap:24px;flex-wrap:wrap}
+.sv{display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;font-weight:700}
+.sv.eagle{border-radius:50%;border:3px double #ffd166}.sv.birdie{border-radius:50%;border:2px solid #5eead4}.sv.bogey{border:2px solid #ff9ad0}.sv.dbl{border:3px double #ff7a3d}
+.tabbar{display:none}
+.lb{display:flex;flex-direction:column;font-variant-numeric:tabular-nums}
+.lbr{display:grid;grid-template-columns:52px 44px minmax(0,1fr) 56px 56px 56px 56px 84px;align-items:center;gap:0 6px;padding:5px 8px;border-bottom:1px solid #ffffff12}
+.lbh{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#b9acd6;font-weight:700;border-bottom:1px solid #ffd16655}
+.c-pos,.c-r{text-align:center;white-space:nowrap}.c-tot{text-align:right;white-space:nowrap}.c-mv{font-size:12px;font-weight:700;white-space:nowrap}.c-mv.up{color:#5eead4}.c-mv.dn{color:#ff7a3d}
+.c-nm{display:flex;flex-direction:column;min-width:0}.c-nm .pn{font-weight:700;line-height:18px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.c-nm .pg{font-size:12px;line-height:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lbr .cc{display:none}
+.lbr.me{background:#ffd16626;border-radius:8px}.lbr.me .pn{color:#ffd166}.lbr.out{color:#b9acd6}
+.lbcut{color:#ff7a3d;font-weight:700;border-top:2px dashed #ff7a3d;border-bottom:2px dashed #ff7a3d;text-align:center;font-size:13px;padding:4px}
+.lbabd{color:#b9acd6;font-weight:700;border-top:2px solid #b9acd666;text-align:center;font-size:13px;padding:4px;background:#ffffff08}
+.lbgap{color:#b9acd6;text-align:center;line-height:14px}
+.scg{display:grid;grid-template-columns:64px repeat(9,minmax(0,1fr)) 64px;border:1px solid #ffffff1f;border-radius:10px;overflow:hidden}
+.scc{text-align:center;padding:5px 2px;border-bottom:1px solid #ffffff12;font-variant-numeric:tabular-nums;display:flex;align-items:center;justify-content:center;min-width:0}
+.scc.h{font-size:12px;font-weight:700;color:#b9acd6;background:#ffffff08}.scc.l{justify-content:flex-start;padding-left:8px;color:#b9acd6}.scc.s{font-size:12px}
+.gt{width:844px;max-width:100vw;height:390px;max-height:100dvh;font-size:14px;line-height:20px}
+.hdr{gap:10px;padding:4px 12px;flex-wrap:nowrap}.nav{display:none}.logo{font-size:19px}.logo .t{font-size:13px;padding:0 5px}
+.back{padding:4px 10px;font-size:13px;min-height:40px}.me{margin-left:auto}.av{width:32px;height:32px;font-size:12px}.mesub{font-size:12px}
+.partner{gap:10px;padding:3px 12px;flex-wrap:nowrap}.plbl,.pdate{display:none}.ptxt{font-size:12px}.pmark{min-height:34px;padding:1px 8px}.pmark b{font-size:13px;letter-spacing:.2em;line-height:18px}.pmark i{display:none}
+.gt-main{overflow-y:auto;padding:10px 14px 14px;gap:10px}
+.panel,.panel2{padding:12px;gap:8px}.grid2{gap:10px}
+.h1{font-size:30px}.h2{font-size:22px}.h3{font-size:18px}.big{font-size:40px}.big2{font-size:32px;line-height:36px}
+.day{padding:8px 10px}.dr{font-size:19px;line-height:22px}
+.btn{font-size:18px;padding:0 14px;min-height:44px}
+.clock{padding:8px 12px;gap:6px}.clk-p{display:none}
+.sv{width:24px;height:24px}
+.tabbar{flex:none;display:grid;grid-template-columns:repeat(4,1fr);background:#06150d;border-top:1px solid #ffd16655;padding:2px 4px calc(2px + env(safe-area-inset-bottom,0px))}
+.tabbar button{min-height:40px;background:none;border:0;color:#f3eefc;font-weight:700;font-size:13px;border-radius:10px;cursor:pointer}.tabbar button.on{background:#ffd166;color:#0e0626}
+.lbr{padding:3px 6px;grid-template-columns:44px 40px minmax(0,1fr) 50px 50px 50px 50px 70px}
+.scc{padding:2px 1px;font-size:12px}
+.logo{min-height:40px;align-items:center}
+</style>
+<style>html,body{margin:0;height:100%;background:#0b0618;overflow:hidden}#app{height:100%;display:flex;justify-content:center;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);padding-top:env(safe-area-inset-top,0px);box-sizing:border-box}#app>.gc{width:calc(100vw - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px))!important;height:calc(100dvh - env(safe-area-inset-top,0px))!important;max-height:calc(100dvh - env(safe-area-inset-top,0px))!important;max-width:480px!important}html[data-o=h] #app>.gc{max-width:960px!important}</style>
+<script src="./support.js?v=38"></script><script src="./engine.js?v=38"></script>
+</head><body><div id="app"></div>
+<script id="tv" type="text/plain">
+
+<div class="gc gt">
+<header class="hdr">
+<a class="back" href="{{gameHref}}">← Retour au jeu</a>
+<button class="logo" onClick="{{goHome}}" aria-label="Accueil du Greencut Tour">GREENCUT <span class="t">TOUR</span></button>
+<nav class="nav" aria-label="Greencut Tour"><sc-for list="{{nav}}" as="n" hint-placeholder-count="6"><button class="{{n.cls}}" onClick="{{n.go}}">{{n.label}}</button></sc-for></nav>
+<div class="me"><div class="av" aria-hidden="true">{{initials}}</div><div class="mew"><div class="mename">{{me}}</div><div class="muted mesub">Solde : <b class="gold">{{solde}}</b></div></div></div>
+</header>
+<div class="partner">
+<span class="lbl plbl">Partenaire exclusif</span>
+<a class="pmark" href="{{partnerUrl}}" target="_blank" rel="noopener" title="Site officiel Callaway (nouvel onglet)" aria-label="Callaway, site officiel (nouvel onglet)"><b>CALLAWAY</b><i>logo officiel fourni par la marque</i></a>
+<span class="ptxt">{{tourName}} présenté par Callaway</span>
+<span class="pdate">{{dates}} · parcours Majlis, Dubaï · Par 72</span>
+</div>
+<main class="gt-main">
+<section class="clock" aria-label="Horloge de test (testeurs uniquement)">
+<div class="clk-h"><span class="clk-tag">TEST · TESTEURS UNIQUEMENT</span><span class="clk-day">{{phaseLbl}}</span></div>
+<p class="clk-p">Pour jouer un tournoi entier en une soirée : chaque clic fait passer le tournoi au jour suivant (un jour sans carte déposée = abandon). Les adversaires et le champ de 311 joueurs sont simulés ; tout reste sur cet appareil.</p>
+<div class="clk-b"><sc-if value="{{canNext}}" hint-placeholder-val="{{ true }}"><button class="btn btn-clk" onClick="{{next}}">⏭ Passer au jour suivant</button><span class="muted clk-n">{{nextLbl}}</span></sc-if>
+<sc-if value="{{askReset}}" hint-placeholder-val="{{ false }}"><span class="clk-q">Effacer vos cartes et revenir au jeudi ?</span><button class="btn btn-s sm" onClick="{{reset}}">Oui, recommencer</button><button class="btn btn-s sm" onClick="{{noReset}}">Non</button></sc-if>
+<sc-if value="{{isOver}}" hint-placeholder-val="{{ false }}"><button class="btn btn-clk" onClick="{{wantReset}}">↺ Recommencer le tournoi</button></sc-if>
+<sc-if value="{{canNext}}" hint-placeholder-val="{{ true }}"><button class="lnk" onClick="{{wantReset}}">Recommencer le tournoi</button></sc-if></div>
+<sc-if value="{{hasMsg}}" hint-placeholder-val="{{ false }}"><div class="clk-msg"><sc-for list="{{msg}}" as="x" hint-placeholder-count="1"><div>{{x.m}}</div></sc-for></div></sc-if>
+</section>
+
+<sc-if value="{{isHome}}" hint-placeholder-val="{{ true }}">
+<section class="panel hero">
+<div class="row-w"><span class="{{statusCls}}">{{statusChip}}</span><span class="muted sm-t">Tournoi test du Greencut Tour</span></div>
+<h1 class="h1">{{tourName}}</h1>
+<div class="row-w"><span class="muted">présenté par</span><a class="pmark dark" href="{{partnerUrl}}" target="_blank" rel="noopener" title="Site officiel Callaway (nouvel onglet)" aria-label="Callaway, site officiel (nouvel onglet)"><b>CALLAWAY</b><i>logo officiel fourni par la marque</i></a></div>
+<p class="muted lead">Du 21 au 24 janvier 2027, la semaine où les pros du DP World Tour jouent ce parcours. Vous jouez sa carte de score réelle : <b class="hi">parcours Majlis, Dubaï · Par 72</b>.</p>
+<div class="days"><sc-for list="{{days}}" as="d" hint-placeholder-count="4"><div class="{{d.box}}"><div class="lbl">{{d.d}}</div><div class="sport dr">{{d.r}}</div><div class="drow"><span class="chip {{d.cls}}">{{d.state}}</span><span class="muted sm-t">{{d.who}}</span></div><div class="gold sm-t dm">{{d.mine}}</div></div><sc-if value="{{d.cut}}" hint-placeholder-val="{{ false }}"><div class="cutm"><span class="sport orange">CUT</span><span class="orange sm-t">Top 50</span></div></sc-if></sc-for></div>
+</section>
+<section class="grid2">
+<div class="panel2">
+<div class="lbl">Ma situation</div>
+<div class="sit"><div class="big gold">{{myPos}}</div><div><div class="sport tot">{{myTot}}</div><div class="muted sm-t">total net</div></div></div>
+<p class="p">{{meTxt}}</p>
+<p class="p orange">{{cutTxt}}</p>
+<sc-if value="{{hasRes}}" hint-placeholder-val="{{ false }}"><div class="res"><div class="lbl gold">Résultats</div><p class="p">{{resTxt}}</p><button class="btn btn-g" onClick="{{goPurse}}">Voir la dotation</button></div></sc-if>
+<div class="row-w"><button class="btn btn-s" onClick="{{goBoard}}">Voir le classement</button><button class="btn btn-s" onClick="{{goCards}}">Mes cartes</button></div>
+</div>
+<div class="panel">
+<div class="lbl">Jouer pour le tournoi</div>
+<sc-if value="{{canPlay}}" hint-placeholder-val="{{ true }}"><h2 class="h2">{{playTxt}}</h2>
+<p class="p">Une carte = une partie Greencut de 18 trous sur le Majlis, à une table de 4 à 6 joueurs. Autant de cartes que vous voulez : seule la meilleure du jour (au net) compte.</p>
+<p class="p muted">{{stake}}</p>
+<a class="btn btn-p" href="{{playHref}}" onClick="{{markPlay}}">Jouer une carte ▶︎</a></sc-if>
+<sc-if value="{{cantPlay}}" hint-placeholder-val="{{ false }}"><h2 class="h2">Pas de carte à jouer</h2><p class="p">{{whyNot}}</p></sc-if>
+<p class="p muted sm-t">Les parties normales continuent dans Greencut et ne comptent jamais pour le tournoi.</p>
+<div class="row-w"><button class="lnk" onClick="{{goRules}}">Les règles en 6 points →</button><button class="lnk" onClick="{{goCal}}">Calendrier 2027 →</button></div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{isBoard}}" hint-placeholder-val="{{ false }}">
+<section class="panel">
+<div class="bhead"><h2 class="h2">{{boardTitle}}</h2><div class="row-w"><sc-for list="{{views}}" as="v" hint-placeholder-count="2"><button class="tab {{v.cls}}" onClick="{{v.go}}">{{v.label}}</button></sc-for><span class="sep"></span><button class="tab {{netCls}}" onClick="{{setNet}}">NET</button><button class="tab {{brutCls}}" onClick="{{setBrut}}">BRUT</button></div></div>
+<p class="muted sm-t">{{boardNote}}</p>
+<div class="lb" role="table" aria-label="Classement du tournoi"><div class="lbr lbh" role="row"><span class="c-pos">Pos</span><span class="c-mv"></span><span class="c-nm">Joueur</span><span class="c-r rc">T1</span><span class="c-r rc">T2</span><span class="c-r rc">T3</span><span class="c-r rc">T4</span><span class="c-r cc">{{curLbl}}</span><span class="c-tot">Total {{modeLbl}}</span></div>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="8"><sc-if value="{{r.gap}}" hint-placeholder-val="{{ false }}"><div class="lbgap">…</div></sc-if><sc-if value="{{r.cutBefore}}" hint-placeholder-val="{{ false }}"><div class="lbcut">✂ Ligne du cut · non qualifiés dessous</div></sc-if><sc-if value="{{r.abdBefore}}" hint-placeholder-val="{{ false }}"><div class="lbabd">Abandons (ABD) · mise de départ non engagée, sans dotation</div></sc-if><div class="lbr {{r.rc}}" role="row"><span class="c-pos b">{{r.pos}}</span><span class="c-mv {{r.moveCls}}">{{r.move}}</span><span class="c-nm"><span class="pn">{{r.name}}</span><span class="muted pg">{{r.golf}}</span></span><span class="c-r rc">{{r.c1}}</span><span class="c-r rc">{{r.c2}}</span><span class="c-r rc">{{r.c3}}</span><span class="c-r rc">{{r.c4}}</span><span class="c-r cc">{{r.cur}}</span><span class="c-tot b">{{r.tot}}</span></div></sc-for></div>
+<div class="row-w"><button class="btn btn-s" onClick="{{toggleAll}}">{{allLbl}}</button></div>
+</section>
+</sc-if>
+
+<sc-if value="{{isRules}}" hint-placeholder-val="{{ false }}">
+<section class="panel rules">
+<div class="lbl">Règlement du Greencut Tour · s’applique à chaque tournoi</div>
+<h2 class="h2">Les règles du tournoi</h2>
+<p class="p">Un tournoi Greencut se joue comme un tournoi du DP World Tour : 4 tours en 4 jours, un cut après 2 tours, une dotation pour les qualifiés. À la table, ce sont les règles habituelles de Greencut.</p>
+<div class="step"><span class="badge">1</span><div><h3 class="h3">4 jours, 4 tours, du jeudi au dimanche</h3><p class="p">Chaque jour est un tour, ouvert de 00:00 à 23:59 (heure de Paris). Une carte commencée avant 23:59 compte pour ce jour si elle est terminée avant 00:59. Le cut est publié samedi à 01:00.</p></div></div>
+<div class="step"><span class="badge">2</span><div><h3 class="h3">Autant de cartes que vous voulez : la meilleure compte</h3><p class="p">Chaque carte est une partie Greencut de 18 trous sur le parcours du tournoi, à une table de 4 à 6 joueurs. Mise de 10 000 pts par carte, prise sur votre solde avec votre accord ; vos jetons restants reviennent sur votre solde à la fin. Sous 10 000 pts, vous convertissez 100 fees en 10 000 pts. Seule votre meilleure carte du jour (au net) compte.</p></div></div>
+<div class="step"><span class="badge">3</span><div><h3 class="h3">Le score du tournoi</h3><p class="p">Score d’un tour = net de la carte retenue : coups joués + bonus de jetons de la table (−4, −2, −1 pour les 3 premiers en jetons, +2 pour les autres), par rapport au par. Le classement officiel est au net ; le brut s’affiche pour information. Pas de mise, pas de tournoi : un joueur qui n’engage pas la mise de départ d’un tour est en abandon (ABD) : par + 4 sur les trous restants, plus de tour suivant, aucune dotation.</p></div></div>
+<div class="step"><span class="badge">4</span><div><h3 class="h3">Le cut : toujours 50 qualifiés</h3><p class="p">Après le tour 2, les 50 premiers jouent le week-end. À égalité sur la 50e place : 1) brut cumulé des tours 1 et 2, 2) net du tour 2, 3) brut des 9 derniers trous du tour 2, 4) heure de dépôt de la carte retenue (la plus tôt passe). Il n’y a jamais d’égalité sur la ligne.</p></div></div>
+<div class="step"><span class="badge">5</span><div><h3 class="h3">Tours 3 et 4 et résultat</h3><p class="p">Seuls les 50 qualifiés jouent samedi et dimanche. Classement final au net cumulé des 4 tours. Pour la victoire, on départage au brut cumulé, puis au tour 4, puis aux 9 derniers trous du tour 4, puis à l’heure de dépôt. Les autres égalités sont partagées (« T7 »).</p></div></div>
+<div class="step"><span class="badge">6</span><div><h3 class="h3">La dotation</h3><p class="p">2 000 000 pts partagés entre les 50 qualifiés (10 000 pts minimum chacun, puis une part selon le rang), plus les lots Callaway. Les points sont crédités le lundi sur votre solde.</p><button class="lnk" onClick="{{goPurse}}">Voir le barème complet →</button></div></div>
+</section>
+</sc-if>
+
+<sc-if value="{{isPurse}}" hint-placeholder-val="{{ false }}">
+<section class="grid2">
+<div class="panel">
+<div class="lbl">Dotation en points</div><div class="sport big2 gold">{{purse}}</div><div class="muted sm-t">{{purseFees}} · 50 qualifiés · minimum garanti 10 000 pts</div>
+<div class="step"><span class="badge">1</span><p class="p">Chaque qualifié qui a misé sur les 4 tours reçoit d’abord 10 000 pts (50 × 10 000 = 500 000 pts).</p></div>
+<div class="step"><span class="badge">2</span><p class="p">Le reste ({{rest}}) se partage selon le rang : le 2e reçoit la moitié de la part du 1er, le 3e un tiers… (part = 1 ÷ rang).</p></div>
+<div class="step"><span class="badge">3</span><p class="p">Arrondi à 100 pts (1 fee) ; le petit reste d’arrondi va au vainqueur. La somme est toujours égale à la dotation.</p></div>
+<div class="step"><span class="badge">4</span><p class="p">Égalité : les joueurs ex aequo additionnent les points de leurs places et se les partagent (ex. deux joueurs T7 : {{tie78}} chacun). La victoire est toujours départagée.</p></div>
+<div class="step"><span class="badge">5</span><p class="p">Abandon (ABD) : aucune dotation ; les joueurs classés derrière remontent et les dernières places restées libres ne sont pas versées.</p></div>
+</div>
+<div class="panel blk">
+<div class="row-w"><a class="pmark" href="{{partnerUrl}}" target="_blank" rel="noopener" title="Site officiel Callaway (nouvel onglet)" aria-label="Callaway, site officiel (nouvel onglet)"><b>CALLAWAY</b><i>logo officiel fourni par la marque</i></a><span class="lbl plbl">Lots du partenaire exclusif</span></div>
+<ul class="lots"><li><b>1er</b> Driver + fitting complet + sac Tour</li><li><b>2e</b> Série de fers avec fitting</li><li><b>3e</b> Putter Odyssey</li><li><b>4e – 10e</b> 3 douzaines de balles Chrome Tour + casquette</li><li><b>11e – 50e</b> 1 douzaine de balles Chrome Tour</li><li><b>Prix spécial</b> Meilleure carte du tournoi : gant + housse</li></ul>
+<p class="muted sm-t">Lots à confirmer avec Callaway, sans valeur en euros.</p>
+</div>
+</section>
+<section class="panel"><h2 class="h2">Barème complet</h2><div class="pay"><table><thead><tr><th>Place</th><th class="num">Points</th><th class="num">Fees</th></tr></thead><tbody><sc-for list="{{payA}}" as="it" hint-placeholder-count="3"><tr class="{{it.z}}"><td>{{it.r}}</td><td class="num">{{it.p}}</td><td class="num">{{it.fe}}</td></tr></sc-for></tbody></table><table><thead><tr><th>Place</th><th class="num">Points</th><th class="num">Fees</th></tr></thead><tbody><sc-for list="{{payB}}" as="it" hint-placeholder-count="3"><tr class="{{it.z}}"><td>{{it.r}}</td><td class="num">{{it.p}}</td><td class="num">{{it.fe}}</td></tr></sc-for></tbody></table></div></section>
+</sc-if>
+
+<sc-if value="{{isCal}}" hint-placeholder-val="{{ false }}">
+<section class="panel">
+<div class="lbl">Saison 2027 · dates du DP World Tour · tournois individuels</div><h2 class="h2">Calendrier des tournois</h2>
+<p class="p muted">Chaque tournoi porte le nom de son parcours et se joue la semaine où les pros jouent ce parcours. Tournoi : 2 000 000 pts ; Grand Chelem et Finale : 4 000 000 pts.</p>
+<div class="row-w"><sc-for list="{{calFilters}}" as="c" hint-placeholder-count="3"><button class="tab {{c.cls}}" onClick="{{c.go}}">{{c.label}}</button></sc-for></div>
+<div class="evs"><sc-for list="{{events}}" as="e" hint-placeholder-count="4"><div class="{{e.box}}"><div class="evd"><div class="sport evn">{{e.d}}</div><div class="muted sm-t">{{e.m}} 2027</div></div><div class="evm"><div class="b">{{e.gc}}</div><div class="muted sm-t">{{e.type}} · {{e.course}}</div><div class="gold sm-t">{{e.note}}</div></div><div class="evr"><div class="sm-t b">{{e.dot}}</div><sc-if value="{{e.isCal}}" hint-placeholder-val="{{ false }}"><a class="pmark mini" href="{{partnerUrl}}" target="_blank" rel="noopener" aria-label="Callaway, site officiel (nouvel onglet)"><b>CALLAWAY</b></a></sc-if><sc-if value="{{e.noCal}}" hint-placeholder-val="{{ true }}"><span class="muted sm-t">{{e.partner}}</span></sc-if><span class="chip {{e.cls}}">{{e.status}}</span><sc-if value="{{e.open}}" hint-placeholder-val="{{ false }}"><button class="lnk" onClick="{{e.go}}">Voir le tournoi →</button></sc-if></div></div></sc-for></div>
+</section>
+</sc-if>
+
+<sc-if value="{{isCards}}" hint-placeholder-val="{{ false }}">
+<section class="panel">
+<div class="lbl">{{phaseLbl}}</div><h2 class="h2">Mes cartes</h2>
+<p class="p">Autant de cartes que vous voulez chaque jour : seule la meilleure (au net) compte pour le tournoi. Touchez une carte pour voir sa carte de score.</p>
+<sc-if value="{{noCards}}" hint-placeholder-val="{{ false }}"><p class="p muted">Aucune carte déposée pour l’instant.</p></sc-if>
+<div class="cards"><sc-for list="{{cards}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" onClick="{{c.open}}"><div class="b">{{c.t}}</div><div class="muted sm-t">{{c.h}}</div><div class="cg"><span><i class="lbl">Brut</i>{{c.b}}</span><span><i class="lbl">Bonus</i>{{c.bo}}</span><span><i class="lbl">Net</i><b class="gold">{{c.n}}</b></span></div><span class="chip ctag">{{c.tag}}</span></button></sc-for></div>
+<sc-if value="{{canPlay}}" hint-placeholder-val="{{ true }}"><div class="row-w"><a class="btn btn-p" href="{{playHref}}" onClick="{{markPlay}}">{{playTxt}} ▶︎</a><span class="muted sm-t">{{stake}}</span></div></sc-if>
+<sc-if value="{{cantPlay}}" hint-placeholder-val="{{ false }}"><p class="p orange">{{whyNot}}</p></sc-if>
+</section>
+</sc-if>
+
+<sc-if value="{{isSc}}" hint-placeholder-val="{{ false }}">
+<section class="panel">
+<div class="lbl">Ma carte de score · parcours Majlis · Par 72</div><h2 class="h2">{{scTitle}}</h2>
+<div class="row-w"><sc-for list="{{scRounds}}" as="v" hint-placeholder-count="2"><button class="tab {{v.cls}}" onClick="{{v.go}}">{{v.label}}</button></sc-for><button class="lnk" onClick="{{goCards}}">← Mes cartes</button></div>
+<sc-if value="{{noSc}}" hint-placeholder-val="{{ false }}"><p class="p muted">Pas encore de carte déposée : jouez une carte pour voir votre carte de score.</p></sc-if>
+<sc-if value="{{hasSc}}" hint-placeholder-val="{{ true }}">
+<div class="scg"><div class="scc h">Trou</div><sc-for list="{{holesOut}}" as="h" hint-placeholder-count="9"><div class="scc h">{{h.n}}</div></sc-for><div class="scc h">Aller</div><div class="scc l">Par</div><sc-for list="{{holesOut}}" as="h" hint-placeholder-count="9"><div class="scc">{{h.par}}</div></sc-for><div class="scc b">35</div><div class="scc l">Yards</div><sc-for list="{{holesOut}}" as="h" hint-placeholder-count="9"><div class="scc s">{{h.yds}}</div></sc-for><div class="scc s">3 670</div><div class="scc l">Index</div><sc-for list="{{holesOut}}" as="h" hint-placeholder-count="9"><div class="scc s muted">{{h.idx}}</div></sc-for><div class="scc"></div><div class="scc l b">Coups</div><sc-for list="{{holesOut}}" as="h" hint-placeholder-count="9"><div class="scc"><span class="sv {{h.cls}}">{{h.v}}</span></div></sc-for><div class="scc b gold">{{scOut}}</div></div>
+<div class="scg"><div class="scc h">Trou</div><sc-for list="{{holesIn}}" as="h" hint-placeholder-count="9"><div class="scc h">{{h.n}}</div></sc-for><div class="scc h">Retour</div><div class="scc l">Par</div><sc-for list="{{holesIn}}" as="h" hint-placeholder-count="9"><div class="scc">{{h.par}}</div></sc-for><div class="scc b">37</div><div class="scc l">Yards</div><sc-for list="{{holesIn}}" as="h" hint-placeholder-count="9"><div class="scc s">{{h.yds}}</div></sc-for><div class="scc s">3 737</div><div class="scc l">Index</div><sc-for list="{{holesIn}}" as="h" hint-placeholder-count="9"><div class="scc s muted">{{h.idx}}</div></sc-for><div class="scc"></div><div class="scc l b">Coups</div><sc-for list="{{holesIn}}" as="h" hint-placeholder-count="9"><div class="scc"><span class="sv {{h.cls}}">{{h.v}}</span></div></sc-for><div class="scc b gold">{{scIn}}</div></div>
+<div class="sctot"><span><i class="lbl">Total</i>{{scTot}}</span><span><i class="lbl">Brut</i>{{scBrut}}</span><span><i class="lbl">Bonus jetons</i>{{scBonus}}</span><span><i class="lbl">Net</i><b class="gold">{{scNet}}</b></span></div>
+<p class="muted sm-t">{{scDep}}</p>
+</sc-if>
+</section>
+</sc-if>
+</main>
+<nav class="tabbar" aria-label="Greencut Tour"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button class="{{t.cls}}" onClick="{{t.go}}">{{t.label}}</button></sc-for></nav>
+</div>
+</script>
+<script id="th" type="text/plain">
+
+<div class="gc gt">
+<header class="hdr">
+<a class="back" href="{{gameHref}}">← Retour au jeu</a>
+<button class="logo" onClick="{{goHome}}" aria-label="Accueil du Greencut Tour">GREENCUT <span class="t">TOUR</span></button>
+<nav class="nav" aria-label="Greencut Tour"><sc-for list="{{nav}}" as="n" hint-placeholder-count="6"><button class="{{n.cls}}" onClick="{{n.go}}">{{n.label}}</button></sc-for></nav>
+<div class="me"><div class="av" aria-hidden="true">{{initials}}</div><div class="mew"><div class="mename">{{me}}</div><div class="muted mesub">Solde : <b class="gold">{{solde}}</b></div></div></div>
+</header>
+<div class="partner">
+<span class="lbl plbl">Partenaire exclusif</span>
+<a class="pmark" href="{{partnerUrl}}" target="_blank" rel="noopener" title="Site officiel Callaway (nouvel onglet)" aria-label="Callaway, site officiel (nouvel onglet)"><b>CALLAWAY</b><i>logo officiel fourni par la marque</i></a>
+<span class="ptxt">{{tourName}} présenté par Callaway</span>
+<span class="pdate">{{dates}} · parcours Majlis, Dubaï · Par 72</span>
+</div>
+<main class="gt-main">
+<section class="clock" aria-label="Horloge de test (testeurs uniquement)">
+<div class="clk-h"><span class="clk-tag">TEST · TESTEURS UNIQUEMENT</span><span class="clk-day">{{phaseLbl}}</span></div>
+<p class="clk-p">Pour jouer un tournoi entier en une soirée : chaque clic fait passer le tournoi au jour suivant (un jour sans carte déposée = abandon). Les adversaires et le champ de 311 joueurs sont simulés ; tout reste sur cet appareil.</p>
+<div class="clk-b"><sc-if value="{{canNext}}" hint-placeholder-val="{{ true }}"><button class="btn btn-clk" onClick="{{next}}">⏭ Passer au jour suivant</button><span class="muted clk-n">{{nextLbl}}</span></sc-if>
+<sc-if value="{{askReset}}" hint-placeholder-val="{{ false }}"><span class="clk-q">Effacer vos cartes et revenir au jeudi ?</span><button class="btn btn-s sm" onClick="{{reset}}">Oui, recommencer</button><button class="btn btn-s sm" onClick="{{noReset}}">Non</button></sc-if>
+<sc-if value="{{isOver}}" hint-placeholder-val="{{ false }}"><button class="btn btn-clk" onClick="{{wantReset}}">↺ Recommencer le tournoi</button></sc-if>
+<sc-if value="{{canNext}}" hint-placeholder-val="{{ true }}"><button class="lnk" onClick="{{wantReset}}">Recommencer le tournoi</button></sc-if></div>
+<sc-if value="{{hasMsg}}" hint-placeholder-val="{{ false }}"><div class="clk-msg"><sc-for list="{{msg}}" as="x" hint-placeholder-count="1"><div>{{x.m}}</div></sc-for></div></sc-if>
+</section>
+
+<sc-if value="{{isHome}}" hint-placeholder-val="{{ true }}">
+<section class="panel hero">
+<div class="row-w"><span class="{{statusCls}}">{{statusChip}}</span><span class="muted sm-t">Tournoi test du Greencut Tour</span></div>
+<h1 class="h1">{{tourName}}</h1>
+<div class="row-w"><span class="muted">présenté par</span><a class="pmark dark" href="{{partnerUrl}}" target="_blank" rel="noopener" title="Site officiel Callaway (nouvel onglet)" aria-label="Callaway, site officiel (nouvel onglet)"><b>CALLAWAY</b><i>logo officiel fourni par la marque</i></a></div>
+<p class="muted lead">Du 21 au 24 janvier 2027, la semaine où les pros du DP World Tour jouent ce parcours. Vous jouez sa carte de score réelle : <b class="hi">parcours Majlis, Dubaï · Par 72</b>.</p>
+<div class="days"><sc-for list="{{days}}" as="d" hint-placeholder-count="4"><div class="{{d.box}}"><div class="lbl">{{d.d}}</div><div class="sport dr">{{d.r}}</div><div class="drow"><span class="chip {{d.cls}}">{{d.state}}</span><span class="muted sm-t">{{d.who}}</span></div><div class="gold sm-t dm">{{d.mine}}</div></div><sc-if value="{{d.cut}}" hint-placeholder-val="{{ false }}"><div class="cutm"><span class="sport orange">CUT</span><span class="orange sm-t">Top 50</span></div></sc-if></sc-for></div>
+</section>
+<section class="grid2">
+<div class="panel2">
+<div class="lbl">Ma situation</div>
+<div class="sit"><div class="big gold">{{myPos}}</div><div><div class="sport tot">{{myTot}}</div><div class="muted sm-t">total net</div></div></div>
+<p class="p">{{meTxt}}</p>
+<p class="p orange">{{cutTxt}}</p>
+<sc-if value="{{hasRes}}" hint-placeholder-val="{{ false }}"><div class="res"><div class="lbl gold">Résultats</div><p class="p">{{resTxt}}</p><button class="btn btn-g" onClick="{{goPurse}}">Voir la dotation</button></div></sc-if>
+<div class="row-w"><button class="btn btn-s" onClick="{{goBoard}}">Voir le classement</button><button class="btn btn-s" onClick="{{goCards}}">Mes cartes</button></div>
+</div>
+<div class="panel">
+<div class="lbl">Jouer pour le tournoi</div>
+<sc-if value="{{canPlay}}" hint-placeholder-val="{{ true }}"><h2 class="h2">{{playTxt}}</h2>
+<p class="p">Une carte = une partie Greencut de 18 trous sur le Majlis, à une table de 4 à 6 joueurs. Autant de cartes que vous voulez : seule la meilleure du jour (au net) compte.</p>
+<p class="p muted">{{stake}}</p>
+<a class="btn btn-p" href="{{playHref}}" onClick="{{markPlay}}">Jouer une carte ▶︎</a></sc-if>
+<sc-if value="{{cantPlay}}" hint-placeholder-val="{{ false }}"><h2 class="h2">Pas de carte à jouer</h2><p class="p">{{whyNot}}</p></sc-if>
+<p class="p muted sm-t">Les parties normales continuent dans Greencut et ne comptent jamais pour le tournoi.</p>
+<div class="row-w"><button class="lnk" onClick="{{goRules}}">Les règles en 6 points →</button><button class="lnk" onClick="{{goCal}}">Calendrier 2027 →</button></div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{isBoard}}" hint-placeholder-val="{{ false }}">
+<section class="panel">
+<div class="bhead"><h2 class="h2">{{boardTitle}}</h2><div class="row-w"><sc-for list="{{views}}" as="v" hint-placeholder-count="2"><button class="tab {{v.cls}}" onClick="{{v.go}}">{{v.label}}</button></sc-for><span class="sep"></span><button class="tab {{netCls}}" onClick="{{setNet}}">NET</button><button class="tab {{brutCls}}" onClick="{{setBrut}}">BRUT</button></div></div>
+<p class="muted sm-t">{{boardNote}}</p>
+<div class="lb" role="table" aria-label="Classement du tournoi"><div class="lbr lbh" role="row"><span class="c-pos">Pos</span><span class="c-mv"></span><span class="c-nm">Joueur</span><span class="c-r rc">T1</span><span class="c-r rc">T2</span><span class="c-r rc">T3</span><span class="c-r rc">T4</span><span class="c-r cc">{{curLbl}}</span><span class="c-tot">Total {{modeLbl}}</span></div>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="8"><sc-if value="{{r.gap}}" hint-placeholder-val="{{ false }}"><div class="lbgap">…</div></sc-if><sc-if value="{{r.cutBefore}}" hint-placeholder-val="{{ false }}"><div class="lbcut">✂ Ligne du cut · non qualifiés dessous</div></sc-if><sc-if value="{{r.abdBefore}}" hint-placeholder-val="{{ false }}"><div class="lbabd">Abandons (ABD) · mise de départ non engagée, sans dotation</div></sc-if><div class="lbr {{r.rc}}" role="row"><span class="c-pos b">{{r.pos}}</span><span class="c-mv {{r.moveCls}}">{{r.move}}</span><span class="c-nm"><span class="pn">{{r.name}}</span><span class="muted pg">{{r.golf}}</span></span><span class="c-r rc">{{r.c1}}</span><span class="c-r rc">{{r.c2}}</span><span class="c-r rc">{{r.c3}}</span><span class="c-r rc">{{r.c4}}</span><span class="c-r cc">{{r.cur}}</span><span class="c-tot b">{{r.tot}}</span></div></sc-for></div>
+<div class="row-w"><button class="btn btn-s" onClick="{{toggleAll}}">{{allLbl}}</button></div>
+</section>
+</sc-if>
+
+<sc-if value="{{isRules}}" hint-placeholder-val="{{ false }}">
+<section class="panel rules">
+<div class="lbl">Règlement du Greencut Tour · s’applique à chaque tournoi</div>
+<h2 class="h2">Les règles du tournoi</h2>
+<p class="p">Un tournoi Greencut se joue comme un tournoi du DP World Tour : 4 tours en 4 jours, un cut après 2 tours, une dotation pour les qualifiés. À la table, ce sont les règles habituelles de Greencut.</p>
+<div class="step"><span class="badge">1</span><div><h3 class="h3">4 jours, 4 tours, du jeudi au dimanche</h3><p class="p">Chaque jour est un tour, ouvert de 00:00 à 23:59 (heure de Paris). Une carte commencée avant 23:59 compte pour ce jour si elle est terminée avant 00:59. Le cut est publié samedi à 01:00.</p></div></div>
+<div class="step"><span class="badge">2</span><div><h3 class="h3">Autant de cartes que vous voulez : la meilleure compte</h3><p class="p">Chaque carte est une partie Greencut de 18 trous sur le parcours du tournoi, à une table de 4 à 6 joueurs. Mise de 10 000 pts par carte, prise sur votre solde avec votre accord ; vos jetons restants reviennent sur votre solde à la fin. Sous 10 000 pts, vous convertissez 100 fees en 10 000 pts. Seule votre meilleure carte du jour (au net) compte.</p></div></div>
+<div class="step"><span class="badge">3</span><div><h3 class="h3">Le score du tournoi</h3><p class="p">Score d’un tour = net de la carte retenue : coups joués + bonus de jetons de la table (−4, −2, −1 pour les 3 premiers en jetons, +2 pour les autres), par rapport au par. Le classement officiel est au net ; le brut s’affiche pour information. Pas de mise, pas de tournoi : un joueur qui n’engage pas la mise de départ d’un tour est en abandon (ABD) : par + 4 sur les trous restants, plus de tour suivant, aucune dotation.</p></div></div>
+<div class="step"><span class="badge">4</span><div><h3 class="h3">Le cut : toujours 50 qualifiés</h3><p class="p">Après le tour 2, les 50 premiers jouent le week-end. À égalité sur la 50e place : 1) brut cumulé des tours 1 et 2, 2) net du tour 2, 3) brut des 9 derniers trous du tour 2, 4) heure de dépôt de la carte retenue (la plus tôt passe). Il n’y a jamais d’égalité sur la ligne.</p></div></div>
+<div class="step"><span class="badge">5</span><div><h3 class="h3">Tours 3 et 4 et résultat</h3><p class="p">Seuls les 50 qualifiés jouent samedi et dimanche. Classement final au net cumulé des 4 tours. Pour la victoire, on départage au brut cumulé, puis au tour 4, puis aux 9 derniers trous du tour 4, puis à l’heure de dépôt. Les autres égalités sont partagées (« T7 »).</p></div></div>
+<div class="step"><span class="badge">6</span><div><h3 class="h3">La dotation</h3><p class="p">2 000 000 pts partagés entre les 50 qualifiés (10 000 pts minimum chacun, puis une part selon le rang), plus les lots Callaway. Les points sont crédités le lundi sur votre solde.</p><button class="lnk" onClick="{{goPurse}}">Voir le barème complet →</button></div></div>
+</section>
+</sc-if>
+
+<sc-if value="{{isPurse}}" hint-placeholder-val="{{ false }}">
+<section class="grid2">
+<div class="panel">
+<div class="lbl">Dotation en points</div><div class="sport big2 gold">{{purse}}</div><div class="muted sm-t">{{purseFees}} · 50 qualifiés · minimum garanti 10 000 pts</div>
+<div class="step"><span class="badge">1</span><p class="p">Chaque qualifié qui a misé sur les 4 tours reçoit d’abord 10 000 pts (50 × 10 000 = 500 000 pts).</p></div>
+<div class="step"><span class="badge">2</span><p class="p">Le reste ({{rest}}) se partage selon le rang : le 2e reçoit la moitié de la part du 1er, le 3e un tiers… (part = 1 ÷ rang).</p></div>
+<div class="step"><span class="badge">3</span><p class="p">Arrondi à 100 pts (1 fee) ; le petit reste d’arrondi va au vainqueur. La somme est toujours égale à la dotation.</p></div>
+<div class="step"><span class="badge">4</span><p class="p">Égalité : les joueurs ex aequo additionnent les points de leurs places et se les partagent (ex. deux joueurs T7 : {{tie78}} chacun). La victoire est toujours départagée.</p></div>
+<div class="step"><span class="badge">5</span><p class="p">Abandon (ABD) : aucune dotation ; les joueurs classés derrière remontent et les dernières places restées libres ne sont pas versées.</p></div>
+</div>
+<div class="panel blk">
+<div class="row-w"><a class="pmark" href="{{partnerUrl}}" target="_blank" rel="noopener" title="Site officiel Callaway (nouvel onglet)" aria-label="Callaway, site officiel (nouvel onglet)"><b>CALLAWAY</b><i>logo officiel fourni par la marque</i></a><span class="lbl plbl">Lots du partenaire exclusif</span></div>
+<ul class="lots"><li><b>1er</b> Driver + fitting complet + sac Tour</li><li><b>2e</b> Série de fers avec fitting</li><li><b>3e</b> Putter Odyssey</li><li><b>4e – 10e</b> 3 douzaines de balles Chrome Tour + casquette</li><li><b>11e – 50e</b> 1 douzaine de balles Chrome Tour</li><li><b>Prix spécial</b> Meilleure carte du tournoi : gant + housse</li></ul>
+<p class="muted sm-t">Lots à confirmer avec Callaway, sans valeur en euros.</p>
+</div>
+</section>
+<section class="panel"><h2 class="h2">Barème complet</h2><div class="pay"><table><thead><tr><th>Place</th><th class="num">Points</th><th class="num">Fees</th></tr></thead><tbody><sc-for list="{{payA}}" as="it" hint-placeholder-count="3"><tr class="{{it.z}}"><td>{{it.r}}</td><td class="num">{{it.p}}</td><td class="num">{{it.fe}}</td></tr></sc-for></tbody></table><table><thead><tr><th>Place</th><th class="num">Points</th><th class="num">Fees</th></tr></thead><tbody><sc-for list="{{payB}}" as="it" hint-placeholder-count="3"><tr class="{{it.z}}"><td>{{it.r}}</td><td class="num">{{it.p}}</td><td class="num">{{it.fe}}</td></tr></sc-for></tbody></table></div></section>
+</sc-if>
+
+<sc-if value="{{isCal}}" hint-placeholder-val="{{ false }}">
+<section class="panel">
+<div class="lbl">Saison 2027 · dates du DP World Tour · tournois individuels</div><h2 class="h2">Calendrier des tournois</h2>
+<p class="p muted">Chaque tournoi porte le nom de son parcours et se joue la semaine où les pros jouent ce parcours. Tournoi : 2 000 000 pts ; Grand Chelem et Finale : 4 000 000 pts.</p>
+<div class="row-w"><sc-for list="{{calFilters}}" as="c" hint-placeholder-count="3"><button class="tab {{c.cls}}" onClick="{{c.go}}">{{c.label}}</button></sc-for></div>
+<div class="evs"><sc-for list="{{events}}" as="e" hint-placeholder-count="4"><div class="{{e.box}}"><div class="evd"><div class="sport evn">{{e.d}}</div><div class="muted sm-t">{{e.m}} 2027</div></div><div class="evm"><div class="b">{{e.gc}}</div><div class="muted sm-t">{{e.type}} · {{e.course}}</div><div class="gold sm-t">{{e.note}}</div></div><div class="evr"><div class="sm-t b">{{e.dot}}</div><sc-if value="{{e.isCal}}" hint-placeholder-val="{{ false }}"><a class="pmark mini" href="{{partnerUrl}}" target="_blank" rel="noopener" aria-label="Callaway, site officiel (nouvel onglet)"><b>CALLAWAY</b></a></sc-if><sc-if value="{{e.noCal}}" hint-placeholder-val="{{ true }}"><span class="muted sm-t">{{e.partner}}</span></sc-if><span class="chip {{e.cls}}">{{e.status}}</span><sc-if value="{{e.open}}" hint-placeholder-val="{{ false }}"><button class="lnk" onClick="{{e.go}}">Voir le tournoi →</button></sc-if></div></div></sc-for></div>
+</section>
+</sc-if>
+
+<sc-if value="{{isCards}}" hint-placeholder-val="{{ false }}">
+<section class="panel">
+<div class="lbl">{{phaseLbl}}</div><h2 class="h2">Mes cartes</h2>
+<p class="p">Autant de cartes que vous voulez chaque jour : seule la meilleure (au net) compte pour le tournoi. Touchez une carte pour voir sa carte de score.</p>
+<sc-if value="{{noCards}}" hint-placeholder-val="{{ false }}"><p class="p muted">Aucune carte déposée pour l’instant.</p></sc-if>
+<div class="cards"><sc-for list="{{cards}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" onClick="{{c.open}}"><div class="b">{{c.t}}</div><div class="muted sm-t">{{c.h}}</div><div class="cg"><span><i class="lbl">Brut</i>{{c.b}}</span><span><i class="lbl">Bonus</i>{{c.bo}}</span><span><i class="lbl">Net</i><b class="gold">{{c.n}}</b></span></div><span class="chip ctag">{{c.tag}}</span></button></sc-for></div>
+<sc-if value="{{canPlay}}" hint-placeholder-val="{{ true }}"><div class="row-w"><a class="btn btn-p" href="{{playHref}}" onClick="{{markPlay}}">{{playTxt}} ▶︎</a><span class="muted sm-t">{{stake}}</span></div></sc-if>
+<sc-if value="{{cantPlay}}" hint-placeholder-val="{{ false }}"><p class="p orange">{{whyNot}}</p></sc-if>
+</section>
+</sc-if>
+
+<sc-if value="{{isSc}}" hint-placeholder-val="{{ false }}">
+<section class="panel">
+<div class="lbl">Ma carte de score · parcours Majlis · Par 72</div><h2 class="h2">{{scTitle}}</h2>
+<div class="row-w"><sc-for list="{{scRounds}}" as="v" hint-placeholder-count="2"><button class="tab {{v.cls}}" onClick="{{v.go}}">{{v.label}}</button></sc-for><button class="lnk" onClick="{{goCards}}">← Mes cartes</button></div>
+<sc-if value="{{noSc}}" hint-placeholder-val="{{ false }}"><p class="p muted">Pas encore de carte déposée : jouez une carte pour voir votre carte de score.</p></sc-if>
+<sc-if value="{{hasSc}}" hint-placeholder-val="{{ true }}">
+<div class="scg"><div class="scc h">Trou</div><sc-for list="{{holesOut}}" as="h" hint-placeholder-count="9"><div class="scc h">{{h.n}}</div></sc-for><div class="scc h">Aller</div><div class="scc l">Par</div><sc-for list="{{holesOut}}" as="h" hint-placeholder-count="9"><div class="scc">{{h.par}}</div></sc-for><div class="scc b">35</div><div class="scc l">Yards</div><sc-for list="{{holesOut}}" as="h" hint-placeholder-count="9"><div class="scc s">{{h.yds}}</div></sc-for><div class="scc s">3 670</div><div class="scc l">Index</div><sc-for list="{{holesOut}}" as="h" hint-placeholder-count="9"><div class="scc s muted">{{h.idx}}</div></sc-for><div class="scc"></div><div class="scc l b">Coups</div><sc-for list="{{holesOut}}" as="h" hint-placeholder-count="9"><div class="scc"><span class="sv {{h.cls}}">{{h.v}}</span></div></sc-for><div class="scc b gold">{{scOut}}</div></div>
+<div class="scg"><div class="scc h">Trou</div><sc-for list="{{holesIn}}" as="h" hint-placeholder-count="9"><div class="scc h">{{h.n}}</div></sc-for><div class="scc h">Retour</div><div class="scc l">Par</div><sc-for list="{{holesIn}}" as="h" hint-placeholder-count="9"><div class="scc">{{h.par}}</div></sc-for><div class="scc b">37</div><div class="scc l">Yards</div><sc-for list="{{holesIn}}" as="h" hint-placeholder-count="9"><div class="scc s">{{h.yds}}</div></sc-for><div class="scc s">3 737</div><div class="scc l">Index</div><sc-for list="{{holesIn}}" as="h" hint-placeholder-count="9"><div class="scc s muted">{{h.idx}}</div></sc-for><div class="scc"></div><div class="scc l b">Coups</div><sc-for list="{{holesIn}}" as="h" hint-placeholder-count="9"><div class="scc"><span class="sv {{h.cls}}">{{h.v}}</span></div></sc-for><div class="scc b gold">{{scIn}}</div></div>
+<div class="sctot"><span><i class="lbl">Total</i>{{scTot}}</span><span><i class="lbl">Brut</i>{{scBrut}}</span><span><i class="lbl">Bonus jetons</i>{{scBonus}}</span><span><i class="lbl">Net</i><b class="gold">{{scNet}}</b></span></div>
+<p class="muted sm-t">{{scDep}}</p>
+</sc-if>
+</section>
+</sc-if>
+</main>
+<nav class="tabbar" aria-label="Greencut Tour"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button class="{{t.cls}}" onClick="{{t.go}}">{{t.label}}</button></sc-for></nav>
+</div>
+</script>
+<script>
+
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+const U = GreencutEngine.tour; const W = GreencutEngine.wallet; if (!W.saved()) { W.set(W.get()); }
+let scr = 'home'; try { const q = (window.location.hash || '').replace('#', ''); if (['home', 'board', 'rules', 'purse', 'cal', 'cards', 'sc'].indexOf(q) >= 0) { scr = q; } } catch (x) { scr = 'home'; }
+const T = U.load(); U.save(T);
+this.state = { T, scr, view: Math.min(T.phase, 4), mode: 'net', msg: [], askReset: false, scRound: 0, calF: 'all', all: false, w: W.get() };
+}
+reload(o) { const U = GreencutEngine.tour; const T = U.load(); this.setState(Object.assign({ T, w: GreencutEngine.wallet.get() }, o || {})); }
+renderVals() {
+const s = this.state; const U = GreencutEngine.tour; const C = U.cfg; const T = s.T; const f = (n) => U.fmt(n); const set = (o) => () => this.setState(o);
+const go = (k) => () => { this.setState({ scr: k, askReset: false }); try { window.scrollTo(0, 0); const el = document.querySelector('.gt-main'); if (el) { el.scrollTop = 0; } } catch (x) { /* rien */ } };
+const ph = T.phase; const cp = U.canPlay(T); const st = U.standings(T, { round: s.view, mode: s.mode }); const me = U.standings(T, {}).me;
+const nav = [['home', 'Accueil'], ['cal', 'Calendrier'], ['board', 'Classement'], ['rules', 'Règles'], ['purse', 'Dotation'], ['cards', 'Mes cartes']].map(([k, l]) => ({ label: l, cls: s.scr === k || (k === 'cards' && s.scr === 'sc') ? 'on' : '', go: go(k) }));
+const tabs = [['home', 'Accueil'], ['board', 'Classement'], ['rules', 'Règles'], ['purse', 'Dotation']].map(([k, l]) => ({ label: l, cls: s.scr === k ? 'on' : '', go: go(k) }));
+const gameHref = this.tourLink('game'); const playHref = gameHref + (gameHref.indexOf('?') >= 0 ? '&' : '?') + 'tour=1';
+const markPlay = () => { try { localStorage.setItem('greencut.tourgo', '1'); } catch (x) { /* rien */ } };
+// jours (tuiles) : terminé / en cours / à venir
+const days = C.days.map((d, i) => { const r = i + 1; const state = ph > r ? 'Terminé' : (ph === r ? 'En cours' : 'À venir'); const mine = T.hero.abd && r >= T.hero.abd ? 'ABD' : (U.bestCard(T, r) ? U.signed(U.bestCard(T, r).net) : (ph > r ? (r >= 3 && T.cut && !U.qualified(T, 'me') ? 'CUT' : '—') : ''));
+  return { d: C.dayShort[i] + ' ' + (21 + i) + ' janv.', r: 'Tour ' + r, state, cls: ph === r ? 'c-live' : (ph > r ? 'c-done' : 'c-soon'), who: r <= 2 ? 'Tous les inscrits' : '50 qualifiés', mine: mine ? 'Ma carte : ' + mine : '', cut: r === 2, box: ph === r ? 'day on' : 'day' }; });
+// ma situation
+const meTxt = !me ? '' : (me.sect === 'abd' ? 'Abandon (ABD) au tour ' + T.hero.abd + ' : fin du tournoi pour vous, sans dotation.' : (me.sect === 'cut' ? 'Cut manqué : vous terminez ' + me.pos + ' des non-qualifiés à ' + me.tot + '.' : (me.thru ? 'Vous êtes ' + me.pos + ' à ' + me.tot + ' après ' + me.thru + ' tour' + (me.thru > 1 ? 's' : '') + '.' : 'Vous n’avez pas encore de carte dans ce tournoi.')));
+const proj = U.cutProjection(T); const cutTxt = T.cut ? 'Cut publié : ' + T.cut.n + ' qualifiés à ' + U.signed(T.cut.line) + ' ou mieux.' : (proj ? 'Cut provisoire (50e place) : ' + proj + '.' : '');
+const R = T.results; const resTxt = R ? (R.heroPos ? 'Vous terminez ' + (R.heroTie ? 'T' : '') + R.heroPos + (R.heroPos === 1 ? 'er' : 'e') + ' : ' + f(R.heroPay) + ' pts crédités sur votre solde' + (R.heroLot ? ' + lot Callaway : ' + R.heroLot : '') + '.' : 'Vous n’êtes pas classé(e) à l’arrivée : pas de dotation.') + ' Vainqueur : ' + R.winner + '. ' + R.paidCount + ' joueurs payés, ' + f(R.paid) + ' pts versés' + (R.unpaid ? ' (' + f(R.unpaid) + ' pts non versés : places libres après abandons).' : '.') : '';
+const cards = []; for (let r = 1; r <= 4; r++) { (T.hero.cards[r] || []).filter((c) => c.done).forEach((c) => { const b = U.bestCard(T, r); cards.push({ t: 'Tour ' + r + ' · carte ' + c.n, h: 'déposée à ' + U.hhmm(c.dep) + ' · table de ' + c.nP, b: U.signed(c.brut), bo: U.signed(c.bonus), n: U.signed(c.net), tag: b === c ? 'Retenue' : 'Non retenue', cls: b === c ? 'card kept' : 'card', open: () => this.setState({ scr: 'sc', scRound: r, scCard: c.n }) }); }); }
+const playTxt = cp.ok ? 'Jouer une carte du tour ' + ph : '';
+const stake = s.w.pts >= C.stake ? 'Mise : 10 000 pts pris sur votre solde (' + f(s.w.pts) + ' → ' + f(s.w.pts - C.stake) + ' pts), avec votre accord à la table.' : 'Solde ' + f(s.w.pts) + ' pts : à la table, vous convertirez 100 fees en 10 000 pts (avec votre accord).';
+// classement
+const views = [1, 2, 3, 4].filter((r) => r <= Math.min(ph, 4)).map((r) => ({ label: 'Tour ' + r, cls: s.view === r ? 'on' : '', go: set({ view: r }) }));
+const LIM = 60; let rows = st.rows; const sepCut = st.cutOn ? st.nIn : -1; const sepAbd = st.rows.length - st.nAbd;
+let shown = rows.map((r, i) => Object.assign({}, r, { i, rc: 'row' + (r.me ? ' me' : '') + (r.sect !== 'in' ? ' out' : ''), cutBefore: i === sepCut && sepCut > 0, abdBefore: i === sepAbd && st.nAbd > 0, c1: r.cells[0], c2: r.cells[1], c3: r.cells[2], c4: r.cells[3], cur: r.cells[st.view - 1] }));
+if (!s.all) { shown = shown.filter((r) => r.i < LIM || r.me || (r.i >= sepAbd && r.i < sepAbd + 3) || (r.i >= sepCut && r.i < sepCut + 2)); }
+shown.forEach((r, k) => { r.gap = k > 0 && r.i - shown[k - 1].i > 1; });
+const boardTitle = (ph > 4 && st.view === 4 ? 'Classement final' : 'Classement après le tour ' + st.view) + (st.closed ? '' : ' (en cours)');
+const boardNote = (st.cutOn ? 'Ligne du cut : ' + st.cutN + ' qualifiés à ' + st.cutLine + '. ' : (st.view <= 2 && proj ? 'Cut provisoire : ' + proj + ' (50e place). ' : '')) + st.total + ' inscrits · ' + st.nAbd + ' abandon' + (st.nAbd > 1 ? 's' : '') + '. Classement officiel au net ; « — » : carte du jour pas encore déposée.';
+// dotation
+const tab = U.payoutTable(C.purse); const pay = tab.map((p, i) => ({ r: (i + 1) + (i ? 'e' : 'er'), p: f(p), fe: f(p / 100), lot: U.lotFor(i + 1), z: i % 2 ? 'odd' : '' }));
+// carte de score
+const sr = s.scRound || (U.bestCard(T, Math.min(ph, 4)) ? Math.min(ph, 4) : [4, 3, 2, 1].find((r) => U.bestCard(T, r)) || 0);
+const scCard = sr ? ((s.scCard && (T.hero.cards[sr] || []).find((c) => c.n === s.scCard && c.done)) || U.bestCard(T, sr)) : null; const info = GreencutEngine.courseInfo(C.course);
+const holes = info.holes.map((h, i) => { const v = scCard ? scCard.strokes[i] : null; const d = v === null ? null : v - h.par; return { n: h.n, par: h.par, yds: h.yds, idx: h.idx, v: v === null ? '' : String(v), cls: d === null ? '' : (d <= -2 ? 'eagle' : (d === -1 ? 'birdie' : (d === 0 ? 'par' : (d === 1 ? 'bogey' : 'dbl')))) }; });
+const scRounds = [1, 2, 3, 4].filter((r) => (T.hero.cards[r] || []).some((c) => c.done)).map((r) => ({ label: 'Tour ' + r, cls: sr === r ? 'on' : '', go: set({ scRound: r, scCard: 0 }) }));
+const sum = (a, b) => (scCard ? scCard.strokes.slice(a, b).reduce((x, y) => x + y, 0) : 0);
+// calendrier
+const EV = [['21 → 24', 'janv.', 'Tournoi', 'Greencut Emirates Golf Club', 'Parcours Majlis · Dubaï, Émirats · Par 72', 'Callaway', '2 000 000 pts + lots', 'Inscriptions ouvertes', 'c-live', 'Tournoi test'], ['28 → 31', 'janv.', 'Tournoi', 'Greencut Royal Golf Club', 'Bahreïn', 'À annoncer', '2 000 000 pts', 'Parcours à intégrer', 'c-soon', ''], ['18 → 21', 'févr.', 'Tournoi', 'Greencut Karen Country Club', 'Nairobi, Kenya', 'À annoncer', '2 000 000 pts', 'Parcours à intégrer', 'c-soon', ''], ['25 → 28', 'févr.', 'Tournoi', 'Greencut Durban Country Club', 'Durban, Afrique du Sud', 'À annoncer', '2 000 000 pts', 'Parcours à intégrer', 'c-soon', ''], ['4 → 7', 'mars', 'Tournoi', 'Greencut Stellenbosch Golf Club', 'Stellenbosch, Afrique du Sud', 'À annoncer', '2 000 000 pts', 'Parcours à intégrer', 'c-soon', ''], ['11 → 14', 'mars', 'Tournoi', 'Greencut Randpark Golf Club', 'Johannesburg, Afrique du Sud', 'À annoncer', '2 000 000 pts', 'Parcours à intégrer', 'c-soon', ''], ['25 → 28', 'mars', 'Tournoi', 'Greencut Mission Hills Haikou', 'Haikou, Chine', 'À annoncer', '2 000 000 pts', 'Parcours à intégrer', 'c-soon', ''], ['8 → 11', 'avr.', 'Grand Chelem', 'Greencut Augusta National', 'Augusta, États-Unis · Par 72', 'À annoncer', '4 000 000 pts', 'Programmé', 'c-open', 'Parcours déjà dans le jeu'], ['20 → 23', 'mai', 'Grand Chelem', 'Greencut PGA Frisco', 'Frisco, États-Unis', 'À annoncer', '4 000 000 pts', 'Parcours à intégrer', 'c-soon', ''], ['17 → 20', 'juin', 'Grand Chelem', 'Greencut Pebble Beach', 'Pebble Beach, États-Unis', 'À annoncer', '4 000 000 pts', 'Parcours à intégrer', 'c-soon', ''], ['15 → 18', 'juil.', 'Grand Chelem', 'Greencut Old Course St Andrews', 'St Andrews, Écosse · Par 72', 'À annoncer', '4 000 000 pts', 'Programmé', 'c-open', 'Parcours déjà dans le jeu'], ['23 → 26', 'sept.', 'Tournoi', 'Greencut Wentworth Club', 'Virginia Water, Angleterre', 'À annoncer', '2 000 000 pts', 'Parcours à intégrer', 'c-soon', ''], ['11 → 14', 'nov.', 'Finale', 'Greencut Finale Dubaï', 'Jumeirah Golf Estates, Earth Course · Émirats', 'À annoncer', '4 000 000 pts', 'Parcours à intégrer', 'c-soon', 'Réservée aux 50 meilleurs joueurs de la saison · sans cut']];
+const events = EV.filter((e) => s.calF === 'all' || (s.calF === 'gc' && e[2] !== 'Tournoi') || (s.calF === 'open' && e[8] !== 'c-soon')).map((e) => ({ d: e[0], m: e[1], type: e[2], gc: e[3], course: e[4], partner: e[5], isCal: e[5] === 'Callaway', noCal: e[5] !== 'Callaway', dot: e[6], status: e[7], cls: e[8], note: e[9], open: e[8] === 'c-live', go: go('home'), box: 'ev' + (e[8] === 'c-live' ? ' live' : (e[2] !== 'Tournoi' ? ' major' : '')) }));
+const calFilters = [['all', 'Toute la saison'], ['gc', 'Grand Chelem et Finale'], ['open', 'Jouables et programmés']].map(([k, l]) => ({ label: l, cls: s.calF === k ? 'on' : '', go: set({ calF: k }) }));
+const next = () => { const r = U.advance(U.load()); this.reload({ msg: r.msg.length ? r.msg : ['Jour suivant.'], view: Math.min(r.T.phase, 4), askReset: false }); };
+const reset = () => { const T2 = U.reset(); this.setState({ T: T2, msg: ['Tournoi recommencé : jeudi, tour 1 ouvert. Votre solde de points est conservé.'], view: 1, askReset: false, scRound: 0, w: GreencutEngine.wallet.get() }); };
+return {
+  isHome: s.scr === 'home', isBoard: s.scr === 'board', isRules: s.scr === 'rules', isPurse: s.scr === 'purse', isCal: s.scr === 'cal', isCards: s.scr === 'cards', isSc: s.scr === 'sc',
+  nav, tabs, gameHref, playHref, markPlay, tourName: C.name, partnerUrl: C.partnerUrl, dates: C.dates, me: T.hero.name, golf: T.hero.golf, initials: T.hero.name.slice(0, 2).toUpperCase(), solde: f(s.w.pts) + ' pts', fees: f(s.w.fees) + ' fees',
+  phaseLbl: U.phaseLabel(T), statusChip: ph > 4 ? 'Tournoi terminé · résultats publiés' : 'Tournoi en cours · tour ' + ph + ' sur 4', statusCls: ph > 4 ? 'chip c-done' : 'chip c-live',
+  nextLbl: U.nextLabel(T), canNext: ph <= 4, isOver: ph > 4, msg: s.msg.map((m) => ({ m })), hasMsg: s.msg.length > 0, next, askReset: s.askReset, wantReset: set({ askReset: true }), noReset: set({ askReset: false }), reset,
+  days, meTxt, cutTxt, resTxt, hasRes: !!R, canPlay: cp.ok, cantPlay: !cp.ok, playTxt, whyNot: cp.why, stake, cards, hasCards: cards.length > 0, noCards: cards.length === 0,
+  goBoard: go('board'), goCards: go('cards'), goSc: go('sc'), goCal: go('cal'), goPurse: go('purse'), goRules: go('rules'), goHome: go('home'),
+  views, netCls: s.mode === 'net' ? 'on' : '', brutCls: s.mode === 'brut' ? 'on' : '', setNet: set({ mode: 'net' }), setBrut: set({ mode: 'brut' }), rows: shown, boardTitle, boardNote, curLbl: 'T' + st.view, modeLbl: s.mode === 'net' ? 'NET' : 'BRUT',
+  allLbl: s.all ? 'Afficher les 60 premiers' : 'Afficher les ' + st.rows.length + ' joueurs', toggleAll: set({ all: !s.all }), myPos: me && me.pos ? me.pos : (me && me.sect === 'abd' ? 'ABD' : '—'), myTot: me ? me.tot : '—',
+  purse: f(C.purse) + ' pts', purseFees: 'soit ' + f(C.purse / 100) + ' fees', rest: f(C.purse - 50 * C.base) + ' pts', pay, payA: pay.slice(0, 25), payB: pay.slice(25), tie78: f(Math.floor((tab[6] + tab[7]) / 2 / 100) * 100) + ' pts',
+  holes, holesOut: holes.slice(0, 9), holesIn: holes.slice(9), hasSc: !!scCard, noSc: !scCard, scRounds, scTitle: scCard ? 'Tour ' + sr + ' · carte ' + scCard.n + (scCard === U.bestCard(T, sr) ? ' (retenue)' : '') : '',
+  scOut: scCard ? String(sum(0, 9)) : '', scIn: scCard ? String(sum(9, 18)) : '', scTot: scCard ? String(sum(0, 18)) : '', scBrut: scCard ? U.signed(scCard.brut) : '', scBonus: scCard ? U.signed(scCard.bonus) : '', scNet: scCard ? U.signed(scCard.net) : '', scDep: scCard ? 'Déposée à ' + U.hhmm(scCard.dep) + ' · table de ' + scCard.nP + ' joueurs · 9 derniers trous : ' + scCard.b9 : '',
+  events, calFilters
+};
+}
+}
+GreencutEngine.install(Component);
+
+GCMount({v:document.getElementById('tv').textContent,h:document.getElementById('th').textContent}, Component, document.getElementById('app'));
+</script></body></html>
