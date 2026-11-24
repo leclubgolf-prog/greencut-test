@@ -46,7 +46,7 @@
   // ---------- salon ----------
   async function createTable(ad, o) {
     for (let k = 0; k < 8; k++) {
-      const code = genCode(); const ok = await ad.transaction(T(code) + '/meta', (cur) => (cur ? undefined : { host: ad.uid(), nP: o.nP, course: o.course, state: 'lobby', created: Date.now() }));
+      const nPc = Math.max(4, Math.min(6, Math.round(o.nP) || 6)); const code = genCode(); const ok = await ad.transaction(T(code) + '/meta', (cur) => (cur ? undefined : { host: ad.uid(), nP: nPc, course: o.course, state: 'lobby', created: Date.now() }));
       if (ok) { await ad.set(T(code) + '/seats/0', { uid: ad.uid(), pseudo: o.pseudo, av: o.av || 0 }); return code; }
     }
     throw new Error('Impossible de créer une table');
@@ -57,7 +57,7 @@
     if (meta.state !== 'lobby') { return { error: 'La partie a déjà commencé.' }; }
     const seats = (await ad.get(T(code) + '/seats')) || {};
     for (const k of Object.keys(seats)) { if (seats[k] && seats[k].uid === ad.uid()) { return { seat: Number(k), code, meta }; } }
-    for (let n = 1; n < meta.nP; n++) { const ok = await ad.transaction(T(code) + '/seats/' + n, (cur) => (cur ? undefined : { uid: ad.uid(), pseudo: o.pseudo, av: o.av || 0 })); if (ok) { return { seat: n, code, meta }; } }
+    for (let n = 1; n < Math.min(6, meta.nP); n++) { const ok = await ad.transaction(T(code) + '/seats/' + n, (cur) => (cur ? undefined : { uid: ad.uid(), pseudo: o.pseudo, av: o.av || 0 })); if (ok) { return { seat: n, code, meta }; } }
     return { error: 'La table est complète.' };
   }
   function watchLobby(ad, code, cb) {
@@ -70,7 +70,7 @@
   async function attach(eng, o) {
     const ad = o.adapter; const code = o.code; const seat = o.seat; const meta = await ad.get(T(code) + '/meta'); const seatsObj = (await ad.get(T(code) + '/seats')) || {};
     const humans = Object.keys(seatsObj).map(Number).filter((k) => seatsObj[k]).sort((a, b) => a - b);
-    const nP = meta.nP; const names = []; let ai = 0; for (let i = 0; i < nP; i++) { names[i] = seatsObj[i] ? seatsObj[i].pseudo : AI_NAMES[ai++ % AI_NAMES.length]; }
+    const nP = Math.max(4, Math.min(6, meta.nP)); const names = []; let ai = 0; for (let i = 0; i < nP; i++) { names[i] = seatsObj[i] ? seatsObj[i].pseudo : AI_NAMES[ai++ % AI_NAMES.length]; }
     const ctl = { code, seat, nP, humans, names, stop: [], turnTimer: null };
     eng._mpCtl = ctl;
     if (seat !== 0) {

@@ -1,5 +1,6 @@
 /* GREENCUT – moteur de jeu commun (desktop + mobile). Aucune mise en page ici : règles, cartes, combinaisons, scores, bonus, showdown, adversaires, conseils, sons, conversion fees/points. */
 (function () {
+const MIN_P = 4, MAX_P = 6; // une table compte de 4 à 6 joueurs (décision du 24/11/2026)
 let NP = 6;
 const Z = (v) => Array.from({ length: NP }, () => v);
 const COURSE_DATA = {
@@ -165,6 +166,8 @@ families() { return [[2, 3, 4], [3, 6, 9], [16, 17, 18], [5, 6, 7], [1, 12, 14],
 oppNames() { return this._opp || ['Fairway_Fox', 'BirdieBandit', 'Dune_Queen', 'Sunset_Sam', 'Caddy_Kid', 'Links_Lou', 'Mulligan_Max']; }
 isHuman(i) { return i === 0 || !!(this._humans && this._humans[i]); }
 nP() { return NP; }
+minP() { return MIN_P; }
+maxP() { return MAX_P; }
 oppBrands() { return ['CALLAWAY', 'TAYLORMADE', 'PING', 'TITLEIST', 'CALLAWAY', 'MIZUNO', 'COBRA']; }
 fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 signed(n) { return n === 0 ? 'E' : (n > 0 ? '+' + n : '−' + Math.abs(n)); }
@@ -175,7 +178,7 @@ return ['Albatross', 'Eagle', 'Birdie', 'Par', 'Bogey', 'Double bogey', 'Triple 
 }
 initial(keep) {
 if (this._pace === undefined) { this._pace = typeof document !== 'undefined' && !(typeof window !== 'undefined' && (window.GREENCUT_NOPACE || (window.location && /[?&]nopace/.test(window.location.search || '')))); }
-if (keep && keep.nP) { NP = keep.nP; }
+if (keep && keep.nP) { NP = Math.max(MIN_P, Math.min(MAX_P, Math.round(keep.nP) || 6)); }
 let ps = 'MaxFairway'; try { const q = localStorage.getItem('greencut.pseudo'); if (q) { ps = q; } } catch (x) { ps = 'MaxFairway'; }
 let snd = { on: true, vol: 60 }; try { const q = JSON.parse(localStorage.getItem('greencut.sound') || 'null'); if (q) { snd = { on: q.on !== false, vol: typeof q.vol === 'number' ? q.vol : 60 }; } } catch (x) { snd = { on: true, vol: 60 }; }
 let lvl = 'deb'; try { const d = JSON.parse(localStorage.getItem('greencut.parcours') || '{}'); if (d.expert || d['3a']) { lvl = 'exp'; } } catch (x) { lvl = 'deb'; }
