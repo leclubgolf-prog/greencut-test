@@ -531,6 +531,9 @@ const d = this.deal(st, h.hole + 1, s.strokes, rec);
 this.setState(Object.assign({}, d, { hole: h.hole + 1, reload: false, fees, hist, prevPos: curPos, trend }));
 }
 finishNow() {
+const pace0 = this._pace; this._pace = false; try { return this.finishNow2(); } finally { this._pace = pace0; this._tok = (this._tok || 0) + 1; }
+}
+finishNow2() {
 const s = this.state; const h = s.h; if (!h || s.stacks[0] > 0) { return false; }
 if (this._mpOn || this._mpSend) { this.setState({ watch: true }); return false; }
 let st = s.stacks.slice(); let strokes = s.strokes; let hole = h.hole; let d = null;
@@ -566,10 +569,10 @@ const nm = this.displayName(); const rows = [];
 const names = [nm].concat(this.oppNames()); const brands = [s.club.toUpperCase()].concat(this.oppBrands());
 for (let i = 0; i < NP; i++) {
 const played = s.strokes[i].length; let brut = 0; let sum = 0;
-for (let k = 0; k < played; k++) { brut += s.strokes[i][k]; sum += s.strokes[i][k] - P[k]; }
+for (let k = 0; k < played; k++) { const sv = (typeof s.strokes[i][k] === 'number' && isFinite(s.strokes[i][k])) ? s.strokes[i][k] : P[k] + 4; brut += sv; sum += sv - P[k]; }
 const net = sum + (played > 0 ? bn[i] : 0);
-const lastRel = played ? s.strokes[i][played - 1] - P[played - 1] : null;
-let back = 0; let backAbs = 0; for (let k = 9; k < played; k++) { back += s.strokes[i][k] - P[k]; backAbs += s.strokes[i][k]; }
+const lastRel = played ? ((isFinite(s.strokes[i][played - 1]) ? s.strokes[i][played - 1] : P[played - 1] + 4) - P[played - 1]) : null;
+let back = 0; let backAbs = 0; for (let k = 9; k < played; k++) { const sv = isFinite(s.strokes[i][k]) ? s.strokes[i][k] : P[k] + 4; back += sv - P[k]; backAbs += sv; }
 rows.push({ i, bonus0: played > 0, name: names[i], brand: brands[i], played, brut, sum, net, bonus: bn[i], last: lastRel, stack: s.stacks[i], back, backAbs });
 }
 const sb = (mode || s.sortBy) === 'brut' ? 'sum' : 'net'; const ob = sb === 'sum' ? 'back' : 'sum'; const tb3 = sb === 'sum' ? 'net' : 'back';

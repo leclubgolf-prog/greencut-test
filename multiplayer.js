@@ -75,7 +75,7 @@
     eng._mpCtl = ctl;
     if (seat !== 0) {
       // ----- joueur invité : reçoit sa vue, envoie ses actions -----
-      eng._pace = false; eng.setState(eng.initial({ nP, course: meta.course, pseudo: names[seat], pseudoDraft: names[seat] }));
+      eng.setState(eng.initial({ nP, course: meta.course, pseudo: names[seat], pseudoDraft: names[seat] }));
       eng._mpSend = (a) => { ad.push(T(code) + '/act', { seat, kind: a.kind, to: a.to || 0, hole: eng.state.hole, t: Date.now() }); };
       eng._opp = names.filter((x, i) => i !== 0).slice(0, nP - 1);
       const realAdvance = eng.advance.bind(eng); eng._mpRealAdvance = realAdvance;
