@@ -645,7 +645,7 @@ const s = this.state; if (!s || !s.tour || !this.isLive(s) || !s.h || s.h.phase 
 const n = (s.idle || 0) + 1; const toCall = s.h.cur - s.h.rb[0];
 this._autoAct = true; try { this.heroAct(toCall > 0 ? 'fold' : 'call'); } finally { this._autoAct = false; }
 this._idleKey = '';
-if (n < 3) { this.setState({ idle: n, tableMsg: 'Pas d’action depuis 60 s : ' + (toCall > 0 ? 'couché' : 'check') + ' automatique (' + n + ' sur 3). Au 3e tour sans action, la carte est abandonnée.' }); return; }
+if (n < 3) { this.setState({ idle: n, tableMsg: 'Temps écoulé : ' + (toCall > 0 ? 'couché' : 'check') + ' automatique.' }); return; }
 const k = this.state; const c = Math.max(0, k.stacks[0]);
 const hist = [ { a: 'Carte de tournoi abandonnée (3 tours sans action) : mise perdue', t: 'À l’instant', d: c ? '+' + this.fmt(c) + ' pts rendus' : '0 pt rendu', e: '', cls: 'hf' } ].concat(k.hist);
 this.setState({ idle: 0, quit: true, gate: true, refunded: true, abdReason: 'Carte abandonnée après 3 tours sans action', pts: k.pts + c, askQuit: false, sheet: '', screen: 'table', hist });
@@ -661,7 +661,13 @@ v.foldRestTxt = 'Vous vous couchez pour ' + (left > 1 ? 'les ' + left + ' trous 
 v.hasLeave = !!s.leaveTo; v.leaveNote = s.leaveTo ? 'Vous allez quitter la table pour ' + this.leaveLabel(s.leaveTo) + ' : la partie en cours ne pourra pas être reprise.' : '';
 const to = s.leaveTo; const go = () => { if (to && typeof window !== 'undefined') { window.location.href = to; } };
 v.foldRestAct = () => { if (this.foldRest()) { go(); } };
-v.mFoldRest = () => this.setState({ sheet: 'fold' }); v.shFold = s.sheet === 'fold';
+v.mFoldRest = () => this.setState({ sheet: 'fold' });
+// Profil : « Enregistrer et fermer » (V51) : enregistre le pseudo puis revient là d'où l'on vient (Tour, Mode de jeu, ou la partie)
+v.saveClose = () => { const k = this.state; const d = (k.pseudoDraft || '').trim();
+  if (d && d !== k.pseudo) { if (d.length < 2) { this.setState({ pseudoMsg: '2 caractères minimum' }); return; } try { localStorage.setItem('greencut.pseudo', d); } catch (x) { /* stockage */ } this.setState({ pseudo: d, pseudoDraft: d }); }
+  const m = typeof window !== 'undefined' && window.location ? /[?&]from=(tour|mode)\b/.exec(window.location.search || '') : null;
+  if (m && !this.isLive(this.state)) { window.location.href = this.tourLink(m[1]); return; }
+  const q = this.state; this.setState(q.quit ? { screen: 'table', gate: true, sheet: '' } : { screen: 'table', sheet: '' }); }; v.shFold = s.sheet === 'fold';
 const refund = () => { const k = this.state; if (!k.quit || k.refunded) { return; } const c = Math.max(0, k.stacks ? k.stacks[0] : 0);
   if (this._mpQuit) { try { this._mpQuit(c); } catch (x) { /* multijoueur */ } }
   let hist = k.hist; if (!k.tour && hist[0] && /abandonnée : mise perdue/.test(hist[0].a)) { hist = [ Object.assign({}, hist[0], { a: hist[0].a + ', jetons restants rendus', d: '+' + this.fmt(c) + ' pts rendus', cls: c ? 'hp' : 'hf' }) ].concat(hist.slice(1)); }
@@ -674,9 +680,14 @@ else if (live && !elim) { v.quitNoElim = false; v.quitTour = true; v.quitTourTxt
 else { v.quitTour = false; v.quitTourTxt = ''; }
 // Tournoi : 60 s pour jouer ; au bout de 3 tours d'affilée sans action, la carte est abandonnée (règle du 25/11/2026)
 const myTurn = !!(s.tour && live && s.h.phase === 'bet' && !s.aiPending && s.turnSeat === 0 && !(s.h.folded && s.h.folded[0]) && s.stacks[0] > 0);
-if (myTurn && typeof setTimeout !== 'undefined') { const key = [s.h.hole, s.h.round, s.h.pot, s.h.cur].join('|'); if (this._idleKey !== key) { clearTimeout(this._idleT); this._idleKey = key; const ms = (typeof window !== 'undefined' && window.GREENCUT_IDLE_MS) || IDLE_MS; this._idleT = setTimeout(() => { this.idleTimeout(key); }, ms); } }
-else if (this._idleKey) { clearTimeout(this._idleT); this._idleKey = ''; }
-if (myTurn && typeof v.turnTxt === 'string') { v.turnTxt += ' · 60 s pour jouer' + (s.idle ? ' (' + s.idle + ' tour' + (s.idle > 1 ? 's' : '') + ' sans action sur 3)' : ''); }
+if (myTurn && typeof setTimeout !== 'undefined') { const key = [s.h.hole, s.h.round, s.h.pot, s.h.cur].join('|'); if (this._idleKey !== key) { clearTimeout(this._idleT); clearTimeout(this._cdT); clearInterval(this._cdI); this._idleKey = key; const ms = (typeof window !== 'undefined' && window.GREENCUT_IDLE_MS) || IDLE_MS; this._idleEnd = Date.now() + ms; this._idleT = setTimeout(() => { clearInterval(this._cdI); this.idleTimeout(key); }, ms);
+  // compte à rebours affiché seulement pendant les 15 dernières secondes (V51)
+  this._cdT = setTimeout(() => { if (this._idleKey !== key) { return; } this.setState({ cdTick: Date.now() }); this._cdI = setInterval(() => { if (this._idleKey !== key) { clearInterval(this._cdI); return; } this.setState({ cdTick: Date.now() }); }, 1000); }, Math.max(0, ms - 15000)); } }
+else if (this._idleKey) { clearTimeout(this._idleT); clearTimeout(this._cdT); clearInterval(this._cdI); this._idleKey = ''; }
+// bandeau de tour (V51) : « C’est à vous de jouer », temps restant seulement sous 15 s, aucun compteur d’inactivité
+if (myTurn && typeof v.turnTxt === 'string') { const base = v.turnTxt.split(' · ')[0]; const rem = this._idleEnd ? Math.ceil((this._idleEnd - Date.now()) / 1000) : 99; v.turnTxt = base + (rem <= 15 ? ' · ' + Math.max(0, rem) + ' s' : ''); }
+// un seul avertissement, après 2 tours d’affilée sans action (V51)
+if (s.tour && live && s.idle >= 2 && typeof v.advLine === 'string') { v.advLine = 'Encore un tour sans jouer et la carte sera abandonnée (jetons rendus).'; v.advCanApply = false; v.advHasAlt = false; if (v.showAdvice !== undefined && s.h && s.h.phase !== 'done') { v.showAdvice = true; } }
 
 if (typeof v.cancelQuit === 'function') { const c = v.cancelQuit; v.cancelQuit = () => { c(); this.setState({ leaveTo: '' }); }; }
 if (typeof v.closeSheet === 'function') { const c = v.closeSheet; v.closeSheet = () => { c(); if (this.state.leaveTo) { this.setState({ leaveTo: '' }); } }; }
@@ -702,7 +713,7 @@ const pick = (d, m, l, site) => (dc ? (desk ? d : (land ? l : m)) : site);
 if (kind === 'game' || kind === 'classic') { return pick('Prototype.dc.html', 'TableMobile.dc.html', 'TableMobilePaysage.dc.html', kind === 'classic' ? 'ChoixParcoursMobile.html' : 'TableMobile.html'); }
 if (kind === 'mode') { return pick('ModeJeu.dc.html', 'ModeJeuMobile.dc.html', 'ModeJeuMobilePaysage.dc.html', 'ModeJeuMobile.html'); }
 if (kind === 'learn') { return pick('Parcours.dc.html', 'ParcoursMobile.dc.html', 'ParcoursMobilePaysage.dc.html', 'ParcoursMobile.html'); }
-if (kind === 'profil' || kind === 'card' || kind === 'board') { return pick('Prototype.dc.html', 'TableMobile.dc.html', 'TableMobilePaysage.dc.html', 'TableMobile.html') + '?go=' + kind; }
+if (kind === 'profil' || kind === 'card' || kind === 'board') { const from = /GreencutTour/.test(href) ? 'tour' : (/ModeJeu/.test(href) ? 'mode' : ''); return pick('Prototype.dc.html', 'TableMobile.dc.html', 'TableMobilePaysage.dc.html', 'TableMobile.html') + '?go=' + kind + (from ? '&from=' + from : ''); }
 return pick('GreencutTour.dc.html', 'GreencutTourMobile.dc.html', 'GreencutTourMobilePaysage.dc.html', 'GreencutTourMobile.html');
 }
 tourHook(p, n) {
@@ -722,7 +733,7 @@ v = this.tourPatch0(v); if (v && this._abdMsg) { if (typeof v.gateIntro === 'str
 tourPatch0(v) {
 v = this.gamePatch(v);
 if (v && s0q(this.state)) { const k = this.state; v.gateIntro = 'Vous avez quitté la table : la mise de départ (10 000 pts) est perdue ; ' + (k.refundAmt ? 'vos ' + this.fmt(k.refundAmt) + ' pts de jetons restants sont revenus sur votre solde.' : 'il ne vous restait aucun jeton à rendre.'); }
-const s = this.state; if (v) { v.modeCls = s && s.tour ? 'tourmode' : 'classicmode'; v.modeHref = this.tourLink('mode'); v.lowFunds = !!(s && s.gate && s.pts < 10000 && (s.fees < 100 || s.expired)); v.lowLbl = 'Recharger le solde'; }
+const s = this.state; if (v) { v.modeCls = s && s.tour ? 'tourmode' : 'classicmode'; v.modeHref = this.tourLink('mode'); v.classicHref = this.tourLink('classic'); v.lowFunds = !!(s && s.gate && s.pts < 10000 && (s.fees < 100 || s.expired)); v.lowLbl = 'Recharger le solde'; }
 if (!s || (!s.tour && !s.fresh)) { if (v) { v.tourOn = false; v.tourHref = this.tourLink('tour'); v.tourBackLbl = 'Greencut Tour'; } return v; }
 const U = TOUR; const T = U.load(); const cp = U.canPlay(T); const f = (n) => this.fmt(n);
 v.tourHref = this.tourLink('tour'); v.tourOn = !!s.tour; v.tourBackLbl = '← Retour au Greencut Tour'; v.tourGateLbl = '← Greencut Tour';

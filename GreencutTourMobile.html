@@ -297,7 +297,7 @@ a.me:hover{background:#ffd16614}
 .back{min-height:44px}
 </style>
 <style>html,body{margin:0;height:100%;background:#0b0618;overflow:hidden}#app{height:100%;display:flex;justify-content:center;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);padding-top:env(safe-area-inset-top,0px);box-sizing:border-box}#app>.gc{width:calc(100vw - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px))!important;height:calc(100dvh - env(safe-area-inset-top,0px))!important;max-height:calc(100dvh - env(safe-area-inset-top,0px))!important;max-width:480px!important}html[data-o=h] #app>.gc{max-width:960px!important}</style>
-<script src="./support.js?v=V49"></script><script src="./engine.js?v=V49"></script><script src="./firebase-config.js?v=V49"></script><script src="./multiplayer.js?v=V49"></script>
+<script src="./support.js?v=V51"></script><script src="./engine.js?v=V51"></script><script src="./firebase-config.js?v=V51"></script><script src="./multiplayer.js?v=V51"></script>
 <meta name="format-detection" content="telephone=no, date=no, email=no, address=no"><style id="gc-noannot">chrome_annotation{border-bottom:0!important;border:0!important;text-decoration:none!important;background:transparent!important}</style>
 </head><body><div id="app"></div>
 <script id="tv" type="text/plain">
@@ -318,7 +318,6 @@ a.me:hover{background:#ffd16614}
 <a class="gm-i" href="{{classicHref2}}"><b>Jouer une partie classique</b><small>Choisir un parcours et une table</small></a>
 <a class="gm-i gm-t" href="{{tourHref2}}"><b>Greencut Tour</b><small>Le tournoi de la semaine</small></a>
 <a class="gm-i" href="{{learnHref}}"><b>Apprendre à jouer</b><small>Les règles pas à pas</small></a>
-<a class="gm-i" href="{{modeHref2}}"><b>Changer de mode de jeu</b><small>Partie classique ou tournoi</small></a>
 </div>
 </nav></sc-if>
 <div class="partner">
@@ -360,7 +359,7 @@ a.me:hover{background:#ffd16614}
 <sc-if value="{{canPlay}}" hint-placeholder-val="{{ true }}"><h2 class="h2">{{playTxt}}</h2>
 <p class="p">Une carte = une partie Greencut de 18 trous sur le Majlis, à une table de 4 à 6 joueurs. Autant de cartes que vous voulez : seule la meilleure du jour (au net) compte.</p>
 <p class="p muted">{{stake}}</p>
-<a class="btn btn-p" href="{{playHref}}" onClick="{{markPlay}}">Jouer une carte ▶︎</a></sc-if>
+<a class="btn btn-p cardplay" href="{{playHref}}" onClick="{{markPlay}}">Jouer une carte ▶︎</a></sc-if>
 <sc-if value="{{cantPlay}}" hint-placeholder-val="{{ false }}"><h2 class="h2">Pas de carte à jouer</h2><p class="p">{{whyNot}}</p></sc-if>
 <p class="p muted sm-t">Les parties normales continuent dans Greencut et ne comptent jamais pour le tournoi.</p>
 <div class="row-w"><button class="lnk" onClick="{{goRules}}">Les règles en 6 points →</button><button class="lnk" onClick="{{goCal}}">Calendrier 2027 →</button></div>
@@ -468,7 +467,6 @@ a.me:hover{background:#ffd16614}
 <a class="gm-i" href="{{classicHref2}}"><b>Jouer une partie classique</b><small>Choisir un parcours et une table</small></a>
 <a class="gm-i gm-t" href="{{tourHref2}}"><b>Greencut Tour</b><small>Le tournoi de la semaine</small></a>
 <a class="gm-i" href="{{learnHref}}"><b>Apprendre à jouer</b><small>Les règles pas à pas</small></a>
-<a class="gm-i" href="{{modeHref2}}"><b>Changer de mode de jeu</b><small>Partie classique ou tournoi</small></a>
 </div>
 </nav></sc-if>
 <div class="partner">
@@ -510,7 +508,7 @@ a.me:hover{background:#ffd16614}
 <sc-if value="{{canPlay}}" hint-placeholder-val="{{ true }}"><h2 class="h2">{{playTxt}}</h2>
 <p class="p">Une carte = une partie Greencut de 18 trous sur le Majlis, à une table de 4 à 6 joueurs. Autant de cartes que vous voulez : seule la meilleure du jour (au net) compte.</p>
 <p class="p muted">{{stake}}</p>
-<a class="btn btn-p" href="{{playHref}}" onClick="{{markPlay}}">Jouer une carte ▶︎</a></sc-if>
+<a class="btn btn-p cardplay" href="{{playHref}}" onClick="{{markPlay}}">Jouer une carte ▶︎</a></sc-if>
 <sc-if value="{{cantPlay}}" hint-placeholder-val="{{ false }}"><h2 class="h2">Pas de carte à jouer</h2><p class="p">{{whyNot}}</p></sc-if>
 <p class="p muted sm-t">Les parties normales continuent dans Greencut et ne comptent jamais pour le tournoi.</p>
 <div class="row-w"><button class="lnk" onClick="{{goRules}}">Les règles en 6 points →</button><button class="lnk" onClick="{{goCal}}">Calendrier 2027 →</button></div>
@@ -611,8 +609,19 @@ let scr = 'home'; try { const q = (window.location.hash || '').replace('#', '');
 const T = U.load(); U.save(T);
 this.state = { menu: false, testOpen: false, T, scr, view: Math.min(T.phase, 4), mode: 'net', msg: ab0 ? [ab0] : [], askReset: false, scRound: 0, calF: 'all', all: false, w: W.get() };
 }
+// V51 : la barre fixe « Jouer une carte » disparaît quand le bouton de l'encadré « Jouer pour le tournoi » est entièrement visible
+// (et revient quand il est entièrement sorti de l'écran : pas de clignotement entre les deux)
+playBarWatch() { if (this._pbw || typeof document === 'undefined') { return; } this._pbw = true;
+  const check = () => { const b = document.querySelector('.cardplay'); const m = document.querySelector('.gt-main'); const seen = !!this.state.cardSeen;
+    if (!b || !m || !b.offsetParent) { if (seen) { this.setState({ cardSeen: false }); } return; }
+    const r = b.getBoundingClientRect(); const mr = m.getBoundingClientRect();
+    if (!seen && r.top >= mr.top && r.bottom <= mr.bottom) { this.setState({ cardSeen: true }); }
+    else if (seen && (r.top >= mr.bottom || r.bottom <= mr.top)) { this.setState({ cardSeen: false }); } };
+  let raf = 0; const later = () => { if (!raf) { raf = requestAnimationFrame(() => { raf = 0; check(); }); } };
+  document.addEventListener('scroll', later, true); window.addEventListener('resize', later); this._pbCheck = later; }
 reload(o) { const U = GreencutEngine.tour; const T = U.load(); this.setState(Object.assign({ T, w: GreencutEngine.wallet.get() }, o || {})); }
 renderVals() {
+this.playBarWatch(); if (this._pbCheck) { setTimeout(this._pbCheck, 0); }
 const s = this.state; const U = GreencutEngine.tour; const C = U.cfg; const T = s.T; const f = (n) => U.fmt(n); const set = (o) => () => this.setState(o);
 const go = (k) => () => { this.setState({ scr: k, askReset: false }); try { window.scrollTo(0, 0); const el = document.querySelector('.gt-main'); if (el) { el.scrollTop = 0; } } catch (x) { /* rien */ } };
 const ph = T.phase; const cp = U.canPlay(T); const st = U.standings(T, { round: s.view, mode: s.mode }); const me = U.standings(T, {}).me;
@@ -658,7 +667,7 @@ const reset = () => { const T2 = U.reset(); this.setState({ T: T2, msg: ['Tourno
 return {
   ...this.navMenu(s.menu, () => this.setState({ menu: !this.state.menu })),
   testOpen: !!s.testOpen, toggleTest: () => this.setState({ testOpen: !this.state.testOpen }), testLbl: s.testOpen ? 'Moins d’options de test ▴' : 'Options de test ▾',
-  showPlayBar: s.scr === 'home' && cp.ok,
+  showPlayBar: s.scr === 'home' && cp.ok && !s.cardSeen,
   isHome: s.scr === 'home', isBoard: s.scr === 'board', isRules: s.scr === 'rules', isPurse: s.scr === 'purse', isCal: s.scr === 'cal', isCards: s.scr === 'cards', isSc: s.scr === 'sc',
   nav, tabs, gameHref, modeHref: this.tourLink('mode'), resetWallet, demoTxt: f(GreencutEngine.wallet.demo.pts) + ' pts · ' + f(GreencutEngine.wallet.demo.fees) + ' fees', pin: pin || {}, hasPin: !!pin, pinNote, playHref, markPlay, tourName: C.name, partnerUrl: C.partnerUrl, dates: C.dates, me: T.hero.name, golf: T.hero.golf, solde: f(s.w.pts) + ' pts', fees: f(s.w.fees) + ' fees',
   phaseLbl: U.phaseLabel(T), statusChip: ph > 4 ? 'Tournoi terminé · résultats publiés' : 'Tournoi en cours · tour ' + ph + ' sur 4', statusCls: ph > 4 ? 'chip c-done' : 'chip c-live',
