@@ -68,6 +68,7 @@ const COURSE_SOON = [
 class GreencutEngineBase {
 sfxCheck(p, n) {
 try { this.tourHook(p, n); } catch (x) { /* tournoi facultatif */ }
+try { this.gameSave(n); } catch (x) { /* sauvegarde facultative */ }
 if (!p || !n || !p.h || !n.h) { return; }
 if (n.h.hole !== p.h.hole) { this.sfx('deal'); return; }
 if (p.h.phase !== 'done' && n.h.phase === 'done') {
@@ -215,6 +216,7 @@ hist: [ { a: 'Partie 1 : mise de départ', t: 'À l’instant', d: '−10 000 pt
 quit: false, askQuit: false, tuto: false, moreOpt: false, aidDetail: false, stacks: Z(10000), strokes: Array.from({ length: NP }, () => []), hole: 1, prevPos: null, trend: {}, help: lvl === 'deb', level: lvl
 };
 s.tour = false; s.tourDone = false; s.fresh = false;
+if (!keep && typeof document !== 'undefined') { const sv = this.gameLoad(); if (sv) { NP = Math.max(MIN_P, Math.min(MAX_P, sv.stacks.length)); return sv; } }
 if (!keep && typeof document !== 'undefined') { const tk = this.tourStart(); if (tk) { Object.assign(s, tk); } else if (WALLET.saved()) { const w = WALLET.get(); Object.assign(s, { pts: w.pts, fees: w.fees, gate: true, fresh: true, hist: [] }); } }
 if (!keep && typeof window !== 'undefined' && window.location) { const g = /[?&]go=(profil|card|board)\b/.exec(window.location.search || ''); if (g) { s.screen = g[1]; } }
 if (keep) { Object.assign(s, keep); }
@@ -412,6 +414,7 @@ const seat = s.turnSeat !== undefined ? s.turnSeat : (h.status[0] === 'À VOUS' 
 }
 heroAct(kind, toArg, seat) {
 const s = this.state; if (s.h.phase !== 'bet' || s.aiPending) { return; }
+if (!this._autoAct && seat === undefined && s.idle) { s.idle = 0; }
 if (this._mpSend && seat === undefined) { this._mpSend({ kind, to: toArg || s.raiseTo || 0 }); return; }
 const i = seat || 0; if (seat !== undefined && s.turnSeat !== seat) { return; }
 const st = s.stacks.slice(); const h = JSON.parse(JSON.stringify(s.h)); const log = s.log.concat([]);
@@ -582,6 +585,103 @@ this.setState(Object.assign({}, d, { hole, reload: false, prevPos: null, trend: 
 return true;
 }
 // ---------- Mode tournoi à la table (Greencut Tour, version solo de test) ----------
+// ---------- Partie en cours : sauvegarde, reprise, sortie protégée, couché pour la partie, spectateur (V47) ----------
+isLive(s) { return !!(s && s.h && !s.gate && !s.quit && !s.finishedEarly && !(s.h.hole >= 18 && s.h.phase === 'done')); }
+gameSave(n) {
+if (typeof localStorage === 'undefined' || typeof document === 'undefined' || this._mpOn || this._mpSend || !n || (typeof window !== 'undefined' && window.location && /[?&]mp=/.test(window.location.search || ''))) { return; }
+const ss = (typeof sessionStorage !== 'undefined') ? sessionStorage : null;
+if (this.isLive(n)) {
+  if (n.tour) { if (ss) { ss.setItem(GAME_KEY, JSON.stringify({ v: 1, t: Date.now(), s: n })); } localStorage.removeItem(GAME_KEY); localStorage.setItem(ABD_KEY, JSON.stringify({ chips: Math.max(0, n.stacks[0] || 0), tour: true, games: n.games || 1, at: Date.now() })); }
+  else { localStorage.setItem(GAME_KEY, JSON.stringify({ v: 1, t: Date.now(), s: n })); if (ss) { ss.removeItem(GAME_KEY); } }
+}
+else if (n.h && (n.gate || n.quit || n.finishedEarly || (n.h.hole >= 18 && n.h.phase === 'done'))) { localStorage.removeItem(GAME_KEY); localStorage.removeItem(ABD_KEY); if (ss) { ss.removeItem(GAME_KEY); } }
+}
+gameClear() { try { localStorage.removeItem(GAME_KEY); localStorage.removeItem(ABD_KEY); if (typeof sessionStorage !== 'undefined') { sessionStorage.removeItem(GAME_KEY); } } catch (x) { /* rien */ } }
+gameLoad() {
+if (typeof window === 'undefined' || !window.location || /[?&]mp=/.test(window.location.search || '')) { return null; }
+let raw = null; try { raw = JSON.parse((typeof sessionStorage !== 'undefined' && sessionStorage.getItem(GAME_KEY)) || 'null'); if (!raw) { const ab = settleAbandoned(); if (ab) { this._abdMsg = ab; } raw = JSON.parse(localStorage.getItem(GAME_KEY) || 'null'); } } catch (x) { raw = null; }
+if (!raw || raw.v !== 1 || !raw.s || !raw.s.h || !Array.isArray(raw.s.stacks) || Date.now() - (raw.t || 0) > 12 * 3600 * 1000) { try { localStorage.removeItem(GAME_KEY); if (typeof sessionStorage !== 'undefined') { sessionStorage.removeItem(GAME_KEY); } } catch (x) { /* rien */ } return null; }
+let tourgo = false; try { tourgo = localStorage.getItem('greencut.tourgo') === '1' || /[?&]tour=1/.test(window.location.search || ''); } catch (x) { tourgo = false; }
+if (tourgo && !raw.s.tour) { try { localStorage.removeItem(GAME_KEY); } catch (x) { /* rien */ } return null; }
+if (tourgo) { try { localStorage.removeItem('greencut.tourgo'); } catch (x) { /* rien */ } }
+const s = raw.s; if (WALLET.saved()) { const w = WALLET.get(); s.pts = w.pts; s.fees = w.fees; }
+Object.assign(s, { aiPending: false, sheet: '', askQuit: false, tuto: false, moreOpt: false, leaveTo: '', resumed: true });
+if (['fees', 'profil', 'card', 'board', 'table'].indexOf(s.screen) < 0) { s.screen = 'table'; }
+this._resumeKick = true; return s;
+}
+leaveGuard() {
+if (typeof document === 'undefined' || typeof window === 'undefined' || !document.addEventListener) { return; } window.__gcTable = this; if (window.__gcLeave) { return; } window.__gcLeave = true;
+document.addEventListener('click', (e) => {
+const c = window.__gcTable; if (!c || !c.isLive(c.state)) { return; }
+const a = e.target && e.target.closest ? e.target.closest('a[href]') : null; if (!a || a.target === '_blank') { return; }
+const href = a.getAttribute('href') || ''; if (!href || href.charAt(0) === '#') { return; }
+if (/(TableMobile|TableMobilePaysage|Prototype)(\.dc)?\.html/.test(href) && !/[?&]go=/.test(href)) { return; } // bascule vertical / horizontal : la partie est reprise
+e.preventDefault(); e.stopPropagation(); c.setState({ leaveTo: href, askQuit: true, sheet: 'quit', screen: 'table' });
+}, true);
+}
+leaveLabel(href) { return /GreencutTour/.test(href) ? 'le Greencut Tour' : (/ModeJeu/.test(href) ? 'le choix du mode de jeu' : (/ChoixParcours/.test(href) ? 'le choix du parcours' : 'une autre page')); }
+autoWatch() {
+const s = this.state; if (!s || !s.watch || !s.h || s.gate || s.quit || s.h.phase !== 'done' || this._watchT || typeof setTimeout === 'undefined') { return; }
+this._watchT = setTimeout(() => { this._watchT = null; const k = this.state; if (!k || !k.watch || k.gate || k.quit || !k.h || k.h.phase !== 'done') { return; } if (k.h.hole >= 18) { this.setState({ screen: 'board', watch: false }); return; } this.advance(false); }, this._pace === false ? 30 : 3000);
+}
+foldRest() {
+const s = this.state; const h = s.h; if (!this.isLive(s) || s.stacks[0] <= 0 || this._mpOn || this._mpSend) { return false; }
+const pace0 = this._pace; this._pace = false;
+try {
+let st = s.stacks.slice(); let strokes = s.strokes.map((a) => a.slice()); let cur = null;
+if (h.phase !== 'done') { const hh = JSON.parse(JSON.stringify(h)); hh.folded[0] = true; let out = this.run(hh, st.slice(), [], strokes.map((a) => a.slice())); if (!out.h || out.h.phase !== 'done') { const h3 = JSON.parse(JSON.stringify(hh)); h3.round = 3; out = this.showdown(h3, st.slice(), [], strokes.map((a) => a.slice())); } cur = out; st = cur.stacks.slice(); strokes = cur.strokes; }
+const bank = st[0]; st[0] = 0; let hole = cur && cur.h ? cur.h.hole : h.hole; let d = null;
+for (let i = 0; i < NP; i++) { for (let k = 0; k < hole; k++) { if (typeof strokes[i][k] !== 'number' || isNaN(strokes[i][k])) { strokes[i][k] = this.pars()[k] + 4; } } }
+while (hole < 18) { d = this.deal(st, hole + 1, strokes, h.rec); hole += 1; st = d.stacks; strokes = d.strokes; }
+const fin = d || cur || {}; const stacks = (fin.stacks || st).slice(); stacks[0] = bank;
+const hist = [ { a: 'Partie ' + (s.games || 1) + ' : couché pour le reste de la partie', t: 'À l’instant', d: 'Score enregistré', e: '', cls: 'hp' } ].concat(s.hist);
+this.setState(Object.assign({}, fin, { stacks, strokes: fin.strokes || strokes, hole, reload: false, prevPos: null, trend: { net: {}, brut: {} }, finishedEarly: true, foldedRest: true, watch: false, askQuit: false, sheet: '', screen: 'board', hist }));
+} finally { this._pace = pace0; this._tok = (this._tok || 0) + 1; }
+if (!this.state.gate) { this.settle(); }
+return true;
+}
+idleTimeout(key) {
+const s = this.state; if (!s || !s.tour || !this.isLive(s) || !s.h || s.h.phase !== 'bet' || s.turnSeat !== 0 || [s.h.hole, s.h.round, s.h.pot, s.h.cur].join('|') !== key) { return; }
+const n = (s.idle || 0) + 1; const toCall = s.h.cur - s.h.rb[0];
+this._autoAct = true; try { this.heroAct(toCall > 0 ? 'fold' : 'call'); } finally { this._autoAct = false; }
+this._idleKey = '';
+if (n < 3) { this.setState({ idle: n, tableMsg: 'Pas d’action depuis 60 s : ' + (toCall > 0 ? 'couché' : 'check') + ' automatique (' + n + ' sur 3). Au 3e tour sans action, la carte est abandonnée.' }); return; }
+const k = this.state; const c = Math.max(0, k.stacks[0]);
+const hist = [ { a: 'Carte de tournoi abandonnée (3 tours sans action) : mise perdue', t: 'À l’instant', d: c ? '+' + this.fmt(c) + ' pts rendus' : '0 pt rendu', e: '', cls: 'hf' } ].concat(k.hist);
+this.setState({ idle: 0, quit: true, gate: true, refunded: true, abdReason: 'Carte abandonnée après 3 tours sans action', pts: k.pts + c, askQuit: false, sheet: '', screen: 'table', hist });
+}
+gamePatch(v) {
+const s = this.state; if (!v || !s) { return v; }
+if (typeof document !== 'undefined') { this.leaveGuard(); }
+if (this._resumeKick && typeof setTimeout !== 'undefined') { this._resumeKick = false; setTimeout(() => { const k = this.state; if (k && k.h && k.h.phase === 'bet' && !k.gate && !k.quit) { const tok = (this._tok = (this._tok || 0) + 1); const h2 = JSON.parse(JSON.stringify(k.h)); h2.tok = tok; this.setState({ h: h2, aiPending: true }); setTimeout(() => { this.aiStep(tok); }, this._pace === false ? 0 : 400); } }, 30); }
+this.autoWatch();
+const live = this.isLive(s); if (this._abdMsg && live) { this._abdMsg = ''; } const elim = !!(s.stacks && s.stacks[0] <= 0); const left = s.h ? 18 - s.h.hole + (s.h.phase === 'done' ? 0 : 1) : 0;
+v.gameLive = live; v.canFoldRest = live && !elim && !this._mpOn && !this._mpSend;
+v.foldRestTxt = 'Vous vous couchez pour ' + (left > 1 ? 'les ' + left + ' trous restants' : 'le dernier trou') + ' : ' + (s.h && s.h.phase !== 'done' ? 'le trou en cours compte comme un coup couché (score de votre combinaison + 1, sinon par + 4), les suivants par + 4. ' : 'chacun compte par + 4. ') + 'Votre score est enregistré tout de suite et vos ' + this.fmt(s.stacks ? s.stacks[0] : 0) + ' pts de jetons reviennent sur votre solde. Ce n’est pas un abandon.' + (s.tour ? ' Votre carte est déposée au tournoi avec ce score.' : '');
+v.hasLeave = !!s.leaveTo; v.leaveNote = s.leaveTo ? 'Vous allez quitter la table pour ' + this.leaveLabel(s.leaveTo) + ' : la partie en cours ne pourra pas être reprise.' : '';
+const to = s.leaveTo; const go = () => { if (to && typeof window !== 'undefined') { window.location.href = to; } };
+v.foldRestAct = () => { if (this.foldRest()) { go(); } };
+v.mFoldRest = () => this.setState({ sheet: 'fold' }); v.shFold = s.sheet === 'fold';
+const refund = () => { const k = this.state; if (!k.quit || k.refunded) { return; } const c = Math.max(0, k.stacks ? k.stacks[0] : 0);
+  if (this._mpQuit) { try { this._mpQuit(c); } catch (x) { /* multijoueur */ } }
+  let hist = k.hist; if (!k.tour && hist[0] && /abandonnée : mise perdue/.test(hist[0].a)) { hist = [ Object.assign({}, hist[0], { a: hist[0].a + ', jetons restants rendus', d: '+' + this.fmt(c) + ' pts rendus', cls: c ? 'hp' : 'hf' }) ].concat(hist.slice(1)); }
+  else if (c > 0) { hist = [ { a: (k.tour ? 'Carte de tournoi abandonnée' : 'Partie abandonnée') + ' : jetons restants rendus', t: 'À l’instant', d: '+' + this.fmt(c) + ' pts', e: '', cls: 'hp' } ].concat(hist); }
+  this.setState({ pts: k.pts + c, refunded: true, refundAmt: c, hist }); };
+if (typeof v.quitGame === 'function') { const q = v.quitGame; v.quitGame = () => { q(); refund(); this.gameClear(); go(); }; }
+if (typeof v.quitNow === 'function') { const q = v.quitNow; v.quitNow = () => { q(); refund(); this.gameClear(); go(); }; }
+if (s.tour && live && !elim) { v.quitNoElim = false; v.quitTour = true; v.quitTourTxt = 'Abandonner la carte : elle ne compte pas pour le tournoi et la mise de départ (10 000 pts) est perdue ; vos ' + this.fmt(s.stacks[0]) + ' pts de jetons reviennent sur votre solde. Vous pouvez rejouer une carte tant que le tour est ouvert.'; v.quitBtnLbl = 'Abandonner la carte'; }
+else if (live && !elim) { v.quitNoElim = false; v.quitTour = true; v.quitTourTxt = 'Quitter, c’est abandonner la partie : la mise de départ (10 000 pts) est perdue et la partie ne compte pas ; vos ' + this.fmt(s.stacks[0]) + ' pts de jetons restants reviennent sur votre solde (les jetons déjà misés sur le trou en cours restent dans le pot). Une nouvelle partie demandera une nouvelle mise de départ, avec votre accord.'; }
+else { v.quitTour = false; v.quitTourTxt = ''; }
+// Tournoi : 60 s pour jouer ; au bout de 3 tours d'affilée sans action, la carte est abandonnée (règle du 25/11/2026)
+const myTurn = !!(s.tour && live && s.h.phase === 'bet' && !s.aiPending && s.turnSeat === 0 && !(s.h.folded && s.h.folded[0]) && s.stacks[0] > 0);
+if (myTurn && typeof setTimeout !== 'undefined') { const key = [s.h.hole, s.h.round, s.h.pot, s.h.cur].join('|'); if (this._idleKey !== key) { clearTimeout(this._idleT); this._idleKey = key; const ms = (typeof window !== 'undefined' && window.GREENCUT_IDLE_MS) || IDLE_MS; this._idleT = setTimeout(() => { this.idleTimeout(key); }, ms); } }
+else if (this._idleKey) { clearTimeout(this._idleT); this._idleKey = ''; }
+if (myTurn && typeof v.turnTxt === 'string') { v.turnTxt += ' · 60 s pour jouer' + (s.idle ? ' (' + s.idle + ' tour' + (s.idle > 1 ? 's' : '') + ' sans action sur 3)' : ''); }
+
+if (typeof v.cancelQuit === 'function') { const c = v.cancelQuit; v.cancelQuit = () => { c(); this.setState({ leaveTo: '' }); }; }
+if (typeof v.closeSheet === 'function') { const c = v.closeSheet; v.closeSheet = () => { c(); if (this.state.leaveTo) { this.setState({ leaveTo: '' }); } }; }
+return v;
+}
 tourStart() {
 let on = false; try { on = /[?&]tour=1/.test(window.location.search || '') || localStorage.getItem('greencut.tourgo') === '1'; localStorage.removeItem('greencut.tourgo'); } catch (x) { on = false; }
 if (!on) { return null; }
@@ -617,6 +717,11 @@ const card = c ? { round: c.r, net: c.net, brut: c.brut, bonus: c.bonus, kept: b
 this.setState({ tourDone: true, tourCard: card });
 }
 tourPatch(v) {
+v = this.tourPatch0(v); if (v && this._abdMsg) { if (typeof v.gateIntro === 'string') { v.gateIntro = this._abdMsg + ' ' + v.gateIntro; } if (typeof v.tableMsg === 'string') { v.tableMsg = this._abdMsg; } } return v;
+}
+tourPatch0(v) {
+v = this.gamePatch(v);
+if (v && s0q(this.state)) { const k = this.state; v.gateIntro = 'Vous avez quitté la table : la mise de départ (10 000 pts) est perdue ; ' + (k.refundAmt ? 'vos ' + this.fmt(k.refundAmt) + ' pts de jetons restants sont revenus sur votre solde.' : 'il ne vous restait aucun jeton à rendre.'); }
 const s = this.state; if (v) { v.modeCls = s && s.tour ? 'tourmode' : 'classicmode'; v.modeHref = this.tourLink('mode'); v.lowFunds = !!(s && s.gate && s.pts < 10000 && (s.fees < 100 || s.expired)); v.lowLbl = 'Recharger le solde'; }
 if (!s || (!s.tour && !s.fresh)) { if (v) { v.tourOn = false; v.tourHref = this.tourLink('tour'); v.tourBackLbl = 'Greencut Tour'; } return v; }
 const U = TOUR; const T = U.load(); const cp = U.canPlay(T); const f = (n) => this.fmt(n);
@@ -626,7 +731,7 @@ const c = s.tourCard; const st = s.pts >= 10000 ? 'Je confirme : 10 000 pts' : '
 if (s.gate) {
   if (!cp.ok) { v.gateTitle = 'Carte de tournoi impossible'; v.gateIntro = cp.why; v.gateTxt = ''; v.startCls = 'off'; v.startGame = () => {}; v.startLabel = 'Tour fermé'; }
   else if (s.tourDone && c) { v.gateTitle = 'Carte déposée au tournoi'; v.gateIntro = 'Tour ' + c.round + ' · net ' + U.signed(c.net) + ' (brut ' + U.signed(c.brut) + ', bonus de jetons ' + U.signed(c.bonus) + '), déposée à ' + c.at + '. ' + (c.kept ? 'C’est votre carte retenue du jour.' : 'Votre meilleure carte du jour reste à ' + U.signed(c.best) + '.') + ' Vos jetons ont été rendus à votre solde. Vous pouvez rejouer une carte (nouvelle mise de 10 000 pts) ou revenir au Greencut Tour.'; v.startLabel = st; }
-  else if (s.quit) { v.gateTitle = 'Carte abandonnée'; v.gateIntro = 'Vous avez quitté la table : cette carte ne compte pas et sa mise de 10 000 pts est perdue. Vous pouvez rejouer une carte tant que le tour est ouvert.'; v.startLabel = st; }
+  else if (s.quit) { v.gateTitle = 'Carte abandonnée'; v.gateIntro = (s.abdReason || 'Vous avez quitté la table') + ' : cette carte ne compte pas et sa mise de 10 000 pts est perdue ; vos jetons sont revenus sur votre solde. Vous pouvez rejouer une carte tant que le tour est ouvert.'; v.startLabel = st; }
   else { v.gateTitle = 'Mode tournoi · carte du tour ' + T.phase; v.gateIntro = TOUR_CFG.name + ' · parcours Majlis, Par 72 · ' + TOUR_CFG.days[T.phase - 1] + '. Votre solde : ' + f(s.pts) + ' pts. Seule votre meilleure carte du jour (au net) compte.'; v.startLabel = st; }
   if (cp.ok && typeof v.startGame === 'function') { const go = v.startGame; v.startGame = () => { const k = this.state; const can = k.pts >= 10000 || (!k.expired && k.fees >= 100); const n = k.nP; go(); if (can) { const T2 = TOUR.load(); TOUR.dropCard(T2); TOUR.startCard(T2, n); } }; }
 }
@@ -727,7 +832,8 @@ const TOUR_CFG = {
   lots: [[1, 1, 'Driver + fitting complet + sac Tour'], [2, 2, 'Série de fers avec fitting'], [3, 3, 'Putter Odyssey'], [4, 10, '3 douzaines de balles Chrome Tour + casquette'], [11, 50, '1 douzaine de balles Chrome Tour']]
 };
 const TOUR_Q = [-15, -3, 0, 2, 4, 5, 7, 8, 9, 10, 12, 13, 14, 16, 18, 20, 23, 31, 46, 57, 69]; // brut / par sur 2 000 cartes simulées par le moteur (V37)
-const TOUR_KEY = 'greencut.tour', WALLET_KEY = 'greencut.wallet';
+const s0q = (k) => !!(k && !k.tour && k.quit && k.refunded);
+const IDLE_MS = 60000; const TOUR_KEY = 'greencut.tour', WALLET_KEY = 'greencut.wallet', GAME_KEY = 'greencut.partie', ABD_KEY = 'greencut.abandon';
 const tourRng = (seed) => { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; };
 const tourStore = {
   get(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (x) { return null; } },
@@ -907,9 +1013,22 @@ function initialsOf(name) {
   const s = w.length > 1 ? w[0].charAt(0) + w[1].charAt(0) : w[0].slice(0, 2);
   return s.toUpperCase();
 }
+// Carte de tournoi abandonnée (page ou appli fermée en cours de carte) : la carte ne compte pas, la mise est perdue,
+// les jetons restants reviennent sur le solde (règle du 25/11/2026). Appelée au chargement de la table, du Tour et du Mode de jeu.
+function settleAbandoned() {
+  if (typeof localStorage === 'undefined') { return ''; }
+  try {
+    if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem(GAME_KEY)) { return ''; }
+    const a = JSON.parse(localStorage.getItem(ABD_KEY) || 'null'); localStorage.removeItem(ABD_KEY); if (!a) { return ''; }
+    const chips = Math.max(0, Math.round(a.chips || 0)); const w = WALLET.get(); w.pts += chips; WALLET.set(w);
+    const T = TOUR.load(); TOUR.dropCard(T);
+    return 'Carte de tournoi abandonnée (page fermée en cours de partie) : elle ne compte pas et la mise de 10 000 pts est perdue ; vos ' + chips.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g, ' ') + ' pts de jetons sont revenus sur votre solde.';
+  } catch (x) { return ''; }
+}
 window.GreencutEngine = {
   version: '1.2.0',
   initials: initialsOf,
+  settleAbandoned,
   tour: TOUR,
   wallet: WALLET,
   cards() { return GreencutEngineBase.prototype.cards.call({}); },

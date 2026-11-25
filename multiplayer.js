@@ -80,26 +80,41 @@
       eng._opp = names.filter((x, i) => i !== 0).slice(0, nP - 1);
       const realAdvance = eng.advance.bind(eng); eng._mpRealAdvance = realAdvance;
       eng.advance = () => { ad.set(T(code) + '/ready/' + seat, eng.state.hole); };
-      let last = -1; ctl.stop.push(ad.on(T(code) + '/view/' + seat, (txt) => { if (!txt) { return; } let v; try { v = JSON.parse(txt); } catch (x) { return; } if (v.seq <= last) { return; } last = v.seq; eng.mpApplyView(v); }));
+      const QK = 'greencut.mpq.' + code + '.' + seat; let quitted = false; try { quitted = !!localStorage.getItem(QK); } catch (x) { /* stockage */ }
+      eng._mpQuit = () => { quitted = true; try { localStorage.setItem(QK, '1'); } catch (x) { /* stockage */ } ad.push(T(code) + '/act', { seat, kind: 'quit', to: 0, hole: eng.state.hole, t: Date.now() }); ctl.stop.forEach((f) => { try { f(); } catch (x) { /* déjà arrêté */ } }); ctl.stop.length = 0; };
+      let last = -1; ctl.stop.push(ad.on(T(code) + '/view/' + seat, (txt) => { if (!txt) { return; } let v; try { v = JSON.parse(txt); } catch (x) { return; } if (v.seq <= last) { return; } last = v.seq; eng.mpApplyView(v);
+        if (quitted) { return; } if (v.abd && !ctl.abdDone) { ctl.abdDone = true; const c = Math.max(0, v.abd.chips || 0); try { const W = window.GreencutEngine && window.GreencutEngine.wallet; if (W) { const w = W.get(); w.pts += c; W.set(w); } } catch (x) { /* solde local */ } eng.setState({ mpAbd: true, pts: (eng.state.pts || 0) + c }); }
+        if (ctl.abdDone) { eng.setState({ tableMsg: 'Vous avez été retiré de la partie après 3 tours sans action : abandon, mise perdue, jetons rendus à votre solde. Vous regardez la fin de la partie.' }); } }));
       return ctl;
     }
     // ----- hôte : fait tourner la partie -----
     eng._mpOn = true; eng._humans = {}; humans.forEach((k) => { if (k > 0) { eng._humans[k] = true; } }); eng._opp = names.slice(1);
     const ps = names[0]; eng.setState(eng.initial({ nP, course: meta.course, pseudo: ps, pseudoDraft: ps }));
     let seq = 0; let lastH = null; let lastKey = ''; let timer = null; let pending = false;
+    const idle = {}; const abd = {}; ctl.idle = idle; ctl.abd = abd; ctl.auto = false;
+    const realHuman = (k) => k === 0 || !!eng._humans[k];
+    const origAct = eng.heroAct.bind(eng); eng.heroAct = (k, to, st) => { const who = st === undefined ? 0 : st; if (!ctl.auto) { idle[who] = 0; } return origAct(k, to, st); };
+    const quitReq = {}; ctl.quitReq = quitReq;
+    const abandonSeat = (who) => { const s = eng.state; const st = s.stacks.slice(); abd[who] = { chips: Math.max(0, st[who]), self: !!quitReq[who] }; st[who] = 0; const upd = { stacks: st };
+      if (who === 0) { upd.pts = (s.pts || 0) + abd[0].chips; upd.tableMsg = 'Vous avez été retiré de la partie après 3 tours sans action : abandon, mise perdue, jetons rendus à votre solde.'; }
+      if (who !== 0) { delete eng._humans[who]; }
+      eng.setState(upd); tryNext(); };
     const holeKey = () => { const s = eng.state; return s.hole + '|' + s.h.phase + '|' + s.h.turn + '|' + s.h.round + '|' + s.h.pot + '|' + (s.turnSeat === undefined ? '' : s.turnSeat); };
     const publish = () => {
       pending = false; const s = eng.state; if (!s.h) { return; } const key = holeKey() + '|' + s.h.status.join(','); if (key === lastKey) { return; } lastKey = key; seq++;
-      humans.filter((k) => k > 0).forEach((k) => { const v = eng.mpViewFor(k, names); v.seq = seq; ad.set(T(code) + '/view/' + k, JSON.stringify(v)); });
+      humans.filter((k) => k > 0).forEach((k) => { const v = eng.mpViewFor(k, names); v.seq = seq; if (abd[k]) { v.abd = abd[k]; } ad.set(T(code) + '/view/' + k, JSON.stringify(v)); });
+      const qk = Object.keys(quitReq).map(Number).find((k) => !abd[k] && (s.h.phase === 'done' || (s.h.folded && s.h.folded[k]))); if (qk !== undefined) { abandonSeat(qk); return; }
       clearTimeout(ctl.turnTimer);
-      if (s.h.phase === 'bet' && s.turnSeat > 0) { const who = s.turnSeat; const hk = holeKey(); ctl.turnTimer = setTimeout(() => { const t = eng.state; if (holeKey() === hk) { const toCall = t.h.cur - t.h.rb[who]; eng.heroAct(toCall > 0 ? 'fold' : 'call', 0, who); } }, o.turnMs || TURN_MS); }
+      clearTimeout(ctl.readyTimer);
+      if (s.h.phase === 'done' && s.h.hole < 18) { const hole = s.hole; ctl.readyTimer = setTimeout(() => { const t = eng.state; if (t.hole !== hole || t.h.phase !== 'done') { return; } humans.forEach((k) => { if (ready[k] !== hole && !abd[k]) { ready[k] = hole; idle[k] = (idle[k] || 0) + 1; if (idle[k] >= 3) { abandonSeat(k); } } }); tryNext(); }, o.turnMs || TURN_MS); }
+      if (s.h.phase === 'bet' && s.turnSeat >= 0 && realHuman(s.turnSeat) && !abd[s.turnSeat]) { const who = s.turnSeat; const hk = holeKey(); ctl.turnTimer = setTimeout(() => { const t = eng.state; if (holeKey() === hk) { const toCall = t.h.cur - t.h.rb[who]; ctl.auto = true; try { eng.heroAct(quitReq[who] || toCall > 0 ? 'fold' : 'call', 0, who); } finally { ctl.auto = false; } idle[who] = (idle[who] || 0) + 1; if (idle[who] >= 3 || quitReq[who]) { abandonSeat(who); } } }, quitReq[who] ? 0 : (o.turnMs || TURN_MS)); }
     };
     const origSet = eng.setState.bind(eng); eng.setState = (u) => { origSet(u); if (u && (u.h || u.stacks) && !pending) { pending = true; Promise.resolve().then(publish); } };
-    ctl.stop.push(ad.onChildAdded(T(code) + '/act', (id, a) => { if (!a || a.done) { return; } if (a.hole !== eng.state.hole) { return; } eng.heroAct(a.kind, a.to, a.seat); }));
+    ctl.stop.push(ad.onChildAdded(T(code) + '/act', (id, a) => { if (!a || a.done) { return; } if (a.kind === 'quit') { if (a.seat > 0 && !abd[a.seat]) { quitReq[a.seat] = true; const t = eng.state; if (t.h && (t.h.phase === 'done' || (t.h.folded && t.h.folded[a.seat]))) { abandonSeat(a.seat); } else { lastKey = ''; publish(); } } return; } if (a.hole !== eng.state.hole) { return; } eng.heroAct(a.kind, a.to, a.seat); }));
     const ready = {}; const realAdvance = eng.advance.bind(eng);
-    const tryNext = () => { const s = eng.state; if (!s.h || s.h.phase !== 'done' || s.h.hole >= 18) { return; } if (humans.every((k) => ready[k] === s.hole)) { realAdvance(false); } };
-    humans.filter((k) => k > 0).forEach((k) => { ctl.stop.push(ad.on(T(code) + '/ready/' + k, (v) => { ready[k] = v; tryNext(); })); });
-    eng.advance = (r) => { ready[0] = eng.state.hole; tryNext(); };
+    const tryNext = () => { const s = eng.state; if (!s.h || s.h.phase !== 'done' || s.h.hole >= 18) { return; } if (humans.every((k) => ready[k] === s.hole || abd[k])) { realAdvance(false); } };
+    humans.filter((k) => k > 0).forEach((k) => { ctl.stop.push(ad.on(T(code) + '/ready/' + k, (v) => { if (ready[k] !== v) { idle[k] = 0; } ready[k] = v; tryNext(); })); });
+    eng.advance = (r) => { if (!ctl.auto) { idle[0] = 0; } ready[0] = eng.state.hole; tryNext(); };
     ctl.hostReadyState = () => ready;
     pending = true; Promise.resolve().then(publish);
     return ctl;
