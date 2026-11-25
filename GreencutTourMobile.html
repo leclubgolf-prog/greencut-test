@@ -99,6 +99,8 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 .scg{display:grid;grid-template-columns:64px repeat(9,minmax(0,1fr)) 64px;border:1px solid #ffffff1f;border-radius:10px;overflow:hidden}
 .scc{text-align:center;padding:5px 2px;border-bottom:1px solid #ffffff12;font-variant-numeric:tabular-nums;display:flex;align-items:center;justify-content:center;min-width:0}
 .scc.h{font-size:12px;font-weight:700;color:#b9acd6;background:#ffffff08}.scc.l{justify-content:flex-start;padding-left:8px;color:#b9acd6}.scc.s{font-size:12px}
+.ic{flex:none}
+.lbr.pin{position:sticky;top:0;z-index:2;background:#3b3216;border:1px solid #ffd166;border-radius:8px;margin:4px 0 6px;box-shadow:0 6px 14px #0008}.lbr.pin .pn{color:#ffd166}
 .gt{width:390px;max-width:100vw;height:844px;max-height:100dvh;font-size:14px;line-height:20px}
 .hdr{gap:8px;padding:8px 10px;flex-wrap:nowrap}.nav{display:none}.logo{font-size:19px;flex:1;min-width:0}.logo .t{font-size:13px;padding:0 5px}
 .back{padding:6px 10px;font-size:13px}.me .mew{display:none}.av{width:36px;height:36px;font-size:12px}
@@ -218,6 +220,8 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 .scg{display:grid;grid-template-columns:64px repeat(9,minmax(0,1fr)) 64px;border:1px solid #ffffff1f;border-radius:10px;overflow:hidden}
 .scc{text-align:center;padding:5px 2px;border-bottom:1px solid #ffffff12;font-variant-numeric:tabular-nums;display:flex;align-items:center;justify-content:center;min-width:0}
 .scc.h{font-size:12px;font-weight:700;color:#b9acd6;background:#ffffff08}.scc.l{justify-content:flex-start;padding-left:8px;color:#b9acd6}.scc.s{font-size:12px}
+.ic{flex:none}
+.lbr.pin{position:sticky;top:0;z-index:2;background:#3b3216;border:1px solid #ffd166;border-radius:8px;margin:4px 0 6px;box-shadow:0 6px 14px #0008}.lbr.pin .pn{color:#ffd166}
 .gt{width:844px;max-width:100vw;height:390px;max-height:100dvh;font-size:14px;line-height:20px}
 .hdr{gap:10px;padding:4px 12px;flex-wrap:nowrap}.nav{display:none}.logo{font-size:19px}.logo .t{font-size:13px;padding:0 5px}
 .back{padding:4px 10px;font-size:13px;min-height:40px}.me{margin-left:auto}.av{width:32px;height:32px;font-size:12px}.mesub{font-size:12px}
@@ -236,13 +240,13 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 .logo{min-height:40px;align-items:center}
 </style>
 <style>html,body{margin:0;height:100%;background:#0b0618;overflow:hidden}#app{height:100%;display:flex;justify-content:center;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);padding-top:env(safe-area-inset-top,0px);box-sizing:border-box}#app>.gc{width:calc(100vw - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px))!important;height:calc(100dvh - env(safe-area-inset-top,0px))!important;max-height:calc(100dvh - env(safe-area-inset-top,0px))!important;max-width:480px!important}html[data-o=h] #app>.gc{max-width:960px!important}</style>
-<script src="./support.js?v=38"></script><script src="./engine.js?v=38"></script>
+<script src="./support.js?v=41"></script><script src="./engine.js?v=41"></script>
 </head><body><div id="app"></div>
 <script id="tv" type="text/plain">
 
 <div class="gc gt">
 <header class="hdr">
-<a class="back" href="{{gameHref}}">← Retour au jeu</a>
+<a class="back" href="{{modeHref}}">← Retour au jeu</a>
 <button class="logo" onClick="{{goHome}}" aria-label="Accueil du Greencut Tour">GREENCUT <span class="t">TOUR</span></button>
 <nav class="nav" aria-label="Greencut Tour"><sc-for list="{{nav}}" as="n" hint-placeholder-count="6"><button class="{{n.cls}}" onClick="{{n.go}}">{{n.label}}</button></sc-for></nav>
 <div class="me"><div class="av" aria-hidden="true">{{initials}}</div><div class="mew"><div class="mename">{{me}}</div><div class="muted mesub">Solde : <b class="gold">{{solde}}</b></div></div></div>
@@ -257,10 +261,10 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 <section class="clock" aria-label="Horloge de test (testeurs uniquement)">
 <div class="clk-h"><span class="clk-tag">TEST · TESTEURS UNIQUEMENT</span><span class="clk-day">{{phaseLbl}}</span></div>
 <p class="clk-p">Pour jouer un tournoi entier en une soirée : chaque clic fait passer le tournoi au jour suivant (un jour sans carte déposée = abandon). Les adversaires et le champ de 311 joueurs sont simulés ; tout reste sur cet appareil.</p>
-<div class="clk-b"><sc-if value="{{canNext}}" hint-placeholder-val="{{ true }}"><button class="btn btn-clk" onClick="{{next}}">⏭ Passer au jour suivant</button><span class="muted clk-n">{{nextLbl}}</span></sc-if>
+<div class="clk-b"><sc-if value="{{canNext}}" hint-placeholder-val="{{ true }}"><button class="btn btn-clk" onClick="{{next}}"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5l9 7-9 7z"/><path d="M19 5v14"/></svg>Passer au jour suivant</button><span class="muted clk-n">{{nextLbl}}</span></sc-if>
 <sc-if value="{{askReset}}" hint-placeholder-val="{{ false }}"><span class="clk-q">Effacer vos cartes et revenir au jeudi ?</span><button class="btn btn-s sm" onClick="{{reset}}">Oui, recommencer</button><button class="btn btn-s sm" onClick="{{noReset}}">Non</button></sc-if>
-<sc-if value="{{isOver}}" hint-placeholder-val="{{ false }}"><button class="btn btn-clk" onClick="{{wantReset}}">↺ Recommencer le tournoi</button></sc-if>
-<sc-if value="{{canNext}}" hint-placeholder-val="{{ true }}"><button class="lnk" onClick="{{wantReset}}">Recommencer le tournoi</button></sc-if></div>
+<sc-if value="{{isOver}}" hint-placeholder-val="{{ false }}"><button class="btn btn-clk" onClick="{{wantReset}}"><svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>Recommencer le tournoi</button></sc-if>
+<sc-if value="{{canNext}}" hint-placeholder-val="{{ true }}"><button class="lnk" onClick="{{wantReset}}">Recommencer le tournoi</button></sc-if><button class="lnk" onClick="{{resetWallet}}">Remettre le solde de démonstration ({{demoTxt}})</button></div>
 <sc-if value="{{hasMsg}}" hint-placeholder-val="{{ false }}"><div class="clk-msg"><sc-for list="{{msg}}" as="x" hint-placeholder-count="1"><div>{{x.m}}</div></sc-for></div></sc-if>
 </section>
 
@@ -299,7 +303,8 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 <div class="bhead"><h2 class="h2">{{boardTitle}}</h2><div class="row-w"><sc-for list="{{views}}" as="v" hint-placeholder-count="2"><button class="tab {{v.cls}}" onClick="{{v.go}}">{{v.label}}</button></sc-for><span class="sep"></span><button class="tab {{netCls}}" onClick="{{setNet}}">NET</button><button class="tab {{brutCls}}" onClick="{{setBrut}}">BRUT</button></div></div>
 <p class="muted sm-t">{{boardNote}}</p>
 <div class="lb" role="table" aria-label="Classement du tournoi"><div class="lbr lbh" role="row"><span class="c-pos">Pos</span><span class="c-mv"></span><span class="c-nm">Joueur</span><span class="c-r rc">T1</span><span class="c-r rc">T2</span><span class="c-r rc">T3</span><span class="c-r rc">T4</span><span class="c-r cc">{{curLbl}}</span><span class="c-tot">Total {{modeLbl}}</span></div>
-<sc-for list="{{rows}}" as="r" hint-placeholder-count="8"><sc-if value="{{r.gap}}" hint-placeholder-val="{{ false }}"><div class="lbgap">…</div></sc-if><sc-if value="{{r.cutBefore}}" hint-placeholder-val="{{ false }}"><div class="lbcut">✂ Ligne du cut · non qualifiés dessous</div></sc-if><sc-if value="{{r.abdBefore}}" hint-placeholder-val="{{ false }}"><div class="lbabd">Abandons (ABD) · mise de départ non engagée, sans dotation</div></sc-if><div class="lbr {{r.rc}}" role="row"><span class="c-pos b">{{r.pos}}</span><span class="c-mv {{r.moveCls}}">{{r.move}}</span><span class="c-nm"><span class="pn">{{r.name}}</span><span class="muted pg">{{r.golf}}</span></span><span class="c-r rc">{{r.c1}}</span><span class="c-r rc">{{r.c2}}</span><span class="c-r rc">{{r.c3}}</span><span class="c-r rc">{{r.c4}}</span><span class="c-r cc">{{r.cur}}</span><span class="c-tot b">{{r.tot}}</span></div></sc-for></div>
+<sc-if value="{{hasPin}}" hint-placeholder-val="{{ true }}"><div class="lbr me pin" role="row" aria-label="Votre position"><span class="c-pos b">{{pin.pos}}</span><span class="c-mv {{pin.moveCls}}">{{pin.move}}</span><span class="c-nm"><span class="pn">Vous · {{pin.name}}</span><span class="muted pg">{{pinNote}}</span></span><span class="c-r rc">{{pin.c1}}</span><span class="c-r rc">{{pin.c2}}</span><span class="c-r rc">{{pin.c3}}</span><span class="c-r rc">{{pin.c4}}</span><span class="c-r cc">{{pin.cur}}</span><span class="c-tot b">{{pin.tot}}</span></div></sc-if>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="8"><sc-if value="{{r.gap}}" hint-placeholder-val="{{ false }}"><div class="lbgap">…</div></sc-if><sc-if value="{{r.cutBefore}}" hint-placeholder-val="{{ false }}"><div class="lbcut">Ligne du cut · non qualifiés dessous</div></sc-if><sc-if value="{{r.abdBefore}}" hint-placeholder-val="{{ false }}"><div class="lbabd">Abandons (ABD) · mise de départ non engagée, sans dotation</div></sc-if><div class="lbr {{r.rc}}" role="row"><span class="c-pos b">{{r.pos}}</span><span class="c-mv {{r.moveCls}}">{{r.move}}</span><span class="c-nm"><span class="pn">{{r.name}}</span><span class="muted pg">{{r.golf}}</span></span><span class="c-r rc">{{r.c1}}</span><span class="c-r rc">{{r.c2}}</span><span class="c-r rc">{{r.c3}}</span><span class="c-r rc">{{r.c4}}</span><span class="c-r cc">{{r.cur}}</span><span class="c-tot b">{{r.tot}}</span></div></sc-for></div>
 <div class="row-w"><button class="btn btn-s" onClick="{{toggleAll}}">{{allLbl}}</button></div>
 </section>
 </sc-if>
@@ -378,7 +383,7 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 
 <div class="gc gt">
 <header class="hdr">
-<a class="back" href="{{gameHref}}">← Retour au jeu</a>
+<a class="back" href="{{modeHref}}">← Retour au jeu</a>
 <button class="logo" onClick="{{goHome}}" aria-label="Accueil du Greencut Tour">GREENCUT <span class="t">TOUR</span></button>
 <nav class="nav" aria-label="Greencut Tour"><sc-for list="{{nav}}" as="n" hint-placeholder-count="6"><button class="{{n.cls}}" onClick="{{n.go}}">{{n.label}}</button></sc-for></nav>
 <div class="me"><div class="av" aria-hidden="true">{{initials}}</div><div class="mew"><div class="mename">{{me}}</div><div class="muted mesub">Solde : <b class="gold">{{solde}}</b></div></div></div>
@@ -393,10 +398,10 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 <section class="clock" aria-label="Horloge de test (testeurs uniquement)">
 <div class="clk-h"><span class="clk-tag">TEST · TESTEURS UNIQUEMENT</span><span class="clk-day">{{phaseLbl}}</span></div>
 <p class="clk-p">Pour jouer un tournoi entier en une soirée : chaque clic fait passer le tournoi au jour suivant (un jour sans carte déposée = abandon). Les adversaires et le champ de 311 joueurs sont simulés ; tout reste sur cet appareil.</p>
-<div class="clk-b"><sc-if value="{{canNext}}" hint-placeholder-val="{{ true }}"><button class="btn btn-clk" onClick="{{next}}">⏭ Passer au jour suivant</button><span class="muted clk-n">{{nextLbl}}</span></sc-if>
+<div class="clk-b"><sc-if value="{{canNext}}" hint-placeholder-val="{{ true }}"><button class="btn btn-clk" onClick="{{next}}"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5l9 7-9 7z"/><path d="M19 5v14"/></svg>Passer au jour suivant</button><span class="muted clk-n">{{nextLbl}}</span></sc-if>
 <sc-if value="{{askReset}}" hint-placeholder-val="{{ false }}"><span class="clk-q">Effacer vos cartes et revenir au jeudi ?</span><button class="btn btn-s sm" onClick="{{reset}}">Oui, recommencer</button><button class="btn btn-s sm" onClick="{{noReset}}">Non</button></sc-if>
-<sc-if value="{{isOver}}" hint-placeholder-val="{{ false }}"><button class="btn btn-clk" onClick="{{wantReset}}">↺ Recommencer le tournoi</button></sc-if>
-<sc-if value="{{canNext}}" hint-placeholder-val="{{ true }}"><button class="lnk" onClick="{{wantReset}}">Recommencer le tournoi</button></sc-if></div>
+<sc-if value="{{isOver}}" hint-placeholder-val="{{ false }}"><button class="btn btn-clk" onClick="{{wantReset}}"><svg class="ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>Recommencer le tournoi</button></sc-if>
+<sc-if value="{{canNext}}" hint-placeholder-val="{{ true }}"><button class="lnk" onClick="{{wantReset}}">Recommencer le tournoi</button></sc-if><button class="lnk" onClick="{{resetWallet}}">Remettre le solde de démonstration ({{demoTxt}})</button></div>
 <sc-if value="{{hasMsg}}" hint-placeholder-val="{{ false }}"><div class="clk-msg"><sc-for list="{{msg}}" as="x" hint-placeholder-count="1"><div>{{x.m}}</div></sc-for></div></sc-if>
 </section>
 
@@ -435,7 +440,8 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 <div class="bhead"><h2 class="h2">{{boardTitle}}</h2><div class="row-w"><sc-for list="{{views}}" as="v" hint-placeholder-count="2"><button class="tab {{v.cls}}" onClick="{{v.go}}">{{v.label}}</button></sc-for><span class="sep"></span><button class="tab {{netCls}}" onClick="{{setNet}}">NET</button><button class="tab {{brutCls}}" onClick="{{setBrut}}">BRUT</button></div></div>
 <p class="muted sm-t">{{boardNote}}</p>
 <div class="lb" role="table" aria-label="Classement du tournoi"><div class="lbr lbh" role="row"><span class="c-pos">Pos</span><span class="c-mv"></span><span class="c-nm">Joueur</span><span class="c-r rc">T1</span><span class="c-r rc">T2</span><span class="c-r rc">T3</span><span class="c-r rc">T4</span><span class="c-r cc">{{curLbl}}</span><span class="c-tot">Total {{modeLbl}}</span></div>
-<sc-for list="{{rows}}" as="r" hint-placeholder-count="8"><sc-if value="{{r.gap}}" hint-placeholder-val="{{ false }}"><div class="lbgap">…</div></sc-if><sc-if value="{{r.cutBefore}}" hint-placeholder-val="{{ false }}"><div class="lbcut">✂ Ligne du cut · non qualifiés dessous</div></sc-if><sc-if value="{{r.abdBefore}}" hint-placeholder-val="{{ false }}"><div class="lbabd">Abandons (ABD) · mise de départ non engagée, sans dotation</div></sc-if><div class="lbr {{r.rc}}" role="row"><span class="c-pos b">{{r.pos}}</span><span class="c-mv {{r.moveCls}}">{{r.move}}</span><span class="c-nm"><span class="pn">{{r.name}}</span><span class="muted pg">{{r.golf}}</span></span><span class="c-r rc">{{r.c1}}</span><span class="c-r rc">{{r.c2}}</span><span class="c-r rc">{{r.c3}}</span><span class="c-r rc">{{r.c4}}</span><span class="c-r cc">{{r.cur}}</span><span class="c-tot b">{{r.tot}}</span></div></sc-for></div>
+<sc-if value="{{hasPin}}" hint-placeholder-val="{{ true }}"><div class="lbr me pin" role="row" aria-label="Votre position"><span class="c-pos b">{{pin.pos}}</span><span class="c-mv {{pin.moveCls}}">{{pin.move}}</span><span class="c-nm"><span class="pn">Vous · {{pin.name}}</span><span class="muted pg">{{pinNote}}</span></span><span class="c-r rc">{{pin.c1}}</span><span class="c-r rc">{{pin.c2}}</span><span class="c-r rc">{{pin.c3}}</span><span class="c-r rc">{{pin.c4}}</span><span class="c-r cc">{{pin.cur}}</span><span class="c-tot b">{{pin.tot}}</span></div></sc-if>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="8"><sc-if value="{{r.gap}}" hint-placeholder-val="{{ false }}"><div class="lbgap">…</div></sc-if><sc-if value="{{r.cutBefore}}" hint-placeholder-val="{{ false }}"><div class="lbcut">Ligne du cut · non qualifiés dessous</div></sc-if><sc-if value="{{r.abdBefore}}" hint-placeholder-val="{{ false }}"><div class="lbabd">Abandons (ABD) · mise de départ non engagée, sans dotation</div></sc-if><div class="lbr {{r.rc}}" role="row"><span class="c-pos b">{{r.pos}}</span><span class="c-mv {{r.moveCls}}">{{r.move}}</span><span class="c-nm"><span class="pn">{{r.name}}</span><span class="muted pg">{{r.golf}}</span></span><span class="c-r rc">{{r.c1}}</span><span class="c-r rc">{{r.c2}}</span><span class="c-r rc">{{r.c3}}</span><span class="c-r rc">{{r.c4}}</span><span class="c-r cc">{{r.cur}}</span><span class="c-tot b">{{r.tot}}</span></div></sc-for></div>
 <div class="row-w"><button class="btn btn-s" onClick="{{toggleAll}}">{{allLbl}}</button></div>
 </section>
 </sc-if>
@@ -545,6 +551,8 @@ const LIM = 60; let rows = st.rows; const sepCut = st.cutOn ? st.nIn : -1; const
 let shown = rows.map((r, i) => Object.assign({}, r, { i, rc: 'row' + (r.me ? ' me' : '') + (r.sect !== 'in' ? ' out' : ''), cutBefore: i === sepCut && sepCut > 0, abdBefore: i === sepAbd && st.nAbd > 0, c1: r.cells[0], c2: r.cells[1], c3: r.cells[2], c4: r.cells[3], cur: r.cells[st.view - 1] }));
 if (!s.all) { shown = shown.filter((r) => r.i < LIM || r.me || (r.i >= sepAbd && r.i < sepAbd + 3) || (r.i >= sepCut && r.i < sepCut + 2)); }
 shown.forEach((r, k) => { r.gap = k > 0 && r.i - shown[k - 1].i > 1; });
+const pinR = rows.find((r) => r.me); const pin = pinR ? Object.assign({}, pinR, { c1: pinR.cells[0], c2: pinR.cells[1], c3: pinR.cells[2], c4: pinR.cells[3], cur: pinR.cells[st.view - 1], pos: pinR.pos || (pinR.sect === 'abd' ? 'ABD' : '—') }) : null;
+const pinNote = !pin ? '' : (pin.sect === 'abd' ? 'Abandon (ABD)' : (pin.sect === 'cut' ? 'Cut manqué' : (pin.thru ? 'Votre ligne' : 'Pas encore de carte déposée')));
 const boardTitle = (ph > 4 && st.view === 4 ? 'Classement final' : 'Classement après le tour ' + st.view) + (st.closed ? '' : ' (en cours)');
 const boardNote = (st.cutOn ? 'Ligne du cut : ' + st.cutN + ' qualifiés à ' + st.cutLine + '. ' : (st.view <= 2 && proj ? 'Cut provisoire : ' + proj + ' (50e place). ' : '')) + st.total + ' inscrits · ' + st.nAbd + ' abandon' + (st.nAbd > 1 ? 's' : '') + '. Classement officiel au net ; « — » : carte du jour pas encore déposée.';
 // dotation
@@ -560,10 +568,11 @@ const EV = [['21 → 24', 'janv.', 'Tournoi', 'Greencut Emirates Golf Club', 'Pa
 const events = EV.filter((e) => s.calF === 'all' || (s.calF === 'gc' && e[2] !== 'Tournoi') || (s.calF === 'open' && e[8] !== 'c-soon')).map((e) => ({ d: e[0], m: e[1], type: e[2], gc: e[3], course: e[4], partner: e[5], isCal: e[5] === 'Callaway', noCal: e[5] !== 'Callaway', dot: e[6], status: e[7], cls: e[8], note: e[9], open: e[8] === 'c-live', go: go('home'), box: 'ev' + (e[8] === 'c-live' ? ' live' : (e[2] !== 'Tournoi' ? ' major' : '')) }));
 const calFilters = [['all', 'Toute la saison'], ['gc', 'Grand Chelem et Finale'], ['open', 'Jouables et programmés']].map(([k, l]) => ({ label: l, cls: s.calF === k ? 'on' : '', go: set({ calF: k }) }));
 const next = () => { const r = U.advance(U.load()); this.reload({ msg: r.msg.length ? r.msg : ['Jour suivant.'], view: Math.min(r.T.phase, 4), askReset: false }); };
+const resetWallet = () => { const w = GreencutEngine.wallet.reset(); this.setState({ w, msg: ['Solde de démonstration remis : ' + f(w.pts) + ' pts et ' + f(w.fees) + ' fees.'] }); };
 const reset = () => { const T2 = U.reset(); this.setState({ T: T2, msg: ['Tournoi recommencé : jeudi, tour 1 ouvert. Votre solde de points est conservé.'], view: 1, askReset: false, scRound: 0, w: GreencutEngine.wallet.get() }); };
 return {
   isHome: s.scr === 'home', isBoard: s.scr === 'board', isRules: s.scr === 'rules', isPurse: s.scr === 'purse', isCal: s.scr === 'cal', isCards: s.scr === 'cards', isSc: s.scr === 'sc',
-  nav, tabs, gameHref, playHref, markPlay, tourName: C.name, partnerUrl: C.partnerUrl, dates: C.dates, me: T.hero.name, golf: T.hero.golf, initials: T.hero.name.slice(0, 2).toUpperCase(), solde: f(s.w.pts) + ' pts', fees: f(s.w.fees) + ' fees',
+  nav, tabs, gameHref, modeHref: this.tourLink('mode'), resetWallet, demoTxt: f(GreencutEngine.wallet.demo.pts) + ' pts · ' + f(GreencutEngine.wallet.demo.fees) + ' fees', pin: pin || {}, hasPin: !!pin, pinNote, playHref, markPlay, tourName: C.name, partnerUrl: C.partnerUrl, dates: C.dates, me: T.hero.name, golf: T.hero.golf, initials: T.hero.name.slice(0, 2).toUpperCase(), solde: f(s.w.pts) + ' pts', fees: f(s.w.fees) + ' fees',
   phaseLbl: U.phaseLabel(T), statusChip: ph > 4 ? 'Tournoi terminé · résultats publiés' : 'Tournoi en cours · tour ' + ph + ' sur 4', statusCls: ph > 4 ? 'chip c-done' : 'chip c-live',
   nextLbl: U.nextLabel(T), canNext: ph <= 4, isOver: ph > 4, msg: s.msg.map((m) => ({ m })), hasMsg: s.msg.length > 0, next, askReset: s.askReset, wantReset: set({ askReset: true }), noReset: set({ askReset: false }), reset,
   days, meTxt, cutTxt, resTxt, hasRes: !!R, canPlay: cp.ok, cantPlay: !cp.ok, playTxt, whyNot: cp.why, stake, cards, hasCards: cards.length > 0, noCards: cards.length === 0,

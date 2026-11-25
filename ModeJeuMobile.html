@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Greencut">
+<meta name="theme-color" content="#0b0618"><link rel="manifest" href="manifest.webmanifest">
+<title>Greencut – Mode de jeu (vertical)</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="bundle.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,700;0,900;1,700;1,900&amp;display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&amp;display=swap">
+<style media="(orientation: portrait)" data-o="v">body{margin:0;background:#0b0618}
+.mj{font-family:"Titillium Web",system-ui,sans-serif;color:#f3eefc;background:radial-gradient(ellipse at 50% 0%,#2a0f55 0%,#0b0618 60%);font-size:15px;line-height:22px;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.mj *{box-sizing:border-box}
+.hdr{flex:none;height:52px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 16px;background:#0e0626;border-bottom:2px solid #ff4fa3;box-shadow:0 6px 24px #ff4fa344}
+.logo{margin:0;font-style:italic;font-weight:900;font-size:22px;letter-spacing:.02em}
+.stp{display:flex;gap:10px;font-size:12px;white-space:nowrap}.stp b{color:#b9acd6;font-weight:700}.stp b.ok{color:#5eead4}.stp b.on{color:#ff4fa3}
+.mj-main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 24px 28px;display:flex;flex-direction:column;gap:16px}
+.h2{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:40px;line-height:1.05;margin:0}
+.h3{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:700;font-size:28px;line-height:1.1;margin:0}
+.lead{margin:6px 0 0;color:#b9acd6}.muted{color:#b9acd6}.gold{color:#ffd166}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9acd6}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card.classic{background:#140a2e;border:2px solid #ff4fa3;box-shadow:0 0 22px #ff4fa333}
+.card.tour{background:#06150d;border:2px solid #ffd166;box-shadow:0 0 22px #ffd16633}
+.tag{align-self:flex-start;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:2px 10px;border-radius:6px;background:#ff4fa3;color:#0e0626}.tag.tg{background:#ffd166;color:#06150d}
+.sub{color:#b9acd6;font-size:14px;line-height:20px}
+.pts{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.look{display:flex;align-items:center;gap:8px;font-size:13px;color:#b9acd6}.sw{width:30px;height:18px;border-radius:5px;flex:none}.sw-c{background:linear-gradient(90deg,#2a0f55,#ff4fa3)}.sw-t{background:linear-gradient(90deg,#0f4a2c,#ffd166)}
+.status{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.stx{font-size:14px}
+.chip{display:inline-flex;align-items:center;border-radius:999px;padding:1px 10px;font-size:13px;font-weight:700;white-space:nowrap}.c-live{background:#5eead422;color:#5eead4;border:1px solid #5eead4}.c-done{background:#ffffff10;color:#f3eefc;border:1px solid #f3eefc66}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 18px;border-radius:12px;font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:22px;letter-spacing:.03em;text-decoration:none;border:0;cursor:pointer;margin-top:auto;text-align:center}
+.btn-p{background:#ff4fa3;color:#0e0626;box-shadow:0 0 18px #ff4fa3}.btn-g{background:#ffd166;color:#06150d;box-shadow:0 0 18px #ffd16688}.btn-clk{background:#5eead4;color:#06150d;font-size:18px;min-height:48px;margin-top:0}
+.wallet{border:1px solid #ffffff22;border-radius:14px;padding:14px 16px;background:#ffffff08;display:flex;flex-direction:column;gap:8px}
+.wl{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:18px}.wn{margin:0;font-size:13px;line-height:18px;color:#b9acd6}
+.test{border:2px dashed #5eead4;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.clk-tag{font-size:11px;font-weight:900;letter-spacing:.12em;color:#06150d;background:#5eead4;border-radius:6px;padding:1px 8px}
+.msg{margin:0;color:#5eead4;font-weight:700}
+.mj{width:390px;max-width:100vw;height:844px;max-height:100dvh;font-size:14px;line-height:20px}
+.hdr{padding:0 12px}.logo{font-size:20px}.stp{gap:6px;font-size:11px}
+.mj-main{padding:14px 14px 18px;gap:12px}.h2{font-size:30px}.h3{font-size:23px}
+.modes{grid-template-columns:1fr;gap:12px}.card{padding:14px;gap:8px}.btn{font-size:20px;min-height:50px}.btn-clk{font-size:16px;white-space:normal;padding:6px 12px}
+@media (max-width:350px){.stp b:first-child{display:none}}
+.btn{font-size:19px;white-space:nowrap;padding:0 12px}
+@media (max-width:350px){.btn{font-size:16px;padding:0 8px}}
+</style>
+<style media="(orientation: landscape)" data-o="h">body{margin:0;background:#0b0618}
+.mj{font-family:"Titillium Web",system-ui,sans-serif;color:#f3eefc;background:radial-gradient(ellipse at 50% 0%,#2a0f55 0%,#0b0618 60%);font-size:15px;line-height:22px;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.mj *{box-sizing:border-box}
+.hdr{flex:none;height:52px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 16px;background:#0e0626;border-bottom:2px solid #ff4fa3;box-shadow:0 6px 24px #ff4fa344}
+.logo{margin:0;font-style:italic;font-weight:900;font-size:22px;letter-spacing:.02em}
+.stp{display:flex;gap:10px;font-size:12px;white-space:nowrap}.stp b{color:#b9acd6;font-weight:700}.stp b.ok{color:#5eead4}.stp b.on{color:#ff4fa3}
+.mj-main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 24px 28px;display:flex;flex-direction:column;gap:16px}
+.h2{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:40px;line-height:1.05;margin:0}
+.h3{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:700;font-size:28px;line-height:1.1;margin:0}
+.lead{margin:6px 0 0;color:#b9acd6}.muted{color:#b9acd6}.gold{color:#ffd166}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9acd6}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card.classic{background:#140a2e;border:2px solid #ff4fa3;box-shadow:0 0 22px #ff4fa333}
+.card.tour{background:#06150d;border:2px solid #ffd166;box-shadow:0 0 22px #ffd16633}
+.tag{align-self:flex-start;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:2px 10px;border-radius:6px;background:#ff4fa3;color:#0e0626}.tag.tg{background:#ffd166;color:#06150d}
+.sub{color:#b9acd6;font-size:14px;line-height:20px}
+.pts{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.look{display:flex;align-items:center;gap:8px;font-size:13px;color:#b9acd6}.sw{width:30px;height:18px;border-radius:5px;flex:none}.sw-c{background:linear-gradient(90deg,#2a0f55,#ff4fa3)}.sw-t{background:linear-gradient(90deg,#0f4a2c,#ffd166)}
+.status{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.stx{font-size:14px}
+.chip{display:inline-flex;align-items:center;border-radius:999px;padding:1px 10px;font-size:13px;font-weight:700;white-space:nowrap}.c-live{background:#5eead422;color:#5eead4;border:1px solid #5eead4}.c-done{background:#ffffff10;color:#f3eefc;border:1px solid #f3eefc66}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 18px;border-radius:12px;font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:22px;letter-spacing:.03em;text-decoration:none;border:0;cursor:pointer;margin-top:auto;text-align:center}
+.btn-p{background:#ff4fa3;color:#0e0626;box-shadow:0 0 18px #ff4fa3}.btn-g{background:#ffd166;color:#06150d;box-shadow:0 0 18px #ffd16688}.btn-clk{background:#5eead4;color:#06150d;font-size:18px;min-height:48px;margin-top:0}
+.wallet{border:1px solid #ffffff22;border-radius:14px;padding:14px 16px;background:#ffffff08;display:flex;flex-direction:column;gap:8px}
+.wl{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:18px}.wn{margin:0;font-size:13px;line-height:18px;color:#b9acd6}
+.test{border:2px dashed #5eead4;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.clk-tag{font-size:11px;font-weight:900;letter-spacing:.12em;color:#06150d;background:#5eead4;border-radius:6px;padding:1px 8px}
+.msg{margin:0;color:#5eead4;font-weight:700}
+.mj{width:844px;max-width:100vw;height:390px;max-height:100dvh;font-size:13px;line-height:18px}
+.hdr{height:44px}.logo{font-size:19px}
+.mj-main{padding:10px 16px 14px;gap:10px}.intro{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}.h2{font-size:26px}.lead{margin:0;font-size:13px}.h3{font-size:21px}
+.modes{gap:12px}.card{padding:12px;gap:6px}.pts{gap:1px}.btn{font-size:19px;min-height:46px}.look{display:none}
+</style>
+<style>html,body{margin:0;height:100%;background:#0b0618;overflow:hidden}#app{height:100%;display:flex;justify-content:center;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);padding-top:env(safe-area-inset-top,0px);box-sizing:border-box}#app>.gc{width:calc(100vw - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px))!important;height:calc(100dvh - env(safe-area-inset-top,0px))!important;max-height:calc(100dvh - env(safe-area-inset-top,0px))!important;max-width:480px!important}html[data-o=h] #app>.gc{max-width:960px!important}</style>
+<script src="./support.js?v=41"></script><script src="./engine.js?v=41"></script>
+</head><body><div id="app"></div>
+<script id="tv" type="text/plain">
+
+<div class="gc mj">
+<header class="hdr"><h1 class="logo">Greencut</h1><div class="stp" aria-label="Étapes"><b class="ok">✓ Connexion</b><b class="on">2 · Mode de jeu</b><b>3 · Table</b></div></header>
+<main class="mj-main">
+<div class="intro"><h2 class="h2">Comment voulez-vous jouer ?</h2>
+<p class="lead">Deux façons de jouer à Greencut, avec les mêmes règles à la table. Vous pouvez passer de l’une à l’autre à tout moment.</p></div>
+<div class="modes">
+<section class="card classic" aria-labelledby="t-classic">
+<div class="tag">Partie classique</div>
+<h3 class="h3" id="t-classic">Une partie, quand vous voulez</h3>
+<ul class="pts"><li>18 trous sur le parcours de votre choix</li><li>Une table de 4 à 6 joueurs</li><li>Mise de 10 000 pts ; vos jetons restants reviennent sur votre solde à la fin</li><li>La partie compte pour vous seul : jamais pour un tournoi</li></ul>
+<div class="look"><span class="sw sw-c" aria-hidden="true"></span>À la table : décor violet et rose</div>
+<a class="btn btn-p" href="{{classicHref}}">Jouer une partie classique ▶︎</a>
+</section>
+<section class="card tour" aria-labelledby="t-tour">
+<div class="tag tg">Mode tournoi · Greencut Tour</div>
+<h3 class="h3" id="t-tour">{{tourName}}</h3>
+<div class="sub">présenté par Callaway · {{dates}} · parcours Majlis</div>
+<ul class="pts"><li>4 jours, 4 tours, du jeudi au dimanche</li><li>Cut après le tour 2 : les 50 premiers jouent le week-end</li><li>Seule votre meilleure carte du jour compte</li><li>2 000 000 pts de dotation + lots Callaway</li></ul>
+<div class="status"><span class="{{statusCls}}">{{statusChip}}</span><span class="stx">{{tourStatus}}</span></div>
+<div class="look"><span class="sw sw-t" aria-hidden="true"></span>À la table : décor vert et or, badge « TOURNOI »</div>
+<a class="btn btn-g" href="{{tourHref}}">Entrer dans le Greencut Tour ▶︎</a>
+</section>
+</div>
+<section class="wallet" aria-label="Votre solde">
+<div class="wl"><span class="lbl">Votre solde</span><b class="gold">{{ptsTxt}}</b><span class="muted">·</span><b>{{feesTxt}}</b></div>
+<p class="wn">{{walletNote}}</p>
+<sc-if value="{{low}}" hint-placeholder-val="{{ false }}"><div class="test"><span class="clk-tag">TEST</span><span>Solde insuffisant pour une mise (moins de 10 000 pts et moins de 100 fees).</span><button class="btn btn-clk" onClick="{{resetWallet}}">Remettre le solde de démonstration ({{demoTxt}})</button></div></sc-if>
+<sc-if value="{{hasMsg}}" hint-placeholder-val="{{ false }}"><p class="msg" role="status">{{msg}}</p></sc-if>
+</section>
+</main>
+</div>
+</script>
+<script id="th" type="text/plain">
+
+<div class="gc mj">
+<header class="hdr"><h1 class="logo">Greencut</h1><div class="stp" aria-label="Étapes"><b class="ok">✓ Connexion</b><b class="on">2 · Mode de jeu</b><b>3 · Table</b></div></header>
+<main class="mj-main">
+<div class="intro"><h2 class="h2">Comment voulez-vous jouer ?</h2>
+<p class="lead">Deux façons de jouer à Greencut, avec les mêmes règles à la table. Vous pouvez passer de l’une à l’autre à tout moment.</p></div>
+<div class="modes">
+<section class="card classic" aria-labelledby="t-classic">
+<div class="tag">Partie classique</div>
+<h3 class="h3" id="t-classic">Une partie, quand vous voulez</h3>
+<ul class="pts"><li>18 trous sur le parcours de votre choix</li><li>Une table de 4 à 6 joueurs</li><li>Mise de 10 000 pts ; vos jetons restants reviennent sur votre solde à la fin</li><li>La partie compte pour vous seul : jamais pour un tournoi</li></ul>
+<div class="look"><span class="sw sw-c" aria-hidden="true"></span>À la table : décor violet et rose</div>
+<a class="btn btn-p" href="{{classicHref}}">Jouer une partie classique ▶︎</a>
+</section>
+<section class="card tour" aria-labelledby="t-tour">
+<div class="tag tg">Mode tournoi · Greencut Tour</div>
+<h3 class="h3" id="t-tour">{{tourName}}</h3>
+<div class="sub">présenté par Callaway · {{dates}} · parcours Majlis</div>
+<ul class="pts"><li>4 jours, 4 tours, du jeudi au dimanche</li><li>Cut après le tour 2 : les 50 premiers jouent le week-end</li><li>Seule votre meilleure carte du jour compte</li><li>2 000 000 pts de dotation + lots Callaway</li></ul>
+<div class="status"><span class="{{statusCls}}">{{statusChip}}</span><span class="stx">{{tourStatus}}</span></div>
+<div class="look"><span class="sw sw-t" aria-hidden="true"></span>À la table : décor vert et or, badge « TOURNOI »</div>
+<a class="btn btn-g" href="{{tourHref}}">Entrer dans le Greencut Tour ▶︎</a>
+</section>
+</div>
+<section class="wallet" aria-label="Votre solde">
+<div class="wl"><span class="lbl">Votre solde</span><b class="gold">{{ptsTxt}}</b><span class="muted">·</span><b>{{feesTxt}}</b></div>
+<p class="wn">{{walletNote}}</p>
+<sc-if value="{{low}}" hint-placeholder-val="{{ false }}"><div class="test"><span class="clk-tag">TEST</span><span>Solde insuffisant pour une mise (moins de 10 000 pts et moins de 100 fees).</span><button class="btn btn-clk" onClick="{{resetWallet}}">Remettre le solde de démonstration ({{demoTxt}})</button></div></sc-if>
+<sc-if value="{{hasMsg}}" hint-placeholder-val="{{ false }}"><p class="msg" role="status">{{msg}}</p></sc-if>
+</section>
+</main>
+</div>
+</script>
+<script>
+
+class Component extends DCLogic {
+constructor(props) { super(props); this.state = { w: GreencutEngine.wallet.get(), msg: '' }; }
+renderVals() {
+const U = GreencutEngine.tour; const W = GreencutEngine.wallet; const f = (n) => U.fmt(n); const s = this.state; const C = U.cfg;
+const T = U.load(); const me = U.standings(T, {}).me; const cp = U.canPlay(T); const ph = T.phase;
+const tourStatus = ph > 4 ? (T.results && T.results.heroPos ? 'Résultats publiés : vous terminez ' + T.results.heroPos + (T.results.heroPos === 1 ? 'er' : 'e') + '.' : 'Résultats publiés.') : (!cp.ok ? cp.why : (me && me.thru ? 'Vous êtes ' + me.pos + ' à ' + me.tot + ' après ' + me.thru + ' tour' + (me.thru > 1 ? 's' : '') + '.' : 'Vous n’avez pas encore joué de carte.'));
+const low = W.low(s.w);
+return {
+  classicHref: this.tourLink('classic'), tourHref: this.tourLink('tour'), tourName: C.name, dates: C.dates,
+  statusChip: ph > 4 ? 'Terminé' : 'Tour ' + ph + ' en cours', statusCls: ph > 4 ? 'chip c-done' : 'chip c-live', tourStatus,
+  ptsTxt: f(s.w.pts) + ' pts', feesTxt: f(s.w.fees) + ' fees', low, demoTxt: f(W.demo.pts) + ' pts · ' + f(W.demo.fees) + ' fees',
+  walletNote: 'Le même solde sert aux deux modes. Chaque partie ou carte de tournoi engage une mise de 10 000 pts, avec votre accord ; sous 10 000 pts, vous convertissez 100 fees en 10 000 pts.',
+  resetWallet: () => { const w = W.reset(); this.setState({ w, msg: 'Solde de démonstration remis : ' + f(w.pts) + ' pts et ' + f(w.fees) + ' fees.' }); },
+  hasMsg: !!s.msg, msg: s.msg
+};
+}
+}
+GreencutEngine.install(Component);
+
+GCMount({v:document.getElementById('tv').textContent,h:document.getElementById('th').textContent}, Component, document.getElementById('app'));
+</script></body></html>

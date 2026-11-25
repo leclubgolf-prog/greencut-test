@@ -34,7 +34,7 @@ standrews: { id: 'standrews', name: 'Old Course – St Andrews Links', short: 'O
 ] },
 majlis: { id: 'majlis', name: 'Emirates Golf Club – Majlis Course', short: 'Majlis', place: 'Dubaï', country: 'Émirats arabes unis', tee: 'tees Championship', plays: 0, status: 'ok', source: 'golfpass', tourOnly: true,
   pars: [4, 4, 5, 3, 4, 4, 3, 4, 4, 5, 3, 4, 5, 4, 3, 4, 4, 5], yards: [469, 351, 601, 180, 451, 485, 186, 459, 488, 549, 169, 476, 550, 434, 190, 446, 359, 564],
-  names: ['Majlis 1', 'Majlis 2', 'Majlis 3', 'Majlis 4', 'Majlis 5', 'Majlis 6', 'Majlis 7', 'Majlis 8', 'Majlis 9', 'Majlis 10', 'Majlis 11', 'Majlis 12', 'Majlis 13', 'Majlis 14', 'Majlis 15', 'Majlis 16', 'Majlis 17', 'Majlis 18'],
+  names: Array(18).fill(''), // décision du 25/11/2026 : pas de nom aux trous du Majlis (numéro, par, yards et index seulement)
   idx: [9, 13, 15, 11, 3, 7, 17, 1, 5, 10, 16, 2, 12, 4, 14, 8, 18, 6], tip: 'Parcours du tournoi Greencut Emirates Golf Club : Par 72 (aller 35, retour 37), 4 Par 3 et 4 Par 5, dans le désert de Dubaï. Tracés simplifiés.',
   D: [
 [0.2, [[0.6, 1]], ['fl', 'r'], '', 'Par 4 d’ouverture de 469 yds : départ exigeant, désert de part et d’autre du fairway.'],
@@ -588,9 +588,11 @@ if (!WALLET.saved()) { WALLET.set(WALLET.get()); }
 const w = WALLET.get(); return { tour: true, course: TOUR_CFG.course, pts: w.pts, fees: w.fees, gate: true, fresh: true, hist: [] };
 }
 tourLink(kind) {
-const href = (typeof window !== 'undefined' && window.location && window.location.href) || ''; const dc = /\.dc\.html/.test(href);
-if (kind === 'game') { return dc ? (/Tour\.dc|Prototype/.test(href) ? 'Prototype.dc.html' : (/Paysage/.test(href) ? 'TableMobilePaysage.dc.html' : 'TableMobile.dc.html')) : 'TableMobile.html'; }
-return dc ? (/Prototype/.test(href) ? 'GreencutTour.dc.html' : (/Paysage/.test(href) ? 'GreencutTourMobilePaysage.dc.html' : 'GreencutTourMobile.dc.html')) : 'GreencutTourMobile.html';
+const href = (typeof window !== 'undefined' && window.location && window.location.href) || ''; const dc = /\.dc\.html/.test(href); const desk = /(Prototype|GreencutTour|ModeJeu)\.dc\.html/.test(href); const land = /Paysage/.test(href);
+const pick = (d, m, l, site) => (dc ? (desk ? d : (land ? l : m)) : site);
+if (kind === 'game' || kind === 'classic') { return pick('Prototype.dc.html', 'TableMobile.dc.html', 'TableMobilePaysage.dc.html', kind === 'classic' ? 'ChoixParcoursMobile.html' : 'TableMobile.html'); }
+if (kind === 'mode') { return pick('ModeJeu.dc.html', 'ModeJeuMobile.dc.html', 'ModeJeuMobilePaysage.dc.html', 'ModeJeuMobile.html'); }
+return pick('GreencutTour.dc.html', 'GreencutTourMobile.dc.html', 'GreencutTourMobilePaysage.dc.html', 'GreencutTourMobile.html');
 }
 tourHook(p, n) {
 if (!n) { return; }
@@ -604,20 +606,22 @@ const card = c ? { round: c.r, net: c.net, brut: c.brut, bonus: c.bonus, kept: b
 this.setState({ tourDone: true, tourCard: card });
 }
 tourPatch(v) {
-const s = this.state; if (!s || (!s.tour && !s.fresh)) { if (v) { v.tourOn = false; v.tourHref = this.tourLink('tour'); v.tourBackLbl = 'Greencut Tour'; } return v; }
+const s = this.state; if (v) { v.modeCls = s && s.tour ? 'tourmode' : 'classicmode'; v.modeHref = this.tourLink('mode'); v.lowFunds = !!(s && s.gate && s.pts < 10000 && (s.fees < 100 || s.expired)); v.lowLbl = 'Recharger le solde'; }
+if (!s || (!s.tour && !s.fresh)) { if (v) { v.tourOn = false; v.tourHref = this.tourLink('tour'); v.tourBackLbl = 'Greencut Tour'; } return v; }
 const U = TOUR; const T = U.load(); const cp = U.canPlay(T); const f = (n) => this.fmt(n);
 v.tourHref = this.tourLink('tour'); v.tourOn = !!s.tour; v.tourBackLbl = '← Retour au Greencut Tour'; v.tourGateLbl = '← Greencut Tour';
-if (!s.tour) { if (s.fresh && v.gateTitle !== undefined && !s.quit) { v.gateTitle = 'Nouvelle partie'; v.gateIntro = 'Mise de départ : 10 000 pts, prise sur votre solde avec votre accord ; vos jetons restants reviennent sur votre solde à la fin.'; } return v; }
+if (!s.tour) { if (s.fresh && v.gateTitle !== undefined && !s.quit) { v.gateTitle = 'Nouvelle partie classique'; v.gateIntro = 'Mise de départ : 10 000 pts, prise sur votre solde avec votre accord ; vos jetons restants reviennent sur votre solde à la fin.'; } if (v.lowFunds && v.gateIntro !== undefined) { v.gateIntro += ' Solde insuffisant pour la mise (moins de 10 000 pts et moins de 100 fees) : pour continuer le test, rechargez le solde de démonstration.'; } return v; }
 const c = s.tourCard; const st = s.pts >= 10000 ? 'Je confirme : 10 000 pts' : 'Convertir 100 fees et jouer';
 if (s.gate) {
   if (!cp.ok) { v.gateTitle = 'Carte de tournoi impossible'; v.gateIntro = cp.why; v.gateTxt = ''; v.startCls = 'off'; v.startGame = () => {}; v.startLabel = 'Tour fermé'; }
   else if (s.tourDone && c) { v.gateTitle = 'Carte déposée au tournoi'; v.gateIntro = 'Tour ' + c.round + ' · net ' + U.signed(c.net) + ' (brut ' + U.signed(c.brut) + ', bonus de jetons ' + U.signed(c.bonus) + '), déposée à ' + c.at + '. ' + (c.kept ? 'C’est votre carte retenue du jour.' : 'Votre meilleure carte du jour reste à ' + U.signed(c.best) + '.') + ' Vos jetons ont été rendus à votre solde. Vous pouvez rejouer une carte (nouvelle mise de 10 000 pts) ou revenir au Greencut Tour.'; v.startLabel = st; }
   else if (s.quit) { v.gateTitle = 'Carte abandonnée'; v.gateIntro = 'Vous avez quitté la table : cette carte ne compte pas et sa mise de 10 000 pts est perdue. Vous pouvez rejouer une carte tant que le tour est ouvert.'; v.startLabel = st; }
-  else { v.gateTitle = 'Carte de tournoi · tour ' + T.phase; v.gateIntro = TOUR_CFG.name + ' · parcours Majlis, Par 72 · ' + TOUR_CFG.days[T.phase - 1] + '. Votre solde : ' + f(s.pts) + ' pts. Seule votre meilleure carte du jour (au net) compte.'; v.startLabel = st; }
+  else { v.gateTitle = 'Mode tournoi · carte du tour ' + T.phase; v.gateIntro = TOUR_CFG.name + ' · parcours Majlis, Par 72 · ' + TOUR_CFG.days[T.phase - 1] + '. Votre solde : ' + f(s.pts) + ' pts. Seule votre meilleure carte du jour (au net) compte.'; v.startLabel = st; }
   if (cp.ok && typeof v.startGame === 'function') { const go = v.startGame; v.startGame = () => { const k = this.state; const can = k.pts >= 10000 || (!k.expired && k.fees >= 100); const n = k.nP; go(); if (can) { const T2 = TOUR.load(); TOUR.dropCard(T2); TOUR.startCard(T2, n); } }; }
 }
 if (v.finalTxt !== undefined && s.tourDone && c) { v.finalTxt = (v.finalTxt ? v.finalTxt + ' ' : '') + 'Carte déposée au tournoi : net ' + U.signed(c.net) + (c.kept ? ' (retenue).' : ' (votre meilleure du jour reste ' + U.signed(c.best) + ').'); }
 if (Array.isArray(v.nOpts)) { v.nOpts = v.nOpts.map((o) => Object.assign({}, o, { pick: () => { if (!this.state.gate) { return; } const k = this.state; this.setState(this.initial({ nP: Number(o.n), tour: true, course: TOUR_CFG.course, gate: true, fresh: true, pts: k.pts, fees: k.fees, hist: k.hist, soundOn: k.soundOn, sndVol: k.sndVol, av: k.av, pseudo: k.pseudo, pseudoDraft: k.pseudoDraft, club: k.club, ball: k.ball, level: k.level, help: k.help, tourDone: k.tourDone, tourCard: k.tourCard, sheet: '' })); } })); }
+if (v.lowFunds && v.gateIntro) { v.gateIntro += ' Solde insuffisant pour la mise : pour continuer le test, rechargez le solde de démonstration.'; }
 v.tourChip = 'GREENCUT TOUR · TOUR ' + Math.min(T.phase, 4); v.tourRound = String(Math.min(T.phase, 4));
 return v;
 }
@@ -719,10 +723,16 @@ const tourStore = {
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (x) { /* stockage indisponible */ } },
   del(k) { try { localStorage.removeItem(k); } catch (x) { /* stockage indisponible */ } }
 };
+// Solde de démonstration : 18 400 pts (les 8 400 pts affichés au départ d'une partie + les 10 000 pts de sa mise, pas encore engagée) et 1 250 fees.
+// v2 (V39) : un solde enregistré en V38 (créé à 8 400 pts, sans la mise de départ) reçoit une seule fois les 10 000 pts manquants.
+const WALLET_DEMO = { pts: 18400, fees: 1250 };
 const WALLET = {
-  get() { const w = tourStore.get(WALLET_KEY); return w && typeof w.pts === 'number' && typeof w.fees === 'number' ? { pts: w.pts, fees: w.fees } : { pts: 8400, fees: 1250 }; },
-  set(w) { tourStore.set(WALLET_KEY, { pts: Math.max(0, Math.round(w.pts)), fees: Math.max(0, Math.round(w.fees)) }); },
-  saved() { return !!tourStore.get(WALLET_KEY); }
+  get() { const w = tourStore.get(WALLET_KEY); if (!(w && typeof w.pts === 'number' && typeof w.fees === 'number')) { return { pts: WALLET_DEMO.pts, fees: WALLET_DEMO.fees }; } if (w.v !== 2) { w.pts += 10000; w.v = 2; tourStore.set(WALLET_KEY, w); } return { pts: w.pts, fees: w.fees }; },
+  set(w) { tourStore.set(WALLET_KEY, { v: 2, pts: Math.max(0, Math.round(w.pts)), fees: Math.max(0, Math.round(w.fees)) }); },
+  saved() { return !!tourStore.get(WALLET_KEY); },
+  reset() { this.set(WALLET_DEMO); return this.get(); },
+  demo: WALLET_DEMO,
+  low(w) { w = w || this.get(); return w.pts < 10000 && w.fees < 100; }
 };
 const TOUR = {
   cfg: TOUR_CFG,
