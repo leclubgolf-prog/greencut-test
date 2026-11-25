@@ -34,6 +34,28 @@
 .test{border:2px dashed #5eead4;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 .clk-tag{font-size:11px;font-weight:900;letter-spacing:.12em;color:#06150d;background:#5eead4;border-radius:6px;padding:1px 8px}
 .msg{margin:0;color:#5eead4;font-weight:700}
+.hr{display:flex;align-items:center;gap:8px;flex:none}
+/* Menu général commun (V42) */
+a.me{color:inherit;text-decoration:none;cursor:pointer;border-radius:999px;padding:2px 6px 2px 2px}
+a.me:hover{background:#ffd16614}
+.me .av{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:#140a2e;color:#f3eefc}
+.me .mew{display:flex;flex-direction:column;line-height:1.2}
+.mnb{flex:none;width:44px;height:44px;border-radius:12px;border:1px solid #ffd16699;background:transparent;color:#ffd166;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.mnb:hover{background:#ffd1661a}
+.gm-scrim{position:fixed;inset:0;background:#000a;z-index:50}
+.gm{position:fixed;top:0;right:0;bottom:0;width:min(360px,88vw);z-index:51;background:#0e0626;border-left:2px solid #ffd166;box-shadow:-10px 0 40px #000c;display:flex;flex-direction:column;padding:14px 16px;overflow-y:auto;font-family:'Titillium Web',sans-serif;color:#f3eefc;text-align:left}
+.gm-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.gm-h b{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:800;font-size:24px;letter-spacing:.02em}
+.gm-x{width:44px;height:44px;border-radius:12px;border:1px solid #b9acd655;background:transparent;color:#f3eefc;font-size:18px;cursor:pointer}
+.gm-me{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1.5px solid #ffd166;border-radius:14px;color:inherit;text-decoration:none;margin-bottom:10px;background:#ffd16614}
+.gm-me .av{flex:none;width:44px;height:44px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;background:#140a2e}
+.gm-mt{display:flex;flex-direction:column;line-height:1.25}.gm-mt b{font-size:17px}.gm-mt small,.gm-i small{color:#b9acd6;font-size:12.5px}
+.gm-l{display:flex;flex-direction:column;gap:6px}
+.gm-i{display:flex;flex-direction:column;justify-content:center;min-height:52px;padding:6px 14px;border:1px solid #b9acd655;border-radius:12px;color:#f3eefc;text-decoration:none;line-height:1.25}
+.gm-i b{font-size:15.5px}.gm-i:hover{border-color:#ff4fa3}
+.gm-i.gm-t{background:#ffd166;border-color:#ffd166;color:#06150d}.gm-i.gm-t small{color:#06150dcc}
+@media (max-height:480px){.gm{padding:8px 14px}.gm-h{margin-bottom:4px}.gm-me{padding:6px 10px;margin-bottom:6px}.gm-l{display:grid;grid-template-columns:1fr 1fr;gap:6px}.gm-i{min-height:46px;padding:4px 10px}.gm-i small{display:none}.gm{width:min(520px,70vw)}}
+.gm .gm-i,.gm .gm-me,.hdr a.me{color:#f3eefc}.gm .gm-i.gm-t{color:#06150d}
 .mj{width:390px;max-width:100vw;height:844px;max-height:100dvh;font-size:14px;line-height:20px}
 .hdr{padding:0 12px}.logo{font-size:20px}.stp{gap:6px;font-size:11px}
 .mj-main{padding:14px 14px 18px;gap:12px}.h2{font-size:30px}.h3{font-size:23px}
@@ -41,6 +63,8 @@
 @media (max-width:350px){.stp b:first-child{display:none}}
 .btn{font-size:19px;white-space:nowrap;padding:0 12px}
 @media (max-width:350px){.btn{font-size:16px;padding:0 8px}}
+.me .mew{display:none}.me .av{width:36px;height:36px;font-size:13px}.mnb{width:40px;height:40px}.stp b:first-child{display:none}.hr{gap:6px}
+@media (max-width:350px){.stp b:last-child{display:none}.hdr{gap:6px}}
 </style>
 <style media="(orientation: landscape)" data-o="h">body{margin:0;background:#0b0618}
 .mj{font-family:"Titillium Web",system-ui,sans-serif;color:#f3eefc;background:radial-gradient(ellipse at 50% 0%,#2a0f55 0%,#0b0618 60%);font-size:15px;line-height:22px;display:flex;flex-direction:column;overflow:hidden;position:relative}
@@ -70,18 +94,53 @@
 .test{border:2px dashed #5eead4;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 .clk-tag{font-size:11px;font-weight:900;letter-spacing:.12em;color:#06150d;background:#5eead4;border-radius:6px;padding:1px 8px}
 .msg{margin:0;color:#5eead4;font-weight:700}
+.hr{display:flex;align-items:center;gap:8px;flex:none}
+/* Menu général commun (V42) */
+a.me{color:inherit;text-decoration:none;cursor:pointer;border-radius:999px;padding:2px 6px 2px 2px}
+a.me:hover{background:#ffd16614}
+.me .av{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:#140a2e;color:#f3eefc}
+.me .mew{display:flex;flex-direction:column;line-height:1.2}
+.mnb{flex:none;width:44px;height:44px;border-radius:12px;border:1px solid #ffd16699;background:transparent;color:#ffd166;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.mnb:hover{background:#ffd1661a}
+.gm-scrim{position:fixed;inset:0;background:#000a;z-index:50}
+.gm{position:fixed;top:0;right:0;bottom:0;width:min(360px,88vw);z-index:51;background:#0e0626;border-left:2px solid #ffd166;box-shadow:-10px 0 40px #000c;display:flex;flex-direction:column;padding:14px 16px;overflow-y:auto;font-family:'Titillium Web',sans-serif;color:#f3eefc;text-align:left}
+.gm-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.gm-h b{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:800;font-size:24px;letter-spacing:.02em}
+.gm-x{width:44px;height:44px;border-radius:12px;border:1px solid #b9acd655;background:transparent;color:#f3eefc;font-size:18px;cursor:pointer}
+.gm-me{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1.5px solid #ffd166;border-radius:14px;color:inherit;text-decoration:none;margin-bottom:10px;background:#ffd16614}
+.gm-me .av{flex:none;width:44px;height:44px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;background:#140a2e}
+.gm-mt{display:flex;flex-direction:column;line-height:1.25}.gm-mt b{font-size:17px}.gm-mt small,.gm-i small{color:#b9acd6;font-size:12.5px}
+.gm-l{display:flex;flex-direction:column;gap:6px}
+.gm-i{display:flex;flex-direction:column;justify-content:center;min-height:52px;padding:6px 14px;border:1px solid #b9acd655;border-radius:12px;color:#f3eefc;text-decoration:none;line-height:1.25}
+.gm-i b{font-size:15.5px}.gm-i:hover{border-color:#ff4fa3}
+.gm-i.gm-t{background:#ffd166;border-color:#ffd166;color:#06150d}.gm-i.gm-t small{color:#06150dcc}
+@media (max-height:480px){.gm{padding:8px 14px}.gm-h{margin-bottom:4px}.gm-me{padding:6px 10px;margin-bottom:6px}.gm-l{display:grid;grid-template-columns:1fr 1fr;gap:6px}.gm-i{min-height:46px;padding:4px 10px}.gm-i small{display:none}.gm{width:min(520px,70vw)}}
+.gm .gm-i,.gm .gm-me,.hdr a.me{color:#f3eefc}.gm .gm-i.gm-t{color:#06150d}
 .mj{width:844px;max-width:100vw;height:390px;max-height:100dvh;font-size:13px;line-height:18px}
 .hdr{height:44px}.logo{font-size:19px}
 .mj-main{padding:10px 16px 14px;gap:10px}.intro{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}.h2{font-size:26px}.lead{margin:0;font-size:13px}.h3{font-size:21px}
 .modes{gap:12px}.card{padding:12px;gap:6px}.pts{gap:1px}.btn{font-size:19px;min-height:46px}.look{display:none}
+.me .mew{display:none}.me .av{width:34px;height:34px;font-size:12px}.mnb{width:38px;height:38px}
 </style>
 <style>html,body{margin:0;height:100%;background:#0b0618;overflow:hidden}#app{height:100%;display:flex;justify-content:center;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);padding-top:env(safe-area-inset-top,0px);box-sizing:border-box}#app>.gc{width:calc(100vw - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px))!important;height:calc(100dvh - env(safe-area-inset-top,0px))!important;max-height:calc(100dvh - env(safe-area-inset-top,0px))!important;max-width:480px!important}html[data-o=h] #app>.gc{max-width:960px!important}</style>
-<script src="./support.js?v=41"></script><script src="./engine.js?v=41"></script>
+<script src="./support.js?v=42"></script><script src="./engine.js?v=42"></script>
 </head><body><div id="app"></div>
 <script id="tv" type="text/plain">
 
 <div class="gc mj">
-<header class="hdr"><h1 class="logo">Greencut</h1><div class="stp" aria-label="Étapes"><b class="ok">✓ Connexion</b><b class="on">2 · Mode de jeu</b><b>3 · Table</b></div></header>
+<header class="hdr"><h1 class="logo">Greencut</h1><div class="stp" aria-label="Étapes"><b class="ok">✓ Connexion</b><b class="on">2 · Mode de jeu</b><b>3 · Table</b></div><div class="hr"><a class="me" href="{{profilHref}}" title="Ouvrir mon profil" aria-label="Mon profil : {{pseudo}}"><span class="av">{{initials}}</span><span class="mew"><span class="mename">{{pseudo}}</span><span class="muted mesub">Solde : <b class="gold">{{solde}}</b></span></span></a>
+<button class="mnb" onClick="{{toggleMenu}}" aria-label="Ouvrir le menu général" title="Menu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></header>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}"><div class="gm-scrim" onClick="{{closeMenu}}"></div>
+<nav class="gm" aria-label="Menu général">
+<div class="gm-h"><b>Menu</b><button class="gm-x" onClick="{{closeMenu}}" aria-label="Fermer le menu">✕</button></div>
+<a class="gm-me" href="{{profilHref}}"><span class="av">{{initials}}</span><span class="gm-mt"><b>{{pseudo}}</b><small>Mon profil · solde, conversion des points</small></span></a>
+<div class="gm-l">
+<a class="gm-i" href="{{classicHref2}}"><b>Jouer une partie classique</b><small>Choisir un parcours et une table</small></a>
+<a class="gm-i gm-t" href="{{tourHref2}}"><b>Greencut Tour</b><small>Le tournoi de la semaine</small></a>
+<a class="gm-i" href="{{learnHref}}"><b>Apprendre à jouer</b><small>Les règles pas à pas</small></a>
+<a class="gm-i" href="{{modeHref2}}"><b>Changer de mode de jeu</b><small>Partie classique ou tournoi</small></a>
+</div>
+</nav></sc-if>
 <main class="mj-main">
 <div class="intro"><h2 class="h2">Comment voulez-vous jouer ?</h2>
 <p class="lead">Deux façons de jouer à Greencut, avec les mêmes règles à la table. Vous pouvez passer de l’une à l’autre à tout moment.</p></div>
@@ -115,7 +174,19 @@
 <script id="th" type="text/plain">
 
 <div class="gc mj">
-<header class="hdr"><h1 class="logo">Greencut</h1><div class="stp" aria-label="Étapes"><b class="ok">✓ Connexion</b><b class="on">2 · Mode de jeu</b><b>3 · Table</b></div></header>
+<header class="hdr"><h1 class="logo">Greencut</h1><div class="stp" aria-label="Étapes"><b class="ok">✓ Connexion</b><b class="on">2 · Mode de jeu</b><b>3 · Table</b></div><div class="hr"><a class="me" href="{{profilHref}}" title="Ouvrir mon profil" aria-label="Mon profil : {{pseudo}}"><span class="av">{{initials}}</span><span class="mew"><span class="mename">{{pseudo}}</span><span class="muted mesub">Solde : <b class="gold">{{solde}}</b></span></span></a>
+<button class="mnb" onClick="{{toggleMenu}}" aria-label="Ouvrir le menu général" title="Menu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></header>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}"><div class="gm-scrim" onClick="{{closeMenu}}"></div>
+<nav class="gm" aria-label="Menu général">
+<div class="gm-h"><b>Menu</b><button class="gm-x" onClick="{{closeMenu}}" aria-label="Fermer le menu">✕</button></div>
+<a class="gm-me" href="{{profilHref}}"><span class="av">{{initials}}</span><span class="gm-mt"><b>{{pseudo}}</b><small>Mon profil · solde, conversion des points</small></span></a>
+<div class="gm-l">
+<a class="gm-i" href="{{classicHref2}}"><b>Jouer une partie classique</b><small>Choisir un parcours et une table</small></a>
+<a class="gm-i gm-t" href="{{tourHref2}}"><b>Greencut Tour</b><small>Le tournoi de la semaine</small></a>
+<a class="gm-i" href="{{learnHref}}"><b>Apprendre à jouer</b><small>Les règles pas à pas</small></a>
+<a class="gm-i" href="{{modeHref2}}"><b>Changer de mode de jeu</b><small>Partie classique ou tournoi</small></a>
+</div>
+</nav></sc-if>
 <main class="mj-main">
 <div class="intro"><h2 class="h2">Comment voulez-vous jouer ?</h2>
 <p class="lead">Deux façons de jouer à Greencut, avec les mêmes règles à la table. Vous pouvez passer de l’une à l’autre à tout moment.</p></div>
@@ -149,13 +220,14 @@
 <script>
 
 class Component extends DCLogic {
-constructor(props) { super(props); this.state = { w: GreencutEngine.wallet.get(), msg: '' }; }
+constructor(props) { super(props); this.state = { menu: false, w: GreencutEngine.wallet.get(), msg: '' }; }
 renderVals() {
 const U = GreencutEngine.tour; const W = GreencutEngine.wallet; const f = (n) => U.fmt(n); const s = this.state; const C = U.cfg;
 const T = U.load(); const me = U.standings(T, {}).me; const cp = U.canPlay(T); const ph = T.phase;
 const tourStatus = ph > 4 ? (T.results && T.results.heroPos ? 'Résultats publiés : vous terminez ' + T.results.heroPos + (T.results.heroPos === 1 ? 'er' : 'e') + '.' : 'Résultats publiés.') : (!cp.ok ? cp.why : (me && me.thru ? 'Vous êtes ' + me.pos + ' à ' + me.tot + ' après ' + me.thru + ' tour' + (me.thru > 1 ? 's' : '') + '.' : 'Vous n’avez pas encore joué de carte.'));
 const low = W.low(s.w);
 return {
+  ...this.navMenu(s.menu, () => this.setState({ menu: !this.state.menu })), solde: f(s.w.pts) + ' pts',
   classicHref: this.tourLink('classic'), tourHref: this.tourLink('tour'), tourName: C.name, dates: C.dates,
   statusChip: ph > 4 ? 'Terminé' : 'Tour ' + ph + ' en cours', statusCls: ph > 4 ? 'chip c-done' : 'chip c-live', tourStatus,
   ptsTxt: f(s.w.pts) + ' pts', feesTxt: f(s.w.fees) + ' fees', low, demoTxt: f(W.demo.pts) + ' pts · ' + f(W.demo.fees) + ' fees',

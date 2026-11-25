@@ -216,6 +216,7 @@ quit: false, askQuit: false, tuto: false, moreOpt: false, aidDetail: false, stac
 };
 s.tour = false; s.tourDone = false; s.fresh = false;
 if (!keep && typeof document !== 'undefined') { const tk = this.tourStart(); if (tk) { Object.assign(s, tk); } else if (WALLET.saved()) { const w = WALLET.get(); Object.assign(s, { pts: w.pts, fees: w.fees, gate: true, fresh: true, hist: [] }); } }
+if (!keep && typeof window !== 'undefined' && window.location) { const g = /[?&]go=(profil|card|board)\b/.exec(window.location.search || ''); if (g) { s.screen = g[1]; } }
 if (keep) { Object.assign(s, keep); }
 this._crs = s.course; try { Object.assign(s, this.deal(s.stacks, 1, s.strokes, Z(0)), { raiseTo: 200 }); } finally { this._crs = null; }
 if (typeof window !== 'undefined' && window.GreencutMP && window.location && /[?&]mp=/.test(window.location.search || '') && !this._mpTried) { this._mpTried = true; setTimeout(() => { window.GreencutMP.autoAttach(this); }, 0); }
@@ -587,11 +588,21 @@ if (!on) { return null; }
 if (!WALLET.saved()) { WALLET.set(WALLET.get()); }
 const w = WALLET.get(); return { tour: true, course: TOUR_CFG.course, pts: w.pts, fees: w.fees, gate: true, fresh: true, hist: [] };
 }
+// Menu général commun (V42) : mêmes entrées, même ordre sur tous les écrans hors table
+navMenu(open, toggle) {
+let ps = ''; try { ps = localStorage.getItem('greencut.pseudo') || ''; } catch (x) { ps = ''; }
+ps = ps || TOUR.heroName();
+const L = (k) => this.tourLink(k);
+return { menuOpen: !!open, toggleMenu: toggle, closeMenu: () => { if (open) { toggle(); } }, pseudo: ps, initials: initialsOf(ps),
+  profilHref: L('profil'), classicHref2: L('classic'), tourHref2: L('tour'), modeHref2: L('mode'), cardHref: L('card'), boardHref: L('board'), learnHref: L('learn') };
+}
 tourLink(kind) {
 const href = (typeof window !== 'undefined' && window.location && window.location.href) || ''; const dc = /\.dc\.html/.test(href); const desk = /(Prototype|GreencutTour|ModeJeu)\.dc\.html/.test(href); const land = /Paysage/.test(href);
 const pick = (d, m, l, site) => (dc ? (desk ? d : (land ? l : m)) : site);
 if (kind === 'game' || kind === 'classic') { return pick('Prototype.dc.html', 'TableMobile.dc.html', 'TableMobilePaysage.dc.html', kind === 'classic' ? 'ChoixParcoursMobile.html' : 'TableMobile.html'); }
 if (kind === 'mode') { return pick('ModeJeu.dc.html', 'ModeJeuMobile.dc.html', 'ModeJeuMobilePaysage.dc.html', 'ModeJeuMobile.html'); }
+if (kind === 'learn') { return pick('Parcours.dc.html', 'ParcoursMobile.dc.html', 'ParcoursMobilePaysage.dc.html', 'ParcoursMobile.html'); }
+if (kind === 'profil' || kind === 'card' || kind === 'board') { return pick('Prototype.dc.html', 'TableMobile.dc.html', 'TableMobilePaysage.dc.html', 'TableMobile.html') + '?go=' + kind; }
 return pick('GreencutTour.dc.html', 'GreencutTourMobile.dc.html', 'GreencutTourMobilePaysage.dc.html', 'GreencutTourMobile.html');
 }
 tourHook(p, n) {
@@ -889,8 +900,16 @@ const TOUR = {
   // Projection du cut pendant les tours 1 et 2 : 50e place provisoire
   cutProjection(T) { if (T.cut || T.phase > 2) { return null; } const n = T.phase; const el = this.players(T).filter((p) => !(p.abd && p.abd <= n) && this.playedAll(p, n)); const ord = this.order(el, n); const p = ord[Math.min(ord.length, TOUR_CFG.cut) - 1]; return p ? this.signed(this.sumR(p, 1, n, 'net')) : ''; }
 };
+// Initiales du pseudo : « Tiger Woods » → TW, « MaxFairway » → MF, « Max » → MA
+function initialsOf(name) {
+  const n = String(name || '').trim(); if (!n) { return '?'; }
+  const w = n.replace(/([a-zà-ÿ])([A-ZÀ-Þ])/g, '$1 $2').split(/[\s._-]+/).filter(Boolean);
+  const s = w.length > 1 ? w[0].charAt(0) + w[1].charAt(0) : w[0].slice(0, 2);
+  return s.toUpperCase();
+}
 window.GreencutEngine = {
-  version: '1.1.0',
+  version: '1.2.0',
+  initials: initialsOf,
   tour: TOUR,
   wallet: WALLET,
   cards() { return GreencutEngineBase.prototype.cards.call({}); },

@@ -101,6 +101,27 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 .scc.h{font-size:12px;font-weight:700;color:#b9acd6;background:#ffffff08}.scc.l{justify-content:flex-start;padding-left:8px;color:#b9acd6}.scc.s{font-size:12px}
 .ic{flex:none}
 .lbr.pin{position:sticky;top:0;z-index:2;background:#3b3216;border:1px solid #ffd166;border-radius:8px;margin:4px 0 6px;box-shadow:0 6px 14px #0008}.lbr.pin .pn{color:#ffd166}
+/* Menu général commun (V42) */
+a.me{color:inherit;text-decoration:none;cursor:pointer;border-radius:999px;padding:2px 6px 2px 2px}
+a.me:hover{background:#ffd16614}
+.me .av{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:#140a2e;color:#f3eefc}
+.me .mew{display:flex;flex-direction:column;line-height:1.2}
+.mnb{flex:none;width:44px;height:44px;border-radius:12px;border:1px solid #ffd16699;background:transparent;color:#ffd166;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.mnb:hover{background:#ffd1661a}
+.gm-scrim{position:fixed;inset:0;background:#000a;z-index:50}
+.gm{position:fixed;top:0;right:0;bottom:0;width:min(360px,88vw);z-index:51;background:#0e0626;border-left:2px solid #ffd166;box-shadow:-10px 0 40px #000c;display:flex;flex-direction:column;padding:14px 16px;overflow-y:auto;font-family:'Titillium Web',sans-serif;color:#f3eefc;text-align:left}
+.gm-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.gm-h b{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:800;font-size:24px;letter-spacing:.02em}
+.gm-x{width:44px;height:44px;border-radius:12px;border:1px solid #b9acd655;background:transparent;color:#f3eefc;font-size:18px;cursor:pointer}
+.gm-me{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1.5px solid #ffd166;border-radius:14px;color:inherit;text-decoration:none;margin-bottom:10px;background:#ffd16614}
+.gm-me .av{flex:none;width:44px;height:44px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;background:#140a2e}
+.gm-mt{display:flex;flex-direction:column;line-height:1.25}.gm-mt b{font-size:17px}.gm-mt small,.gm-i small{color:#b9acd6;font-size:12.5px}
+.gm-l{display:flex;flex-direction:column;gap:6px}
+.gm-i{display:flex;flex-direction:column;justify-content:center;min-height:52px;padding:6px 14px;border:1px solid #b9acd655;border-radius:12px;color:#f3eefc;text-decoration:none;line-height:1.25}
+.gm-i b{font-size:15.5px}.gm-i:hover{border-color:#ff4fa3}
+.gm-i.gm-t{background:#ffd166;border-color:#ffd166;color:#06150d}.gm-i.gm-t small{color:#06150dcc}
+@media (max-height:480px){.gm{padding:8px 14px}.gm-h{margin-bottom:4px}.gm-me{padding:6px 10px;margin-bottom:6px}.gm-l{display:grid;grid-template-columns:1fr 1fr;gap:6px}.gm-i{min-height:46px;padding:4px 10px}.gm-i small{display:none}.gm{width:min(520px,70vw)}}
+.gm .gm-i,.gm .gm-me,.hdr a.me{color:#f3eefc}.gm .gm-i.gm-t{color:#06150d}
 .gt{width:390px;max-width:100vw;height:844px;max-height:100dvh;font-size:14px;line-height:20px}
 .hdr{gap:8px;padding:8px 10px;flex-wrap:nowrap}.nav{display:none}.logo{font-size:19px;flex:1;min-width:0}.logo .t{font-size:13px;padding:0 5px}
 .back{padding:6px 10px;font-size:13px}.me .mew{display:none}.av{width:36px;height:36px;font-size:12px}
@@ -126,6 +147,9 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 .hero .pmark i{display:none}
 .logo{min-height:44px;align-items:center}
 @media (max-width:350px){.logo{font-size:16px;gap:5px}.logo .t{font-size:11px}.back{padding:6px 8px;font-size:12px}.hdr{gap:6px}}
+.me .av{width:36px;height:36px;font-size:12px}.mnb{width:40px;height:40px}
+.logo{font-size:17px;gap:5px}.logo .t{font-size:11px;padding:0 4px}
+@media (max-width:350px){.bl{display:none}.back{padding:6px 12px;font-size:16px}}
 </style>
 <style media="(orientation: landscape)" data-o="h">body{margin:0;background:#0b0618}
 .gt{font-family:"Titillium Web",system-ui,sans-serif;color:#f3eefc;background:#0b0618;font-size:15px;line-height:22px;display:flex;flex-direction:column;position:relative;overflow:hidden}
@@ -222,6 +246,27 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 .scc.h{font-size:12px;font-weight:700;color:#b9acd6;background:#ffffff08}.scc.l{justify-content:flex-start;padding-left:8px;color:#b9acd6}.scc.s{font-size:12px}
 .ic{flex:none}
 .lbr.pin{position:sticky;top:0;z-index:2;background:#3b3216;border:1px solid #ffd166;border-radius:8px;margin:4px 0 6px;box-shadow:0 6px 14px #0008}.lbr.pin .pn{color:#ffd166}
+/* Menu général commun (V42) */
+a.me{color:inherit;text-decoration:none;cursor:pointer;border-radius:999px;padding:2px 6px 2px 2px}
+a.me:hover{background:#ffd16614}
+.me .av{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:#140a2e;color:#f3eefc}
+.me .mew{display:flex;flex-direction:column;line-height:1.2}
+.mnb{flex:none;width:44px;height:44px;border-radius:12px;border:1px solid #ffd16699;background:transparent;color:#ffd166;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.mnb:hover{background:#ffd1661a}
+.gm-scrim{position:fixed;inset:0;background:#000a;z-index:50}
+.gm{position:fixed;top:0;right:0;bottom:0;width:min(360px,88vw);z-index:51;background:#0e0626;border-left:2px solid #ffd166;box-shadow:-10px 0 40px #000c;display:flex;flex-direction:column;padding:14px 16px;overflow-y:auto;font-family:'Titillium Web',sans-serif;color:#f3eefc;text-align:left}
+.gm-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.gm-h b{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:800;font-size:24px;letter-spacing:.02em}
+.gm-x{width:44px;height:44px;border-radius:12px;border:1px solid #b9acd655;background:transparent;color:#f3eefc;font-size:18px;cursor:pointer}
+.gm-me{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1.5px solid #ffd166;border-radius:14px;color:inherit;text-decoration:none;margin-bottom:10px;background:#ffd16614}
+.gm-me .av{flex:none;width:44px;height:44px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;background:#140a2e}
+.gm-mt{display:flex;flex-direction:column;line-height:1.25}.gm-mt b{font-size:17px}.gm-mt small,.gm-i small{color:#b9acd6;font-size:12.5px}
+.gm-l{display:flex;flex-direction:column;gap:6px}
+.gm-i{display:flex;flex-direction:column;justify-content:center;min-height:52px;padding:6px 14px;border:1px solid #b9acd655;border-radius:12px;color:#f3eefc;text-decoration:none;line-height:1.25}
+.gm-i b{font-size:15.5px}.gm-i:hover{border-color:#ff4fa3}
+.gm-i.gm-t{background:#ffd166;border-color:#ffd166;color:#06150d}.gm-i.gm-t small{color:#06150dcc}
+@media (max-height:480px){.gm{padding:8px 14px}.gm-h{margin-bottom:4px}.gm-me{padding:6px 10px;margin-bottom:6px}.gm-l{display:grid;grid-template-columns:1fr 1fr;gap:6px}.gm-i{min-height:46px;padding:4px 10px}.gm-i small{display:none}.gm{width:min(520px,70vw)}}
+.gm .gm-i,.gm .gm-me,.hdr a.me{color:#f3eefc}.gm .gm-i.gm-t{color:#06150d}
 .gt{width:844px;max-width:100vw;height:390px;max-height:100dvh;font-size:14px;line-height:20px}
 .hdr{gap:10px;padding:4px 12px;flex-wrap:nowrap}.nav{display:none}.logo{font-size:19px}.logo .t{font-size:13px;padding:0 5px}
 .back{padding:4px 10px;font-size:13px;min-height:40px}.me{margin-left:auto}.av{width:32px;height:32px;font-size:12px}.mesub{font-size:12px}
@@ -238,19 +283,32 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 .lbr{padding:3px 6px;grid-template-columns:44px 40px minmax(0,1fr) 50px 50px 50px 50px 70px}
 .scc{padding:2px 1px;font-size:12px}
 .logo{min-height:40px;align-items:center}
+.me .mew{display:none}.me .av{width:34px;height:34px;font-size:12px}.mnb{width:38px;height:38px}
 </style>
 <style>html,body{margin:0;height:100%;background:#0b0618;overflow:hidden}#app{height:100%;display:flex;justify-content:center;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);padding-top:env(safe-area-inset-top,0px);box-sizing:border-box}#app>.gc{width:calc(100vw - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px))!important;height:calc(100dvh - env(safe-area-inset-top,0px))!important;max-height:calc(100dvh - env(safe-area-inset-top,0px))!important;max-width:480px!important}html[data-o=h] #app>.gc{max-width:960px!important}</style>
-<script src="./support.js?v=41"></script><script src="./engine.js?v=41"></script>
+<script src="./support.js?v=42"></script><script src="./engine.js?v=42"></script>
 </head><body><div id="app"></div>
 <script id="tv" type="text/plain">
 
 <div class="gc gt">
 <header class="hdr">
-<a class="back" href="{{modeHref}}">← Retour au jeu</a>
+<a class="back" href="{{modeHref}}" aria-label="Retour au choix du mode de jeu">←<span class="bl">&nbsp;Mode de jeu</span></a>
 <button class="logo" onClick="{{goHome}}" aria-label="Accueil du Greencut Tour">GREENCUT <span class="t">TOUR</span></button>
 <nav class="nav" aria-label="Greencut Tour"><sc-for list="{{nav}}" as="n" hint-placeholder-count="6"><button class="{{n.cls}}" onClick="{{n.go}}">{{n.label}}</button></sc-for></nav>
-<div class="me"><div class="av" aria-hidden="true">{{initials}}</div><div class="mew"><div class="mename">{{me}}</div><div class="muted mesub">Solde : <b class="gold">{{solde}}</b></div></div></div>
+<a class="me" href="{{profilHref}}" title="Ouvrir mon profil" aria-label="Mon profil : {{pseudo}}"><span class="av">{{initials}}</span><span class="mew"><span class="mename">{{pseudo}}</span><span class="muted mesub">Solde : <b class="gold">{{solde}}</b></span></span></a>
+<button class="mnb" onClick="{{toggleMenu}}" aria-label="Ouvrir le menu général" title="Menu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
 </header>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}"><div class="gm-scrim" onClick="{{closeMenu}}"></div>
+<nav class="gm" aria-label="Menu général">
+<div class="gm-h"><b>Menu</b><button class="gm-x" onClick="{{closeMenu}}" aria-label="Fermer le menu">✕</button></div>
+<a class="gm-me" href="{{profilHref}}"><span class="av">{{initials}}</span><span class="gm-mt"><b>{{pseudo}}</b><small>Mon profil · solde, conversion des points</small></span></a>
+<div class="gm-l">
+<a class="gm-i" href="{{classicHref2}}"><b>Jouer une partie classique</b><small>Choisir un parcours et une table</small></a>
+<a class="gm-i gm-t" href="{{tourHref2}}"><b>Greencut Tour</b><small>Le tournoi de la semaine</small></a>
+<a class="gm-i" href="{{learnHref}}"><b>Apprendre à jouer</b><small>Les règles pas à pas</small></a>
+<a class="gm-i" href="{{modeHref2}}"><b>Changer de mode de jeu</b><small>Partie classique ou tournoi</small></a>
+</div>
+</nav></sc-if>
 <div class="partner">
 <span class="lbl plbl">Partenaire exclusif</span>
 <a class="pmark" href="{{partnerUrl}}" target="_blank" rel="noopener" title="Site officiel Callaway (nouvel onglet)" aria-label="Callaway, site officiel (nouvel onglet)"><b>CALLAWAY</b><i>logo officiel fourni par la marque</i></a>
@@ -383,11 +441,23 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 
 <div class="gc gt">
 <header class="hdr">
-<a class="back" href="{{modeHref}}">← Retour au jeu</a>
+<a class="back" href="{{modeHref}}" aria-label="Retour au choix du mode de jeu">←<span class="bl">&nbsp;Mode de jeu</span></a>
 <button class="logo" onClick="{{goHome}}" aria-label="Accueil du Greencut Tour">GREENCUT <span class="t">TOUR</span></button>
 <nav class="nav" aria-label="Greencut Tour"><sc-for list="{{nav}}" as="n" hint-placeholder-count="6"><button class="{{n.cls}}" onClick="{{n.go}}">{{n.label}}</button></sc-for></nav>
-<div class="me"><div class="av" aria-hidden="true">{{initials}}</div><div class="mew"><div class="mename">{{me}}</div><div class="muted mesub">Solde : <b class="gold">{{solde}}</b></div></div></div>
+<a class="me" href="{{profilHref}}" title="Ouvrir mon profil" aria-label="Mon profil : {{pseudo}}"><span class="av">{{initials}}</span><span class="mew"><span class="mename">{{pseudo}}</span><span class="muted mesub">Solde : <b class="gold">{{solde}}</b></span></span></a>
+<button class="mnb" onClick="{{toggleMenu}}" aria-label="Ouvrir le menu général" title="Menu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
 </header>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}"><div class="gm-scrim" onClick="{{closeMenu}}"></div>
+<nav class="gm" aria-label="Menu général">
+<div class="gm-h"><b>Menu</b><button class="gm-x" onClick="{{closeMenu}}" aria-label="Fermer le menu">✕</button></div>
+<a class="gm-me" href="{{profilHref}}"><span class="av">{{initials}}</span><span class="gm-mt"><b>{{pseudo}}</b><small>Mon profil · solde, conversion des points</small></span></a>
+<div class="gm-l">
+<a class="gm-i" href="{{classicHref2}}"><b>Jouer une partie classique</b><small>Choisir un parcours et une table</small></a>
+<a class="gm-i gm-t" href="{{tourHref2}}"><b>Greencut Tour</b><small>Le tournoi de la semaine</small></a>
+<a class="gm-i" href="{{learnHref}}"><b>Apprendre à jouer</b><small>Les règles pas à pas</small></a>
+<a class="gm-i" href="{{modeHref2}}"><b>Changer de mode de jeu</b><small>Partie classique ou tournoi</small></a>
+</div>
+</nav></sc-if>
 <div class="partner">
 <span class="lbl plbl">Partenaire exclusif</span>
 <a class="pmark" href="{{partnerUrl}}" target="_blank" rel="noopener" title="Site officiel Callaway (nouvel onglet)" aria-label="Callaway, site officiel (nouvel onglet)"><b>CALLAWAY</b><i>logo officiel fourni par la marque</i></a>
@@ -524,7 +594,7 @@ super(props);
 const U = GreencutEngine.tour; const W = GreencutEngine.wallet; if (!W.saved()) { W.set(W.get()); }
 let scr = 'home'; try { const q = (window.location.hash || '').replace('#', ''); if (['home', 'board', 'rules', 'purse', 'cal', 'cards', 'sc'].indexOf(q) >= 0) { scr = q; } } catch (x) { scr = 'home'; }
 const T = U.load(); U.save(T);
-this.state = { T, scr, view: Math.min(T.phase, 4), mode: 'net', msg: [], askReset: false, scRound: 0, calF: 'all', all: false, w: W.get() };
+this.state = { menu: false, T, scr, view: Math.min(T.phase, 4), mode: 'net', msg: [], askReset: false, scRound: 0, calF: 'all', all: false, w: W.get() };
 }
 reload(o) { const U = GreencutEngine.tour; const T = U.load(); this.setState(Object.assign({ T, w: GreencutEngine.wallet.get() }, o || {})); }
 renderVals() {
@@ -571,8 +641,9 @@ const next = () => { const r = U.advance(U.load()); this.reload({ msg: r.msg.len
 const resetWallet = () => { const w = GreencutEngine.wallet.reset(); this.setState({ w, msg: ['Solde de démonstration remis : ' + f(w.pts) + ' pts et ' + f(w.fees) + ' fees.'] }); };
 const reset = () => { const T2 = U.reset(); this.setState({ T: T2, msg: ['Tournoi recommencé : jeudi, tour 1 ouvert. Votre solde de points est conservé.'], view: 1, askReset: false, scRound: 0, w: GreencutEngine.wallet.get() }); };
 return {
+  ...this.navMenu(s.menu, () => this.setState({ menu: !this.state.menu })),
   isHome: s.scr === 'home', isBoard: s.scr === 'board', isRules: s.scr === 'rules', isPurse: s.scr === 'purse', isCal: s.scr === 'cal', isCards: s.scr === 'cards', isSc: s.scr === 'sc',
-  nav, tabs, gameHref, modeHref: this.tourLink('mode'), resetWallet, demoTxt: f(GreencutEngine.wallet.demo.pts) + ' pts · ' + f(GreencutEngine.wallet.demo.fees) + ' fees', pin: pin || {}, hasPin: !!pin, pinNote, playHref, markPlay, tourName: C.name, partnerUrl: C.partnerUrl, dates: C.dates, me: T.hero.name, golf: T.hero.golf, initials: T.hero.name.slice(0, 2).toUpperCase(), solde: f(s.w.pts) + ' pts', fees: f(s.w.fees) + ' fees',
+  nav, tabs, gameHref, modeHref: this.tourLink('mode'), resetWallet, demoTxt: f(GreencutEngine.wallet.demo.pts) + ' pts · ' + f(GreencutEngine.wallet.demo.fees) + ' fees', pin: pin || {}, hasPin: !!pin, pinNote, playHref, markPlay, tourName: C.name, partnerUrl: C.partnerUrl, dates: C.dates, me: T.hero.name, golf: T.hero.golf, solde: f(s.w.pts) + ' pts', fees: f(s.w.fees) + ' fees',
   phaseLbl: U.phaseLabel(T), statusChip: ph > 4 ? 'Tournoi terminé · résultats publiés' : 'Tournoi en cours · tour ' + ph + ' sur 4', statusCls: ph > 4 ? 'chip c-done' : 'chip c-live',
   nextLbl: U.nextLabel(T), canNext: ph <= 4, isOver: ph > 4, msg: s.msg.map((m) => ({ m })), hasMsg: s.msg.length > 0, next, askReset: s.askReset, wantReset: set({ askReset: true }), noReset: set({ askReset: false }), reset,
   days, meTxt, cutTxt, resTxt, hasRes: !!R, canPlay: cp.ok, cantPlay: !cp.ok, playTxt, whyNot: cp.why, stake, cards, hasCards: cards.length > 0, noCards: cards.length === 0,
