@@ -69,6 +69,7 @@ class GreencutEngineBase {
 sfxCheck(p, n) {
 try { this.tourHook(p, n); } catch (x) { /* tournoi facultatif */ }
 try { this.gameSave(n); } catch (x) { /* sauvegarde facultative */ }
+if (n && ['av', 'club', 'ball', 'golf', 'league'].some((k) => k in n)) { profileSave(Object.assign({}, this.state, n)); }
 if (!p || !n || !p.h || !n.h) { return; }
 if (n.h.hole !== p.h.hole) { this.sfx('deal'); return; }
 if (p.h.phase !== 'done' && n.h.phase === 'done') {
@@ -207,10 +208,11 @@ if (this._pace === undefined) { this._pace = typeof document !== 'undefined' && 
 if (keep && keep.nP) { NP = Math.max(MIN_P, Math.min(MAX_P, Math.round(keep.nP) || 6)); }
 let ps = 'MaxFairway'; try { const q = localStorage.getItem('greencut.pseudo'); if (q) { ps = q; } } catch (x) { ps = 'MaxFairway'; }
 let snd = { on: true, vol: 60 }; try { const q = JSON.parse(localStorage.getItem('greencut.sound') || 'null'); if (q) { snd = { on: q.on !== false, vol: typeof q.vol === 'number' ? q.vol : 60 }; } } catch (x) { snd = { on: true, vol: 60 }; }
+const prf = profileGet();
 let lvl = 'deb'; try { const d = JSON.parse(localStorage.getItem('greencut.parcours') || '{}'); if (d.expert || d['3a']) { lvl = 'exp'; } } catch (x) { lvl = 'deb'; }
 let crsId = (keep && keep.course) || 'augusta'; if (!(keep && keep.course)) { try { const q = localStorage.getItem('greencut.course'); if (q && COURSE_DATA[q]) { crsId = q; } } catch (x) { crsId = 'augusta'; } }
 const s = {
-course: crsId, screen: 'table', nP: NP, sortBy: 'net', soundOn: snd.on, sndVol: snd.vol, av: 0, pseudo: ps, pseudoDraft: ps, pseudoMsg: '', why: '', club: 'Titleist', ball: 'Pro V1', golf: 0, league: 0,
+course: crsId, screen: 'table', nP: NP, sortBy: 'net', soundOn: snd.on, sndVol: snd.vol, av: prf.av, pseudo: ps, pseudoDraft: ps, pseudoMsg: '', why: '', club: prf.club, ball: prf.ball, golf: prf.golf, league: prf.league,
 games: 1, gate: false, reload: false, fees: 1250, pts: 8400, dir: 'f2p', amt: 300, expired: false, feesMsg: '',
 hist: [ { a: 'Partie 1 : mise de départ', t: 'À l’instant', d: '−10 000 pts', e: '', cls: 'hf' }, { a: 'Points du jeu → fees', t: 'Aujourd’hui · 19:12', d: '−12 000 pts', e: '+120 fees', cls: 'hp' }, { a: 'Fees → points du jeu', t: '12 nov. · 21:40', d: '−200 fees', e: '+20 000 pts', cls: 'hf' } ],
 quit: false, askQuit: false, tuto: false, moreOpt: false, aidDetail: false, stacks: Z(10000), strokes: Array.from({ length: NP }, () => []), hole: 1, prevPos: null, trend: {}, help: lvl === 'deb', level: lvl
@@ -665,6 +667,7 @@ v.mFoldRest = () => this.setState({ sheet: 'fold' });
 // Profil : « Enregistrer et fermer » (V51) : enregistre le pseudo puis revient là d'où l'on vient (Tour, Mode de jeu, ou la partie)
 v.saveClose = () => { const k = this.state; const d = (k.pseudoDraft || '').trim();
   if (d && d !== k.pseudo) { if (d.length < 2) { this.setState({ pseudoMsg: '2 caractères minimum' }); return; } try { localStorage.setItem('greencut.pseudo', d); } catch (x) { /* stockage */ } this.setState({ pseudo: d, pseudoDraft: d }); }
+  profileSave(this.state);
   const m = typeof window !== 'undefined' && window.location ? /[?&]from=(tour|mode)\b/.exec(window.location.search || '') : null;
   if (m && !this.isLive(this.state)) { window.location.href = this.tourLink(m[1]); return; }
   const q = this.state; this.setState(q.quit ? { screen: 'table', gate: true, sheet: '' } : { screen: 'table', sheet: '' }); }; v.shFold = s.sheet === 'fold';
@@ -843,6 +846,14 @@ const TOUR_CFG = {
   lots: [[1, 1, 'Driver + fitting complet + sac Tour'], [2, 2, 'Série de fers avec fitting'], [3, 3, 'Putter Odyssey'], [4, 10, '3 douzaines de balles Chrome Tour + casquette'], [11, 50, '1 douzaine de balles Chrome Tour']]
 };
 const TOUR_Q = [-15, -3, 0, 2, 4, 5, 7, 8, 9, 10, 12, 13, 14, 16, 18, 20, 23, 31, 46, 57, 69]; // brut / par sur 2 000 cartes simulées par le moteur (V37)
+// Profil du joueur (V52) : avatar, marques, golf de rattachement et ligue, gardés sur l'appareil
+const PROFILE_KEY = 'greencut.profil';
+const PROFILE_DEF = { av: 0, club: 'Titleist', ball: 'Pro V1', golf: 0, league: 0 };
+const GOLF_NAMES = ['Golf National', 'UGOLF Rosny sous Bois', 'Real Club Sevilla Golf'];
+function profileGet() { const d = Object.assign({}, PROFILE_DEF); try { const q = JSON.parse(localStorage.getItem(PROFILE_KEY) || 'null'); if (q && typeof q === 'object') {
+  if (Number.isInteger(q.av) && q.av >= 0 && q.av < 50) { d.av = q.av; } if (typeof q.club === 'string' && q.club.length < 40) { d.club = q.club; } if (typeof q.ball === 'string' && q.ball.length < 40) { d.ball = q.ball; }
+  if (Number.isInteger(q.golf) && q.golf >= 0 && q.golf < GOLF_NAMES.length) { d.golf = q.golf; } if (Number.isInteger(q.league) && q.league >= 0 && q.league < 3) { d.league = q.league; } } } catch (x) { /* profil par défaut */ } return d; }
+function profileSave(k) { try { localStorage.setItem(PROFILE_KEY, JSON.stringify({ av: k.av, club: k.club, ball: k.ball, golf: k.golf, league: k.league })); } catch (x) { /* stockage indisponible */ } }
 const s0q = (k) => !!(k && !k.tour && k.quit && k.refunded);
 const IDLE_MS = 60000; const TOUR_KEY = 'greencut.tour', WALLET_KEY = 'greencut.wallet', GAME_KEY = 'greencut.partie', ABD_KEY = 'greencut.abandon';
 const tourRng = (seed) => { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; };
@@ -916,8 +927,8 @@ const TOUR = {
     return out;
   },
   heroName() { try { return localStorage.getItem('greencut.pseudo') || 'MaxFairway'; } catch (x) { return 'MaxFairway'; } },
-  create(o) { o = o || {}; return { v: 1, id: TOUR_CFG.id, phase: 1, seed: o.seed || TOUR_CFG.seed, hero: { name: o.name || this.heroName(), golf: o.golf || 'Mon golf', cards: { 1: [], 2: [], 3: [], 4: [] }, abd: 0 }, cut: null, results: null, log: [] }; },
-  load() { const T = tourStore.get(TOUR_KEY); if (T && T.v === 1 && T.id === TOUR_CFG.id) { T.hero.name = this.heroName(); return T; } return this.create(); },
+  create(o) { o = o || {}; return { v: 1, id: TOUR_CFG.id, phase: 1, seed: o.seed || TOUR_CFG.seed, hero: { name: o.name || this.heroName(), golf: o.golf || GOLF_NAMES[profileGet().golf], cards: { 1: [], 2: [], 3: [], 4: [] }, abd: 0 }, cut: null, results: null, log: [] }; },
+  load() { const T = tourStore.get(TOUR_KEY); if (T && T.v === 1 && T.id === TOUR_CFG.id) { T.hero.name = this.heroName(); T.hero.golf = GOLF_NAMES[profileGet().golf]; return T; } return this.create(); },
   save(T) { tourStore.set(TOUR_KEY, T); return T; },
   reset() { tourStore.del(TOUR_KEY); return this.save(this.create()); },
   _field: null, _seed: 0,
@@ -977,7 +988,7 @@ const TOUR = {
     if (p === 2) { T.cut = this.computeCut(T); const me = this.qualified(T, 'me') && !T.hero.abd; msg.push('Cut publié : ' + T.cut.n + ' qualifiés à ' + this.signed(T.cut.line) + (T.cut.tieBroken ? ' (égalité sur la ligne départagée)' : '') + '.' + (T.hero.abd ? '' : (me ? ' Vous êtes qualifié(e) pour le week-end !' : ' Vous n’avez pas passé le cut.'))); }
     if (p === 4) {
       const R = this.computeResults(T); T.results = { heroPos: R.heroPos, heroTie: R.heroTie, heroPay: R.heroPay, heroLot: R.heroLot, paid: R.paid, unpaid: R.unpaid, paidCount: R.paidCount, finishers: R.finishers, winner: R.winner, credited: false };
-      if (R.heroPay > 0) { const w = WALLET.get(); w.pts += R.heroPay; WALLET.set(w); credit = R.heroPay; T.results.credited = true; msg.push('Résultats : vous terminez ' + (R.heroTie ? 'T' : '') + R.heroPos + (R.heroPos === 1 ? 'er' : 'e') + '. ' + this.fmt(R.heroPay) + ' pts crédités sur votre solde.'); }
+      if (R.heroPay > 0) { const w = WALLET.get(); w.pts += R.heroPay; WALLET.set(w); credit = R.heroPay; T.results.credited = true; msg.push('Résultats : vous terminez ' + (R.heroTie ? 'T' : '') + R.heroPos + (R.heroPos === 1 ? 'er' : 'e') + '. ' + this.fmt(R.heroPay) + ' pts (' + this.fmt(R.heroPay / 100) + ' fees) crédités sur votre solde.'); }
       else { msg.push('Résultats publiés : vainqueur ' + R.winner + '.' + (R.heroPos ? ' Vous terminez ' + R.heroPos + 'e.' : '')); }
     }
     T.phase = p + 1; if (!msg.length) { msg.push(TOUR_CFG.days[T.phase - 1] + ' : tour ' + T.phase + ' ouvert.'); } T.log = (T.log || []).concat(msg); this.save(T);
