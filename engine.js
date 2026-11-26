@@ -689,6 +689,12 @@ if (myTurn && typeof setTimeout !== 'undefined') { const key = [s.h.hole, s.h.ro
 else if (this._idleKey) { clearTimeout(this._idleT); clearTimeout(this._cdT); clearInterval(this._cdI); this._idleKey = ''; }
 // bandeau de tour (V51) : « C’est à vous de jouer », temps restant seulement sous 15 s, aucun compteur d’inactivité
 if (myTurn && typeof v.turnTxt === 'string') { const base = v.turnTxt.split(' · ')[0]; const rem = this._idleEnd ? Math.ceil((this._idleEnd - Date.now()) / 1000) : 99; v.turnTxt = base + (rem <= 15 ? ' · ' + Math.max(0, rem) + ' s' : ''); }
+// multijoueur (V53) : bouton de fin de trou avec le décompte partagé (« Trou suivant dans 10 s », « Prêt ✓ · encore 7 s », « Décompte en pause ») ; libellés courts pour tenir dans le bouton en horizontal
+{ const nxi = this._mpNext; if (nxi && s.h && s.h.phase === 'done' && s.h.hole < 18 && nxi.hole === s.hole && typeof v.nextLabel === 'string') {
+  const me = this._mpCtl ? this._mpCtl.seat : 0;
+  const wait = nxi.wait || []; const iAmReady = (nxi.ready || []).indexOf(me) >= 0;
+  const sec = Math.max(0, Math.ceil(((nxi.end || Date.now()) - Date.now()) / 1000)); v.nextLabel = nxi.paused ? 'Décompte en pause' : (iAmReady && wait.length ? 'Prêt ✓ · encore ' + sec + ' s' : 'Trou suivant dans ' + sec + ' s');
+  if (v.doneCols !== undefined) { v.doneCols = '1fr'; } v.nextFs = '15px'; } }
 // un seul avertissement, après 2 tours d’affilée sans action (V51)
 if (s.tour && live && s.idle >= 2 && typeof v.advLine === 'string') { v.advLine = 'Encore un tour sans jouer et la carte sera abandonnée (jetons rendus).'; v.advCanApply = false; v.advHasAlt = false; if (v.showAdvice !== undefined && s.h && s.h.phase !== 'done') { v.showAdvice = true; } }
 

@@ -67,6 +67,11 @@
   }
   function startGame(ad, code) { return ad.get(T(code) + '/meta').then((m) => ad.set(T(code) + '/meta', Object.assign({}, m, { state: 'playing', started: Date.now() }))); }
   // ---------- jeu ----------
+  // V53 : passage au trou suivant en multijoueur : décompte de 10 s, « Je suis prêt » pour aller plus vite,
+  // pause tant qu'un joueur consulte la carte de score ou l'aide (60 s de pause au plus par trou), jamais compté comme inactivité.
+  const NEXT_MS = 10000; const PAUSE_MAX = 60000;
+  const isReading = (s) => !!(s && ((s.screen && s.screen !== 'table') || ['help', 'why', 'rank', 'hole', 'tuto'].indexOf(s.sheet) >= 0));
+  const startTick = (eng, ctl) => { const i = setInterval(() => { const s = eng.state; if (eng._mpNext && s.h && s.h.phase === 'done') { eng.setState({ mpTick: Date.now() }); } }, 1000); ctl.stop.push(() => clearInterval(i)); };
   async function attach(eng, o) {
     const ad = o.adapter; const code = o.code; const seat = o.seat; const meta = await ad.get(T(code) + '/meta'); const seatsObj = (await ad.get(T(code) + '/seats')) || {};
     const humans = Object.keys(seatsObj).map(Number).filter((k) => seatsObj[k]).sort((a, b) => a - b);
@@ -82,6 +87,9 @@
       eng.advance = () => { ad.set(T(code) + '/ready/' + seat, eng.state.hole); };
       const QK = 'greencut.mpq.' + code + '.' + seat; let quitted = false; try { quitted = !!localStorage.getItem(QK); } catch (x) { /* stockage */ }
       eng._mpQuit = () => { quitted = true; try { localStorage.setItem(QK, '1'); } catch (x) { /* stockage */ } ad.push(T(code) + '/act', { seat, kind: 'quit', to: 0, hole: eng.state.hole, t: Date.now() }); ctl.stop.forEach((f) => { try { f(); } catch (x) { /* déjà arrêté */ } }); ctl.stop.length = 0; };
+      ctl.stop.push(ad.on(T(code) + '/next', (txt) => { let n = null; try { n = txt ? JSON.parse(txt) : null; } catch (x) { n = null; } eng._mpNext = n ? Object.assign({ end: n.paused ? 0 : Date.now() + n.left }, n) : null; eng.setState({ mpTick: Date.now() }); }));
+      let readSent = 0; const gSet = eng.setState.bind(eng); eng.setState = (u) => { gSet(u); const t = eng.state; const r = t.h && t.h.phase === 'done' && isReading(t) ? t.hole : 0; if (r !== readSent && !quitted) { readSent = r; ad.set(T(code) + '/read/' + seat, r); } };
+      startTick(eng, ctl);
       let last = -1; ctl.stop.push(ad.on(T(code) + '/view/' + seat, (txt) => { if (!txt) { return; } let v; try { v = JSON.parse(txt); } catch (x) { return; } if (v.seq <= last) { return; } last = v.seq; eng.mpApplyView(v);
         if (quitted) { return; } if (v.abd && !ctl.abdDone) { ctl.abdDone = true; const c = Math.max(0, v.abd.chips || 0); try { const W = window.GreencutEngine && window.GreencutEngine.wallet; if (W) { const w = W.get(); w.pts += c; W.set(w); } } catch (x) { /* solde local */ } eng.setState({ mpAbd: true, pts: (eng.state.pts || 0) + c }); }
         if (ctl.abdDone) { eng.setState({ tableMsg: 'Vous avez été retiré de la partie après 3 tours sans action : abandon, mise perdue, jetons rendus à votre solde. Vous regardez la fin de la partie.' }); } }));
@@ -92,29 +100,46 @@
     const ps = names[0]; eng.setState(eng.initial({ nP, course: meta.course, pseudo: ps, pseudoDraft: ps }));
     let seq = 0; let lastH = null; let lastKey = ''; let timer = null; let pending = false;
     const idle = {}; const abd = {}; ctl.idle = idle; ctl.abd = abd; ctl.auto = false;
+    const ready = {}; const rawSet = eng.setState.bind(eng);
+    const reading = {}; let nx = null; const nextMs = o.nextMs || NEXT_MS; const pauseMax = o.pauseMax || PAUSE_MAX;
+    const readers = () => humans.filter((k) => !abd[k] && nx && reading[k] === nx.hole);
+    const nxPub = () => { if (!nx) { return; } const now = Date.now(); const paused = !nx.runSince; const left = paused ? nx.remain : Math.max(0, nx.remain - (now - nx.runSince)); const rd = readers();
+      const info = { hole: nx.hole, left, paused, who: rd.length ? names[rd[0]] : '', ready: humans.filter((k) => ready[k] === nx.hole || abd[k]), wait: humans.filter((k) => ready[k] !== nx.hole && !abd[k]).map((k) => names[k]) };
+      eng._mpNext = Object.assign({ end: paused ? 0 : now + left }, info); ad.set(T(code) + '/next', JSON.stringify(info)); rawSet({ mpTick: now }); };
+    const nxUpdate = () => { const s = eng.state;
+      if (!s.h || s.h.phase !== 'done' || s.h.hole >= 18) { if (nx) { clearTimeout(nx.t); clearTimeout(nx.pt); nx = null; eng._mpNext = null; ad.set(T(code) + '/next', ''); } return; }
+      if (!nx || nx.hole !== s.hole) { if (nx) { clearTimeout(nx.t); clearTimeout(nx.pt); } nx = { hole: s.hole, remain: nextMs, runSince: 0, pauseStart: 0, pausedTotal: 0, noPause: false }; }
+      const now = Date.now(); const pause = !nx.noPause && readers().length > 0;
+      if (pause) { if (nx.runSince) { nx.remain = Math.max(0, nx.remain - (now - nx.runSince)); nx.runSince = 0; clearTimeout(nx.t); }
+        if (!nx.pauseStart) { nx.pauseStart = now; nx.pt = setTimeout(() => { if (nx) { nx.noPause = true; nxUpdate(); } }, Math.max(0, pauseMax - nx.pausedTotal)); } }
+      else { if (nx.pauseStart) { nx.pausedTotal += now - nx.pauseStart; nx.pauseStart = 0; clearTimeout(nx.pt); }
+        if (!nx.runSince) { nx.runSince = now; clearTimeout(nx.t); const h = nx.hole; nx.t = setTimeout(() => { const t = eng.state; if (t.hole !== h || !t.h || t.h.phase !== 'done') { return; } humans.forEach((k) => { if (!abd[k]) { ready[k] = h; } }); tryNext(); }, nx.remain); } }
+      nxPub(); };
+    ctl.nextState = () => nx;
     const realHuman = (k) => k === 0 || !!eng._humans[k];
     const origAct = eng.heroAct.bind(eng); eng.heroAct = (k, to, st) => { const who = st === undefined ? 0 : st; if (!ctl.auto) { idle[who] = 0; } return origAct(k, to, st); };
     const quitReq = {}; ctl.quitReq = quitReq;
     const abandonSeat = (who) => { const s = eng.state; const st = s.stacks.slice(); abd[who] = { chips: Math.max(0, st[who]), self: !!quitReq[who] }; st[who] = 0; const upd = { stacks: st };
       if (who === 0) { upd.pts = (s.pts || 0) + abd[0].chips; upd.tableMsg = 'Vous avez été retiré de la partie après 3 tours sans action : abandon, mise perdue, jetons rendus à votre solde.'; }
       if (who !== 0) { delete eng._humans[who]; }
-      eng.setState(upd); tryNext(); };
+      eng.setState(upd); tryNext(); nxUpdate(); };
     const holeKey = () => { const s = eng.state; return s.hole + '|' + s.h.phase + '|' + s.h.turn + '|' + s.h.round + '|' + s.h.pot + '|' + (s.turnSeat === undefined ? '' : s.turnSeat); };
     const publish = () => {
       pending = false; const s = eng.state; if (!s.h) { return; } const key = holeKey() + '|' + s.h.status.join(','); if (key === lastKey) { return; } lastKey = key; seq++;
       humans.filter((k) => k > 0).forEach((k) => { const v = eng.mpViewFor(k, names); v.seq = seq; if (abd[k]) { v.abd = abd[k]; } ad.set(T(code) + '/view/' + k, JSON.stringify(v)); });
       const qk = Object.keys(quitReq).map(Number).find((k) => !abd[k] && (s.h.phase === 'done' || (s.h.folded && s.h.folded[k]))); if (qk !== undefined) { abandonSeat(qk); return; }
       clearTimeout(ctl.turnTimer);
-      clearTimeout(ctl.readyTimer);
-      if (s.h.phase === 'done' && s.h.hole < 18) { const hole = s.hole; ctl.readyTimer = setTimeout(() => { const t = eng.state; if (t.hole !== hole || t.h.phase !== 'done') { return; } humans.forEach((k) => { if (ready[k] !== hole && !abd[k]) { ready[k] = hole; idle[k] = (idle[k] || 0) + 1; if (idle[k] >= 3) { abandonSeat(k); } } }); tryNext(); }, o.turnMs || TURN_MS); }
+      nxUpdate();
       if (s.h.phase === 'bet' && s.turnSeat >= 0 && realHuman(s.turnSeat) && !abd[s.turnSeat]) { const who = s.turnSeat; const hk = holeKey(); ctl.turnTimer = setTimeout(() => { const t = eng.state; if (holeKey() === hk) { const toCall = t.h.cur - t.h.rb[who]; ctl.auto = true; try { eng.heroAct(quitReq[who] || toCall > 0 ? 'fold' : 'call', 0, who); } finally { ctl.auto = false; } idle[who] = (idle[who] || 0) + 1; if (idle[who] >= 3 || quitReq[who]) { abandonSeat(who); } } }, quitReq[who] ? 0 : (o.turnMs || TURN_MS)); }
     };
-    const origSet = eng.setState.bind(eng); eng.setState = (u) => { origSet(u); if (u && (u.h || u.stacks) && !pending) { pending = true; Promise.resolve().then(publish); } };
+    const origSet = eng.setState.bind(eng); eng.setState = (u) => { origSet(u); if (u && (u.h || u.stacks) && !pending) { pending = true; Promise.resolve().then(publish); } const t = eng.state; const r = t.h && t.h.phase === 'done' && isReading(t) ? t.hole : 0; if (r !== (reading[0] || 0)) { reading[0] = r; nxUpdate(); } };
     ctl.stop.push(ad.onChildAdded(T(code) + '/act', (id, a) => { if (!a || a.done) { return; } if (a.kind === 'quit') { if (a.seat > 0 && !abd[a.seat]) { quitReq[a.seat] = true; const t = eng.state; if (t.h && (t.h.phase === 'done' || (t.h.folded && t.h.folded[a.seat]))) { abandonSeat(a.seat); } else { lastKey = ''; publish(); } } return; } if (a.hole !== eng.state.hole) { return; } eng.heroAct(a.kind, a.to, a.seat); }));
-    const ready = {}; const realAdvance = eng.advance.bind(eng);
+    const realAdvance = eng.advance.bind(eng);
+    humans.filter((k) => k > 0).forEach((k) => { ctl.stop.push(ad.on(T(code) + '/read/' + k, (v) => { reading[k] = v || 0; nxUpdate(); })); });
+    startTick(eng, ctl);
     const tryNext = () => { const s = eng.state; if (!s.h || s.h.phase !== 'done' || s.h.hole >= 18) { return; } if (humans.every((k) => ready[k] === s.hole || abd[k])) { realAdvance(false); } };
-    humans.filter((k) => k > 0).forEach((k) => { ctl.stop.push(ad.on(T(code) + '/ready/' + k, (v) => { if (ready[k] !== v) { idle[k] = 0; } ready[k] = v; tryNext(); })); });
-    eng.advance = (r) => { if (!ctl.auto) { idle[0] = 0; } ready[0] = eng.state.hole; tryNext(); };
+    humans.filter((k) => k > 0).forEach((k) => { ctl.stop.push(ad.on(T(code) + '/ready/' + k, (v) => { ready[k] = v; tryNext(); nxUpdate(); })); });
+    eng.advance = (r) => { ready[0] = eng.state.hole; tryNext(); nxUpdate(); };
     ctl.hostReadyState = () => ready;
     pending = true; Promise.resolve().then(publish);
     return ctl;
