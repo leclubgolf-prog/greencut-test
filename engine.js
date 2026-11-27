@@ -459,7 +459,7 @@ h.boom = !!(h.allin[0] && gains[0] > 0); h.loser = !!(!h.noBet && !h.folded[0] &
 const rel = []; const how = [];
 for (let i = 0; i < NP; i++) {
 const base = ev[i].rel === null ? 4 : ev[i].rel;
-if (h.out && h.out[i]) { rel[i] = 4; how[i] = 'éliminé'; }
+if (h.out && h.out[i]) { rel[i] = UNPLAYED; how[i] = 'éliminé'; }
 else if (h.folded[i]) { rel[i] = Math.min(4, base + 1); how[i] = 'couché'; }
 else { rel[i] = base; how[i] = ev[i].type === null ? 'bluff raté' : ev[i].type; }
 }
@@ -472,7 +472,7 @@ h.status[i] = this.term(rel[i], par).toUpperCase() + (how[i] === 'golf' ? '' : '
 log.push({ a: this.nm(i) + ' : ' + this.term(rel[i], par) + ' (' + how[i] + ')', b: this.signed(rel[i]) });
 }
 potLog.forEach((l) => { log.push(l); });
-const msg = h.noBet ? (h.out && h.out[0] ? 'Vous n’avez plus de jetons : par + 4 sur ce trou (' + (par + 4) + ' coups).' : 'Plus aucun adversaire n’a de jetons : trou joué sans mise. Votre score : ' + this.term(rel[0], par) + ' (' + (par + rel[0]) + ' coups).') : ((gains[0] > 0 ? 'Vous remportez ' + this.fmt(gains[0]) + ' jetons. ' : 'Vous ne remportez pas de pot. ') + 'Votre score sur le trou : ' + this.term(rel[0], par) + ' (' + (par + rel[0]) + ' coups).') + (h.folded[0] && !(h.out && h.out[0]) && ev[0].rel !== null && !h.noBet ? ' Vous vous êtes couché : ' + this.term(ev[0].rel, par) + ' + 1 point de pénalité.' : '');
+const msg = h.noBet ? (h.out && h.out[0] ? 'Vous n’avez plus de jetons : par + 2 sur ce trou (' + (par + 2) + ' coups).' : 'Plus aucun adversaire n’a de jetons : trou joué sans mise. Votre score : ' + this.term(rel[0], par) + ' (' + (par + rel[0]) + ' coups).') : ((gains[0] > 0 ? 'Vous remportez ' + this.fmt(gains[0]) + ' jetons. ' : 'Vous ne remportez pas de pot. ') + 'Votre score sur le trou : ' + this.term(rel[0], par) + ' (' + (par + rel[0]) + ' coups).') + (h.folded[0] && !(h.out && h.out[0]) && ev[0].rel !== null && !h.noBet ? ' Vous vous êtes couché : ' + this.term(ev[0].rel, par) + ' + 1 point de pénalité.' : '');
 const rl = (i) => (ev[i].rel === null ? 'aucune combinaison' : ev[i].label + (ev[i].altLabel ? ' (ou aussi ' + ev[i].altLabel + ')' : '')) + ' = ' + this.term(rel[i], par) + ' (' + (par + rel[i]) + ' coups)';
 const who = (i) => (i === 0 ? 'Vous' : this.nm(i));
 const w0 = mainWinners[0]; const wl = [];
@@ -495,7 +495,7 @@ wl.push({ n: who(i), role: 'PERD', cls: 'l', res: rl(i), hand: 'Main : ' + hand(
 });
 }
 const fl = []; const el = []; for (let i = 0; i < NP; i++) { if (h.out && h.out[i]) { el.push(who(i)); } else if (h.folded[i]) { fl.push(who(i)); } }
-if (el.length) { wl.push({ n: el.join(', '), role: 'ÉLIMINÉS', cls: 'f', res: 'plus de jetons : par + 4', hand: '', why: '' }); }
+if (el.length) { wl.push({ n: el.join(', '), role: 'ÉLIMINÉS', cls: 'f', res: 'plus de jetons : par + 2', hand: '', why: '' }); }
 if (fl.length) { wl.push({ n: fl.join(', '), role: 'COUCHÉS', cls: 'f', res: '+ 1 coup', hand: '', why: '' }); }
 const whyTxt = wl;
 return pre ? { h, stacks: st, strokes, log, tableMsg: msg, why: whyTxt, aiPending: false, pre } : { h, stacks: st, strokes, log, tableMsg: msg, why: whyTxt, aiPending: false };
@@ -580,7 +580,7 @@ try { const hh = JSON.parse(JSON.stringify(h)); let out = this.run(hh, st.slice(
 if (cur.stacks[0] > 0) { this.setState(cur); return false; }
 st = cur.stacks.slice(); strokes = cur.strokes;
 }
-for (let i = 0; i < NP; i++) { for (let k = 0; k < hole; k++) { if (typeof strokes[i][k] !== 'number' || isNaN(strokes[i][k])) { strokes[i][k] = this.pars()[k] + 4; } } }
+for (let i = 0; i < NP; i++) { for (let k = 0; k < hole; k++) { if (typeof strokes[i][k] !== 'number' || isNaN(strokes[i][k])) { strokes[i][k] = this.pars()[k] + UNPLAYED; } } }
 while (hole < 18) { d = this.deal(st, hole + 1, strokes, h.rec); hole += 1; st = d.stacks; strokes = d.strokes; }
 if (!d) { if (cur) { this.setState(Object.assign({}, cur, { reload: false, finishedEarly: true })); return true; } return false; }
 this.setState(Object.assign({}, d, { hole, reload: false, prevPos: null, trend: { net: {}, brut: {} }, finishedEarly: true }));
@@ -633,7 +633,7 @@ try {
 let st = s.stacks.slice(); let strokes = s.strokes.map((a) => a.slice()); let cur = null;
 if (h.phase !== 'done') { const hh = JSON.parse(JSON.stringify(h)); hh.folded[0] = true; let out = this.run(hh, st.slice(), [], strokes.map((a) => a.slice())); if (!out.h || out.h.phase !== 'done') { const h3 = JSON.parse(JSON.stringify(hh)); h3.round = 3; out = this.showdown(h3, st.slice(), [], strokes.map((a) => a.slice())); } cur = out; st = cur.stacks.slice(); strokes = cur.strokes; }
 const bank = st[0]; st[0] = 0; let hole = cur && cur.h ? cur.h.hole : h.hole; let d = null;
-for (let i = 0; i < NP; i++) { for (let k = 0; k < hole; k++) { if (typeof strokes[i][k] !== 'number' || isNaN(strokes[i][k])) { strokes[i][k] = this.pars()[k] + 4; } } }
+for (let i = 0; i < NP; i++) { for (let k = 0; k < hole; k++) { if (typeof strokes[i][k] !== 'number' || isNaN(strokes[i][k])) { strokes[i][k] = this.pars()[k] + UNPLAYED; } } }
 while (hole < 18) { d = this.deal(st, hole + 1, strokes, h.rec); hole += 1; st = d.stacks; strokes = d.strokes; }
 const fin = d || cur || {}; const stacks = (fin.stacks || st).slice(); stacks[0] = bank;
 const hist = [ { a: 'Partie ' + (s.games || 1) + ' : couché pour le reste de la partie', t: 'À l’instant', d: 'Score enregistré', e: '', cls: 'hp' } ].concat(s.hist);
@@ -659,7 +659,7 @@ if (this._resumeKick && typeof setTimeout !== 'undefined') { this._resumeKick = 
 this.autoWatch();
 const live = this.isLive(s); if (this._abdMsg && live) { this._abdMsg = ''; } const elim = !!(s.stacks && s.stacks[0] <= 0); const left = s.h ? 18 - s.h.hole + (s.h.phase === 'done' ? 0 : 1) : 0;
 v.gameLive = live; v.canFoldRest = live && !elim && !this._mpOn && !this._mpSend;
-v.foldRestTxt = 'Vous vous couchez pour ' + (left > 1 ? 'les ' + left + ' trous restants' : 'le dernier trou') + ' : ' + (s.h && s.h.phase !== 'done' ? 'le trou en cours compte comme un coup couché (score de votre combinaison + 1, sinon par + 4), les suivants par + 4. ' : 'chacun compte par + 4. ') + 'Votre score est enregistré tout de suite et vos ' + this.fmt(s.stacks ? s.stacks[0] : 0) + ' pts de jetons reviennent sur votre solde. Ce n’est pas un abandon.' + (s.tour ? ' Votre carte est déposée au tournoi avec ce score.' : '');
+v.foldRestTxt = 'Vous vous couchez pour ' + (left > 1 ? 'les ' + left + ' trous restants' : 'le dernier trou') + ' : ' + (s.h && s.h.phase !== 'done' ? 'le trou en cours compte comme un coup couché (score de votre combinaison + 1, sinon par + 4), les suivants par + 2. ' : 'chacun compte par + 2. ') + 'Votre score est enregistré tout de suite et vos ' + this.fmt(s.stacks ? s.stacks[0] : 0) + ' pts de jetons reviennent sur votre solde. Ce n’est pas un abandon.' + (s.tour ? ' Votre carte est déposée au tournoi avec ce score.' : '');
 v.hasLeave = !!s.leaveTo; v.leaveNote = s.leaveTo ? 'Vous allez quitter la table pour ' + this.leaveLabel(s.leaveTo) + ' : la partie en cours ne pourra pas être reprise.' : '';
 const to = s.leaveTo; const go = () => { if (to && typeof window !== 'undefined') { window.location.href = to; } };
 v.foldRestAct = () => { if (this.foldRest()) { go(); } };
@@ -780,10 +780,10 @@ const nm = this.displayName(); const rows = [];
 const names = [nm].concat(this.oppNames()); const brands = [s.club.toUpperCase()].concat(this.oppBrands());
 for (let i = 0; i < NP; i++) {
 const played = s.strokes[i].length; let brut = 0; let sum = 0;
-for (let k = 0; k < played; k++) { const sv = (typeof s.strokes[i][k] === 'number' && isFinite(s.strokes[i][k])) ? s.strokes[i][k] : P[k] + 4; brut += sv; sum += sv - P[k]; }
+for (let k = 0; k < played; k++) { const sv = (typeof s.strokes[i][k] === 'number' && isFinite(s.strokes[i][k])) ? s.strokes[i][k] : P[k] + UNPLAYED; brut += sv; sum += sv - P[k]; }
 const net = sum + (played > 0 ? bn[i] : 0);
-const lastRel = played ? ((isFinite(s.strokes[i][played - 1]) ? s.strokes[i][played - 1] : P[played - 1] + 4) - P[played - 1]) : null;
-let back = 0; let backAbs = 0; for (let k = 9; k < played; k++) { const sv = isFinite(s.strokes[i][k]) ? s.strokes[i][k] : P[k] + 4; back += sv - P[k]; backAbs += sv; }
+const lastRel = played ? ((isFinite(s.strokes[i][played - 1]) ? s.strokes[i][played - 1] : P[played - 1] + UNPLAYED) - P[played - 1]) : null;
+let back = 0; let backAbs = 0; for (let k = 9; k < played; k++) { const sv = isFinite(s.strokes[i][k]) ? s.strokes[i][k] : P[k] + UNPLAYED; back += sv - P[k]; backAbs += sv; }
 rows.push({ i, bonus0: played > 0, name: names[i], brand: brands[i], played, brut, sum, net, bonus: bn[i], last: lastRel, stack: s.stacks[i], back, backAbs });
 }
 const sb = (mode || s.sortBy) === 'brut' ? 'sum' : 'net'; const ob = sb === 'sum' ? 'back' : 'sum'; const tb3 = sb === 'sum' ? 'net' : 'back';
@@ -851,7 +851,7 @@ const TOUR_CFG = {
   stake: 10000, purse: 2000000, cut: 50, base: 10000, field: 311, seed: 20270121, finale: false,
   lots: [[1, 1, 'Driver + fitting complet + sac Tour'], [2, 2, 'Série de fers avec fitting'], [3, 3, 'Putter Odyssey'], [4, 10, '3 douzaines de balles Chrome Tour + casquette'], [11, 50, '1 douzaine de balles Chrome Tour']]
 };
-const TOUR_Q = [-15, -3, 0, 2, 4, 5, 7, 8, 9, 10, 12, 13, 14, 16, 18, 20, 23, 31, 46, 57, 69]; // brut / par sur 2 000 cartes simulées par le moteur (V37)
+const TOUR_Q = [-15, -3, 0, 2, 4, 5, 7, 8, 9, 10, 12, 13, 14, 15, 16, 18, 20, 22, 25, 28, 34]; // brut / par sur 2 000 cartes simulées par le moteur (V37)
 // Profil du joueur (V52) : avatar, marques, golf de rattachement et ligue, gardés sur l'appareil
 const PROFILE_KEY = 'greencut.profil';
 const PROFILE_DEF = { av: 0, club: 'Titleist', ball: 'Pro V1', golf: 0, league: 0 };
@@ -860,6 +860,9 @@ function profileGet() { const d = Object.assign({}, PROFILE_DEF); try { const q 
   if (Number.isInteger(q.av) && q.av >= 0 && q.av < 50) { d.av = q.av; } if (typeof q.club === 'string' && q.club.length < 40) { d.club = q.club; } if (typeof q.ball === 'string' && q.ball.length < 40) { d.ball = q.ball; }
   if (Number.isInteger(q.golf) && q.golf >= 0 && q.golf < GOLF_NAMES.length) { d.golf = q.golf; } if (Number.isInteger(q.league) && q.league >= 0 && q.league < 3) { d.league = q.league; } } } catch (x) { /* profil par défaut */ } return d; }
 function profileSave(k) { try { localStorage.setItem(PROFILE_KEY, JSON.stringify({ av: k.av, club: k.club, ball: k.ball, golf: k.golf, league: k.league })); } catch (x) { /* stockage indisponible */ } }
+// Trous non joués (V54, décision de Cédric du 28/11/2026) : joueur éliminé, abandon, « Me coucher pour le reste de la partie » -> par + 2
+// (un trou joué jusqu'au bout sans combinaison reste à par + 4, couché : combinaison + 1, sinon par + 4)
+const UNPLAYED = 2;
 const s0q = (k) => !!(k && !k.tour && k.quit && k.refunded);
 const IDLE_MS = 60000; const TOUR_KEY = 'greencut.tour', WALLET_KEY = 'greencut.wallet', GAME_KEY = 'greencut.partie', ABD_KEY = 'greencut.abandon';
 const tourRng = (seed) => { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; };
