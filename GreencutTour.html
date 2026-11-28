@@ -104,7 +104,7 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 .clk-more{display:contents}.clk-t{color:#5eead4}
 .playbar{display:none}
 /* Menu général commun (V42) */
-a.me{color:inherit;text-decoration:none;cursor:pointer;border-radius:999px;padding:2px 6px 2px 2px}
+a.me{display:flex;align-items:center;gap:10px;min-width:0;color:inherit;text-decoration:none;cursor:pointer;border-radius:999px;padding:2px 6px 2px 2px}
 a.me:hover{background:#ffd16614}
 .me .av{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:#140a2e;color:#f3eefc}
 .me .mew{display:flex;flex-direction:column;line-height:1.2}
@@ -225,7 +225,7 @@ td{padding:6px 8px;border-bottom:1px solid #ffffff12;vertical-align:middle}
 .clk-more{display:contents}.clk-t{color:#5eead4}
 .playbar{display:none}
 /* Menu général commun (V42) */
-a.me{color:inherit;text-decoration:none;cursor:pointer;border-radius:999px;padding:2px 6px 2px 2px}
+a.me{display:flex;align-items:center;gap:10px;min-width:0;color:inherit;text-decoration:none;cursor:pointer;border-radius:999px;padding:2px 6px 2px 2px}
 a.me:hover{background:#ffd16614}
 .me .av{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:#140a2e;color:#f3eefc}
 .me .mew{display:flex;flex-direction:column;line-height:1.2}
@@ -248,10 +248,10 @@ a.me:hover{background:#ffd16614}
 .gt{width:1440px;min-height:1200px}
 .logo{min-height:44px;align-items:center}
 </style>
-<style id="gc-desk">html,body{margin:0;background:#0b0618}body{overflow-x:hidden}#app{position:relative;margin:0 auto;overflow:hidden}#app>*{position:absolute!important;left:0;top:0;transform-origin:0 0}</style>
-<script src="./support.js?v=V57"></script><script src="./engine.js?v=V57"></script>
+<style id="gc-desk">html,body{margin:0;background:#0b0618}body{overflow-x:hidden}#gc-stage{position:relative;margin:0 auto;overflow:hidden}#app{position:absolute;left:0;top:0;transform-origin:0 0}.pg:not(:has(.dhdr)){height:1000px!important}.pg [style*="transform:scale(.79)"]{transform:none!important}</style>
+<script src="./support.js?v=V58"></script><script src="./engine.js?v=V58"></script>
 <meta name="format-detection" content="telephone=no, date=no, email=no, address=no"><style id="gc-noannot">chrome_annotation{border-bottom:0!important;border:0!important;text-decoration:none!important;background:transparent!important}</style>
-</head><body><div id="app"></div>
+</head><body><div id="gc-stage"><div id="app"></div></div>
 <script id="tv" type="text/plain">
 
 <div class="gc gt">
@@ -638,4 +638,4 @@ return {
 GreencutEngine.install(Component);
 
 GCMount({v:document.getElementById('tv').textContent,h:document.getElementById('th').textContent}, Component, document.getElementById('app'));
-</script><script>(function(){var MODE='width';function fit(){var app=document.getElementById('app');var el=app&&app.firstElementChild;if(!el)return;el.style.transform='none';var w=el.offsetWidth||1440,h=el.offsetHeight||900;var s=innerWidth/w;if(MODE==='contain')s=Math.min(s,innerHeight/h);s=Math.max(.5,Math.min(s,1.6));el.style.transform='scale('+s+')';app.style.width=Math.floor(w*s)+'px';app.style.height=Math.ceil(h*s)+'px';app.style.marginTop=(MODE==='contain'&&h*s<innerHeight)?Math.floor((innerHeight-h*s)/2)+'px':'0';}window.GCFit=fit;addEventListener('resize',fit);new MutationObserver(function(){requestAnimationFrame(fit)}).observe(document.getElementById('app'),{childList:true,subtree:true});var ro=window.ResizeObserver?new ResizeObserver(function(){fit()}):null;var t=setInterval(function(){var e=document.querySelector('#app>*');if(e){fit();if(ro)ro.observe(e);clearInterval(t)}},50);})();</script><style id="gc-switch-css">#gc-switch{position:fixed;left:10px;bottom:10px;z-index:99999;display:flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:18px;background:#0e0626ee;border:1px solid #ffffff55;color:#f3eefc;font:700 12px 'Titillium Web',system-ui,sans-serif;text-decoration:none;opacity:1;transition:opacity .3s,transform .3s}#gc-switch.off{opacity:0;transform:translateY(12px);pointer-events:none}</style><script>(function(){function go(){var u=window.GCUI;if(!u||!u.other)return;if(!u.desk&&!u.wide)return;var a=document.createElement('a');a.id='gc-switch';a.href=u.other+'.html'+location.search.replace(/([?&])o=[hv](&|$)/,'$1').replace(/[?&]$/,'');a.textContent=u.desk?'Version mobile':'Version ordinateur';a.title=u.desk?'Afficher la version mobile du jeu':'Afficher la version ordinateur du jeu';a.addEventListener('click',function(){try{localStorage.setItem('greencut.ui',u.desk?'mob':'desk')}catch(e){}});document.body.appendChild(a);var intro=true;setTimeout(function(){intro=false;a.classList.add('off')},5000);addEventListener('mousemove',function(e){if(intro)return;var near=e.clientX<240&&e.clientY>innerHeight-100;a.classList.toggle('off',!near)})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();})();</script></body></html>
+</script><script>(function(){var MODE='width',TABLE=false;var last='';function fit(){var app=document.getElementById('app');var st=document.getElementById('gc-stage');var el=app&&app.firstElementChild;if(!el||!st)return;var w=el.offsetWidth||1440,h=el.offsetHeight||900;var contain=MODE==='contain'&&(!TABLE||!!el.querySelector('.dhdr'));var s=innerWidth/w;if(contain)s=Math.min(s,innerHeight/h);s=Math.max(.5,Math.min(s,1.6));var k=[w,h,s,innerWidth,innerHeight].join('|');if(k===last)return;last=k;app.style.width=w+'px';app.style.transform='scale('+s+')';st.style.width=Math.floor(w*s)+'px';st.style.height=Math.ceil(h*s)+'px';st.style.marginTop=(contain&&h*s<innerHeight)?Math.floor((innerHeight-h*s)/2)+'px':'0';}window.GCFit=fit;addEventListener('resize',function(){last='';fit()});setInterval(fit,200);fit();})();</script><style id="gc-switch-css">#gc-switch{position:fixed;left:10px;bottom:10px;z-index:99999;display:flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:18px;background:#0e0626ee;border:1px solid #ffffff55;color:#f3eefc;font:700 12px 'Titillium Web',system-ui,sans-serif;text-decoration:none;opacity:1;transition:opacity .3s,transform .3s}#gc-switch.off{opacity:0;transform:translateY(12px);pointer-events:none}</style><script>(function(){function go(){var u=window.GCUI;if(!u||!u.other)return;if(!u.desk&&!u.wide)return;var a=document.createElement('a');a.id='gc-switch';a.href=u.other+'.html'+location.search.replace(/([?&])o=[hv](&|$)/,'$1').replace(/[?&]$/,'');a.textContent=u.desk?'Version mobile':'Version ordinateur';a.title=u.desk?'Afficher la version mobile du jeu':'Afficher la version ordinateur du jeu';a.addEventListener('click',function(){try{localStorage.setItem('greencut.ui',u.desk?'mob':'desk')}catch(e){}});document.body.appendChild(a);var intro=true;setTimeout(function(){intro=false;a.classList.add('off')},5000);addEventListener('mousemove',function(e){if(intro)return;var near=e.clientX<240&&e.clientY>innerHeight-100;a.classList.toggle('off',!near)})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();})();</script></body></html>

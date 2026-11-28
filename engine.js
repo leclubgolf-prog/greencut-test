@@ -212,7 +212,7 @@ const prf = profileGet();
 let lvl = 'deb'; try { const d = JSON.parse(localStorage.getItem('greencut.parcours') || '{}'); if (d.expert || d['3a']) { lvl = 'exp'; } } catch (x) { lvl = 'deb'; }
 let crsId = (keep && keep.course) || 'augusta'; if (!(keep && keep.course)) { try { const q = localStorage.getItem('greencut.course'); if (q && COURSE_DATA[q]) { crsId = q; } } catch (x) { crsId = 'augusta'; } }
 const s = {
-course: crsId, screen: 'table', nP: NP, sortBy: 'net', soundOn: snd.on, sndVol: snd.vol, av: prf.av, pseudo: ps, pseudoDraft: ps, pseudoMsg: '', why: '', club: prf.club, ball: prf.ball, golf: prf.golf, league: prf.league,
+course: crsId, screen: 'table', gateHide: false, nP: NP, sortBy: 'net', soundOn: snd.on, sndVol: snd.vol, av: prf.av, pseudo: ps, pseudoDraft: ps, pseudoMsg: '', why: '', club: prf.club, ball: prf.ball, golf: prf.golf, league: prf.league,
 games: 1, gate: false, reload: false, fees: 1250, pts: 8400, dir: 'f2p', amt: 300, expired: false, feesMsg: '',
 hist: [ { a: 'Partie 1 : mise de départ', t: 'À l’instant', d: '−10 000 pts', e: '', cls: 'hf' }, { a: 'Points du jeu → fees', t: 'Aujourd’hui · 19:12', d: '−12 000 pts', e: '+120 fees', cls: 'hp' }, { a: 'Fees → points du jeu', t: '12 nov. · 21:40', d: '−200 fees', e: '+20 000 pts', cls: 'hf' } ],
 quit: false, askQuit: false, tuto: false, moreOpt: false, aidDetail: false, stacks: Z(10000), strokes: Array.from({ length: NP }, () => []), hole: 1, prevPos: null, trend: {}, help: lvl === 'deb', level: lvl
@@ -696,6 +696,12 @@ if (myTurn && typeof v.turnTxt === 'string') { const base = v.turnTxt.split(' ·
   const sec = Math.max(0, Math.ceil(((nxi.end || Date.now()) - Date.now()) / 1000)); v.nextLabel = nxi.paused ? 'Décompte en pause' : (iAmReady && wait.length ? 'Prêt ✓ · encore ' + sec + ' s' : 'Trou suivant dans ' + sec + ' s');
   if (v.doneCols !== undefined) { v.doneCols = '1fr'; } v.nextFs = '15px'; } }
 // un seul avertissement, après 2 tours d’affilée sans action (V51)
+// fenêtre de mise / fin de partie (V58) : on peut la fermer (✕) ; un bouton la rouvre
+v.gateClose = () => this.setState({ gateHide: true });
+v.gateReopen = () => this.setState({ gateHide: false });
+v.gateReopenLbl = s.tour ? 'Jouer une carte ▶' : 'Nouvelle partie ▶';
+v.gateHidden = !!(s.gateHide && (v.gate || v.gateOver || v.gateHidden));
+if (s.gateHide) { if (v.gate !== undefined) { v.gate = false; } if (v.gateOver !== undefined) { v.gateOver = false; } }
 // desktop (V57) : pas de ligne de conseil courte -> l'avertissement unique s'ajoute au message de la table
 if (s.tour && live && s.idle >= 2 && v.advLine === undefined && typeof v.tableMsg === 'string' && v.tableMsg.indexOf('Encore un tour sans jouer') < 0) { v.tableMsg = (v.tableMsg ? v.tableMsg + ' ' : '') + 'Encore un tour sans jouer et la carte sera abandonnée (jetons rendus).'; }
 if (s.tour && live && s.idle >= 2 && v.advLine === undefined && v.advTitle !== undefined && s.h && s.h.phase !== 'done') { v.advTitle = 'dernier avertissement'; v.advWhy = 'Encore un tour sans jouer et la carte sera abandonnée (jetons rendus).'; v.advCanApply = false; if (v.helpOn !== undefined) { v.helpOn = true; } }
