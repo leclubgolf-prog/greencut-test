@@ -696,6 +696,9 @@ if (myTurn && typeof v.turnTxt === 'string') { const base = v.turnTxt.split(' ·
   const sec = Math.max(0, Math.ceil(((nxi.end || Date.now()) - Date.now()) / 1000)); v.nextLabel = nxi.paused ? 'Décompte en pause' : (iAmReady && wait.length ? 'Prêt ✓ · encore ' + sec + ' s' : 'Trou suivant dans ' + sec + ' s');
   if (v.doneCols !== undefined) { v.doneCols = '1fr'; } v.nextFs = '15px'; } }
 // un seul avertissement, après 2 tours d’affilée sans action (V51)
+// desktop (V57) : pas de ligne de conseil courte -> l'avertissement unique s'ajoute au message de la table
+if (s.tour && live && s.idle >= 2 && v.advLine === undefined && typeof v.tableMsg === 'string' && v.tableMsg.indexOf('Encore un tour sans jouer') < 0) { v.tableMsg = (v.tableMsg ? v.tableMsg + ' ' : '') + 'Encore un tour sans jouer et la carte sera abandonnée (jetons rendus).'; }
+if (s.tour && live && s.idle >= 2 && v.advLine === undefined && v.advTitle !== undefined && s.h && s.h.phase !== 'done') { v.advTitle = 'dernier avertissement'; v.advWhy = 'Encore un tour sans jouer et la carte sera abandonnée (jetons rendus).'; v.advCanApply = false; if (v.helpOn !== undefined) { v.helpOn = true; } }
 if (s.tour && live && s.idle >= 2 && typeof v.advLine === 'string') { v.advLine = 'Encore un tour sans jouer et la carte sera abandonnée (jetons rendus).'; v.advCanApply = false; v.advHasAlt = false; if (v.showAdvice !== undefined && s.h && s.h.phase !== 'done') { v.showAdvice = true; } }
 
 if (typeof v.cancelQuit === 'function') { const c = v.cancelQuit; v.cancelQuit = () => { c(); this.setState({ leaveTo: '' }); }; }
@@ -718,7 +721,10 @@ return { menuOpen: !!open, toggleMenu: toggle, closeMenu: () => { if (open) { to
 }
 tourLink(kind) {
 const href = (typeof window !== 'undefined' && window.location && window.location.href) || ''; const dc = /\.dc\.html/.test(href); const desk = /(Prototype|GreencutTour|ModeJeu)\.dc\.html/.test(href); const land = /Paysage/.test(href);
-const pick = (d, m, l, site) => (dc ? (desk ? d : (land ? l : m)) : site);
+// V56 : sur le site, depuis une page desktop (Prototype.html, GreencutTour.html…), les liens mènent aux pages desktop
+const siteDesk = !dc && /\/(Prototype|GreencutTour|ModeJeu|Parcours|Connexion|Ouverture)\.html/.test(href);
+const SD = { 'TableMobile.html': 'Prototype.html', 'ModeJeuMobile.html': 'ModeJeu.html', 'ParcoursMobile.html': 'Parcours.html', 'GreencutTourMobile.html': 'GreencutTour.html' };
+const pick = (d, m, l, site) => (dc ? (desk ? d : (land ? l : m)) : (siteDesk ? (SD[site] || site) : site));
 if (kind === 'game' || kind === 'classic') { return pick('Prototype.dc.html', 'TableMobile.dc.html', 'TableMobilePaysage.dc.html', kind === 'classic' ? 'ChoixParcoursMobile.html' : 'TableMobile.html'); }
 if (kind === 'mode') { return pick('ModeJeu.dc.html', 'ModeJeuMobile.dc.html', 'ModeJeuMobilePaysage.dc.html', 'ModeJeuMobile.html'); }
 if (kind === 'learn') { return pick('Parcours.dc.html', 'ParcoursMobile.dc.html', 'ParcoursMobilePaysage.dc.html', 'ParcoursMobile.html'); }

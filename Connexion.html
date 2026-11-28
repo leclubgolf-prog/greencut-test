@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><script id="gc-route">(function(){var P={"TableMobile": "Prototype", "TableMobilePaysage": "Prototype", "GreencutTourMobile": "GreencutTour", "ModeJeuMobile": "ModeJeu", "ParcoursMobile": "Parcours", "ParcoursMobilePaysage": "Parcours", "ConnexionMobile": "Connexion", "ConnexionMobilePaysage": "Connexion", "OuvertureMobile": "Ouverture", "OuvertureMobilePaysage": "Ouverture"};var R={};for(var k in P){if(!R[P[k]]||R[P[k]].indexOf('Paysage')>=0)R[P[k]]=k}var f=(location.pathname.split('/').pop()||'').replace(/\.html$/,'');var pref=null;try{pref=localStorage.getItem('greencut.ui')}catch(e){}var wide=matchMedia('(min-width:1024px) and (min-height:600px) and (pointer:fine)').matches;var want=pref||(wide?'desk':'mob');var q=location.search.replace(/([?&])o=[hv](&|$)/,'$1').replace(/[?&]$/,'');if(want==='desk'&&P[f]){location.replace(P[f]+'.html'+q+location.hash);return}if(want==='mob'&&R[f]){location.replace(R[f]+'.html'+q+location.hash);return}window.GCUI={desk:!!R[f],other:R[f]||P[f]||'',wide:wide};})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Greencut">
+<meta name="theme-color" content="#0b0618"><link rel="manifest" href="manifest.webmanifest">
+<title>Écran de connexion GREENCUT</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="bundle.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,700;0,900;1,700;1,900&amp;display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&amp;display=swap">
+<style data-o="v">body{margin:0}*{box-sizing:border-box}
+.pg{font-family:'Titillium Web',sans-serif;color:#f3eefc;background:#0b0618;position:relative;overflow:hidden;width:1440px;height:900px}
+.wm{margin:0;font-weight:900;font-style:italic;text-transform:uppercase;font-size:44px;line-height:1;letter-spacing:.02em;padding:0 .1em 0 .05em;background:linear-gradient(180deg,#ffd166 0%,#ff9ad0 45%,#ff4fa3 70%,#9b5de5 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 6px #ff4fa3) drop-shadow(0 0 18px #9b5de5)}
+.cd{position:absolute;left:470px;top:92px;width:500px;border:2px solid #ff4fa3;border-radius:20px;background:#0e0626f2;box-shadow:0 0 18px #ff4fa3aa,0 0 60px #9b5de588;padding:26px 30px 24px}
+.h2{margin:0 0 6px;font-weight:900;font-size:26px;font-style:italic;text-transform:uppercase;color:#fff}
+.mu{color:#cbbfe6;font-size:14px;line-height:1.4}
+.tab{flex:1;height:44px;border-radius:12px;border:2px solid #ffffff55;background:transparent;color:#f3eefc;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer}
+.tab.on{background:#ff4fa3;border-color:#fff;color:#0e0626}
+.tab:focus-visible,.go:focus-visible,.lk:focus-visible,.in:focus-visible,.sc:focus-visible{outline:3px solid #ffd166;outline-offset:3px}
+.in{width:100%;height:52px;border-radius:12px;border:2px solid #ffffff66;background:#1a0b3d;color:#fff;font-family:inherit;font-size:18px;padding:0 16px}
+.in::placeholder{color:#a99bd0}
+.go{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:54px;border-radius:999px;border:3px solid #fff;background:#ff4fa3;color:#0e0626;font-family:inherit;font-weight:900;font-size:17px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;box-shadow:0 0 14px #ff4fa3,0 0 34px #ff4fa388}
+.go:hover{background:#fff}
+.go.alt{background:transparent;color:#fff;box-shadow:none;border-color:#ffffff88}
+.lk{background:none;border:0;color:#5eead4;font-family:inherit;font-size:14px;font-weight:700;text-decoration:underline;cursor:pointer;padding:4px 0}
+.sc{height:34px;padding:0 12px;border-radius:999px;border:1.5px solid #ffffff66;background:#1a0b3d;color:#e6dff5;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer}
+.sc.on{background:#ffd166;color:#0e0626;border-color:#fff}
+.stp{display:flex;align-items:center;gap:10px;font-size:14px;color:#e6dff5;line-height:1.3}
+.stp b{flex:none;width:28px;height:28px;border-radius:50%;background:#ffd166;color:#0e0626;display:flex;align-items:center;justify-content:center;font-size:14px}
+.bx{border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.4}
+/* typo 2b Sport minuscules */
+.bt{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;text-transform:none!important;letter-spacing:.03em!important}
+.cta{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;text-transform:none!important;letter-spacing:.03em!important}
+.act{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;text-transform:none!important;letter-spacing:.03em!important}
+.cta,.act,.bt{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:.28em;white-space:nowrap!important;text-align:center}
+.cta,.act{font-size:22px!important}
+.act[style*="height:44px"]{font-size:16px!important;padding:0 4px!important;min-width:0!important;letter-spacing:.01em!important}
+.bt[style*="font-size:12px"]{font-size:15px!important}
+.bt[style*="font-size:13px"]{font-size:16px!important}
+.bt[style*="font-size:14px"]{font-size:18px!important}
+.bt[style*="font-size:15px"]{font-size:19px!important}
+.bt[style*="font-size:16px"]{font-size:20px!important}
+.bt[style*="font-size:17px"]{font-size:21px!important}
+.bt[style*="font-size:18px"]{font-size:22px!important}
+.bt[style*="font-size:19px"]{font-size:24px!important}
+.bt[style*="font-size:20px"]{font-size:25px!important}
+.bt[style*="font-size:21px"]{font-size:26px!important}
+.bt[style*="font-size:22px"]{font-size:28px!important}
+.bt:not([style*="font-size"]){font-size:23px!important}
+.t[style*="font-size:14px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:18px!important}
+.t[style*="font-size:15px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:19px!important}
+.t[style*="font-size:16px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:20px!important}
+.t[style*="font-size:17px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:21px!important}
+.t[style*="font-size:18px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:22px!important}
+.t[style*="font-size:19px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:24px!important}
+.t[style*="font-size:20px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:25px!important}
+.t[style*="font-size:21px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:26px!important}
+.t[style*="font-size:22px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:28px!important}
+.t[style*="font-size:23px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:29px!important}
+.t[style*="font-size:24px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:30px!important}
+.t[style*="font-size:25px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:31px!important}
+.t[style*="font-size:26px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:32px!important}
+.t[style*="font-size:27px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:34px!important}
+[style*="font-weight:900"][style*="font-size:10px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:11px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:12px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:13px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:14px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:15px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:16px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:17px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:18px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:19px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:20px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:21px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:22px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:23px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:24px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:25px"]{font-weight:700!important}
+.mc i{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;font-size:1.35em!important;letter-spacing:.02em!important;line-height:1.1!important;top:2.4em!important}
+.mc i.lg{font-size:1.15em!important;top:3.1em!important}
+.mc u{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;font-size:1.02em!important;letter-spacing:.02em!important;bottom:.25em!important;white-space:nowrap}
+.dot{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important}
+</style>
+<style data-o="h">body{margin:0}*{box-sizing:border-box}
+.pg{font-family:'Titillium Web',sans-serif;color:#f3eefc;background:#0b0618;position:relative;overflow:hidden;width:1440px;height:900px}
+.wm{margin:0;font-weight:900;font-style:italic;text-transform:uppercase;font-size:44px;line-height:1;letter-spacing:.02em;padding:0 .1em 0 .05em;background:linear-gradient(180deg,#ffd166 0%,#ff9ad0 45%,#ff4fa3 70%,#9b5de5 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 6px #ff4fa3) drop-shadow(0 0 18px #9b5de5)}
+.cd{position:absolute;left:470px;top:92px;width:500px;border:2px solid #ff4fa3;border-radius:20px;background:#0e0626f2;box-shadow:0 0 18px #ff4fa3aa,0 0 60px #9b5de588;padding:26px 30px 24px}
+.h2{margin:0 0 6px;font-weight:900;font-size:26px;font-style:italic;text-transform:uppercase;color:#fff}
+.mu{color:#cbbfe6;font-size:14px;line-height:1.4}
+.tab{flex:1;height:44px;border-radius:12px;border:2px solid #ffffff55;background:transparent;color:#f3eefc;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer}
+.tab.on{background:#ff4fa3;border-color:#fff;color:#0e0626}
+.tab:focus-visible,.go:focus-visible,.lk:focus-visible,.in:focus-visible,.sc:focus-visible{outline:3px solid #ffd166;outline-offset:3px}
+.in{width:100%;height:52px;border-radius:12px;border:2px solid #ffffff66;background:#1a0b3d;color:#fff;font-family:inherit;font-size:18px;padding:0 16px}
+.in::placeholder{color:#a99bd0}
+.go{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:54px;border-radius:999px;border:3px solid #fff;background:#ff4fa3;color:#0e0626;font-family:inherit;font-weight:900;font-size:17px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;box-shadow:0 0 14px #ff4fa3,0 0 34px #ff4fa388}
+.go:hover{background:#fff}
+.go.alt{background:transparent;color:#fff;box-shadow:none;border-color:#ffffff88}
+.lk{background:none;border:0;color:#5eead4;font-family:inherit;font-size:14px;font-weight:700;text-decoration:underline;cursor:pointer;padding:4px 0}
+.sc{height:34px;padding:0 12px;border-radius:999px;border:1.5px solid #ffffff66;background:#1a0b3d;color:#e6dff5;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer}
+.sc.on{background:#ffd166;color:#0e0626;border-color:#fff}
+.stp{display:flex;align-items:center;gap:10px;font-size:14px;color:#e6dff5;line-height:1.3}
+.stp b{flex:none;width:28px;height:28px;border-radius:50%;background:#ffd166;color:#0e0626;display:flex;align-items:center;justify-content:center;font-size:14px}
+.bx{border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.4}
+/* typo 2b Sport minuscules */
+.bt{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;text-transform:none!important;letter-spacing:.03em!important}
+.cta{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;text-transform:none!important;letter-spacing:.03em!important}
+.act{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;text-transform:none!important;letter-spacing:.03em!important}
+.cta,.act,.bt{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:.28em;white-space:nowrap!important;text-align:center}
+.cta,.act{font-size:22px!important}
+.act[style*="height:44px"]{font-size:16px!important;padding:0 4px!important;min-width:0!important;letter-spacing:.01em!important}
+.bt[style*="font-size:12px"]{font-size:15px!important}
+.bt[style*="font-size:13px"]{font-size:16px!important}
+.bt[style*="font-size:14px"]{font-size:18px!important}
+.bt[style*="font-size:15px"]{font-size:19px!important}
+.bt[style*="font-size:16px"]{font-size:20px!important}
+.bt[style*="font-size:17px"]{font-size:21px!important}
+.bt[style*="font-size:18px"]{font-size:22px!important}
+.bt[style*="font-size:19px"]{font-size:24px!important}
+.bt[style*="font-size:20px"]{font-size:25px!important}
+.bt[style*="font-size:21px"]{font-size:26px!important}
+.bt[style*="font-size:22px"]{font-size:28px!important}
+.bt:not([style*="font-size"]){font-size:23px!important}
+.t[style*="font-size:14px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:18px!important}
+.t[style*="font-size:15px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:19px!important}
+.t[style*="font-size:16px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:20px!important}
+.t[style*="font-size:17px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:21px!important}
+.t[style*="font-size:18px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:22px!important}
+.t[style*="font-size:19px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:24px!important}
+.t[style*="font-size:20px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:25px!important}
+.t[style*="font-size:21px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:26px!important}
+.t[style*="font-size:22px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:28px!important}
+.t[style*="font-size:23px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:29px!important}
+.t[style*="font-size:24px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:30px!important}
+.t[style*="font-size:25px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:31px!important}
+.t[style*="font-size:26px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:32px!important}
+.t[style*="font-size:27px"]{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;text-transform:none!important;letter-spacing:.02em!important;font-size:34px!important}
+[style*="font-weight:900"][style*="font-size:10px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:11px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:12px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:13px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:14px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:15px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:16px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:17px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:18px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:19px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:20px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:21px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:22px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:23px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:24px"]{font-weight:700!important}
+[style*="font-weight:900"][style*="font-size:25px"]{font-weight:700!important}
+.mc i{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important;font-size:1.35em!important;letter-spacing:.02em!important;line-height:1.1!important;top:2.4em!important}
+.mc i.lg{font-size:1.15em!important;top:3.1em!important}
+.mc u{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:700!important;font-size:1.02em!important;letter-spacing:.02em!important;bottom:.25em!important;white-space:nowrap}
+.dot{font-family:'Barlow Condensed','Titillium Web',sans-serif!important;font-weight:800!important;font-style:italic!important}
+</style>
+<style id="gc-desk">html,body{margin:0;background:#0b0618}body{overflow-x:hidden}#app{position:relative;margin:0 auto;overflow:hidden}#app>*{position:absolute!important;left:0;top:0;transform-origin:0 0}</style>
+<script src="./support.js?v=V57"></script><script src="./engine.js?v=V57"></script>
+<meta name="format-detection" content="telephone=no, date=no, email=no, address=no"><style id="gc-noannot">chrome_annotation{border-bottom:0!important;border:0!important;text-decoration:none!important;background:transparent!important}</style>
+</head><body><div id="app"></div>
+<script id="tv" type="text/plain">
+
+<div class="pg">
+<svg width="1440" height="900" viewBox="0 0 1440 900" style="position:absolute;left:0;top:0" aria-hidden="true">
+<defs>
+<linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0618"></stop><stop offset=".35" stop-color="#2a0e66"></stop><stop offset=".62" stop-color="#b0289a"></stop><stop offset=".8" stop-color="#ff5f7a"></stop><stop offset="1" stop-color="#ff9a3d"></stop></linearGradient>
+<linearGradient id="sun2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd166"></stop><stop offset="1" stop-color="#ff4fa3"></stop></linearGradient>
+<clipPath id="sunclip2"><rect x="0" y="0" width="1440" height="768"></rect></clipPath>
+</defs>
+<rect width="1440" height="900" fill="url(#sky2)"></rect>
+<g clip-path="url(#sunclip2)"><circle cx="720" cy="760" r="250" fill="url(#sun2)" opacity=".9"></circle>
+<g fill="#b0289a" opacity=".9"><rect x="440" y="640" width="560" height="6"></rect><rect x="450" y="668" width="540" height="9"></rect><rect x="465" y="698" width="510" height="12"></rect><rect x="480" y="730" width="480" height="16"></rect></g></g>
+<path d="M0 800C180 740 380 735 560 770C700 795 860 765 1040 745C1200 728 1330 760 1440 790V900H0Z" fill="#03210f"></path>
+<path d="M0 800C180 740 380 735 560 770C700 795 860 765 1040 745C1200 728 1330 760 1440 790" fill="none" stroke="#5eead4" stroke-width="3" style="filter:drop-shadow(0 0 8px #5eead4)"></path>
+<g transform="translate(1120 748) scale(1.5) translate(-1120 -748)"><g style="filter:drop-shadow(0 0 8px #ff4fa3)"><path d="M1120 748V560" stroke="#fff" stroke-width="5" stroke-linecap="round"></path><path d="M1120 668V722" stroke="#ca1d05" stroke-width="5"></path><circle cx="1120" cy="556" r="4" fill="#1a1a1a"></circle>
+<path d="M1122 572C1160 565 1196 586 1236 586C1252 588 1262 598 1264 606L1250 646C1210 640 1170 658 1122 650Z" fill="#e8381a" stroke="#ffd1c4" stroke-width="1.5" stroke-linejoin="round"></path>
+<path d="M1122 572L1135 573L1135 652L1122 650Z" fill="#b92410"></path>
+<path d="M1236 586C1252 588 1262 598 1264 606L1244 616Z" fill="#7d1406"></path>
+<path d="M1160 600C1190 612 1215 612 1245 622" fill="none" stroke="#ff8a6a" stroke-width="1.2" opacity=".5"></path></g>
+<g transform="rotate(5 1190 614)"><g fill="none" stroke="#fff8ee" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 6px #ffd166)"><path d="M1148 603L1161 592V637"></path><ellipse cx="1190" cy="605" rx="10" ry="9"></ellipse><ellipse cx="1190" cy="627" rx="12.5" ry="11"></ellipse></g></g></g>
+<g fill="#fff" opacity=".8"><circle cx="160" cy="90" r="2"></circle><circle cx="330" cy="200" r="1.5"></circle><circle cx="1240" cy="120" r="2"></circle><circle cx="1340" cy="260" r="1.5"></circle><circle cx="980" cy="70" r="1.5"></circle><circle cx="520" cy="60" r="1.5"></circle><circle cx="90" cy="330" r="1.5"></circle></g>
+</svg>
+<div style="position:absolute;left:0;top:0;width:1440px;height:900px;background:#0b061866"></div>
+<div style="position:absolute;left:0;top:0;width:1440px;height:100px;padding:10px 40px 0;display:flex;align-items:center;gap:16px"><svg viewBox="0 0 652 922" width="64" height="90" role="img" aria-label="LeClub Golf" style="overflow:visible">
+<defs><filter id="gw2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9" result="b1"></feGaussianBlur><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b2"></feGaussianBlur><feMerge><feMergeNode in="b1"></feMergeNode><feMergeNode in="b1"></feMergeNode><feMergeNode in="b2"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter></defs>
+<g filter="url(#gw2)">
+<path d="M349.511 174.719 L413.991 174.719 L417.278 174.719 L419.698 174.719 C448.232 174.719 462.636 160.316 462.636 131.781 L462.636 130.694 L436.547 130.694 L436.547 132.868 C436.547 144.01 430.84 149.717 419.698 149.717 L414.806 149.717 C403.393 149.717 397.957 144.01 397.957 132.868 L397.957 102.377 L462.636 102.377 L462.636 42.9379 C462.636 14.402 448.232 -3.05176e-05 419.698 -3.05176e-05 L413.991 -3.05176e-05 C385.457 -3.05176e-05 371.053 14.402 371.053 42.9379 L371.053 78.4619 L371.053 103.736 L371.053 131.781 C371.053 138.09 371.76 143.706 373.165 148.63 L343.26 148.63 C336.737 147 333.205 142.651 332.118 135.587 L332.118 -3.05176e-05 L304.127 -3.05176e-05 L304.127 129.064 C304.127 159.772 319.073 174.719 349.511 174.719 Z M397.957 41.8495 C397.957 30.436 403.393 25.002 414.806 25.002 L418.881 25.002 C430.297 25.002 436.002 30.436 436.002 41.8495 L436.002 77.1035 L397.957 77.1035 L397.957 41.8495 Z M80.4794 530 C128.286 530 147.238 506.741 147.238 458.502 L147.238 449.029 L147.238 397.426 L103.307 397.426 L103.307 459.796 C103.307 480.038 94.6925 489.514 76.1738 489.514 L75.3119 489.514 C55.4983 489.514 46.0232 480.038 46.0232 459.796 L46.0232 459.764 L46.0232 270.187 L46.0232 270.155 C46.0232 249.913 55.4983 240.437 75.3119 240.437 L76.1738 240.437 C94.6925 240.437 103.307 249.913 103.307 270.155 L103.307 322.232 L147.238 322.232 L147.238 280.922 L147.238 271.449 C147.238 223.21 128.286 199.952 80.4794 199.952 L73.5878 199.952 C25.3513 199.952 0.80127 224.071 0.80127 272.31 L0.80127 272.34 L0.80127 457.611 L0.80127 457.641 C0.80127 505.88 25.3513 530 73.5878 530 L80.4794 530 Z M105.95 547.329 L99.0587 547.329 C50.8224 547.329 26.2722 571.448 26.2722 619.687 L26.2722 619.717 L26.2722 848.872 L26.2722 848.901 C26.2722 897.14 50.8224 921.26 99.0587 921.26 L105.95 921.26 C153.757 921.26 172.708 898.001 172.708 849.762 L172.708 819.919 L172.708 819.502 L172.708 779.447 L172.708 779.434 L102.188 779.434 L102.188 819.919 L128.778 819.919 L128.778 851.057 C128.778 871.298 120.163 880.774 101.645 880.774 L100.783 880.774 C80.9692 880.774 71.4941 871.298 71.4941 851.057 L71.4941 851.024 L71.4941 617.564 L71.4941 617.532 C71.4941 597.29 80.9692 587.814 100.783 587.814 L101.645 587.814 C120.163 587.814 128.778 597.29 128.778 617.532 L128.778 714.547 L172.708 714.547 L172.708 628.3 L172.708 618.826 C172.708 570.587 153.757 547.329 105.95 547.329 Z M261.569 571.058 L339.875 571.058 L339.875 532.277 L251.662 532.277 C238.709 532.073 234.005 523.327 234.005 511.604 L234.005 200.813 L189.644 200.813 L189.644 501.267 C189.644 560.244 213.33 571.058 261.569 571.058 Z M441.262 861.806 L441.262 532.271 L396.901 532.271 L396.901 851.468 C396.901 910.445 420.587 921.26 468.826 921.26 L505.671 921.26 L505.671 882.478 L458.92 882.478 C445.966 882.274 441.262 873.528 441.262 861.806 Z M447.22 433.818 L447.22 322.508 L402.859 322.508 L402.859 435.974 C402.859 455.785 393.813 465.691 373.572 465.691 L363.235 465.691 C342.993 465.691 333.087 455.785 333.087 435.974 L333.087 200.813 L288.711 200.813 L288.726 433.818 C288.726 482.057 312.843 506.177 361.512 506.177 L375.295 506.177 C423.962 506.177 447.22 482.057 447.22 433.818 Z M578.811 200.727 L540.048 200.727 L540.048 102.397 L496.276 102.397 L496.118 240.782 L496.118 507.231 L578.811 507.231 C627.478 507.231 651.167 482.681 651.167 434.445 L651.167 432.292 L651.167 273.083 C651.167 224.414 627.478 200.727 578.811 200.727 Z M607.237 437.459 C607.237 457.27 597.761 467.176 577.519 467.176 L540.048 467.176 L540.048 240.782 L577.519 240.782 C597.761 240.782 607.237 250.256 607.237 270.069 L607.237 437.459 Z M290.14 598.575 L273.344 598.575 C224.677 598.575 200.988 622.264 200.988 670.931 L200.988 848.013 C200.988 896.682 224.677 920.371 273.344 920.371 L290.14 920.371 C338.379 920.371 362.499 896.682 362.499 848.013 L362.499 670.931 C362.499 622.264 338.379 598.575 290.14 598.575 Z M317.704 850.165 C317.704 870.409 308.231 879.886 288.418 879.886 L275.066 879.886 C254.824 879.886 245.348 870.409 245.348 850.165 L245.348 668.778 C245.348 648.536 254.824 639.06 275.066 639.06 L288.418 639.06 C308.231 639.06 317.704 648.536 317.704 668.778 L317.704 850.165 Z M533.146 608.792 L533.146 674.328 L508.511 674.328 L508.511 714.813 L533.146 714.813 L533.146 921.26 L577.721 921.26 L577.721 714.813 L638.734 714.813 L638.734 674.328 L577.721 674.328 L577.721 609.054 C577.761 608.097 578.249 595.9 582.708 587.605 C586.172 581.158 592.312 570.677 609.19 570.677 L651.167 570.677 L651.167 532.271 L609.19 532.271 C553.746 532.271 533.337 577.95 533.146 608.792 Z" fill="#2a0e66" fill-opacity=".55" stroke="#ffd1ec" stroke-width="9" stroke-linejoin="round"></path>
+<path d="M367.601 201.534 L367.601 301.894 L462.271 251.714 L367.601 201.534 Z" fill="#ca1d05" stroke="#ffd166" stroke-width="9" stroke-linejoin="round"></path>
+</g>
+</svg><div class="wm">Greencut</div></div>
+
+<div class="cd">
+<sc-if value="{{isId}}" hint-placeholder-val="{{ true }}">
+<h1 class="h2">Connexion</h1>
+<p class="mu" style="margin:0 0 16px">Greencut est réservé aux membres <b style="color:#fff">LeClub Golf</b> avec une carte de fidélité active. Entrez votre e-mail ou votre mobile : nous vous envoyons un code pour confirmer que c’est bien vous.</p>
+<div style="display:flex;gap:10px;margin-bottom:14px" role="tablist" aria-label="Mode d’identification"><button class="tab {{emailCls}}" onClick="{{pickEmail}}" role="tab">E-mail</button><button class="tab {{mobCls}}" onClick="{{pickMob}}" role="tab">Mobile (SMS)</button></div>
+<label for="idf" class="mu" style="display:block;margin-bottom:6px;font-weight:700">{{idLabel}}</label>
+<div style="display:flex;gap:10px;align-items:stretch"><sc-if value="{{isMob}}" hint-placeholder-val="{{ false }}"><select class="in" aria-label="Indicatif du pays" value="{{cc}}" onChange="{{onCc}}" style="width:176px;flex:none;padding:0 10px"><sc-for list="{{ccOpts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}">{{o.t}}</option></sc-for></select></sc-if><input id="idf" class="in" value="{{idVal}}" onInput="{{onId}}" placeholder="{{idPh}}" inputmode="{{idMode}}" autocomplete="{{idAuto}}" style="flex:1;min-width:0"></div>
+<div style="min-height:22px;margin:6px 0 10px;font-size:13px;color:#ff9ad0;font-weight:700">{{idErr}}</div>
+<button class="go" onClick="{{sendCode}}" style="opacity:{{sendOp}}">Recevoir mon code<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0e0626" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12H19M13 6L19 12L13 18"></path></svg></button>
+<p class="mu" style="margin:14px 0 0;font-size:12.5px">Pas de mot de passe à retenir. Votre e-mail ou mobile doit être celui de votre carte LeClub Golf.</p>
+</sc-if>
+
+<sc-if value="{{isCode}}" hint-placeholder-val="{{ false }}">
+<h1 class="h2">Entrez votre code</h1>
+<p class="mu" style="margin:0 0 16px">Nous avons envoyé un code à 6 chiffres {{viaTxt}} à <b style="color:#fff">{{masked}}</b>. Il est valable 10 minutes.</p>
+<label for="cdf" class="mu" style="display:block;margin-bottom:6px;font-weight:700">Code à 6 chiffres</label>
+<input id="cdf" class="in" value="{{codeVal}}" onInput="{{onCode}}" maxlength="6" inputmode="numeric" autocomplete="one-time-code" placeholder="000000" style="font-size:30px;letter-spacing:.5em;text-align:center;font-weight:900">
+<div style="min-height:22px;margin:6px 0 10px;font-size:13px;color:#5eead4;font-weight:700">{{codeNote}}</div>
+<button class="go" onClick="{{verify}}" style="opacity:{{verOp}}">Valider et entrer</button>
+<div style="display:flex;justify-content:space-between;margin-top:12px"><button class="lk" onClick="{{resend}}">Renvoyer le code</button><button class="lk" onClick="{{back}}">Changer d’identifiant</button></div>
+<p class="mu" style="margin:10px 0 0;font-size:12.5px">Maquette : tout code à 6 chiffres est accepté. En vrai jeu, l’API LeClub Golf vérifie le code puis l’état de la carte.</p>
+</sc-if>
+
+<sc-if value="{{isOk}}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:12px"><div style="width:52px;height:52px;border-radius:50%;background:#5eead4;display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#0e0626" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5L10 17.5L19 7.5"></path></svg></div><h1 class="h2" style="margin:0">{{okTitle}}</h1></div>
+<sc-if value="{{isGift}}" hint-placeholder-val="{{ false }}"><div class="bx" style="background:linear-gradient(135deg,#ff4fa3,#9b5de5);border:2px solid #fff;margin-bottom:12px;text-align:center"><div style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff">Cadeau de bienvenue</div><div style="font-size:34px;font-weight:900;color:#fff;line-height:1.15">10 000 pts offerts</div><div style="font-size:13px;color:#fff">pour votre première partie, sans débit de fees</div></div></sc-if>
+<div class="bx" style="background:#1a0b3d;border:1.5px solid #5eead4;margin-bottom:16px"><div style="display:flex;justify-content:space-between;gap:10px"><span class="mu">Carte LeClub Golf</span><b style="color:#5eead4">ACTIVE</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Valable jusqu’au</span><b>30/06/2027</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Points du jeu</span><b style="color:#ffd166">{{ptsTxt}}</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Solde fidélité</span><b style="color:#ffd166">{{feesTxt}}</b></div></div>
+<a class="go" href="ModeJeu.html">Entrer dans le jeu<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0e0626" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12H19M13 6L19 12L13 18"></path></svg></a>
+<p class="mu" style="margin:12px 0 0;font-size:12.5px">{{okNote}}</p>
+</sc-if>
+
+<sc-if value="{{isLow}}" hint-placeholder-val="{{ false }}">
+<h1 class="h2">Points insuffisants</h1>
+<p class="mu" style="margin:0 0 14px;font-size:15px;color:#f3eefc">Content de vous revoir ! Votre solde de points du jeu est de <b style="color:#ffd166">3 200 pts</b> : c’est moins que la mise de départ d’une partie (10 000 pts).</p>
+<div class="bx" style="background:#1a0b3d;border:1.5px solid #ffd166;margin-bottom:16px"><div style="display:flex;justify-content:space-between;gap:10px"><span class="mu">Convertir</span><b>100 fees → 10 000 pts</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Solde fidélité</span><b style="color:#ffd166">1 250 → 1 150 fees</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Points du jeu</span><b style="color:#ffd166">3 200 → 13 200 pts</b></div></div>
+<button class="go" onClick="{{convert}}">Je confirme : convertir 100 fees</button>
+<button class="go alt" onClick="{{back}}" style="margin-top:10px;height:46px;font-size:14px">Pas maintenant</button>
+<p class="mu" style="margin:12px 0 0;font-size:12.5px">Rien n’est débité sans votre accord. Si votre solde est inférieur à 100 fees, vous ne pouvez pas jouer.</p>
+</sc-if>
+
+<sc-if value="{{isCash}}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:12px"><div style="width:52px;height:52px;border-radius:50%;background:#ffd166;display:flex;align-items:center;justify-content:center;flex:none;font-weight:900;font-size:30px;color:#0e0626">!</div><h1 class="h2" style="margin:0">Pas assez de fees</h1></div>
+<p class="mu" style="margin:0 0 14px;font-size:15px;color:#f3eefc">Votre carte est active, mais il vous faut au moins <b>100 fees</b> pour jouer une partie (100 fees = 10 000 pts, la mise de départ).</p>
+<div class="bx" style="background:#1a0b3d;border:1.5px solid #ffd166;margin-bottom:16px"><div style="display:flex;justify-content:space-between;gap:10px"><span class="mu">Solde fidélité</span><b style="color:#ffd166">40 fees</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Points du jeu</span><b style="color:#ffd166">3 200 pts</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Il vous manque</span><b>60 fees</b></div></div>
+<a class="go" href="https://www.leclub-golf.com" target="_blank" rel="noopener" style="text-transform:none;letter-spacing:.03em;font-size:16px">Gagner des fees sur leclub-golf.com</a>
+<button class="go alt" onClick="{{back}}" style="margin-top:10px;height:46px;font-size:14px">Essayer un autre identifiant</button>
+<p class="mu" style="margin:12px 0 0;font-size:12.5px">Les fees se gagnent avec votre carte LeClub Golf. Revenez jouer dès que votre solde atteint 100 fees.</p>
+</sc-if>
+
+<sc-if value="{{isExp}}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:12px"><div style="width:52px;height:52px;border-radius:50%;background:#ffd166;display:flex;align-items:center;justify-content:center;flex:none;font-weight:900;font-size:30px;color:#0e0626">!</div><h1 class="h2" style="margin:0">Votre carte a expiré</h1></div>
+<div class="bx" style="background:#1a0b3d;border:1.5px solid #ffd166;margin-bottom:12px"><div style="display:flex;justify-content:space-between;gap:10px"><span class="mu">Carte LeClub Golf</span><b style="color:#ffd166">EXPIRÉE</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Expirée le</span><b>31/08/2026</b></div></div>
+<p class="mu" style="margin:0 0 16px;font-size:15px;color:#f3eefc">Pour jouer à Greencut, il faut une carte de fidélité active. Reprenez votre carte sur le site de LeClub Golf, puis revenez vous connecter.</p>
+<a class="go" href="https://www.leclub-golf.com" target="_blank" rel="noopener" style="text-transform:none;letter-spacing:.03em;font-size:16px">Prendre ma carte sur leclub-golf.com</a>
+<button class="go alt" onClick="{{back}}" style="margin-top:10px;height:46px;font-size:14px">Essayer un autre identifiant</button>
+</sc-if>
+
+<sc-if value="{{isNone}}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:12px"><div style="width:52px;height:52px;border-radius:50%;background:#ff4fa3;display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#0e0626" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></div><h1 class="h2" style="margin:0">Jeu réservé aux membres</h1></div>
+<p class="mu" style="margin:0 0 16px;font-size:15px;color:#f3eefc">Greencut est réservé aux membres <b>LeClub Golf</b>. Nous ne trouvons aucune carte de fidélité active liée à <b>{{masked}}</b>.</p>
+<a class="go" href="https://www.leclub-golf.com" target="_blank" rel="noopener">Découvrir LeClub Golf</a>
+<button class="go alt" onClick="{{back}}" style="margin-top:10px;height:46px;font-size:14px">Essayer un autre identifiant</button>
+<p class="mu" style="margin:12px 0 0;font-size:12.5px">Déjà membre ? Vérifiez que vous utilisez l’e-mail ou le mobile de votre carte.</p>
+</sc-if>
+</div>
+
+<div style="position:absolute;left:470px;top:590px;width:500px">
+<div class="mu" style="text-align:center;font-size:12.5px;font-weight:700;margin-bottom:8px">Maquette · réponse de l’API LeClub Golf :</div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center"><button class="sc {{scF}}" onClick="{{setF}}">1re connexion</button><button class="sc {{scB}}" onClick="{{setB}}">Retour, solde suffisant</button><button class="sc {{scL}}" onClick="{{setL}}">Retour, solde insuffisant</button><button class="sc {{scP}}" onClick="{{setP}}">Retour, moins de 100 fees</button><button class="sc {{scE}}" onClick="{{setE}}">Carte expirée</button><button class="sc {{scN}}" onClick="{{setN}}">Non membre</button></div>
+</div>
+<div style="position:absolute;left:470px;bottom:24px;width:500px;display:flex;flex-direction:column;gap:8px;padding:14px 18px;border-radius:14px;background:#0e0626cc;border:1px solid #ffffff33">
+<div class="mu" style="font-weight:700;color:#ffd166;text-transform:uppercase;letter-spacing:.08em;font-size:12px">Comment ça marche</div>
+<div class="stp"><b>1</b>Vous entrez votre e-mail ou votre mobile.</div>
+<div class="stp"><b>2</b>Vous recevez un code et vous le saisissez.</div>
+<div class="stp"><b>3</b>LeClub Golf vérifie votre carte : si elle est active, vous arrivez à la table. 10 000 pts offerts à la 1re connexion.</div>
+</div>
+</div>
+</script>
+<script id="th" type="text/plain">
+
+<div class="pg">
+<svg width="1440" height="900" viewBox="0 0 1440 900" style="position:absolute;left:0;top:0" aria-hidden="true">
+<defs>
+<linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0618"></stop><stop offset=".35" stop-color="#2a0e66"></stop><stop offset=".62" stop-color="#b0289a"></stop><stop offset=".8" stop-color="#ff5f7a"></stop><stop offset="1" stop-color="#ff9a3d"></stop></linearGradient>
+<linearGradient id="sun2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd166"></stop><stop offset="1" stop-color="#ff4fa3"></stop></linearGradient>
+<clipPath id="sunclip2"><rect x="0" y="0" width="1440" height="768"></rect></clipPath>
+</defs>
+<rect width="1440" height="900" fill="url(#sky2)"></rect>
+<g clip-path="url(#sunclip2)"><circle cx="720" cy="760" r="250" fill="url(#sun2)" opacity=".9"></circle>
+<g fill="#b0289a" opacity=".9"><rect x="440" y="640" width="560" height="6"></rect><rect x="450" y="668" width="540" height="9"></rect><rect x="465" y="698" width="510" height="12"></rect><rect x="480" y="730" width="480" height="16"></rect></g></g>
+<path d="M0 800C180 740 380 735 560 770C700 795 860 765 1040 745C1200 728 1330 760 1440 790V900H0Z" fill="#03210f"></path>
+<path d="M0 800C180 740 380 735 560 770C700 795 860 765 1040 745C1200 728 1330 760 1440 790" fill="none" stroke="#5eead4" stroke-width="3" style="filter:drop-shadow(0 0 8px #5eead4)"></path>
+<g transform="translate(1120 748) scale(1.5) translate(-1120 -748)"><g style="filter:drop-shadow(0 0 8px #ff4fa3)"><path d="M1120 748V560" stroke="#fff" stroke-width="5" stroke-linecap="round"></path><path d="M1120 668V722" stroke="#ca1d05" stroke-width="5"></path><circle cx="1120" cy="556" r="4" fill="#1a1a1a"></circle>
+<path d="M1122 572C1160 565 1196 586 1236 586C1252 588 1262 598 1264 606L1250 646C1210 640 1170 658 1122 650Z" fill="#e8381a" stroke="#ffd1c4" stroke-width="1.5" stroke-linejoin="round"></path>
+<path d="M1122 572L1135 573L1135 652L1122 650Z" fill="#b92410"></path>
+<path d="M1236 586C1252 588 1262 598 1264 606L1244 616Z" fill="#7d1406"></path>
+<path d="M1160 600C1190 612 1215 612 1245 622" fill="none" stroke="#ff8a6a" stroke-width="1.2" opacity=".5"></path></g>
+<g transform="rotate(5 1190 614)"><g fill="none" stroke="#fff8ee" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 6px #ffd166)"><path d="M1148 603L1161 592V637"></path><ellipse cx="1190" cy="605" rx="10" ry="9"></ellipse><ellipse cx="1190" cy="627" rx="12.5" ry="11"></ellipse></g></g></g>
+<g fill="#fff" opacity=".8"><circle cx="160" cy="90" r="2"></circle><circle cx="330" cy="200" r="1.5"></circle><circle cx="1240" cy="120" r="2"></circle><circle cx="1340" cy="260" r="1.5"></circle><circle cx="980" cy="70" r="1.5"></circle><circle cx="520" cy="60" r="1.5"></circle><circle cx="90" cy="330" r="1.5"></circle></g>
+</svg>
+<div style="position:absolute;left:0;top:0;width:1440px;height:900px;background:#0b061866"></div>
+<div style="position:absolute;left:0;top:0;width:1440px;height:100px;padding:10px 40px 0;display:flex;align-items:center;gap:16px"><svg viewBox="0 0 652 922" width="64" height="90" role="img" aria-label="LeClub Golf" style="overflow:visible">
+<defs><filter id="gw2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9" result="b1"></feGaussianBlur><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b2"></feGaussianBlur><feMerge><feMergeNode in="b1"></feMergeNode><feMergeNode in="b1"></feMergeNode><feMergeNode in="b2"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter></defs>
+<g filter="url(#gw2)">
+<path d="M349.511 174.719 L413.991 174.719 L417.278 174.719 L419.698 174.719 C448.232 174.719 462.636 160.316 462.636 131.781 L462.636 130.694 L436.547 130.694 L436.547 132.868 C436.547 144.01 430.84 149.717 419.698 149.717 L414.806 149.717 C403.393 149.717 397.957 144.01 397.957 132.868 L397.957 102.377 L462.636 102.377 L462.636 42.9379 C462.636 14.402 448.232 -3.05176e-05 419.698 -3.05176e-05 L413.991 -3.05176e-05 C385.457 -3.05176e-05 371.053 14.402 371.053 42.9379 L371.053 78.4619 L371.053 103.736 L371.053 131.781 C371.053 138.09 371.76 143.706 373.165 148.63 L343.26 148.63 C336.737 147 333.205 142.651 332.118 135.587 L332.118 -3.05176e-05 L304.127 -3.05176e-05 L304.127 129.064 C304.127 159.772 319.073 174.719 349.511 174.719 Z M397.957 41.8495 C397.957 30.436 403.393 25.002 414.806 25.002 L418.881 25.002 C430.297 25.002 436.002 30.436 436.002 41.8495 L436.002 77.1035 L397.957 77.1035 L397.957 41.8495 Z M80.4794 530 C128.286 530 147.238 506.741 147.238 458.502 L147.238 449.029 L147.238 397.426 L103.307 397.426 L103.307 459.796 C103.307 480.038 94.6925 489.514 76.1738 489.514 L75.3119 489.514 C55.4983 489.514 46.0232 480.038 46.0232 459.796 L46.0232 459.764 L46.0232 270.187 L46.0232 270.155 C46.0232 249.913 55.4983 240.437 75.3119 240.437 L76.1738 240.437 C94.6925 240.437 103.307 249.913 103.307 270.155 L103.307 322.232 L147.238 322.232 L147.238 280.922 L147.238 271.449 C147.238 223.21 128.286 199.952 80.4794 199.952 L73.5878 199.952 C25.3513 199.952 0.80127 224.071 0.80127 272.31 L0.80127 272.34 L0.80127 457.611 L0.80127 457.641 C0.80127 505.88 25.3513 530 73.5878 530 L80.4794 530 Z M105.95 547.329 L99.0587 547.329 C50.8224 547.329 26.2722 571.448 26.2722 619.687 L26.2722 619.717 L26.2722 848.872 L26.2722 848.901 C26.2722 897.14 50.8224 921.26 99.0587 921.26 L105.95 921.26 C153.757 921.26 172.708 898.001 172.708 849.762 L172.708 819.919 L172.708 819.502 L172.708 779.447 L172.708 779.434 L102.188 779.434 L102.188 819.919 L128.778 819.919 L128.778 851.057 C128.778 871.298 120.163 880.774 101.645 880.774 L100.783 880.774 C80.9692 880.774 71.4941 871.298 71.4941 851.057 L71.4941 851.024 L71.4941 617.564 L71.4941 617.532 C71.4941 597.29 80.9692 587.814 100.783 587.814 L101.645 587.814 C120.163 587.814 128.778 597.29 128.778 617.532 L128.778 714.547 L172.708 714.547 L172.708 628.3 L172.708 618.826 C172.708 570.587 153.757 547.329 105.95 547.329 Z M261.569 571.058 L339.875 571.058 L339.875 532.277 L251.662 532.277 C238.709 532.073 234.005 523.327 234.005 511.604 L234.005 200.813 L189.644 200.813 L189.644 501.267 C189.644 560.244 213.33 571.058 261.569 571.058 Z M441.262 861.806 L441.262 532.271 L396.901 532.271 L396.901 851.468 C396.901 910.445 420.587 921.26 468.826 921.26 L505.671 921.26 L505.671 882.478 L458.92 882.478 C445.966 882.274 441.262 873.528 441.262 861.806 Z M447.22 433.818 L447.22 322.508 L402.859 322.508 L402.859 435.974 C402.859 455.785 393.813 465.691 373.572 465.691 L363.235 465.691 C342.993 465.691 333.087 455.785 333.087 435.974 L333.087 200.813 L288.711 200.813 L288.726 433.818 C288.726 482.057 312.843 506.177 361.512 506.177 L375.295 506.177 C423.962 506.177 447.22 482.057 447.22 433.818 Z M578.811 200.727 L540.048 200.727 L540.048 102.397 L496.276 102.397 L496.118 240.782 L496.118 507.231 L578.811 507.231 C627.478 507.231 651.167 482.681 651.167 434.445 L651.167 432.292 L651.167 273.083 C651.167 224.414 627.478 200.727 578.811 200.727 Z M607.237 437.459 C607.237 457.27 597.761 467.176 577.519 467.176 L540.048 467.176 L540.048 240.782 L577.519 240.782 C597.761 240.782 607.237 250.256 607.237 270.069 L607.237 437.459 Z M290.14 598.575 L273.344 598.575 C224.677 598.575 200.988 622.264 200.988 670.931 L200.988 848.013 C200.988 896.682 224.677 920.371 273.344 920.371 L290.14 920.371 C338.379 920.371 362.499 896.682 362.499 848.013 L362.499 670.931 C362.499 622.264 338.379 598.575 290.14 598.575 Z M317.704 850.165 C317.704 870.409 308.231 879.886 288.418 879.886 L275.066 879.886 C254.824 879.886 245.348 870.409 245.348 850.165 L245.348 668.778 C245.348 648.536 254.824 639.06 275.066 639.06 L288.418 639.06 C308.231 639.06 317.704 648.536 317.704 668.778 L317.704 850.165 Z M533.146 608.792 L533.146 674.328 L508.511 674.328 L508.511 714.813 L533.146 714.813 L533.146 921.26 L577.721 921.26 L577.721 714.813 L638.734 714.813 L638.734 674.328 L577.721 674.328 L577.721 609.054 C577.761 608.097 578.249 595.9 582.708 587.605 C586.172 581.158 592.312 570.677 609.19 570.677 L651.167 570.677 L651.167 532.271 L609.19 532.271 C553.746 532.271 533.337 577.95 533.146 608.792 Z" fill="#2a0e66" fill-opacity=".55" stroke="#ffd1ec" stroke-width="9" stroke-linejoin="round"></path>
+<path d="M367.601 201.534 L367.601 301.894 L462.271 251.714 L367.601 201.534 Z" fill="#ca1d05" stroke="#ffd166" stroke-width="9" stroke-linejoin="round"></path>
+</g>
+</svg><div class="wm">Greencut</div></div>
+
+<div class="cd">
+<sc-if value="{{isId}}" hint-placeholder-val="{{ true }}">
+<h1 class="h2">Connexion</h1>
+<p class="mu" style="margin:0 0 16px">Greencut est réservé aux membres <b style="color:#fff">LeClub Golf</b> avec une carte de fidélité active. Entrez votre e-mail ou votre mobile : nous vous envoyons un code pour confirmer que c’est bien vous.</p>
+<div style="display:flex;gap:10px;margin-bottom:14px" role="tablist" aria-label="Mode d’identification"><button class="tab {{emailCls}}" onClick="{{pickEmail}}" role="tab">E-mail</button><button class="tab {{mobCls}}" onClick="{{pickMob}}" role="tab">Mobile (SMS)</button></div>
+<label for="idf" class="mu" style="display:block;margin-bottom:6px;font-weight:700">{{idLabel}}</label>
+<div style="display:flex;gap:10px;align-items:stretch"><sc-if value="{{isMob}}" hint-placeholder-val="{{ false }}"><select class="in" aria-label="Indicatif du pays" value="{{cc}}" onChange="{{onCc}}" style="width:176px;flex:none;padding:0 10px"><sc-for list="{{ccOpts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}">{{o.t}}</option></sc-for></select></sc-if><input id="idf" class="in" value="{{idVal}}" onInput="{{onId}}" placeholder="{{idPh}}" inputmode="{{idMode}}" autocomplete="{{idAuto}}" style="flex:1;min-width:0"></div>
+<div style="min-height:22px;margin:6px 0 10px;font-size:13px;color:#ff9ad0;font-weight:700">{{idErr}}</div>
+<button class="go" onClick="{{sendCode}}" style="opacity:{{sendOp}}">Recevoir mon code<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0e0626" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12H19M13 6L19 12L13 18"></path></svg></button>
+<p class="mu" style="margin:14px 0 0;font-size:12.5px">Pas de mot de passe à retenir. Votre e-mail ou mobile doit être celui de votre carte LeClub Golf.</p>
+</sc-if>
+
+<sc-if value="{{isCode}}" hint-placeholder-val="{{ false }}">
+<h1 class="h2">Entrez votre code</h1>
+<p class="mu" style="margin:0 0 16px">Nous avons envoyé un code à 6 chiffres {{viaTxt}} à <b style="color:#fff">{{masked}}</b>. Il est valable 10 minutes.</p>
+<label for="cdf" class="mu" style="display:block;margin-bottom:6px;font-weight:700">Code à 6 chiffres</label>
+<input id="cdf" class="in" value="{{codeVal}}" onInput="{{onCode}}" maxlength="6" inputmode="numeric" autocomplete="one-time-code" placeholder="000000" style="font-size:30px;letter-spacing:.5em;text-align:center;font-weight:900">
+<div style="min-height:22px;margin:6px 0 10px;font-size:13px;color:#5eead4;font-weight:700">{{codeNote}}</div>
+<button class="go" onClick="{{verify}}" style="opacity:{{verOp}}">Valider et entrer</button>
+<div style="display:flex;justify-content:space-between;margin-top:12px"><button class="lk" onClick="{{resend}}">Renvoyer le code</button><button class="lk" onClick="{{back}}">Changer d’identifiant</button></div>
+<p class="mu" style="margin:10px 0 0;font-size:12.5px">Maquette : tout code à 6 chiffres est accepté. En vrai jeu, l’API LeClub Golf vérifie le code puis l’état de la carte.</p>
+</sc-if>
+
+<sc-if value="{{isOk}}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:12px"><div style="width:52px;height:52px;border-radius:50%;background:#5eead4;display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#0e0626" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5L10 17.5L19 7.5"></path></svg></div><h1 class="h2" style="margin:0">{{okTitle}}</h1></div>
+<sc-if value="{{isGift}}" hint-placeholder-val="{{ false }}"><div class="bx" style="background:linear-gradient(135deg,#ff4fa3,#9b5de5);border:2px solid #fff;margin-bottom:12px;text-align:center"><div style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff">Cadeau de bienvenue</div><div style="font-size:34px;font-weight:900;color:#fff;line-height:1.15">10 000 pts offerts</div><div style="font-size:13px;color:#fff">pour votre première partie, sans débit de fees</div></div></sc-if>
+<div class="bx" style="background:#1a0b3d;border:1.5px solid #5eead4;margin-bottom:16px"><div style="display:flex;justify-content:space-between;gap:10px"><span class="mu">Carte LeClub Golf</span><b style="color:#5eead4">ACTIVE</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Valable jusqu’au</span><b>30/06/2027</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Points du jeu</span><b style="color:#ffd166">{{ptsTxt}}</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Solde fidélité</span><b style="color:#ffd166">{{feesTxt}}</b></div></div>
+<a class="go" href="ModeJeu.html">Entrer dans le jeu<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0e0626" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12H19M13 6L19 12L13 18"></path></svg></a>
+<p class="mu" style="margin:12px 0 0;font-size:12.5px">{{okNote}}</p>
+</sc-if>
+
+<sc-if value="{{isLow}}" hint-placeholder-val="{{ false }}">
+<h1 class="h2">Points insuffisants</h1>
+<p class="mu" style="margin:0 0 14px;font-size:15px;color:#f3eefc">Content de vous revoir ! Votre solde de points du jeu est de <b style="color:#ffd166">3 200 pts</b> : c’est moins que la mise de départ d’une partie (10 000 pts).</p>
+<div class="bx" style="background:#1a0b3d;border:1.5px solid #ffd166;margin-bottom:16px"><div style="display:flex;justify-content:space-between;gap:10px"><span class="mu">Convertir</span><b>100 fees → 10 000 pts</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Solde fidélité</span><b style="color:#ffd166">1 250 → 1 150 fees</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Points du jeu</span><b style="color:#ffd166">3 200 → 13 200 pts</b></div></div>
+<button class="go" onClick="{{convert}}">Je confirme : convertir 100 fees</button>
+<button class="go alt" onClick="{{back}}" style="margin-top:10px;height:46px;font-size:14px">Pas maintenant</button>
+<p class="mu" style="margin:12px 0 0;font-size:12.5px">Rien n’est débité sans votre accord. Si votre solde est inférieur à 100 fees, vous ne pouvez pas jouer.</p>
+</sc-if>
+
+<sc-if value="{{isCash}}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:12px"><div style="width:52px;height:52px;border-radius:50%;background:#ffd166;display:flex;align-items:center;justify-content:center;flex:none;font-weight:900;font-size:30px;color:#0e0626">!</div><h1 class="h2" style="margin:0">Pas assez de fees</h1></div>
+<p class="mu" style="margin:0 0 14px;font-size:15px;color:#f3eefc">Votre carte est active, mais il vous faut au moins <b>100 fees</b> pour jouer une partie (100 fees = 10 000 pts, la mise de départ).</p>
+<div class="bx" style="background:#1a0b3d;border:1.5px solid #ffd166;margin-bottom:16px"><div style="display:flex;justify-content:space-between;gap:10px"><span class="mu">Solde fidélité</span><b style="color:#ffd166">40 fees</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Points du jeu</span><b style="color:#ffd166">3 200 pts</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Il vous manque</span><b>60 fees</b></div></div>
+<a class="go" href="https://www.leclub-golf.com" target="_blank" rel="noopener" style="text-transform:none;letter-spacing:.03em;font-size:16px">Gagner des fees sur leclub-golf.com</a>
+<button class="go alt" onClick="{{back}}" style="margin-top:10px;height:46px;font-size:14px">Essayer un autre identifiant</button>
+<p class="mu" style="margin:12px 0 0;font-size:12.5px">Les fees se gagnent avec votre carte LeClub Golf. Revenez jouer dès que votre solde atteint 100 fees.</p>
+</sc-if>
+
+<sc-if value="{{isExp}}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:12px"><div style="width:52px;height:52px;border-radius:50%;background:#ffd166;display:flex;align-items:center;justify-content:center;flex:none;font-weight:900;font-size:30px;color:#0e0626">!</div><h1 class="h2" style="margin:0">Votre carte a expiré</h1></div>
+<div class="bx" style="background:#1a0b3d;border:1.5px solid #ffd166;margin-bottom:12px"><div style="display:flex;justify-content:space-between;gap:10px"><span class="mu">Carte LeClub Golf</span><b style="color:#ffd166">EXPIRÉE</b></div><div style="display:flex;justify-content:space-between;gap:10px;margin-top:6px"><span class="mu">Expirée le</span><b>31/08/2026</b></div></div>
+<p class="mu" style="margin:0 0 16px;font-size:15px;color:#f3eefc">Pour jouer à Greencut, il faut une carte de fidélité active. Reprenez votre carte sur le site de LeClub Golf, puis revenez vous connecter.</p>
+<a class="go" href="https://www.leclub-golf.com" target="_blank" rel="noopener" style="text-transform:none;letter-spacing:.03em;font-size:16px">Prendre ma carte sur leclub-golf.com</a>
+<button class="go alt" onClick="{{back}}" style="margin-top:10px;height:46px;font-size:14px">Essayer un autre identifiant</button>
+</sc-if>
+
+<sc-if value="{{isNone}}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:12px"><div style="width:52px;height:52px;border-radius:50%;background:#ff4fa3;display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#0e0626" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></div><h1 class="h2" style="margin:0">Jeu réservé aux membres</h1></div>
+<p class="mu" style="margin:0 0 16px;font-size:15px;color:#f3eefc">Greencut est réservé aux membres <b>LeClub Golf</b>. Nous ne trouvons aucune carte de fidélité active liée à <b>{{masked}}</b>.</p>
+<a class="go" href="https://www.leclub-golf.com" target="_blank" rel="noopener">Découvrir LeClub Golf</a>
+<button class="go alt" onClick="{{back}}" style="margin-top:10px;height:46px;font-size:14px">Essayer un autre identifiant</button>
+<p class="mu" style="margin:12px 0 0;font-size:12.5px">Déjà membre ? Vérifiez que vous utilisez l’e-mail ou le mobile de votre carte.</p>
+</sc-if>
+</div>
+
+<div style="position:absolute;left:470px;top:590px;width:500px">
+<div class="mu" style="text-align:center;font-size:12.5px;font-weight:700;margin-bottom:8px">Maquette · réponse de l’API LeClub Golf :</div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center"><button class="sc {{scF}}" onClick="{{setF}}">1re connexion</button><button class="sc {{scB}}" onClick="{{setB}}">Retour, solde suffisant</button><button class="sc {{scL}}" onClick="{{setL}}">Retour, solde insuffisant</button><button class="sc {{scP}}" onClick="{{setP}}">Retour, moins de 100 fees</button><button class="sc {{scE}}" onClick="{{setE}}">Carte expirée</button><button class="sc {{scN}}" onClick="{{setN}}">Non membre</button></div>
+</div>
+<div style="position:absolute;left:470px;bottom:24px;width:500px;display:flex;flex-direction:column;gap:8px;padding:14px 18px;border-radius:14px;background:#0e0626cc;border:1px solid #ffffff33">
+<div class="mu" style="font-weight:700;color:#ffd166;text-transform:uppercase;letter-spacing:.08em;font-size:12px">Comment ça marche</div>
+<div class="stp"><b>1</b>Vous entrez votre e-mail ou votre mobile.</div>
+<div class="stp"><b>2</b>Vous recevez un code et vous le saisissez.</div>
+<div class="stp"><b>3</b>LeClub Golf vérifie votre carte : si elle est active, vous arrivez à la table. 10 000 pts offerts à la 1re connexion.</div>
+</div>
+</div>
+</script>
+<script>
+
+class Component extends DCLogic {
+state = { kind: '', step: 'id', mode: 'email', idv: '', err: '', code: '', note: '', scen: 'first', cc: '+33' };
+ccs() { return [['+33', 'France'], ['+34', 'Espagne'], ['+351', 'Portugal'], ['+32', 'Belgique'], ['+49', 'Allemagne'], ['+44', 'Royaume-Uni'], ['+41', 'Suisse']]; }
+nat() { const s = this.state; let d = (s.idv || '').replace(/\D/g, ''); if (d.charAt(0) === '0') { d = d.slice(1); } return d; }
+fmtNat(raw, cc) { let d = String(raw || '').replace(/\D/g, ''); if (cc === '+33') { const z = d.charAt(0) === '0'; d = d.slice(0, z ? 10 : 9); const h = z ? d.slice(0, 2) : d.slice(0, 1); const r = d.slice(h.length).match(/.{1,2}/g) || []; return [h].concat(r).filter(Boolean).join(' '); } d = d.slice(0, 12); return d.replace(/(\d{3})(?=\d)/g, '$1 ').trim(); }
+onMob(v) { const s = this.state; let t = String(v || '').trim(); if (t.charAt(0) === '+' || t.slice(0, 2) === '00') { const dg = t.replace(/\D/g, '').replace(/^00/, ''); const hit = this.ccs().map((c) => c[0]).sort((a, b) => b.length - a.length).find((c) => dg.indexOf(c.slice(1)) === 0); if (hit) { return { cc: hit, idv: this.fmtNat(dg.slice(hit.length - 1), hit) }; } return { cc: s.cc, idv: this.fmtNat(dg, s.cc) }; } return { cc: s.cc, idv: this.fmtNat(t, s.cc) }; }
+mask() { const s = this.state; const v = (s.idv || '').trim(); if (s.mode === 'email') { const p = v.split('@'); return (p[0] ? p[0].slice(0, 2) : '') + '***@' + (p[1] || ''); } const n = this.nat(); return s.cc + ' ' + n.slice(0, 1) + ' ** ** ** ' + n.slice(-2); }
+valid() { const s = this.state; const v = (s.idv || '').trim(); if (s.mode === 'email') { return /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v); } const n = this.nat(); return s.cc === '+33' ? /^[1-9]\d{8}$/.test(n) : /^\d{6,12}$/.test(n); }
+renderVals() {
+const s = this.state; const set = (o) => () => this.setState(o); const em = s.mode === 'email';
+const okId = this.valid(); const okCode = /^\d{6}$/.test(s.code);
+return {
+isLow: s.step === 'low', isCash: s.step === 'cash', isGift: s.kind === 'first', okTitle: s.kind === 'first' ? 'Bienvenue !' : (s.kind === 'paid' ? 'Paiement reçu, bonne partie !' : s.kind === 'conv' ? 'Conversion faite, bonne partie !' : 'Content de vous revoir !'), ptsTxt: s.kind === 'first' ? '0 → 10 000 pts' : (s.kind === 'paid' ? '13 200 pts' : s.kind === 'conv' ? '13 200 pts' : '12 400 pts'), feesTxt: s.kind === 'conv' ? '1 150 fees' : (s.kind === 'paid' ? '40 fees' : '1 250 fees'), okNote: s.kind === 'first' ? 'Les 10 000 pts offerts sont votre mise de départ. Ensuite, chaque nouvelle partie coûte 100 fees (10 000 pts), uniquement avec votre accord.' : '100 fees = 10 000 pts = une mise de départ. Aucune mise n’est prélevée sans votre accord.', convert: set({ step: 'ok', kind: 'conv' }), isId: s.step === 'id', isCode: s.step === 'code', isOk: s.step === 'ok', isExp: s.step === 'exp', isNone: s.step === 'none',
+emailCls: em ? 'on' : '', mobCls: em ? '' : 'on', pickEmail: set({ mode: 'email', idv: '', err: '' }), pickMob: set({ mode: 'mobile', idv: '', err: '', cc: '+33' }), cc: s.cc, onCc: (e) => this.setState({ cc: e.target.value, idv: this.fmtNat(s.idv, e.target.value), err: '' }), ccOpts: this.ccs().map((c) => ({ v: c[0], t: c[1] + ' ' + c[0] })), isMob: !em,
+idLabel: em ? 'Votre adresse e-mail' : 'Votre numéro de mobile (avec ou sans le 0)', idPh: em ? 'prenom.nom@exemple.fr' : (s.cc === '+33' ? '6 09 85 50 88' : '612 345 678'), idMode: em ? 'email' : 'tel', idAuto: em ? 'email' : 'tel',
+idVal: s.idv, onId: (e) => this.setState(em ? { idv: e.target.value, err: '' } : Object.assign(this.onMob(e.target.value), { err: '' })), idErr: s.err, sendOp: okId ? 1 : 0.55,
+sendCode: () => { if (!this.valid()) { this.setState({ err: em ? 'Entrez une adresse e-mail valide (ex. prenom.nom@exemple.fr).' : 'Entrez un numéro de mobile valide : indicatif + numéro (ex. +33 6 09 85 50 88 ou +33 06 09 85 50 88).' }); return; } this.setState({ step: 'code', code: '', note: '' }); },
+viaTxt: em ? 'par e-mail' : 'par SMS', masked: this.mask(),
+codeVal: s.code, onCode: (e) => this.setState({ code: e.target.value.replace(/\D/g, '').slice(0, 6), note: '' }), codeNote: s.note, verOp: okCode ? 1 : 0.55,
+verify: () => { if (!okCode) { this.setState({ note: 'Entrez les 6 chiffres reçus.' }); return; } const m = { first: ['ok', 'first'], back: ['ok', 'back'], low: ['low', ''], poor: ['cash', ''], expired: ['exp', ''], none: ['none', ''] }[s.scen]; this.setState({ step: m[0], kind: m[1] }); },
+resend: set({ note: 'Un nouveau code vient d’être envoyé.', code: '' }), back: set({ step: 'id', code: '', note: '' }),
+scF: s.scen === 'first' ? 'on' : '', scB: s.scen === 'back' ? 'on' : '', scL: s.scen === 'low' ? 'on' : '', scP: s.scen === 'poor' ? 'on' : '', scE: s.scen === 'expired' ? 'on' : '', scN: s.scen === 'none' ? 'on' : '',
+setF: set({ scen: 'first' }), setB: set({ scen: 'back' }), setL: set({ scen: 'low' }), setP: set({ scen: 'poor' }), setE: set({ scen: 'expired' }), setN: set({ scen: 'none' })
+};
+}
+}
+
+GCMount({v:document.getElementById('tv').textContent,h:document.getElementById('th').textContent}, Component, document.getElementById('app'));
+</script><script>(function(){var MODE='contain';function fit(){var app=document.getElementById('app');var el=app&&app.firstElementChild;if(!el)return;el.style.transform='none';var w=el.offsetWidth||1440,h=el.offsetHeight||900;var s=innerWidth/w;if(MODE==='contain')s=Math.min(s,innerHeight/h);s=Math.max(.5,Math.min(s,1.6));el.style.transform='scale('+s+')';app.style.width=Math.floor(w*s)+'px';app.style.height=Math.ceil(h*s)+'px';app.style.marginTop=(MODE==='contain'&&h*s<innerHeight)?Math.floor((innerHeight-h*s)/2)+'px':'0';}window.GCFit=fit;addEventListener('resize',fit);new MutationObserver(function(){requestAnimationFrame(fit)}).observe(document.getElementById('app'),{childList:true,subtree:true});var ro=window.ResizeObserver?new ResizeObserver(function(){fit()}):null;var t=setInterval(function(){var e=document.querySelector('#app>*');if(e){fit();if(ro)ro.observe(e);clearInterval(t)}},50);})();</script><style id="gc-switch-css">#gc-switch{position:fixed;left:10px;bottom:10px;z-index:99999;display:flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:18px;background:#0e0626ee;border:1px solid #ffffff55;color:#f3eefc;font:700 12px 'Titillium Web',system-ui,sans-serif;text-decoration:none;opacity:1;transition:opacity .3s,transform .3s}#gc-switch.off{opacity:0;transform:translateY(12px);pointer-events:none}</style><script>(function(){function go(){var u=window.GCUI;if(!u||!u.other)return;if(!u.desk&&!u.wide)return;var a=document.createElement('a');a.id='gc-switch';a.href=u.other+'.html'+location.search.replace(/([?&])o=[hv](&|$)/,'$1').replace(/[?&]$/,'');a.textContent=u.desk?'Version mobile':'Version ordinateur';a.title=u.desk?'Afficher la version mobile du jeu':'Afficher la version ordinateur du jeu';a.addEventListener('click',function(){try{localStorage.setItem('greencut.ui',u.desk?'mob':'desk')}catch(e){}});document.body.appendChild(a);var intro=true;setTimeout(function(){intro=false;a.classList.add('off')},5000);addEventListener('mousemove',function(e){if(intro)return;var near=e.clientX<240&&e.clientY>innerHeight-100;a.classList.toggle('off',!near)})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();})();</script></body></html>

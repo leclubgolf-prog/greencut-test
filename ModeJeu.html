@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><script id="gc-route">(function(){var P={"TableMobile": "Prototype", "TableMobilePaysage": "Prototype", "GreencutTourMobile": "GreencutTour", "ModeJeuMobile": "ModeJeu", "ParcoursMobile": "Parcours", "ParcoursMobilePaysage": "Parcours", "ConnexionMobile": "Connexion", "ConnexionMobilePaysage": "Connexion", "OuvertureMobile": "Ouverture", "OuvertureMobilePaysage": "Ouverture"};var R={};for(var k in P){if(!R[P[k]]||R[P[k]].indexOf('Paysage')>=0)R[P[k]]=k}var f=(location.pathname.split('/').pop()||'').replace(/\.html$/,'');var pref=null;try{pref=localStorage.getItem('greencut.ui')}catch(e){}var wide=matchMedia('(min-width:1024px) and (min-height:600px) and (pointer:fine)').matches;var want=pref||(wide?'desk':'mob');var q=location.search.replace(/([?&])o=[hv](&|$)/,'$1').replace(/[?&]$/,'');if(want==='desk'&&P[f]){location.replace(P[f]+'.html'+q+location.hash);return}if(want==='mob'&&R[f]){location.replace(R[f]+'.html'+q+location.hash);return}window.GCUI={desk:!!R[f],other:R[f]||P[f]||'',wide:wide};})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Greencut">
+<meta name="theme-color" content="#0b0618"><link rel="manifest" href="manifest.webmanifest">
+<title>Greencut – Mode de jeu</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="bundle.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,700;0,900;1,700;1,900&amp;display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&amp;display=swap">
+<style data-o="v">body{margin:0;background:#0b0618}
+.mj{font-family:"Titillium Web",system-ui,sans-serif;color:#f3eefc;background:radial-gradient(ellipse at 50% 0%,#2a0f55 0%,#0b0618 60%);font-size:15px;line-height:22px;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.mj *{box-sizing:border-box}
+.hdr{flex:none;height:52px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 16px;background:#0e0626;border-bottom:2px solid #ff4fa3;box-shadow:0 6px 24px #ff4fa344}
+.logo{margin:0;font-style:italic;font-weight:900;font-size:22px;letter-spacing:.02em}
+.stp{display:flex;gap:10px;font-size:12px;white-space:nowrap}.stp b{color:#b9acd6;font-weight:700}.stp b.ok{color:#5eead4}.stp b.on{color:#ff4fa3}
+.mj-main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 24px 28px;display:flex;flex-direction:column;gap:16px}
+.h2{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:40px;line-height:1.05;margin:0}
+.h3{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:700;font-size:28px;line-height:1.1;margin:0}
+.lead{margin:6px 0 0;color:#b9acd6}.muted{color:#b9acd6}.gold{color:#ffd166}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9acd6}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card.classic{background:#140a2e;border:2px solid #ff4fa3;box-shadow:0 0 22px #ff4fa333}
+.card.tour{background:#06150d;border:2px solid #ffd166;box-shadow:0 0 22px #ffd16633}
+.tag{align-self:flex-start;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:2px 10px;border-radius:6px;background:#ff4fa3;color:#0e0626}.tag.tg{background:#ffd166;color:#06150d}
+.sub{color:#b9acd6;font-size:14px;line-height:20px}
+.pts{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.look{display:flex;align-items:center;gap:8px;font-size:13px;color:#b9acd6}.sw{width:30px;height:18px;border-radius:5px;flex:none}.sw-c{background:linear-gradient(90deg,#2a0f55,#ff4fa3)}.sw-t{background:linear-gradient(90deg,#0f4a2c,#ffd166)}
+.status{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.stx{font-size:14px}
+.chip{display:inline-flex;align-items:center;border-radius:999px;padding:1px 10px;font-size:13px;font-weight:700;white-space:nowrap}.c-live{background:#5eead422;color:#5eead4;border:1px solid #5eead4}.c-done{background:#ffffff10;color:#f3eefc;border:1px solid #f3eefc66}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 18px;border-radius:12px;font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:22px;letter-spacing:.03em;text-decoration:none;border:0;cursor:pointer;margin-top:auto;text-align:center}
+.btn-p{background:#ff4fa3;color:#0e0626;box-shadow:0 0 18px #ff4fa3}.btn-g{background:#ffd166;color:#06150d;box-shadow:0 0 18px #ffd16688}.btn-clk{background:#5eead4;color:#06150d;font-size:18px;min-height:48px;margin-top:0}
+.wallet{border:1px solid #ffffff22;border-radius:14px;padding:14px 16px;background:#ffffff08;display:flex;flex-direction:column;gap:8px}
+.wl{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:18px}.wn{margin:0;font-size:13px;line-height:18px;color:#b9acd6}
+.test{border:2px dashed #5eead4;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.clk-tag{font-size:11px;font-weight:900;letter-spacing:.12em;color:#06150d;background:#5eead4;border-radius:6px;padding:1px 8px}
+.msg{margin:0;color:#5eead4;font-weight:700}
+.hr{display:flex;align-items:center;gap:8px;flex:none}
+.mj-bar{display:none}
+/* Menu général commun (V42) */
+a.me{color:inherit;text-decoration:none;cursor:pointer;border-radius:999px;padding:2px 6px 2px 2px}
+a.me:hover{background:#ffd16614}
+.me .av{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:#140a2e;color:#f3eefc}
+.me .mew{display:flex;flex-direction:column;line-height:1.2}
+.mnb{flex:none;width:44px;height:44px;border-radius:12px;border:1px solid #ffd16699;background:transparent;color:#ffd166;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.mnb:hover{background:#ffd1661a}
+.gm-scrim{position:fixed;inset:0;background:#000a;z-index:50}
+.gm{position:fixed;top:0;right:0;bottom:0;width:min(360px,88vw);z-index:51;background:#0e0626;border-left:2px solid #ffd166;box-shadow:-10px 0 40px #000c;display:flex;flex-direction:column;padding:14px 16px;overflow-y:auto;font-family:'Titillium Web',sans-serif;color:#f3eefc;text-align:left}
+.gm-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.gm-h b{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:800;font-size:24px;letter-spacing:.02em}
+.gm-x{width:44px;height:44px;border-radius:12px;border:1px solid #b9acd655;background:transparent;color:#f3eefc;font-size:18px;cursor:pointer}
+.gm-me{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1.5px solid #ffd166;border-radius:14px;color:inherit;text-decoration:none;margin-bottom:10px;background:#ffd16614}
+.gm-me .av{flex:none;width:44px;height:44px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;background:#140a2e}
+.gm-mt{display:flex;flex-direction:column;line-height:1.25}.gm-mt b{font-size:17px}.gm-mt small,.gm-i small{color:#b9acd6;font-size:12.5px}
+.gm-l{display:flex;flex-direction:column;gap:6px}
+.gm-i{display:flex;flex-direction:column;justify-content:center;min-height:52px;padding:6px 14px;border:1px solid #b9acd655;border-radius:12px;color:#f3eefc;text-decoration:none;line-height:1.25}
+.gm-i b{font-size:15.5px}.gm-i:hover{border-color:#ff4fa3}
+.gm-i.gm-t{background:#ffd166;border-color:#ffd166;color:#06150d}.gm-i.gm-t small{color:#06150dcc}
+@media (max-height:480px){.gm{padding:8px 14px}.gm-h{margin-bottom:4px}.gm-me{padding:6px 10px;margin-bottom:6px}.gm-l{display:grid;grid-template-columns:1fr 1fr;gap:6px}.gm-i{min-height:46px;padding:4px 10px}.gm-i small{display:none}.gm{width:min(520px,70vw)}}
+.gm .gm-i,.gm .gm-me,.hdr a.me{color:#f3eefc}.gm .gm-i.gm-t{color:#06150d}
+.mj{width:1440px;min-height:900px}.mj-main{max-width:1120px;width:100%;margin:0 auto;padding-top:36px}.h2{font-size:48px}
+</style>
+<style data-o="h">body{margin:0;background:#0b0618}
+.mj{font-family:"Titillium Web",system-ui,sans-serif;color:#f3eefc;background:radial-gradient(ellipse at 50% 0%,#2a0f55 0%,#0b0618 60%);font-size:15px;line-height:22px;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.mj *{box-sizing:border-box}
+.hdr{flex:none;height:52px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 16px;background:#0e0626;border-bottom:2px solid #ff4fa3;box-shadow:0 6px 24px #ff4fa344}
+.logo{margin:0;font-style:italic;font-weight:900;font-size:22px;letter-spacing:.02em}
+.stp{display:flex;gap:10px;font-size:12px;white-space:nowrap}.stp b{color:#b9acd6;font-weight:700}.stp b.ok{color:#5eead4}.stp b.on{color:#ff4fa3}
+.mj-main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 24px 28px;display:flex;flex-direction:column;gap:16px}
+.h2{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:40px;line-height:1.05;margin:0}
+.h3{font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:700;font-size:28px;line-height:1.1;margin:0}
+.lead{margin:6px 0 0;color:#b9acd6}.muted{color:#b9acd6}.gold{color:#ffd166}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9acd6}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card.classic{background:#140a2e;border:2px solid #ff4fa3;box-shadow:0 0 22px #ff4fa333}
+.card.tour{background:#06150d;border:2px solid #ffd166;box-shadow:0 0 22px #ffd16633}
+.tag{align-self:flex-start;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:2px 10px;border-radius:6px;background:#ff4fa3;color:#0e0626}.tag.tg{background:#ffd166;color:#06150d}
+.sub{color:#b9acd6;font-size:14px;line-height:20px}
+.pts{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.look{display:flex;align-items:center;gap:8px;font-size:13px;color:#b9acd6}.sw{width:30px;height:18px;border-radius:5px;flex:none}.sw-c{background:linear-gradient(90deg,#2a0f55,#ff4fa3)}.sw-t{background:linear-gradient(90deg,#0f4a2c,#ffd166)}
+.status{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.stx{font-size:14px}
+.chip{display:inline-flex;align-items:center;border-radius:999px;padding:1px 10px;font-size:13px;font-weight:700;white-space:nowrap}.c-live{background:#5eead422;color:#5eead4;border:1px solid #5eead4}.c-done{background:#ffffff10;color:#f3eefc;border:1px solid #f3eefc66}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 18px;border-radius:12px;font-family:"Barlow Condensed","Titillium Web",sans-serif;font-style:italic;font-weight:800;font-size:22px;letter-spacing:.03em;text-decoration:none;border:0;cursor:pointer;margin-top:auto;text-align:center}
+.btn-p{background:#ff4fa3;color:#0e0626;box-shadow:0 0 18px #ff4fa3}.btn-g{background:#ffd166;color:#06150d;box-shadow:0 0 18px #ffd16688}.btn-clk{background:#5eead4;color:#06150d;font-size:18px;min-height:48px;margin-top:0}
+.wallet{border:1px solid #ffffff22;border-radius:14px;padding:14px 16px;background:#ffffff08;display:flex;flex-direction:column;gap:8px}
+.wl{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:18px}.wn{margin:0;font-size:13px;line-height:18px;color:#b9acd6}
+.test{border:2px dashed #5eead4;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.clk-tag{font-size:11px;font-weight:900;letter-spacing:.12em;color:#06150d;background:#5eead4;border-radius:6px;padding:1px 8px}
+.msg{margin:0;color:#5eead4;font-weight:700}
+.hr{display:flex;align-items:center;gap:8px;flex:none}
+.mj-bar{display:none}
+/* Menu général commun (V42) */
+a.me{color:inherit;text-decoration:none;cursor:pointer;border-radius:999px;padding:2px 6px 2px 2px}
+a.me:hover{background:#ffd16614}
+.me .av{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:#140a2e;color:#f3eefc}
+.me .mew{display:flex;flex-direction:column;line-height:1.2}
+.mnb{flex:none;width:44px;height:44px;border-radius:12px;border:1px solid #ffd16699;background:transparent;color:#ffd166;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.mnb:hover{background:#ffd1661a}
+.gm-scrim{position:fixed;inset:0;background:#000a;z-index:50}
+.gm{position:fixed;top:0;right:0;bottom:0;width:min(360px,88vw);z-index:51;background:#0e0626;border-left:2px solid #ffd166;box-shadow:-10px 0 40px #000c;display:flex;flex-direction:column;padding:14px 16px;overflow-y:auto;font-family:'Titillium Web',sans-serif;color:#f3eefc;text-align:left}
+.gm-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.gm-h b{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:800;font-size:24px;letter-spacing:.02em}
+.gm-x{width:44px;height:44px;border-radius:12px;border:1px solid #b9acd655;background:transparent;color:#f3eefc;font-size:18px;cursor:pointer}
+.gm-me{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1.5px solid #ffd166;border-radius:14px;color:inherit;text-decoration:none;margin-bottom:10px;background:#ffd16614}
+.gm-me .av{flex:none;width:44px;height:44px;border-radius:50%;border:2px solid #ffd166;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;background:#140a2e}
+.gm-mt{display:flex;flex-direction:column;line-height:1.25}.gm-mt b{font-size:17px}.gm-mt small,.gm-i small{color:#b9acd6;font-size:12.5px}
+.gm-l{display:flex;flex-direction:column;gap:6px}
+.gm-i{display:flex;flex-direction:column;justify-content:center;min-height:52px;padding:6px 14px;border:1px solid #b9acd655;border-radius:12px;color:#f3eefc;text-decoration:none;line-height:1.25}
+.gm-i b{font-size:15.5px}.gm-i:hover{border-color:#ff4fa3}
+.gm-i.gm-t{background:#ffd166;border-color:#ffd166;color:#06150d}.gm-i.gm-t small{color:#06150dcc}
+@media (max-height:480px){.gm{padding:8px 14px}.gm-h{margin-bottom:4px}.gm-me{padding:6px 10px;margin-bottom:6px}.gm-l{display:grid;grid-template-columns:1fr 1fr;gap:6px}.gm-i{min-height:46px;padding:4px 10px}.gm-i small{display:none}.gm{width:min(520px,70vw)}}
+.gm .gm-i,.gm .gm-me,.hdr a.me{color:#f3eefc}.gm .gm-i.gm-t{color:#06150d}
+.mj{width:1440px;min-height:900px}.mj-main{max-width:1120px;width:100%;margin:0 auto;padding-top:36px}.h2{font-size:48px}
+</style>
+<style id="gc-desk">html,body{margin:0;background:#0b0618}body{overflow-x:hidden}#app{position:relative;margin:0 auto;overflow:hidden}#app>*{position:absolute!important;left:0;top:0;transform-origin:0 0}</style>
+<script src="./support.js?v=V57"></script><script src="./engine.js?v=V57"></script>
+<meta name="format-detection" content="telephone=no, date=no, email=no, address=no"><style id="gc-noannot">chrome_annotation{border-bottom:0!important;border:0!important;text-decoration:none!important;background:transparent!important}</style>
+</head><body><div id="app"></div>
+<script id="tv" type="text/plain">
+
+<div class="gc mj">
+<header class="hdr"><h1 class="logo">Greencut</h1><div class="stp" aria-label="Étapes"><b class="ok">✓ Connexion</b><b class="on">2 · Mode de jeu</b><b>3 · Table</b></div><div class="hr"><a class="me" href="{{profilHref}}" title="Ouvrir mon profil" aria-label="Mon profil : {{pseudo}}"><span class="av">{{initials}}</span><span class="mew"><span class="mename">{{pseudo}}</span><span class="muted mesub">Solde : <b class="gold">{{solde}}</b></span></span></a>
+<button class="mnb" onClick="{{toggleMenu}}" aria-label="Ouvrir le menu général" title="Menu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></header>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}"><div class="gm-scrim" onClick="{{closeMenu}}"></div>
+<nav class="gm" aria-label="Menu général">
+<div class="gm-h"><b>Menu</b><button class="gm-x" onClick="{{closeMenu}}" aria-label="Fermer le menu">✕</button></div>
+<a class="gm-me" href="{{profilHref}}"><span class="av">{{initials}}</span><span class="gm-mt"><b>{{pseudo}}</b><small>Mon profil · solde, conversion des points</small></span></a>
+<div class="gm-l">
+<a class="gm-i" href="{{classicHref2}}"><b>Jouer une partie classique</b><small>Choisir un parcours et une table</small></a>
+<a class="gm-i gm-t" href="{{tourHref2}}"><b>Greencut Tour</b><small>Le tournoi de la semaine</small></a>
+<a class="gm-i" href="{{learnHref}}"><b>Apprendre à jouer</b><small>Les règles pas à pas</small></a>
+</div>
+</nav></sc-if>
+<main class="mj-main">
+<div class="intro"><h2 class="h2">Comment voulez-vous jouer ?</h2>
+<p class="lead">Deux façons de jouer à Greencut, avec les mêmes règles à la table. Vous pouvez passer de l’une à l’autre à tout moment.</p></div>
+<div class="modes">
+<section class="card classic" aria-labelledby="t-classic">
+<div class="tag">Partie classique</div>
+<h3 class="h3" id="t-classic">Une partie, quand vous voulez</h3>
+<ul class="pts"><li>18 trous sur le parcours de votre choix</li><li>Une table de 4 à 6 joueurs</li><li>Mise de 10 000 pts ; vos jetons restants reviennent sur votre solde à la fin</li><li>La partie compte pour vous seul : jamais pour un tournoi</li></ul>
+<div class="look"><span class="sw sw-c" aria-hidden="true"></span>À la table : décor violet et rose</div>
+<a class="btn btn-p" href="{{classicHref}}">Jouer une partie classique ▶︎</a>
+</section>
+<section class="card tour" aria-labelledby="t-tour">
+<div class="tag tg">Mode tournoi · Greencut Tour</div>
+<h3 class="h3" id="t-tour">{{tourName}}</h3>
+<div class="sub">présenté par Callaway · {{dates}} · parcours Majlis</div>
+<ul class="pts"><li>4 jours, 4 tours, du jeudi au dimanche</li><li>Cut après le tour 2 : les 50 premiers jouent le week-end</li><li>Seule votre meilleure carte du jour compte</li><li>2 000 000 pts de dotation + lots Callaway</li></ul>
+<div class="status"><span class="{{statusCls}}">{{statusChip}}</span><span class="stx">{{tourStatus}}</span></div>
+<div class="look"><span class="sw sw-t" aria-hidden="true"></span>À la table : décor vert et or, badge « TOURNOI »</div>
+<a class="btn btn-g" href="{{tourHref}}">Entrer dans le Greencut Tour ▶︎</a>
+</section>
+</div>
+<section class="wallet" aria-label="Votre solde">
+<div class="wl"><span class="lbl">Votre solde</span><b class="gold">{{ptsTxt}}</b><span class="muted">·</span><b>{{feesTxt}}</b></div>
+<p class="wn">{{walletNote}}</p>
+<sc-if value="{{low}}" hint-placeholder-val="{{ false }}"><div class="test"><span class="clk-tag">TEST</span><span>Solde insuffisant pour une mise (moins de 10 000 pts et moins de 100 fees).</span><button class="btn btn-clk" onClick="{{resetWallet}}">Remettre le solde de démonstration ({{demoTxt}})</button></div></sc-if>
+<sc-if value="{{hasMsg}}" hint-placeholder-val="{{ false }}"><p class="msg" role="status">{{msg}}</p></sc-if>
+</section>
+</main>
+<nav class="mj-bar" aria-label="Choisir un mode de jeu"><a class="btn btn-p" href="{{classicHref}}">Partie classique ▶︎</a><a class="btn btn-g" href="{{tourHref}}">Greencut Tour ▶︎</a></nav>
+</div>
+</script>
+<script id="th" type="text/plain">
+
+<div class="gc mj">
+<header class="hdr"><h1 class="logo">Greencut</h1><div class="stp" aria-label="Étapes"><b class="ok">✓ Connexion</b><b class="on">2 · Mode de jeu</b><b>3 · Table</b></div><div class="hr"><a class="me" href="{{profilHref}}" title="Ouvrir mon profil" aria-label="Mon profil : {{pseudo}}"><span class="av">{{initials}}</span><span class="mew"><span class="mename">{{pseudo}}</span><span class="muted mesub">Solde : <b class="gold">{{solde}}</b></span></span></a>
+<button class="mnb" onClick="{{toggleMenu}}" aria-label="Ouvrir le menu général" title="Menu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></header>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}"><div class="gm-scrim" onClick="{{closeMenu}}"></div>
+<nav class="gm" aria-label="Menu général">
+<div class="gm-h"><b>Menu</b><button class="gm-x" onClick="{{closeMenu}}" aria-label="Fermer le menu">✕</button></div>
+<a class="gm-me" href="{{profilHref}}"><span class="av">{{initials}}</span><span class="gm-mt"><b>{{pseudo}}</b><small>Mon profil · solde, conversion des points</small></span></a>
+<div class="gm-l">
+<a class="gm-i" href="{{classicHref2}}"><b>Jouer une partie classique</b><small>Choisir un parcours et une table</small></a>
+<a class="gm-i gm-t" href="{{tourHref2}}"><b>Greencut Tour</b><small>Le tournoi de la semaine</small></a>
+<a class="gm-i" href="{{learnHref}}"><b>Apprendre à jouer</b><small>Les règles pas à pas</small></a>
+</div>
+</nav></sc-if>
+<main class="mj-main">
+<div class="intro"><h2 class="h2">Comment voulez-vous jouer ?</h2>
+<p class="lead">Deux façons de jouer à Greencut, avec les mêmes règles à la table. Vous pouvez passer de l’une à l’autre à tout moment.</p></div>
+<div class="modes">
+<section class="card classic" aria-labelledby="t-classic">
+<div class="tag">Partie classique</div>
+<h3 class="h3" id="t-classic">Une partie, quand vous voulez</h3>
+<ul class="pts"><li>18 trous sur le parcours de votre choix</li><li>Une table de 4 à 6 joueurs</li><li>Mise de 10 000 pts ; vos jetons restants reviennent sur votre solde à la fin</li><li>La partie compte pour vous seul : jamais pour un tournoi</li></ul>
+<div class="look"><span class="sw sw-c" aria-hidden="true"></span>À la table : décor violet et rose</div>
+<a class="btn btn-p" href="{{classicHref}}">Jouer une partie classique ▶︎</a>
+</section>
+<section class="card tour" aria-labelledby="t-tour">
+<div class="tag tg">Mode tournoi · Greencut Tour</div>
+<h3 class="h3" id="t-tour">{{tourName}}</h3>
+<div class="sub">présenté par Callaway · {{dates}} · parcours Majlis</div>
+<ul class="pts"><li>4 jours, 4 tours, du jeudi au dimanche</li><li>Cut après le tour 2 : les 50 premiers jouent le week-end</li><li>Seule votre meilleure carte du jour compte</li><li>2 000 000 pts de dotation + lots Callaway</li></ul>
+<div class="status"><span class="{{statusCls}}">{{statusChip}}</span><span class="stx">{{tourStatus}}</span></div>
+<div class="look"><span class="sw sw-t" aria-hidden="true"></span>À la table : décor vert et or, badge « TOURNOI »</div>
+<a class="btn btn-g" href="{{tourHref}}">Entrer dans le Greencut Tour ▶︎</a>
+</section>
+</div>
+<section class="wallet" aria-label="Votre solde">
+<div class="wl"><span class="lbl">Votre solde</span><b class="gold">{{ptsTxt}}</b><span class="muted">·</span><b>{{feesTxt}}</b></div>
+<p class="wn">{{walletNote}}</p>
+<sc-if value="{{low}}" hint-placeholder-val="{{ false }}"><div class="test"><span class="clk-tag">TEST</span><span>Solde insuffisant pour une mise (moins de 10 000 pts et moins de 100 fees).</span><button class="btn btn-clk" onClick="{{resetWallet}}">Remettre le solde de démonstration ({{demoTxt}})</button></div></sc-if>
+<sc-if value="{{hasMsg}}" hint-placeholder-val="{{ false }}"><p class="msg" role="status">{{msg}}</p></sc-if>
+</section>
+</main>
+<nav class="mj-bar" aria-label="Choisir un mode de jeu"><a class="btn btn-p" href="{{classicHref}}">Partie classique ▶︎</a><a class="btn btn-g" href="{{tourHref}}">Greencut Tour ▶︎</a></nav>
+</div>
+</script>
+<script>
+
+class Component extends DCLogic {
+constructor(props) { super(props); const ab0 = GreencutEngine.settleAbandoned ? GreencutEngine.settleAbandoned() : ''; this.state = { menu: false, w: GreencutEngine.wallet.get(), msg: ab0 }; }
+renderVals() {
+const U = GreencutEngine.tour; const W = GreencutEngine.wallet; const f = (n) => U.fmt(n); const s = this.state; const C = U.cfg;
+const T = U.load(); const me = U.standings(T, {}).me; const cp = U.canPlay(T); const ph = T.phase;
+const tourStatus = ph > 4 ? (T.results && T.results.heroPos ? 'Résultats publiés : vous terminez ' + T.results.heroPos + (T.results.heroPos === 1 ? 'er' : 'e') + '.' : 'Résultats publiés.') : (!cp.ok ? cp.why : (me && me.thru ? 'Vous êtes ' + me.pos + ' à ' + me.tot + ' après ' + me.thru + ' tour' + (me.thru > 1 ? 's' : '') + '.' : 'Vous n’avez pas encore joué de carte.'));
+const low = W.low(s.w);
+return {
+  ...this.navMenu(s.menu, () => this.setState({ menu: !this.state.menu })), solde: f(s.w.pts) + ' pts',
+  classicHref: this.tourLink('classic'), tourHref: this.tourLink('tour'), tourName: C.name, dates: C.dates,
+  statusChip: ph > 4 ? 'Terminé' : 'Tour ' + ph + ' en cours', statusCls: ph > 4 ? 'chip c-done' : 'chip c-live', tourStatus,
+  ptsTxt: f(s.w.pts) + ' pts', feesTxt: f(s.w.fees) + ' fees', low, demoTxt: f(W.demo.pts) + ' pts · ' + f(W.demo.fees) + ' fees',
+  walletNote: 'Le même solde sert aux deux modes. Chaque partie ou carte de tournoi engage une mise de 10 000 pts, avec votre accord ; sous 10 000 pts, vous convertissez 100 fees en 10 000 pts.',
+  resetWallet: () => { const w = W.reset(); this.setState({ w, msg: 'Solde de démonstration remis : ' + f(w.pts) + ' pts et ' + f(w.fees) + ' fees.' }); },
+  hasMsg: !!s.msg, msg: s.msg
+};
+}
+}
+GreencutEngine.install(Component);
+
+GCMount({v:document.getElementById('tv').textContent,h:document.getElementById('th').textContent}, Component, document.getElementById('app'));
+</script><script>(function(){var MODE='width';function fit(){var app=document.getElementById('app');var el=app&&app.firstElementChild;if(!el)return;el.style.transform='none';var w=el.offsetWidth||1440,h=el.offsetHeight||900;var s=innerWidth/w;if(MODE==='contain')s=Math.min(s,innerHeight/h);s=Math.max(.5,Math.min(s,1.6));el.style.transform='scale('+s+')';app.style.width=Math.floor(w*s)+'px';app.style.height=Math.ceil(h*s)+'px';app.style.marginTop=(MODE==='contain'&&h*s<innerHeight)?Math.floor((innerHeight-h*s)/2)+'px':'0';}window.GCFit=fit;addEventListener('resize',fit);new MutationObserver(function(){requestAnimationFrame(fit)}).observe(document.getElementById('app'),{childList:true,subtree:true});var ro=window.ResizeObserver?new ResizeObserver(function(){fit()}):null;var t=setInterval(function(){var e=document.querySelector('#app>*');if(e){fit();if(ro)ro.observe(e);clearInterval(t)}},50);})();</script><style id="gc-switch-css">#gc-switch{position:fixed;left:10px;bottom:10px;z-index:99999;display:flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:18px;background:#0e0626ee;border:1px solid #ffffff55;color:#f3eefc;font:700 12px 'Titillium Web',system-ui,sans-serif;text-decoration:none;opacity:1;transition:opacity .3s,transform .3s}#gc-switch.off{opacity:0;transform:translateY(12px);pointer-events:none}</style><script>(function(){function go(){var u=window.GCUI;if(!u||!u.other)return;if(!u.desk&&!u.wide)return;var a=document.createElement('a');a.id='gc-switch';a.href=u.other+'.html'+location.search.replace(/([?&])o=[hv](&|$)/,'$1').replace(/[?&]$/,'');a.textContent=u.desk?'Version mobile':'Version ordinateur';a.title=u.desk?'Afficher la version mobile du jeu':'Afficher la version ordinateur du jeu';a.addEventListener('click',function(){try{localStorage.setItem('greencut.ui',u.desk?'mob':'desk')}catch(e){}});document.body.appendChild(a);var intro=true;setTimeout(function(){intro=false;a.classList.add('off')},5000);addEventListener('mousemove',function(e){if(intro)return;var near=e.clientX<240&&e.clientY>innerHeight-100;a.classList.toggle('off',!near)})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();})();</script></body></html>
